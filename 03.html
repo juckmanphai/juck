@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สูตรแปลตัวเลข 3 ตัว</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3e6; /* สีพื้นหลัง */
+        }
+        h1 {
+            text-align: center;
+        }
+        .result {
+            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .blue {
+            color: blue; /* ตัวหนังสือสีน้ำเงิน */
+        }
+        .red {
+            color: red; /* ตัวหนังสือสีแดง */
+        }
+        input, select, button {
+            font-size: 20px;
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ปุ่มกลับสู่หน้าหลัก -->
+     <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
+
+<h1 style="text-align: center;">สูตรแปลตัวเลข 3 ตัว</h1>
+
+<div style="text-align: center; margin-top: 20px;">
+    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" style="font-size: 18px; padding: 5px;">
+    <button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แปลตัวเลข</button>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <label for="topicSelect" style="font-size: 18px;">เลือกประเภท</label>
+    <select id="topicSelect" style="font-size: 18px; padding: 5px;">
+        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+    </select>
+
+<div style="text-align: center; margin-top: 20px;">
+    <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
+    <select id="personSelect" style="font-size: 18px; padding: 5px;">
+       <option value="Team">Team</option>
+        <option value="@">@</option>
+  	 <option value="โรงงาน">โรงงาน</option>
+        <option value="Udon Don">Udon Don</option>
+        <option value="เจ้าที่">เจ้าที่</option>
+    </select>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+    <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
+</div>
+<div id="resultContainer" class="result" style="display: none;"></div>
+
+<script>
+    function sortPair(pair) {
+        const digits = pair.split('');
+        return digits[0] > digits[1] ? digits[1] + digits[0] : pair;
+    }
+
+    function getThaiDateTime() {
+        const monthsTh = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
+
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = monthsTh[now.getMonth()];
+        const year = now.getFullYear() + 543; // แปลงปี ค.ศ. เป็น พ.ศ.
+        const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+
+        return `วันที่ ${day} เดือน ${month} ${year} เวลา ${time} น.`;
+    }
+
+   function convertNumber() {
+    const num = document.getElementById("numberInput").value;
+    const topicSelect = document.getElementById("topicSelect");
+    const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
+    const personSelect = document.getElementById("personSelect");
+    const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
+    let noteInput = document.getElementById("noteInput").value;  // ดึงค่าจากช่อง input หมายเหตุ
+
+    // ถ้าไม่มีการกรอกข้อความในช่องหมายเหตุ ให้ใส่ "No comments" อัตโนมัติ
+    if (!noteInput.trim()) {
+        noteInput = '<span style="color: orange;">No comments</span>';
+    }
+
+    if (num.length !== 3 || isNaN(num)) {
+        alert("กรุณาป้อนตัวเลข 3 หลัก");
+        return;
+    }
+
+
+        // แปลงตัวเลขตามกฎที่กำหนด
+        const transformRules = {
+            '0': '1', '1': '7', '2': '5', '3': '8',
+            '4': '9', '5': '2', '6': '9', '7': '1',
+            '8': '3', '9': '6'
+        };
+
+        const transformed = num.split('').map(digit => transformRules[digit]).join('');
+
+        // จัดชุดเด่น 2 ตัวและเรียงลำดับ
+        const firstSet = [
+            sortPair(`${num[0]}${num[1]}`),
+            sortPair(`${num[0]}${num[2]}`),
+            sortPair(`${num[1]}${num[2]}`)
+        ];
+
+        // จัดชุดรอง 2 ตัวและเรียงลำดับ
+        let secondSet = [];
+
+        for (let i = 0; i < 3; i++) {
+            if (i === 0) { // หลักร้อย
+                secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+            } else if (i === 1) { // หลักสิบ
+                secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+            } else if (i === 2) { // หลักหน่วย
+                secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
+            }
+        }
+
+        // เอาตัวที่ซ้ำออกและเรียงใหม่
+        const uniqueFirstSet = [...new Set(firstSet)].sort();
+        secondSet = [...new Set(secondSet)].sort();
+
+        // เพิ่มตัวเลขตามเงื่อนไข
+        const additionalNumbers = [];
+        if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
+            additionalNumbers.push('02');
+        }
+        if (uniqueFirstSet.includes('11') || secondSet.includes('11')) {
+            additionalNumbers.push('12');
+        }
+        if (uniqueFirstSet.includes('22') || secondSet.includes('22')) {
+            // ไม่ต้องเพิ่ม
+        }
+        if (uniqueFirstSet.includes('33') || secondSet.includes('33')) {
+            additionalNumbers.push('23');
+        }
+        if (uniqueFirstSet.includes('44') || secondSet.includes('44')) {
+            additionalNumbers.push('24');
+        }
+        if (uniqueFirstSet.includes('55') || secondSet.includes('55')) {
+            additionalNumbers.push('25');
+        }
+        if (uniqueFirstSet.includes('66') || secondSet.includes('66')) {
+            additionalNumbers.push('26');
+        }
+        if (uniqueFirstSet.includes('77') || secondSet.includes('77')) {
+            additionalNumbers.push('27');
+        }
+        if (uniqueFirstSet.includes('88') || secondSet.includes('88')) {
+            additionalNumbers.push('28');
+        }
+        if (uniqueFirstSet.includes('99') || secondSet.includes('99')) {
+            additionalNumbers.push('29');
+        }
+
+        // รวมตัวเลขที่เพิ่มเข้าไปในชุดรอง 2 ตัว
+        const finalSecondSet = [...new Set([...secondSet, ...additionalNumbers])].sort();
+
+        // ตรวจสอบตัดตัวเลขที่ซ้ำกันในชุดเด่น 2 ตัวและชุดรอง 2 ตัว
+        const filteredSecondSet = finalSecondSet.filter(pair => !uniqueFirstSet.includes(pair));
+
+        // จัดชุด 3 ตัว
+        const thirdSet = [
+            `${num[0]}${num[1]}${num[2]}`,
+            `${num[0]}${num[1]}${transformed[2]}`,
+            `${num[0]}${transformed[1]}${num[2]}`,
+            `${num[0]}${transformed[1]}${transformed[2]}`,
+            `${transformed[0]}${num[1]}${num[2]}`,
+            `${transformed[0]}${num[1]}${transformed[2]}`,
+            `${transformed[0]}${transformed[1]}${num[2]}`,
+            `${transformed[0]}${transformed[1]}${transformed[2]}`
+        ];
+
+        const sortedThirdSet = [...new Set(thirdSet.map(triplet => triplet.split('').sort().join('')))].sort();
+
+
+        const resultContainer = document.getElementById("resultContainer");
+
+    resultContainer.innerHTML = `
+    <div style="text-align: center; font-size: 24px;">
+        <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 150px;">
+        <h2 class="blue" style="font-size: 24px;">${getThaiDateTime()}</h2>
+        <h2 class="blue" style="font-size: 24px;">${selectedTopic}</h2>
+        <p class="blue" style="font-size: 24px;">
+            ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </p>
+        <h3 class="blue" style="font-size: 24px;">จัดชุดเด่น 2 ตัว  </h3>
+        <p class="blue" style="font-size: 24px;">${uniqueFirstSet.join(' - ')}</p>
+        <h3 class="blue" style="font-size: 24px;">จัดชุดรอง 2 ตัว  </h3>
+        <p class="blue" style="font-size: 24px;">${filteredSecondSet.join(' - ')}</p>
+        <h3 class="blue" style="font-size: 24px;">จัดชุด 3 ตัว  </h3>
+        <p class="blue" style="font-size: 24px;">${sortedThirdSet.join(' - ')}</p>
+        <h2 class="red" style="font-size: 24px;">แนวทางเท่านั้น!!</h2>
+        <p class="blue">หมายเหตุ : <span style="color: orange;">${noteInput}</span></p>
+    </div>
+    `;
+    resultContainer.style.display = 'block';
+}
+
+    document.getElementById("convertButton").addEventListener("click", convertNumber);
+</script>
+
+
+
+</div></body></html>
