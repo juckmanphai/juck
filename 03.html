@@ -13,12 +13,14 @@
             text-align: center;
         }
         .result {
-            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
+    margin: 10px; /* กำหนด margin */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid green; /* ขอบสีเขียว */
+    display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
+    padding: 10px; /* สามารถปรับได้ตามต้องการ */
+}
         .blue {
             color: blue; /* ตัวหนังสือสีน้ำเงิน */
         }
@@ -219,7 +221,7 @@ function getThaiTime() {
     <div style="text-align: center; font-size: 15px;">
         <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
         <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
-        <p class="blue" style="font-size: 15px;">${selectedTopic}</p>
+        <h2 class="blue" style="font-size: 15px;">${selectedTopic}</h2>
         <h2 class="blue" style="font-size: 15px;">
             ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
         </p>
