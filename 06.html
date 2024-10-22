@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลาวกลุ่มลาวสตาร์</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3e6; /* สีพื้นหลัง */
+        }
+        h1 {
+            text-align: center;
+        }
+        .result {
+            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
+            margin: 10px; /* กำหนด margin */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid green; /* ขอบสีเขียว */
+            display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
+            padding: 10px; /* สามารถปรับได้ตามต้องการ */
+        }
+        .blue {
+            color: blue; /* ตัวหนังสือสีน้ำเงิน */
+        }
+        .red {
+            color: red; /* ตัวหนังสือสีแดง */
+        }
+        input, button {
+            font-size: 20px;
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ปุ่มกลับสู่หน้าหลัก -->
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
+    <h1 style="text-align: center;">ผลลาวกลุ่มลาวสตาร์</h1>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- เลือกประเภท -->
+        <label for="topicSelect" style="font-size: 18px;">เลือกประเภท:</label>
+        <select id="topicSelect" style="font-size: 18px; padding: 5px;">
+        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+        </select>
+
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก" style="font-size: 18px; padding: 5px;">
+        <button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แจงรายละเอียด</button>
+    </div>
+
+    <div id="resultContainer" class="result" style="display: none;"></div>
+
+    <script>
+        // ฟังก์ชันสำหรับการแปลงและจัดการตัวเลข
+        function convertNumber() {
+            const num = document.getElementById("numberInput").value;
+            const selectedTopic = document.getElementById("topicSelect").value;
+
+            if (num.length !== 5 || isNaN(num)) {
+                alert("กรุณากรอกตัวเลข 5 หลัก");
+                return;
+            }
+
+            // นำสามตัวสุดท้ายเป็นตัวเลข 3 หลักบน และสองตัวก่อนสุดท้ายเป็นตัวเลข 2 หลักล่าง
+            const threeDigits = num.slice(2);     // ตัวเลข 3 หลักสุดท้าย
+            const twoDigits = num.slice(0, 2);    // ตัวเลข 2 หลักแรก
+            const fiveDigits = num;               // ตัวเลข 5 หลักทั้งหมด
+
+            // แสดงวันที่และเวลา
+            const getThaiDate = () => {
+                const now = new Date();
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+                const year = now.getFullYear() + 543;
+                return `วันที่ ${day} เดือน ${month} ${year}`;
+            };
+
+            // สร้าง HTML สำหรับแสดงผล
+            let resultHtml = `
+                <div style="text-align: center; font-size: 20px; line-height: 0.5;">
+                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
+                    <h3 class="blue" style="font-size: 20px; line-height: 0.5;">${selectedTopic}</h3>
+                    <p class="blue" style="font-size: 20px; line-height: 0.5;">${getThaiDate()}</p>
+                    <h2 class="blue" style="font-size: 20px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
+                    <h2 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                        <span style="color: red;">${fiveDigits}</span>
+                    </h2>
+                    <h3 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                        บน <span style="color: green;">${threeDigits}</span> ล่าง <span style="color: orange;">${twoDigits}</span>
+                    </h3>
+                </div>
+            `;
+
+            document.getElementById("resultContainer").innerHTML = resultHtml;
+            document.getElementById("resultContainer").style.display = "block";
+        }
+
+        document.getElementById("convertButton").addEventListener("click", convertNumber);
+    </script>
+</body>
+</html>
