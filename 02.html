@@ -88,20 +88,19 @@
 <div id="resultContainer" class="result" style="display: none;"></div>
 
 <script>
-    function getThaiDateTime() {
-        const monthsTh = [
-            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-        ];
+   function getThaiDate() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+    const year = now.getFullYear() + 543; // แปลงปี ค.ศ. เป็น พ.ศ.
+    return `วันที่ ${day} เดือน ${month} ${year}`;
+}
 
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = monthsTh[now.getMonth()];
-        const year = now.getFullYear() + 543; // แปลงปี ค.ศ. เป็น พ.ศ.
-        const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
-
-        return `วันที่ ${day} เดือน ${month} ${year} เวลา ${time} น.`;
-    }
+function getThaiTime() {
+    const now = new Date();
+    const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+    return `เวลา ${time} น.`;
+}
 
     function convertNumber() {
         const num = document.getElementById("numberInput").value;
@@ -168,17 +167,19 @@
 
         // สร้าง HTML สำหรับผลลัพธ์
         const resultHtml = `
-            <div style="text-align: center; font-size: 20px;">
-            <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
-            <h2 class="blue" style="font-size: 20px;">${getThaiDateTime()}</h2>
-            <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
-            <p class="blue" style="font-size: 20px;">
-    ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+    <div style="text-align: center; font-size: 20px;">
+        <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
+        <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
+        <h2 class="blue" style="font-size: 20px;">${getThaiTime()}</h2>
+        <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
+        <p class="blue" style="font-size: 20px;">
+            ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </p>
+        <h2 class="blue" style="font-size: 20px;">จัดชุด 2 ตัวดังนี้</h2>
+        <p class="blue" style="font-size: 20px;">${sortedPairs.join(' - ')}</p>
+        <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
+        <p class="blue">หมายเหตุ : <span style="color: orange;">${noteInput}</span></p>
 </p>
-            <h2 class="blue" style="font-size: 20px;">จัดชุด 2 ตัวดังนี้</h2>
-            <p class="blue" style="font-size: 20px;">${sortedPairs.join(' - ')}</p>
-            <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
-            <p class="blue">หมายเหตุ : <span style="color: orange;">${noteInput}</span></p>
 `;
 
         // แสดงผลลัพธ์ใน div
