@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -70,17 +69,19 @@
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
         <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
+</div>
 
 <div style="text-align: center; margin-top: 20px;">
     <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
     <select id="personSelect" style="font-size: 18px; padding: 5px;">
-       <option value="Team">Team</option>
+        <option value="Team">Team</option>
         <option value="@">@</option>
         <option value="โรงงาน">โรงงาน</option>
         <option value="Udon Don">Udon Don</option>
         <option value="เจ้าที่">เจ้าที่</option>
     </select>
 </div>
+
 <div style="text-align: center; margin-top: 20px;">
     <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
 </div>
@@ -96,112 +97,91 @@
     // ฟังก์ชันจับคู่เลข 3 ตัวจาก 4 ตัว
     function getThreeDigitCombinations(num) {
         const combinations = [];
-
-        // แปลงตัวเลขเป็นอาร์เรย์เพื่อให้สามารถเข้าถึงทีละหลักได้
         const digits = num.split('');
-
-        // จับคู่ชุดตัวเลขสามตัวทั้งหมดจากตัวเลข 4 ตัว
         combinations.push(digits[0] + digits[1] + digits[2]);
         combinations.push(digits[0] + digits[1] + digits[3]);
         combinations.push(digits[0] + digits[2] + digits[3]);
         combinations.push(digits[1] + digits[2] + digits[3]);
-
-        // เรียงลำดับตัวเลขในแต่ละชุดจากน้อยไปหามาก
         const sortedCombinations = combinations.map(sortDigits);
-
-        // ตัดชุดตัวเลขที่ซ้ำออก
-        const uniqueCombinations = Array.from(new Set(sortedCombinations));
-
-        // เรียงชุดตัวเลข 3 ตัวจากน้อยไปหามาก
-        return uniqueCombinations.sort();
+        return Array.from(new Set(sortedCombinations)).sort();
     }
 
     // ฟังก์ชันสำหรับสลับและจัดเรียงชุดตัวเลขสองตัวจากตัวเลขสี่ตัว
     function swapAndSort(num) {
         const pairs = [];
         const digits = num.split('');
-
         for (let i = 0; i < digits.length; i++) {
             for (let j = i + 1; j < digits.length; j++) {
-                // สลับตำแหน่งตัวเลขสองตัว
                 const tens = digits[i];
                 const units = digits[j];
-
-                // สลับตัวเลขให้หลักหน่วยมากกว่าหลักสิบ
-                if (parseInt(tens) <= parseInt(units)) {
-                    pairs.push(tens + units);
-                } else {
-                    pairs.push(units + tens);
-                }
+                pairs.push((parseInt(tens) <= parseInt(units)) ? tens + units : units + tens);
             }
         }
-
-        // ตัดค่าที่ซ้ำออกและเรียงจากน้อยไปหามาก
         return Array.from(new Set(pairs)).sort();
     }
 
-   // ฟังก์ชันแปลงตัวเลข
-function convertNumber() {
-    const num = document.getElementById("numberInput").value;
-    const topicSelect = document.getElementById("topicSelect");
-    const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
-    const personSelect = document.getElementById("personSelect");
-    const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
-    let noteInput = document.getElementById("noteInput").value;  // ดึงค่าจากช่อง input 
+    // ฟังก์ชันแปลงตัวเลข
+    function convertNumber() {
+        const num = document.getElementById("numberInput").value;
+        const topicSelect = document.getElementById("topicSelect");
+        const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
+        const personSelect = document.getElementById("personSelect");
+        const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
+        let noteInput = document.getElementById("noteInput").value;
+        
+        if (!noteInput.trim()) {
+            noteInput = '<span style="color: orange;">No comments</span>';
+        } else {
+            noteInput = `<span style="color: orange;">${noteInput}</span>`;
+        }
 
-	// ถ้าไม่มีการกรอกข้อความในช่องหมายเหตุ ให้ใส่ "No comments" อัตโนมัติ
-    if (!noteInput.trim()) {
-        noteInput = '<span style="color: orange;">No comments</span>';
-    } else {
-        noteInput = `<span style="color: orange;">${noteInput}</span>`;
+        if (num.length !== 4 || isNaN(num)) {
+            alert("กรุณากรอกตัวเลข 4 หลัก");
+            return;
+        }
+
+        const twoDigitPairs = swapAndSort(num);
+        const threeDigitCombinations = getThreeDigitCombinations(num);
+
+        // แสดงวันที่และเวลา
+        const getThaiDate = () => {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+            const year = now.getFullYear() + 543;
+            return `วันที่ ${day} เดือน ${month} ${year}`;
+        };
+
+        const getThaiTime = () => {
+            const now = new Date();
+            const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+            return `เวลา ${time} น.`;
+        };
+
+        // แทนที่ใน HTML
+        let resultHtml = `
+            <div style="text-align: center; font-size: 20px;">
+                <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
+                <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
+                <p class="blue" style="font-size: 20px;">${selectedTopic}</p>
+                <h2 class="blue" style="font-size: 20px;">
+                    ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
+                </h2>
+                <h3 class="blue" style="font-size: 20px;">จัดชุด 2 ตัว</h3>
+                <p class="blue" style="font-size: 20px;">${twoDigitPairs.join(' - ')}</p>
+                <h3 class="blue" style="font-size: 20px;">จัดชุด 3 ตัว</h3>
+                <p class="blue" style="font-size: 20px;">${threeDigitCombinations.join(' - ')}</p>
+                <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
+                <p class="blue" style="font-size: 20px;">แปล${getThaiTime()}</p>
+                <h2 class="blue" style="font-size: 20px;">หมายเหตุ : ${noteInput}</h2>
+            </div>
+        `;
+
+        document.getElementById("resultContainer").innerHTML = resultHtml;
+        document.getElementById("resultContainer").style.display = "block";
     }
 
-    if (num.length !== 4 || isNaN(num)) {
-        alert("กรุณากรอกตัวเลข 4 หลัก");
-        return;
-    }
-
-    const twoDigitPairs = swapAndSort(num);
-    const threeDigitCombinations = getThreeDigitCombinations(num);
-    const currentDate = new Date().toLocaleString('th-TH');
-
-    // สมมุติว่า currentDate เป็นวันที่ปัจจุบัน
-    let now = new Date();
-    let day = now.getDate();
-    let monthNames = [
-        "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-    let month = monthNames[now.getMonth()];
-    let year = now.getFullYear() + 543;  // แปลงปีเป็น พ.ศ.
-    let hours = now.getHours();
-    let minutes = now.getMinutes().toString().padStart(2, '0');  // เพิ่ม 0 ข้างหน้าหากน้อยกว่า 10
-
-    let formattedDate = `วันที่ ${day} เดือน ${month} ${year} เวลา ${hours}.${minutes} น.`;
-
-    // แทนที่ใน HTML
-    let resultHtml = `
-        <div style="text-align: center; font-size: 20px;">
-            <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px;">
-            <h2 class="blue" style="font-size: 20px;">${formattedDate}</h2>
-            <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
-            <p class="blue" style="font-size: 20px;">
-                ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
-            </p>
-            <h3 class="blue" style="font-size: 20px;">จัดชุด 2 ตัว</h3>
-            <p class="blue" style="font-size: 20px;">${twoDigitPairs.join(' - ')}</p>
-            <h3 class="blue" style="font-size: 20px;">จัดชุด 3 ตัว</h3>
-            <p class="blue" style="font-size: 20px;">${threeDigitCombinations.join(' - ')}</p>
-            <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
-            <p class="blue" style="font-size: 20px;">หมายเหตุ : ${noteInput}</p>
-        </div>
-    `;
-
-    document.getElementById("resultContainer").innerHTML = resultHtml;
-    document.getElementById("resultContainer").style.display = "block";
-}
-
-document.getElementById("convertButton").addEventListener("click", convertNumber);
+    document.getElementById("convertButton").addEventListener("click", convertNumber);
 </script>
 </body>
 </html>
