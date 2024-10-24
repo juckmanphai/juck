@@ -67,10 +67,13 @@
     </style>
 </head>
 <body>
-    <!-- ปุ่มกลับสู่หน้าหลัก -->
+   <!-- ปุ่มกลับสู่หน้าหลัก -->
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวกลุ่มลาวสามัคคี</h1>
 
+<div style="text-align: center; margin-top: 20px;">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก" style="font-size: 18px; padding: 5px;">
+    </div>
     <div style="text-align: center; margin-top: 20px;">
         <!-- เลือกประเภท -->
         <label for="topicSelect" style="font-size: 18px;">เลือกประเภท:</label>
@@ -80,12 +83,9 @@
             <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
         </select>
     </div>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก" style="font-size: 18px; padding: 5px;">
-        <button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แจงรายละเอียด</button>
-    </div>
-
+<div style="text-align: center; margin-top: 20px;">
+<button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แจงรายละเอียด</button>
+</div>
     <div id="resultContainer" class="result" style="display: none;"></div>
 
     <div style="text-align: center; margin-top: 20px;">
