@@ -14,12 +14,12 @@
         }
         .result {
             background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-            margin: 10px; /* กำหนด margin */
+            margin: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 5px solid green; /* ขอบสีเขียว */
-            display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
-            padding: 10px; /* สามารถปรับได้ตามต้องการ */
+            display: inline-block;
+            padding: 10px;
         }
         .blue {
             color: blue; /* ตัวหนังสือสีน้ำเงิน */
@@ -33,10 +33,43 @@
             margin: 10px auto;
             display: block;
         }
+        .circle {
+            display: inline-block;
+            border: 3px solid red;
+            border-radius: 50%;
+            font-size: 28px; /* ขนาดฟอนต์ของตัวเลข */
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
+            margin: 0 10px;
+        }
+        .circle-green {
+            display: inline-block;
+            border: 3px solid green;
+            border-radius: 50%;
+            font-size: 28px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            margin: 0 10px;
+        }
+        .square {
+            display: inline-block;
+            border: 3px solid orange;
+            font-size: 28px; /* ขนาดฟอนต์ของตัวเลข */
+            width: 80px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
+            height: 50px;
+            text-align: center;
+            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
+            margin: 0 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
- <!-- ปุ่มกลับสู่หน้าหลัก -->
+    <!-- ปุ่มกลับสู่หน้าหลัก -->
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1 style="text-align: center;">ผลลาวพัฒนา</h1>
 
@@ -46,6 +79,13 @@
     </div>
 
     <div id="resultContainer" class="result" style="display: none;"></div>
+    
+    <!-- ปุ่มสำหรับสร้างวงกลมและสี่เหลี่ยม -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="circleButton" style="font-size: 18px; padding: 5px 10px;">วงกลมล่าง</button>
+        <button id="squareButton" style="font-size: 18px; padding: 5px 10px;">สี่เหลี่ยมสามตัวบน</button>
+        <button id="circleTopButton" style="font-size: 18px; padding: 5px 10px;">วงกลมสองตัวบน</button>
+    </div>
 
     <script>
         // ฟังก์ชันสำหรับการแปลงและจัดการตัวเลข
@@ -59,7 +99,7 @@
             // นำสามตัวสุดท้ายเป็นตัวเลข 3 หลักบน และสองตัวก่อนสุดท้ายเป็นตัวเลข 2 หลักล่าง
             const threeDigits = num.slice(3);     // ตัวเลข 3 หลักสุดท้าย
             const twoDigits = num.slice(2, 4);    // ตัวเลข 2 หลักจากหลักที่สองและสาม
-            const sixDigits = num;                // ตัวเลข 6 หลักทั้งหมด
+            const sixDigits = num;                  // ตัวเลข 6 หลักทั้งหมด
 
             // แสดงวันที่และเวลา
             const getThaiDate = () => {
@@ -71,26 +111,54 @@
             };
 
             // สร้าง HTML สำหรับแสดงผล
-let resultHtml = `
-    <div style="text-align: center; font-size: 20px; line-height: 0.5;">
-        <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-        <h3 class="blue" style="font-size: 30px; line-height: 0.5;">ผลลาวพัฒนา</h3>
-        <p class="blue" style="font-size: 20px; line-height: 0.5;">${getThaiDate()}</p>
-        <h2 class="blue" style="font-size: 20px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
-        <h2 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
-            <span style="color: red;">${sixDigits}</span>
-        </h2>
-        <p class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
-            บน <span style="color: green;">${threeDigits}</span> ล่าง <span style="color: orange;">${twoDigits}</span>
-        </p>
-    </div>
-`;
+            let resultHtml = `
+                <div style="text-align: center; font-size: 20px; line-height: 0.5;">
+                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
+                    <h3 class="blue" style="font-size: 30px; line-height: 0.5;">ผลลาวพัฒนา</h3>
+                    <p class="blue" style="font-size: 20px; line-height: 0.5;">${getThaiDate()}</p>
+                    <h2 class="blue" style="font-size: 20px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
+                    <h2 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                        <span style="color: red;" id="sixDigits">${sixDigits}</span>
+                    </h2>
+                    <p class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                        บน <span style="color: green;" id="threeDigits">${threeDigits}</span> ล่าง <span style="color: orange;" id="twoDigits">${twoDigits}</span>
+                    </p>
+                </div>
+            `;
 
             document.getElementById("resultContainer").innerHTML = resultHtml;
             document.getElementById("resultContainer").style.display = "block";
         }
 
+        // ฟังก์ชันสำหรับสร้างวงกลมรอบตัวเลขล่าง
+        function createCircle() {
+            const twoDigitsElement = document.getElementById("twoDigits");
+            if (twoDigitsElement) {
+                twoDigitsElement.innerHTML = `<span class="circle">${twoDigitsElement.innerHTML}</span>`;
+            }
+        }
+
+        // ฟังก์ชันสำหรับสร้างสี่เหลี่ยมครอบตัวเลขสามตัวบน
+        function createSquare() {
+            const threeDigitsElement = document.getElementById("threeDigits");
+            if (threeDigitsElement) {
+                threeDigitsElement.innerHTML = `<span class="square">${threeDigitsElement.innerHTML}</span>`;
+            }
+        }
+
+        // ฟังก์ชันสำหรับสร้างวงกลมครอบตัวเลขหลักสิบและหลักหน่วย
+        function createCircleTop() {
+            const threeDigitsElement = document.getElementById("threeDigits");
+            if (threeDigitsElement) {
+                const tenUnitDigits = threeDigitsElement.innerHTML.slice(1, 3); // แยกหลักสิบและหลักหน่วย
+                threeDigitsElement.innerHTML = `${threeDigitsElement.innerHTML.charAt(0)}<span class="circle-green">${tenUnitDigits}</span>`;
+            }
+        }
+
         document.getElementById("convertButton").addEventListener("click", convertNumber);
+        document.getElementById("circleButton").addEventListener("click", createCircle);
+        document.getElementById("squareButton").addEventListener("click", createSquare);
+        document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
     </script>
 </body>
 </html>
