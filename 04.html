@@ -8,19 +8,23 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #fff3e6; /* สีพื้นหลัง */
+            margin: 0;
+            padding: 20px; /* เพิ่ม padding รอบหน้า */
         }
         h1 {
             text-align: center;
+            margin-bottom: 20px; /* เพิ่ม margin ด้านล่าง */
         }
         .result {
-    background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-    margin: 10px; /* กำหนด margin */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 5px solid green; /* ขอบสีเขียว */
-    display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
-    padding: 10px; /* สามารถปรับได้ตามต้องการ */
-}
+            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
+            margin: 20px auto; /* กำหนด margin */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid green; /* ขอบสีเขียว */
+            display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
+            padding: 20px; /* เพิ่ม padding */
+            max-width: 600px; /* กำหนดความกว้างสูงสุด */
+        }
         .blue {
             color: blue; /* ตัวหนังสือสีน้ำเงิน */
         }
@@ -32,6 +36,29 @@
             width: 80%;
             margin: 10px auto;
             display: block;
+            padding: 10px; /* เพิ่ม padding สำหรับ input และ button */
+            border: 2px solid #ccc; /* เพิ่มขอบ */
+            border-radius: 5px; /* เพิ่มความโค้งมน */
+            transition: border-color 0.3s; /* เพิ่ม transition สำหรับ border */
+        }
+        input:focus, select:focus, button:focus {
+            border-color: green; /* เปลี่ยนสีขอบเมื่อมีการโฟกัส */
+            outline: none; /* เอาเส้นขอบออก */
+        }
+        button {
+            background-color: #4CAF50; /* สีพื้นหลังของปุ่ม */
+            color: white; /* สีตัวหนังสือในปุ่ม */
+            border: none; /* เอาขอบออก */
+            cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อวางเมาส์ */
+        }
+        button:hover {
+            background-color: #45a049; /* สีพื้นหลังของปุ่มเมื่อวางเมาส์ */
+        }
+        label {
+            display: block; /* ทำให้ label แสดงเป็นบล็อค */
+            text-align: center; /* จัดกลาง */
+            margin-top: 20px; /* เพิ่ม margin ด้านบน */
+            font-size: 18px;
         }
     </style>
 </head>
@@ -39,16 +66,15 @@
     <!-- ปุ่มกลับสู่หน้าหลัก -->
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 
-<h1 style="text-align: center;">สูตรแปลตัวเลข 4 ตัว</h1>
+    <h1>สูตรแปลตัวเลข 4 ตัว</h1>
 
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก" style="font-size: 18px; padding: 5px;">
-    <button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แปลตัวเลข</button>
-</div>
+    <div style="text-align: center;">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
+        <button id="convertButton">แปลตัวเลข</button>
+    </div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <label for="topicSelect" style="font-size: 18px;">เลือกประเภท</label>
-      <select id="topicSelect" style="font-size: 18px; padding: 5px;">
+    <label for="topicSelect">เลือกประเภท</label>
+    <select id="topicSelect">
         <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
         <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
         <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
@@ -70,119 +96,116 @@
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
         <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
-</div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-    <select id="personSelect" style="font-size: 18px; padding: 5px;">
+    <label for="personSelect">เลือกผู้บอก:</label>
+    <select id="personSelect">
         <option value="Team">Team</option>
         <option value="@">@</option>
         <option value="โรงงาน">โรงงาน</option>
         <option value="Udon Don">Udon Don</option>
         <option value="เจ้าที่">เจ้าที่</option>
     </select>
-</div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
-</div>
+    <div style="text-align: center;">
+        <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
+    </div>
 
-<div id="resultContainer" class="result" style="display: none;"></div>
+    <div id="resultContainer" class="result" style="display: none;"></div>
 
-<script>
-    // ฟังก์ชันสำหรับการเรียงลำดับตัวเลข
-    function sortDigits(str) {
-        return str.split('').sort().join('');
-    }
+    <script>
+        // ฟังก์ชันสำหรับการเรียงลำดับตัวเลข
+        function sortDigits(str) {
+            return str.split('').sort().join('');
+        }
 
-    // ฟังก์ชันจับคู่เลข 3 ตัวจาก 4 ตัว
-    function getThreeDigitCombinations(num) {
-        const combinations = [];
-        const digits = num.split('');
-        combinations.push(digits[0] + digits[1] + digits[2]);
-        combinations.push(digits[0] + digits[1] + digits[3]);
-        combinations.push(digits[0] + digits[2] + digits[3]);
-        combinations.push(digits[1] + digits[2] + digits[3]);
-        const sortedCombinations = combinations.map(sortDigits);
-        return Array.from(new Set(sortedCombinations)).sort();
-    }
+        // ฟังก์ชันจับคู่เลข 3 ตัวจาก 4 ตัว
+        function getThreeDigitCombinations(num) {
+            const combinations = [];
+            const digits = num.split('');
+            combinations.push(digits[0] + digits[1] + digits[2]);
+            combinations.push(digits[0] + digits[1] + digits[3]);
+            combinations.push(digits[0] + digits[2] + digits[3]);
+            combinations.push(digits[1] + digits[2] + digits[3]);
+            const sortedCombinations = combinations.map(sortDigits);
+            return Array.from(new Set(sortedCombinations)).sort();
+        }
 
-    // ฟังก์ชันสำหรับสลับและจัดเรียงชุดตัวเลขสองตัวจากตัวเลขสี่ตัว
-    function swapAndSort(num) {
-        const pairs = [];
-        const digits = num.split('');
-        for (let i = 0; i < digits.length; i++) {
-            for (let j = i + 1; j < digits.length; j++) {
-                const tens = digits[i];
-                const units = digits[j];
-                pairs.push((parseInt(tens) <= parseInt(units)) ? tens + units : units + tens);
+        // ฟังก์ชันสำหรับสลับและจัดเรียงชุดตัวเลขสองตัวจากตัวเลขสี่ตัว
+        function swapAndSort(num) {
+            const pairs = [];
+            const digits = num.split('');
+            for (let i = 0; i < digits.length; i++) {
+                for (let j = i + 1; j < digits.length; j++) {
+                    const tens = digits[i];
+                    const units = digits[j];
+                    pairs.push((parseInt(tens) <= parseInt(units)) ? tens + units : units + tens);
+                }
             }
-        }
-        return Array.from(new Set(pairs)).sort();
-    }
-
-    // ฟังก์ชันแปลงตัวเลข
-    function convertNumber() {
-        const num = document.getElementById("numberInput").value;
-        const topicSelect = document.getElementById("topicSelect");
-        const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
-        const personSelect = document.getElementById("personSelect");
-        const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
-        let noteInput = document.getElementById("noteInput").value;
-        
-        if (!noteInput.trim()) {
-            noteInput = '<span style="color: orange;">No comments</span>';
-        } else {
-            noteInput = `<span style="color: orange;">${noteInput}</span>`;
+            return Array.from(new Set(pairs)).sort();
         }
 
-        if (num.length !== 4 || isNaN(num)) {
-            alert("กรุณากรอกตัวเลข 4 หลัก");
-            return;
+        // ฟังก์ชันแปลงตัวเลข
+        function convertNumber() {
+            const num = document.getElementById("numberInput").value;
+            const topicSelect = document.getElementById("topicSelect");
+            const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
+            const personSelect = document.getElementById("personSelect");
+            const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
+            let noteInput = document.getElementById("noteInput").value;
+            
+            if (!noteInput.trim()) {
+                noteInput = '<span style="color: orange;">No comments</span>';
+            } else {
+                noteInput = `<span style="color: orange;">${noteInput}</span>`;
+            }
+
+            if (num.length !== 4 || isNaN(num)) {
+                alert("กรุณากรอกตัวเลข 4 หลัก");
+                return;
+            }
+
+            const twoDigitPairs = swapAndSort(num);
+            const threeDigitCombinations = getThreeDigitCombinations(num);
+
+            // แสดงวันที่และเวลา
+            const getThaiDate = () => {
+                const now = new Date();
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+                const year = now.getFullYear() + 543;
+                return `วันที่ ${day} เดือน ${month} ${year}`;
+            };
+
+            const getThaiTime = () => {
+                const now = new Date();
+                const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+                return `เวลา ${time} น.`;
+            };
+
+            // แทนที่ใน HTML
+            let resultHtml = `
+                <div style="text-align: center; font-size: 20px; line-height: 1.2;">
+                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
+                    <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
+                    <p class="blue" style="font-size: 20px;">${selectedTopic}</p>
+                    <h2 class="blue" style="font-size: 20px;">
+                        ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
+                    </h2>
+                    <h3 class="blue" style="font-size: 20px;">จัดชุด 2 ตัว</h3>
+                    <p class="blue" style="font-size: 20px;">${twoDigitPairs.join(' - ')}</p>
+                    <h3 class="blue" style="font-size: 20px;">จัดชุด 3 ตัว</h3>
+                    <p class="blue" style="font-size: 20px;">${threeDigitCombinations.join(' - ')}</p>
+                    <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
+                    <p class="blue" style="font-size: 20px;">แปล${getThaiTime()}</p>
+                    <p class="blue" style="font-size: 18px;">หมายเหตุ : ${noteInput}</p>
+                </div>
+            `;
+
+            document.getElementById("resultContainer").innerHTML = resultHtml;
+            document.getElementById("resultContainer").style.display = "block";
         }
 
-        const twoDigitPairs = swapAndSort(num);
-        const threeDigitCombinations = getThreeDigitCombinations(num);
-
-        // แสดงวันที่และเวลา
-        const getThaiDate = () => {
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-            const year = now.getFullYear() + 543;
-            return `วันที่ ${day} เดือน ${month} ${year}`;
-        };
-
-        const getThaiTime = () => {
-            const now = new Date();
-            const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
-            return `เวลา ${time} น.`;
-        };
-
-        // แทนที่ใน HTML
-        let resultHtml = `
-            <div style="text-align: center; font-size: 20px; line-height: 1.2;">
-                <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-                <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
-                <p class="blue" style="font-size: 20px;">${selectedTopic}</p>
-                <h2 class="blue" style="font-size: 20px;">
-                    ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
-                </h2>
-                <h3 class="blue" style="font-size: 20px;">จัดชุด 2 ตัว</h3>
-                <p class="blue" style="font-size: 20px;">${twoDigitPairs.join(' - ')}</p>
-                <h3 class="blue" style="font-size: 20px;">จัดชุด 3 ตัว</h3>
-                <p class="blue" style="font-size: 20px;">${threeDigitCombinations.join(' - ')}</p>
-                <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
-                <p class="blue" style="font-size: 20px;">แปล${getThaiTime()}</p>
-                <p class="blue" style="font-size: 18px;">หมายเหตุ : ${noteInput}</p>
-            </div>
-        `;
-
-        document.getElementById("resultContainer").innerHTML = resultHtml;
-        document.getElementById("resultContainer").style.display = "block";
-    }
-
-    document.getElementById("convertButton").addEventListener("click", convertNumber);
-</script>
+        document.getElementById("convertButton").addEventListener("click", convertNumber);
+    </script>
 </body>
 </html>
