@@ -57,26 +57,26 @@
         }
         .circle, .circle-green, .square {
             display: inline-block;
-            font-size: 28px; /* ขนาดฟอนต์ของตัวเลข */
+            font-size: 24px; /* ลดขนาดฟอนต์ของตัวเลข */
             text-align: center;
-            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
+            line-height: 40px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
             margin: 0 10px;
         }
         .circle {
             border: 3px solid green;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px; /* ลดขนาดวงกลม */
+            height: 40px; /* ลดขนาดวงกลม */
         }
         .circle-green {
             border: 3px solid orange;
-            width: 50px;
-            height: 50px;
+            width: 40px; /* ลดขนาดวงกลม */
+            height: 40px; /* ลดขนาดวงกลม */
         }
         .square {
             border: 3px solid red;
-            width: 80px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
-            height: 50px;
+            width: 60px; /* ลดขนาดสี่เหลี่ยม */
+            height: 40px; /* ลดขนาดสี่เหลี่ยม */
         }
         .back-button {
             display: block; /* ทำให้ปุ่มอยู่ในบรรทัดใหม่ */
@@ -148,15 +148,15 @@
 
             // สร้าง HTML สำหรับแสดงผล
             let resultHtml = `
-                <div style="text-align: center; font-size: 20px; line-height: 0.5;">
+                <div style="text-align: center; font-size: 18px; line-height: 0.5;">
                     <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-                    <h3 class="blue" style="font-size: 30px; line-height: 0.5;">ผลลาวพัฒนา</h3>
-                    <p class="blue" style="font-size: 20px; line-height: 0.5;">${getThaiDate()}</p>
-                    <h2 class="blue" style="font-size: 20px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
-                    <h2 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                    <h3 class="blue" style="font-size: 24px; line-height: 0.5;">ผลลาวพัฒนา</h3>
+                    <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
+                    <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
+                    <h2 class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
                         <span style="color: red;" id="sixDigits">${sixDigits}</span>
                     </h2>
-                    <p class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                    <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
                         บน <span style="color: green;" id="threeDigits">${threeDigits}</span> ล่าง <span style="color: blue;" id="twoDigits">${twoDigits}</span>
                     </p>
                 </div>
