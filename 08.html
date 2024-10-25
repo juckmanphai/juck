@@ -1,50 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แปลตัวเลข 2, 3 และ 4 หลัก</title>
+    <title>เมนูกรอกผลตัวเลข</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* พื้นหลัง */
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* พื้นหลังโทนเย็น */
+            margin: 0;
+            padding: 0;
+            color: #333;
             text-align: center;
-            padding: 50px;
-            color: blue; /* เปลี่ยนสีตัวหนังสือเป็นสีน้ำเงิน */
+            padding-top: 100px; /* เพิ่มระยะห่างด้านบน */
         }
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px #0000001a;
+        h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 40px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
+            padding: 15px 25px;
+            font-size: 18px;
+            color: #fff;
             background-color: #4CAF50;
-            color: white;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #fff3e6;
+            background-color: #45a049;
+        }
+        button:focus {
+            outline: none;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #95a5a6;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>เมนูกรอกผลตัวเลข</h1>
-        <p>ท่านสามารถกรอกผลตัวเลขเพื่อให้แสดงรายละเอียดโดยคลิกที่ปุ่มด้านล่าง</p>
 
-        <div>
-            <button onclick="window.location.href='https://juckmanphai.github.io/juck/05.html'">กรอกผลลาวพัฒนา</button>
-            <button onclick="window.location.href='https://juckmanphai.github.io/juck/06.html'">กรอกผลกลุ่มลาวสตาร์</button>
-           <button onclick="window.location.href='https://juckmanphai.github.io/juck/07.html'">กรอกผลกลุ่มลาวสามัคคี</button>
-           <button onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <h1>เมนูกรอกผลตัวเลข</h1>
+    <p>ท่านสามารถกรอกผลตัวเลขเพื่อให้แสดงรายละเอียดโดยคลิกที่ปุ่มด้านล่าง</p>
+
+    <div class="button-group">
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/05.html'">กรอกผลลาวพัฒนา</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/06.html'">กรอกผลกลุ่มลาวสตาร์</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/07.html'">กรอกผลกลุ่มลาวสามัคคี</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     </div>
+
+    <footer>
+        &copy; 2024 Juckmanphai. All Rights Reserved.
+    </footer>
+
 </body>
 </html>
