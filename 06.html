@@ -39,11 +39,11 @@
         .circle, .circle-green, .square {
             display: inline-block;
             border-radius: 50%; /* วงกลม */
-            font-size: 28px; /* ขนาดฟอนต์ของตัวเลข */
-            width: 50px; /* ขนาดวงกลม */
-            height: 50px; /* ขนาดวงกลม */
+            font-size: 24px; /* ขนาดฟอนต์ของตัวเลขลดลง */
+            width: 45px; /* ขนาดวงกลม */
+            height: 45px; /* ขนาดวงกลม */
             text-align: center;
-            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
+            line-height: 45px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
             margin: 0 5px; /* ระยะห่างน้อยลง */
             border: 3px solid green; /* ขอบวงกลม */
         }
@@ -53,9 +53,10 @@
         .square {
             border-radius: 10px; /* มุมสี่เหลี่ยมกลม */
             border-color: red; /* ขอบสี่เหลี่ยมสีแดง */
-            width: 80px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
-            height: 50px; /* ขนาดสูงของสี่เหลี่ยม */
+            width: 75px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
+            height: 40px; /* ขนาดสูงของสี่เหลี่ยม */
             margin: 0 10px; /* ระยะห่าง */
+            font-size: 24px; /* ขนาดฟอนต์ในสี่เหลี่ยม */
         }
         .back-button, .action-button {
             font-size: 20px; /* ขนาดฟอนต์ของปุ่ม */
@@ -92,6 +93,7 @@
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+
     <h1>ผลลาวกลุ่มลาวสตาร์</h1>
 
     <div class="input-container">
@@ -155,15 +157,14 @@
 
             // สร้าง HTML สำหรับแสดงผล
             let resultHtml = `
-                <div style="text-align: center; font-size: 20px; line-height: 0.5;">
+                <div style="text-align: center; font-size: 18px; line-height: 0.5;">
                     <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-                    <h3 class="blue" style="font-size: 20px; line-height: 0.5;">ผล${selectedTopic}</h3>
-                    <p class="blue" style="font-size: 20px; line-height: 0.5;">${getThaiDate()}</p>
-                    <h2 class="blue" style="font-size: 20px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
-                    <h2 class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                    <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
+                    <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
+                    <h2 class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
                         <span style="color: red;">${fiveDigits}</span>
                     </h2>
-                    <p class="blue" style="font-size: 30px; letter-spacing: 5px; line-height: 0.5;">
+                    <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
                         บน <span id="threeDigits" style="color: green;">${threeDigits}</span> ล่าง <span id="twoDigits" style="color: blue;">${currentTwoDigits}</span>
                     </p>
                 </div>
