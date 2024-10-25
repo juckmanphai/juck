@@ -7,9 +7,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* สีพื้นหลัง */
+            background-color: #fff3e6;
             margin: 0;
-            padding: 0;
+            padding: 0 20px; /* เพิ่ม padding ด้านข้าง */
+            max-width: 600px; /* กำหนดความกว้างสูงสุด */
+            margin: 0 auto; /* จัดให้อยู่กึ่งกลางของหน้า */
         }
         h1 {
             text-align: center;
@@ -17,82 +19,83 @@
             margin-top: 20px;
         }
         .result {
-            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
+            background-color: lightyellow;
             margin: 20px auto;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 5px solid green; /* ขอบสีเขียว */
+            border: 5px solid green;
             padding: 20px;
-            max-width: 500px; /* กำหนดความกว้างสูงสุด */
+            max-width: 500px;
             text-align: center;
         }
         .blue {
-            color: blue; /* ตัวหนังสือสีน้ำเงิน */
+            color: blue;
         }
         .red {
-            color: red; /* ตัวหนังสือสีแดง */
+            color: red;
         }
         .circle, .circle-green {
             display: inline-block;
             border: 3px solid orange;
             border-radius: 50%;
-            font-size: 20px; /* ขนาดฟอนต์ของตัวเลข */
-            width: 30px; /* ขนาดวงกลมสำหรับตัวเลขสองตัว */
-            height: 30px;
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
-            margin: 0 5px; /* ระยะห่างน้อยลง */
+            line-height: 40px;
+            margin: 0 5px;
         }
         .circle-green {
-            border-color: green; /* เปลี่ยนขอบเป็นสีเขียวสำหรับวงกลม */
+            border-color: green;
         }
         .square {
             display: inline-block;
             border: 3px solid red;
-            font-size: 20px; /* ขนาดฟอนต์ของตัวเลข */
-            width: 50px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
-            height: 30px;
+            font-size: 22px;
+            width: 60px;
+            height: 40px;
             text-align: center;
-            line-height: 50px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
+            line-height: 40px;
             margin: 0 10px;
             box-sizing: border-box;
         }
         .back-button {
-            font-size: 20px; /* ขนาดฟอนต์ของปุ่ม */
-            padding: 10px 20px; /* ขนาดปุ่ม */
-            margin: 20px auto; /* จัดให้อยู่ตรงกลาง */
-            display: block; /* ทำให้ปุ่มอยู่ในบรรทัดใหม่ */
-            text-align: center; /* จัดข้อความกลาง */
-            background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
-            color: white; /* สีข้อความ */
-            border: none; /* ไม่มีขอบ */
-            border-radius: 5px; /* มุมปุ่มกลม */
-            cursor: pointer; /* แสดงว่าเป็นปุ่มคลิกได้ */
-            transition: background-color 0.3s; /* เพิ่มการเปลี่ยนแปลงสี */
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         .back-button:hover {
-            background-color: #45a049; /* สีเมื่อชี้เมาส์ */
+            background-color: #45a049;
         }
         input, select, button {
-            font-size: 18px; /* ขนาดฟอนต์ */
-            padding: 10px; /* ขนาดปุ่ม */
-            margin: 10px 0; /* ระยะห่าง */
-            border: 2px solid #ddd; /* ขอบ */
-            border-radius: 5px; /* มุมปุ่มกลม */
-            width: 250px; /* ความกว้าง */
-            transition: border-color 0.3s; /* เพิ่มการเปลี่ยนแปลงสีขอบ */
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%; /* ปรับให้เต็มพื้นที่ */
+            max-width: 250px;
+            transition: border-color 0.3s;
         }
         input:focus, select:focus {
-            border-color: #4CAF50; /* สีขอบเมื่อเลือก */
-            outline: none; /* ลบเส้นขอบภายนอก */
+            border-color: #4CAF50;
+            outline: none;
         }
         button {
-            background-color: #008CBA; /* สีปุ่ม */
-            color: white; /* สีข้อความ */
-            border: none; /* ไม่มีขอบ */
+            background-color: #008CBA;
+            color: white;
+            border: none;
         }
         button:hover {
-            background-color: #007B9A; /* สีเมื่อชี้เมาส์ */
+            background-color: #007B9A;
         }
     </style>
 </head>
@@ -127,7 +130,6 @@
     </footer>
     
     <script>
-        // ฟังก์ชันสำหรับการแปลงและจัดการตัวเลข
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const selectedTopic = document.getElementById("topicSelect").value;
@@ -137,12 +139,10 @@
                 return;
             }
 
-            // นำสามตัวสุดท้ายเป็นตัวเลข 3 หลักบน และนำหลักพันและหลักร้อยเป็นตัวเลข 2 หลักล่าง
-            const threeDigits = num.slice(2);     // ตัวเลข 3 หลักสุดท้าย
-            const twoDigits = num.slice(1, 3);    // ตัวเลข 2 หลักจากหลักพันและหลักร้อย
-            const fiveDigits = num;               // ตัวเลข 5 หลักทั้งหมด
+            const threeDigits = num.slice(2);
+            const twoDigits = num.slice(1, 3);
+            const fiveDigits = num;
 
-            // แสดงวันที่และเวลา
             const getThaiDate = () => {
                 const now = new Date();
                 const day = String(now.getDate()).padStart(2, '0');
@@ -151,7 +151,6 @@
                 return `วันที่ ${day} เดือน ${month} ${year}`;
             };
 
-            // สร้าง HTML สำหรับแสดงผล
             let resultHtml = `
                 <div style="text-align: center; font-size: 18px; line-height: 0.5;">
                     <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
@@ -172,30 +171,26 @@
             document.getElementById("resultContainer").style.display = "block";
         }
 
-        // ฟังก์ชันสำหรับการวงกลมตัวเลขล่าง
         function createCircle() {
             const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
             twoDigitsDisplay.classList.add("circle-green");
         }
 
-        // ฟังก์ชันสำหรับการใส่สี่เหลี่ยมรอบตัวเลขสามตัวบน
         function createSquare() {
             const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
             threeDigitsDisplay.classList.add("square");
         }
 
-        // ฟังก์ชันสำหรับการวงกลมตัวเลขสองตัวบน (หลักสิบและหลักหน่วย)
         function createCircleTop() {
             const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-            const firstPart = threeDigitsDisplay.textContent.slice(0, 1); // หลักร้อย (จะไม่ถูกวงกลม)
-            const secondPart = threeDigitsDisplay.textContent.slice(1);   // หลักสิบและหลักหน่วย (จะถูกวงกลม)
+            const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
+            const secondPart = threeDigitsDisplay.textContent.slice(1);
 
             threeDigitsDisplay.innerHTML = `
                 ${firstPart}<span class="circle">${secondPart}</span>
             `;
         }
 
-        // ตั้งค่า event listeners ให้ปุ่มต่าง ๆ
         document.getElementById("convertButton").addEventListener("click", convertNumber);
         document.getElementById("circleButton").addEventListener("click", createCircle);
         document.getElementById("squareButton").addEventListener("click", createSquare);
