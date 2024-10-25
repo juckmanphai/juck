@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,101 +7,158 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* สีพื้นหลัง */
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
         }
         h1 {
             text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-top: 20px;
         }
-        .result {
-    background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-    margin: 10px; /* กำหนด margin */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 5px solid green; /* ขอบสีเขียว */
-    display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
-    padding: 10px; /* สามารถปรับได้ตามต้องการ */
-}
-        .blue {
-            color: blue; /* ตัวหนังสือสีน้ำเงิน */
-        }
-        .red {
-            color: red; /* ตัวหนังสือสีแดง */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin-top: 20px;
         }
         input, select, button {
-            font-size: 20px;
-            width: 80%;
-            margin: 10px auto;
+            font-size: 18px;
+            padding: 10px;
+            width: 90%;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
             display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.back-button {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        label {
+            font-size: 18px;
+            margin-left: 5%;
+            color: #2c3e50;
+        }
+        .result {
+            background-color: lightyellow;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid green;
+            margin-top: 20px;
+        }
+        .result p {
+            font-size: 18px;
+            color: #34495e;
+        }
+        .blue {
+            color: #3498db;
+        }
+        .red {
+            color: #e74c3c;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #95a5a6;
         }
     </style>
 </head>
 <body>
+
 <!-- ปุ่มกลับสู่หน้าหลัก -->
 <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 
-<h1>สูตรแปลตัวเลข 2 ตัว</h1>
+<div class="container">
+    <h1>สูตรแปลตัวเลข 2 ตัว</h1>
 
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 2 หลัก" style="font-size: 18px; padding: 5px;">
-    <button id="convertButton" style="font-size: 18px; padding: 5px 10px;">แปลตัวเลข</button>
-</div>
+    <!-- ส่วนกรอกข้อมูล -->
+    <div style="text-align: center;">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 2 หลัก">
+        <button id="convertButton">แปลตัวเลข</button>
+    </div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <label for="topicSelect" style="font-size: 18px;">เลือกประเภท:</label>
-    <select id="topicSelect" style="font-size: 18px; padding: 5px;">
-        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-    </select>
-</div>
-    <div style="text-align: center; margin-top: 20px;">
-        <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-        <select id="personSelect" style="font-size: 18px; padding: 5px;">
-            <option value="Team">Team</option>
-            <option value="@">@</option>
-           <option value="โรงงาน">โรงงาน</option>
-            <option value="Udon don">Udon don</option>
-		<option value="เจ้าที่">เจ้าที่</option>
+    <!-- ส่วนเลือกประเภทและผู้บอก -->
+    <div style="text-align: center;">
+        <label for="topicSelect">เลือกประเภท:</label>
+        <select id="topicSelect">
+            <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+            <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+            <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+            <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+            <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+            <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+            <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+            <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+            <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+            <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+            <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+            <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+            <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+            <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+            <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+            <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+            <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+            <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+            <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+            <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
         </select>
     </div>
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
-</div>
+
+    <div style="text-align: center;">
+        <label for="personSelect">เลือกผู้บอก:</label>
+        <select id="personSelect">
+            <option value="Team">Team</option>
+            <option value="@">@</option>
+            <option value="โรงงาน">โรงงาน</option>
+            <option value="Udon don">Udon don</option>
+            <option value="เจ้าที่">เจ้าที่</option>
+        </select>
+    </div>
+
+    <div style="text-align: center;">
+        <input type="text" id="noteInput" placeholder="กรุณาใส่ข้อความที่ต้องการ">
+    </div>
+
+    <!-- ส่วนแสดงผลลัพธ์ -->
+    <div id="resultContainer" class="result" style="display: none;"></div>
 </div>
 
-<div id="resultContainer" class="result" style="display: none;"></div>
+<footer>
+    &copy; 2024 Juckmanphai. All Rights Reserved.
+</footer>
 
 <script>
-   function getThaiDate() {
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-    const year = now.getFullYear() + 543; // แปลงปี ค.ศ. เป็น พ.ศ.
-    return `วันที่ ${day} เดือน ${month} ${year}`;
-}
+    function getThaiDate() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+        const year = now.getFullYear() + 543; // แปลงปี ค.ศ. เป็น พ.ศ.
+        return `วันที่ ${day} เดือน ${month} ${year}`;
+    }
 
-function getThaiTime() {
-    const now = new Date();
-    const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
-    return `เวลา ${time} น.`;
-}
+    function getThaiTime() {
+        const now = new Date();
+        const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+        return `เวลา ${time} น.`;
+    }
 
     function convertNumber() {
         const num = document.getElementById("numberInput").value;
@@ -110,12 +166,11 @@ function getThaiTime() {
         const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
         const personSelect = document.getElementById("personSelect");
         const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
-         let noteInput = document.getElementById("noteInput").value;  // ดึงค่าจากช่อง input 
+        let noteInput = document.getElementById("noteInput").value;
 
-	// ถ้าไม่มีการกรอกข้อความในช่องหมายเหตุ ให้ใส่ "No comments" อัตโนมัติ
-    if (!noteInput.trim()) {
-        noteInput = '<span style="color: orange;">No comments</span>';
-    }
+        if (!noteInput.trim()) {
+            noteInput = '<span style="color: orange;">No comments</span>';
+        }
 
         if (num.length !== 2 || isNaN(num)) {
             alert("กรุณาป้อนตัวเลข 2 หลัก");
@@ -128,35 +183,27 @@ function getThaiTime() {
             '8': '3', '9': '6'
         };
 
-        // แปลงตัวเลข
         const transformed = num.split('').map(digit => transformRules[digit]).join('');
-
-        // สร้างการจับคู่ตัวเลขใหม่
         const pairs = [
-            `${num[0]}${transformed[1]}`, // 15
-            `${transformed[0]}${num[1]}`, // 17
-            `${transformed[0]}${transformed[1]}`, // 75
-            `${num[0]}${num[1]}` // 12
+            `${num[0]}${transformed[1]}`,
+            `${transformed[0]}${num[1]}`,
+            `${transformed[0]}${transformed[1]}`,
+            `${num[0]}${num[1]}`
         ];
 
-        // สร้างชุดตัวเลขที่มีหลักสิบและหลักหน่วยถูกต้อง
         const formattedPairs = pairs.map(pair => {
             const tens = parseInt(pair[0]);
             const units = parseInt(pair[1]);
-            return tens <= units ? pair : `${units}${tens}`; // สลับตำแหน่งถ้าจำเป็น
+            return tens <= units ? pair : `${units}${tens}`;
         });
 
-        // ตัดชุดตัวเลขที่ซ้ำกันออก
         const uniquePairs = [...new Set(formattedPairs)];
-
-        // เงื่อนไขในการเพิ่มตัวเลขใหม่
         const additionRules = {
-            '00': '02', '11': '12', '22': null, '33': '23', 
-            '44': '24', '55': '25', '66': '26', '77': '27', 
+            '00': '02', '11': '12', '22': null, '33': '23',
+            '44': '24', '55': '25', '66': '26', '77': '27',
             '88': '28', '99': '29'
         };
 
-        // เพิ่มตัวเลขตามเงื่อนไข
         uniquePairs.forEach(pair => {
             const addition = additionRules[pair];
             if (addition) {
@@ -164,11 +211,9 @@ function getThaiTime() {
             }
         });
 
-        // เรียงชุดตัวเลขจากน้อยไปหามาก
         const sortedPairs = [...new Set(uniquePairs)].sort();
 
-        // สร้าง HTML สำหรับผลลัพธ์
-        const resultHtml = `
+          const resultHtml = `
     <div style="text-align: center; font-size: 20px; line-height: 1.2;">
         <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
         <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
@@ -182,9 +227,8 @@ function getThaiTime() {
 	<p class="blue" style="font-size: 20px;">แปล${getThaiTime()}</p>
         <p class="blue">หมายเหตุ : <span style="color: orange;">${noteInput}</span></p>
 </p>
-`;
+        `;
 
-        // แสดงผลลัพธ์ใน div
         const resultContainer = document.getElementById("resultContainer");
         resultContainer.innerHTML = resultHtml;
         resultContainer.style.display = "block";
