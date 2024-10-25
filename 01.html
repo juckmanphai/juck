@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -7,45 +6,68 @@
     <title>แปลตัวเลข 2, 3 และ 4 หลัก</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* พื้นหลัง */
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* สีพื้นหลังใหม่ */
+            margin: 0;
+            padding: 0;
+            color: #333;
             text-align: center;
-            padding: 50px;
-            color: blue; /* เปลี่ยนสีตัวหนังสือเป็นสีน้ำเงิน */
+            padding-top: 100px; /* เพิ่มระยะห่างด้านบน */
         }
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px #0000001a;
+        h1 {
+            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #34495e;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         button {
-            padding: 10px 20px;
-            margin: 10px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             background-color: #4CAF50;
             color: white;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #fff3e6;
+            background-color: #45a049;
+        }
+        button:focus {
+            outline: none;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #95a5a6;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>แปลตัวเลข 2, 3 และ 4 หลัก</h1>
-        <p>ท่านสามารถแปลตัวเลขได้ทั้ง 2, 3 และ 4 หลัก โดยคลิกที่ปุ่มด้านล่าง</p>
 
-        <div>
-            <button onclick="window.location.href='https://juckmanphai.github.io/juck/02.html'">แปลตัวเลข 2 หลัก</button>
-           <button onclick="window.location.href='https://juckmanphai.github.io/juck/03.html'">แปลตัวเลข 3 หลัก</button>
-           <button onclick="window.location.href='https://juckmanphai.github.io/juck/04.html'">แปลตัวเลข 4 หลัก</button>
-	   <button onclick="window.location.href='https://juckmanphai.github.io/juck/08.html'">เมนูผลลาว</button>
-        </div>
+    <h1>แปลตัวเลข 2, 3 และ 4 หลัก</h1>
+    <p>ท่านสามารถแปลตัวเลขได้ทั้ง 2, 3 และ 4 หลัก โดยคลิกที่ปุ่มด้านล่าง</p>
+
+    <div class="button-group">
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/02.html'">แปลตัวเลข 2 หลัก</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/03.html'">แปลตัวเลข 3 หลัก</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/04.html'">แปลตัวเลข 4 หลัก</button>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/08.html'">เมนูผลลาว</button>
     </div>
+
+    <footer>
+        &copy; 2024 Juckmanphai. All Rights Reserved.
+    </footer>
+
 </body>
 </html>
