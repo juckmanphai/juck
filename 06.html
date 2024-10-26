@@ -7,87 +7,99 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* สีพื้นหลัง */
-            margin: 0; /* ไม่มี margin */
-            padding: 0; /* ไม่มี padding */
-            display: flex; /* ใช้ flexbox */
-            flex-direction: column; /* จัดเรียงแนวตั้ง */
-            align-items: center; /* จัดให้อยู่กลาง */
-            min-height: 100vh; /* ความสูงขั้นต่ำของ body */
+            background-color: #fff3e6;
+            margin: 0;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
         h1 {
             text-align: center;
-            color: #333; /* สีข้อความ */
-            margin: 20px 0; /* ระยะห่าง */
-        }
-        .result {
-            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* เงา */
-            border: 5px solid green; /* ขอบสีเขียว */
-            display: inline-block;
-            padding: 20px; /* เพิ่ม padding */
-            max-width: 600px; /* ความกว้างสูงสุด */
-        }
-        .blue {
-            color: blue; /* ตัวหนังสือสีน้ำเงิน */
-        }
-        .red {
-            color: red; /* ตัวหนังสือสีแดง */
-        }
-        .circle, .circle-green, .square {
-            display: inline-block;
-            border-radius: 50%; /* วงกลม */
-            font-size: 24px; /* ขนาดฟอนต์ของตัวเลขลดลง */
-            width: 45px; /* ขนาดวงกลม */
-            height: 45px; /* ขนาดวงกลม */
-            text-align: center;
-            line-height: 45px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
-            margin: 0 5px; /* ระยะห่างน้อยลง */
-            border: 3px solid green; /* ขอบวงกลม */
-        }
-        .circle-green {
-            border-color: orange; /* ขอบวงกลมสีส้ม */
-        }
-        .square {
-            border-radius: 10px; /* มุมสี่เหลี่ยมกลม */
-            border-color: red; /* ขอบสี่เหลี่ยมสีแดง */
-            width: 75px; /* ขนาดสี่เหลี่ยมพอดีกับตัวเลขสามตัว */
-            height: 40px; /* ขนาดสูงของสี่เหลี่ยม */
-            margin: 0 10px; /* ระยะห่าง */
-            font-size: 24px; /* ขนาดฟอนต์ในสี่เหลี่ยม */
-        }
-        .back-button, .action-button {
-            font-size: 20px; /* ขนาดฟอนต์ของปุ่ม */
-            padding: 10px 20px; /* ขนาดปุ่ม */
-            margin: 10px; /* ระยะห่าง */
-            text-align: center; /* จัดข้อความกลาง */
-            background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
-            color: white; /* สีข้อความ */
-            border: none; /* ไม่มีขอบ */
-            border-radius: 5px; /* มุมปุ่มกลม */
-            cursor: pointer; /* แสดงว่าเป็นปุ่มคลิกได้ */
-            transition: background-color 0.3s; /* เพิ่มเอฟเฟคการเปลี่ยนสี */
-        }
-        .back-button:hover, .action-button:hover {
-            background-color: #45a049; /* สีเมื่อ hover */
-        }
-        .input-container, .select-container {
-            text-align: center; 
+            color: #333;
             margin-top: 20px;
         }
-        input[type="text"], select {
-            font-size: 18px; 
-            padding: 10px; 
-            width: 250px; 
-            border: 2px solid #ccc; /* ขอบ */
-            border-radius: 5px; /* มุมกลม */
-            transition: border-color 0.3s; /* เอฟเฟคการเปลี่ยนขอบ */
+        .result {
+            background-color: lightyellow;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid green;
+            padding: 20px;
+            max-width: 500px;
+            text-align: center;
         }
-        input[type="text"]:focus, select:focus {
-            border-color: #4CAF50; /* สีขอบเมื่อมีการโฟกัส */
-            outline: none; /* ไม่มีขอบเมื่อโฟกัส */
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+        .circle, .circle-green {
+            display: inline-block;
+            border: 3px solid orange;
+            border-radius: 50%;
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
+        }
+        .circle-green {
+            border-color: green;
+        }
+        .square {
+            display: inline-block;
+            border: 3px solid red;
+            font-size: 22px;
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 10px;
+            box-sizing: border-box;
+        }
+        .back-button {
+    display: block;
+    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+        .back-button:hover, .action-button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .input-container, .select-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 250px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        input[type="text"]::placeholder {
+            text-align: center;
         }
     </style>
 </head>
@@ -122,7 +134,7 @@
 
     <div id="resultContainer" class="result" style="display: none;"></div>
     
-    <div style="text-align: center; margin-top: 20px;">
+    <div class="button-container">
         <button id="circleButton" class="action-button">วงกลมล่าง</button>
         <button id="squareButton" class="action-button">สี่เหลี่ยมสามตัวบน</button>
         <button id="circleTopButton" class="action-button">วงกลมสองตัวบน</button>
@@ -133,7 +145,7 @@
     </footer>
     
     <script>
-        let currentTwoDigits = ""; // เก็บค่าตัวเลขสองตัวสำหรับการแสดงวงกลม
+        let currentTwoDigits = "";
 
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
@@ -143,10 +155,10 @@
             }
 
             const threeDigits = num.slice(2);
-            currentTwoDigits = num.slice(0, 2); // เก็บตัวเลขสองตัว
+            currentTwoDigits = num.slice(0, 2);
             const fiveDigits = num;
 
-            const selectedTopic = document.getElementById("topicSelect").value; // ดึงค่าจากตัวเลือก
+            const selectedTopic = document.getElementById("topicSelect").value;
             const getThaiDate = () => {
                 const now = new Date();
                 const day = String(now.getDate()).padStart(2, '0');
@@ -155,7 +167,6 @@
                 return `วันที่ ${day} เดือน ${month} ${year}`;
             };
 
-            // สร้าง HTML สำหรับแสดงผล
             let resultHtml = `
                 <div style="text-align: center; font-size: 18px; line-height: 0.5;">
                     <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
@@ -174,7 +185,6 @@
             document.getElementById("resultContainer").style.display = "block";
         }
 
-        // ฟังก์ชันสำหรับสร้างวงกลมรอบตัวเลขล่าง
         function createCircle() {
             const twoDigitsElement = document.getElementById("twoDigits");
             if (twoDigitsElement) {
@@ -182,7 +192,6 @@
             }
         }
 
-        // ฟังก์ชันสำหรับสร้างสี่เหลี่ยมครอบตัวเลขสามตัวบน
         function createSquare() {
             const threeDigitsElement = document.getElementById("threeDigits");
             if (threeDigitsElement) {
@@ -190,16 +199,14 @@
             }
         }
 
-        // ฟังก์ชันสำหรับสร้างวงกลมครอบตัวเลขหลักสิบและหลักหน่วย
         function createCircleTop() {
             const threeDigitsElement = document.getElementById("threeDigits");
             if (threeDigitsElement) {
-                const tenUnitDigits = threeDigitsElement.innerHTML.slice(1, 3); // แยกหลักสิบและหลักหน่วย
+                const tenUnitDigits = threeDigitsElement.innerHTML.slice(1, 3);
                 threeDigitsElement.innerHTML = `${threeDigitsElement.innerHTML.charAt(0)}<span class="circle-green">${tenUnitDigits}</span>`;
             }
         }
 
-        // เพิ่มการเรียกใช้งานปุ่ม
         document.getElementById("convertButton").addEventListener("click", convertNumber);
         document.getElementById("circleButton").addEventListener("click", createCircle);
         document.getElementById("squareButton").addEventListener("click", createSquare);
