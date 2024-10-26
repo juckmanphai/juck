@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -9,9 +10,9 @@
             font-family: Arial, sans-serif;
             background-color: #fff3e6;
             margin: 0;
-            padding: 0 20px; /* เพิ่ม padding ด้านข้าง */
-            max-width: 600px; /* กำหนดความกว้างสูงสุด */
-            margin: 0 auto; /* จัดให้อยู่กึ่งกลางของหน้า */
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
         h1 {
             text-align: center;
@@ -60,20 +61,29 @@
             box-sizing: border-box;
         }
         .back-button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 20px auto;
-            display: block;
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .back-button:hover {
+    display: block;
+    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+        .back-button:hover, .action-button:hover {
             background-color: #45a049;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .input-container, .select-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         input, select, button {
             font-size: 18px;
@@ -81,7 +91,7 @@
             margin: 10px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
-            width: 100%; /* ปรับให้เต็มพื้นที่ */
+            width: 100%;
             max-width: 250px;
             transition: border-color 0.3s;
         }
@@ -89,13 +99,8 @@
             border-color: #4CAF50;
             outline: none;
         }
-        button {
-            background-color: #008CBA;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #007B9A;
+        input[type="text"]::placeholder {
+            text-align: center;
         }
     </style>
 </head>
