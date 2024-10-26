@@ -47,10 +47,15 @@
         button:hover {
             background-color: #45a049;
         }
-        button.back-button {
-            margin-top: 10px;
-            font-size: 16px;
-        }
+       button.back-button {
+    margin-top: 20px;
+    font-size: 20px;
+    max-width: 600px; /* กำหนดความกว้างให้เท่ากับกรอบ */
+    width: 100%; /* ทำให้ปุ่มใช้ความกว้าง 100% ของ max-width */
+    display: block; /* ทำให้ปุ่มแสดงในรูปแบบบล็อก */
+    margin-left: auto; /* จัดให้อยู่กลาง */
+    margin-right: auto; /* จัดให้อยู่กลาง */
+}
         label {
             font-size: 18px;
             margin-left: 5%;
