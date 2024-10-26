@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -5,98 +6,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลลาวพัฒนา</title>
     <style>
-        body {
+       body {
             font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* สีพื้นหลัง */
-            margin: 0; /* ยกเลิก margin ของ body */
-            padding: 20px; /* เพิ่ม padding ให้กับ body */
+            background-color: #fff3e6;
+            margin: 0;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
         h1 {
             text-align: center;
-            color: #4CAF50; /* เปลี่ยนสีหัวข้อ */
+            color: #333;
+            margin-top: 20px;
         }
         .result {
-            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-            margin: 20px auto; /* เปลี่ยน margin ให้เป็น auto เพื่อตรงกลาง */
+            background-color: lightyellow;
+            margin: 20px auto;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            border: 5px solid green; /* ขอบสีเขียว */
-            display: inline-block;
-            padding: 15px;
-            width: 90%; /* ทำให้กว้างขึ้น */
-            max-width: 600px; /* กำหนดความกว้างสูงสุด */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid green;
+            padding: 20px;
+            max-width: 500px;
+            text-align: center;
         }
         .blue {
-            color: blue; /* ตัวหนังสือสีน้ำเงิน */
+            color: blue;
         }
         .red {
-            color: red; /* ตัวหนังสือสีแดง */
+            color: red;
         }
-        input, button {
-            font-size: 20px;
-            width: 80%;
-            margin: 10px auto;
-            display: block;
-            padding: 10px; /* เพิ่ม padding */
-            border: 2px solid #ccc; /* เพิ่มขอบ */
-            border-radius: 5px; /* มุมกลม */
-            transition: border-color 0.3s; /* ทำให้เปลี่ยนสีขอบนุ่มนวล */
-        }
-        input:focus {
-            border-color: #4CAF50; /* เปลี่ยนสีขอบเมื่อมีการเลือก */
-            outline: none; /* ยกเลิกการแสดง outline */
-        }
-        button {
-            background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
-            color: white; /* สีข้อความ */
-            border: none; /* ไม่มีขอบ */
-            cursor: pointer; /* แสดงว่าเป็นปุ่มคลิกได้ */
-        }
-        button:hover {
-            background-color: #45a049; /* เปลี่ยนสีเมื่อวางเมาส์ */
-        }
-        .circle, .circle-green, .square {
+        .circle, .circle-green {
             display: inline-block;
-            font-size: 24px; /* ลดขนาดฟอนต์ของตัวเลข */
-            text-align: center;
-            line-height: 40px; /* ปรับให้ตัวเลขอยู่กึ่งกลาง */
-            margin: 0 10px;
-        }
-        .circle {
-            border: 3px solid green;
+            border: 3px solid orange;
             border-radius: 50%;
-            width: 40px; /* ลดขนาดวงกลม */
-            height: 40px; /* ลดขนาดวงกลม */
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
         }
         .circle-green {
-            border: 3px solid orange;
-            width: 40px; /* ลดขนาดวงกลม */
-            height: 40px; /* ลดขนาดวงกลม */
+            border-color: green;
         }
         .square {
+            display: inline-block;
             border: 3px solid red;
-            width: 60px; /* ลดขนาดสี่เหลี่ยม */
-            height: 40px; /* ลดขนาดสี่เหลี่ยม */
+            font-size: 22px;
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 10px;
+            box-sizing: border-box;
         }
         .back-button {
-            display: block; /* ทำให้ปุ่มอยู่ในบรรทัดใหม่ */
-            margin: 20px auto; /* จัดให้อยู่ตรงกลาง */
-            text-align: center; /* จัดข้อความกลาง */
-            background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
-            color: white; /* สีข้อความ */
-            border: none; /* ไม่มีขอบ */
-            border-radius: 5px; /* มุมปุ่มกลม */
-            padding: 10px 20px; /* ขนาดปุ่ม */
-            font-size: 20px; /* ขนาดฟอนต์ของปุ่ม */
-            cursor: pointer; /* แสดงว่าเป็นปุ่มคลิกได้ */
-            transition: background-color 0.3s; /* ทำให้เปลี่ยนสีพื้นหลังนุ่มนวล */
-        }
-        .back-button:hover {
-            background-color: #45a049; /* เปลี่ยนสีเมื่อวางเมาส์ */
+    display: block;
+    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+        .back-button:hover, .action-button:hover {
+            background-color: #45a049;
         }
         .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .input-container, .select-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 250px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        input[type="text"]::placeholder {
             text-align: center;
-            margin-top: 20px;
         }
     </style>
 </head>
