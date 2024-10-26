@@ -60,16 +60,16 @@
             box-sizing: border-box;
         }
         .back-button {
-    display: block;
-    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+            display: block;
+            margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
         .back-button:hover, .action-button:hover {
             background-color: #45a049;
         }
@@ -81,8 +81,9 @@
         }
         .input-container, .select-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
             align-items: center;
+            margin-top: 10px; /* เพิ่มระยะห่าง */
         }
         input, select, button {
             font-size: 18px;
