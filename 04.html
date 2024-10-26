@@ -7,23 +7,68 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff3e6; /* สีพื้นหลัง */
+            background-color: #f7f7f7;
             margin: 0;
-            padding: 20px; /* เพิ่ม padding รอบหน้า */
+            padding: 0;
         }
         h1 {
             text-align: center;
-            margin-bottom: 20px; /* เพิ่ม margin ด้านล่าง */
+            font-size: 32px;
+            color: #2c3e50;
+            margin-top: 20px;
         }
-        .result {
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            width: 90%;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+       button.back-button {
+    margin-top: 20px;
+    font-size: 20px;
+    max-width: 600px; /* กำหนดความกว้างให้เท่ากับกรอบ */
+    width: 100%; /* ทำให้ปุ่มใช้ความกว้าง 100% ของ max-width */
+    display: block; /* ทำให้ปุ่มแสดงในรูปแบบบล็อก */
+    margin-left: auto; /* จัดให้อยู่กลาง */
+    margin-right: auto; /* จัดให้อยู่กลาง */
+}
+        label {
+            font-size: 18px;
+            margin-left: 5%;
+            color: #2c3e50;
+        }
+         .result {
             background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-            margin: 20px auto; /* กำหนด margin */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 5px solid green; /* ขอบสีเขียว */
-            display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
-            padding: 20px; /* เพิ่ม padding */
-            max-width: 600px; /* กำหนดความกว้างสูงสุด */
+    margin: 10px; /* กำหนด margin */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 5px solid green; /* ขอบสีเขียว */
+    display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
+    padding: 10px; /* สามารถปรับได้ตามต้องการ */
+            display: none; /* ซ่อนผลลัพธ์เริ่มต้น */
         }
         .blue {
             color: blue; /* ตัวหนังสือสีน้ำเงิน */
@@ -31,34 +76,11 @@
         .red {
             color: red; /* ตัวหนังสือสีแดง */
         }
-        input, select, button {
-            font-size: 20px;
-            width: 80%;
-            margin: 10px auto;
-            display: block;
-            padding: 10px; /* เพิ่ม padding สำหรับ input และ button */
-            border: 2px solid #ccc; /* เพิ่มขอบ */
-            border-radius: 5px; /* เพิ่มความโค้งมน */
-            transition: border-color 0.3s; /* เพิ่ม transition สำหรับ border */
-        }
-        input:focus, select:focus, button:focus {
-            border-color: green; /* เปลี่ยนสีขอบเมื่อมีการโฟกัส */
-            outline: none; /* เอาเส้นขอบออก */
-        }
-        button {
-            background-color: #4CAF50; /* สีพื้นหลังของปุ่ม */
-            color: white; /* สีตัวหนังสือในปุ่ม */
-            border: none; /* เอาขอบออก */
-            cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อวางเมาส์ */
-        }
-        button:hover {
-            background-color: #45a049; /* สีพื้นหลังของปุ่มเมื่อวางเมาส์ */
-        }
-        label {
-            display: block; /* ทำให้ label แสดงเป็นบล็อค */
-            text-align: center; /* จัดกลาง */
-            margin-top: 20px; /* เพิ่ม margin ด้านบน */
-            font-size: 18px;
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #95a5a6;
         }
     </style>
 </head>
