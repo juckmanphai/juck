@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
+    <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,21 +61,11 @@
             margin-left: 5%;
             color: #2c3e50;
         }
-        .result {
-            background-color: lightyellow;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 3px solid green;
-            display: inline-block;
-            padding: 20px;
-            max-width: 600px;
-        }
         .blue {
-            color: blue;
+            color: blue; /* ตัวหนังสือสีน้ำเงิน */
         }
         .red {
-            color: red;
+            color: red; /* ตัวหนังสือสีแดง */
         }
         footer {
             text-align: center;
@@ -89,6 +80,15 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        #resultContainer {
+    display: none;
+    margin-top: 20px;
+    background-color: #FFFFE0; /* สีพื้นหลังเหลืองจาง */
+    border: 2px solid #4CAF50; /* ขอบสีเขียว */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
+}
     </style>
 </head>
 <body>
