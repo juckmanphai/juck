@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลลาวพัฒนา</title>
-    <style>
-       body {
+     <style>
+        body {
             font-family: Arial, sans-serif;
             background-color: #fffde7;
             margin: 0;
@@ -16,7 +16,7 @@
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #e65100;
             margin-top: 20px;
         }
         .result {
@@ -61,16 +61,16 @@
             box-sizing: border-box;
         }
         .back-button {
-    display: block;
-    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+            display: block;
+            margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
         .back-button:hover, .action-button:hover {
             background-color: #45a049;
         }
@@ -82,8 +82,9 @@
         }
         .input-container, .select-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
             align-items: center;
+            margin-top: 10px; /* เพิ่มระยะห่าง */
         }
         input, select, button {
             font-size: 18px;
@@ -110,12 +111,19 @@
         });
     </script>
 </head>
+<script>
+        // ปิดการคลิกขวา
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</head>
 <body>
     <!-- ปุ่มกลับสู่หน้าหลัก -->
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวพัฒนา</h1>
 
-    <div style="text-align: center; margin-top: 20px;">
+    <div class="input-container">
         <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 6 หลัก">
         <button id="convertButton">แจงรายละเอียด</button>
     </div>
