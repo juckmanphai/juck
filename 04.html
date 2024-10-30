@@ -14,7 +14,7 @@
         h1 {
             text-align: center;
             font-size: 32px;
-            color: #e65100;
+            color: #2c3e50;
             margin-top: 20px;
         }
         .container {
@@ -46,29 +46,19 @@
         button:hover {
             background-color: #45a049;
         }
-       button.back-button {
-    margin-top: 20px;
-    font-size: 20px;
-    max-width: 600px; /* กำหนดความกว้างให้เท่ากับกรอบ */
-    width: 100%; /* ทำให้ปุ่มใช้ความกว้าง 100% ของ max-width */
-    display: block; /* ทำให้ปุ่มแสดงในรูปแบบบล็อก */
-    margin-left: auto; /* จัดให้อยู่กลาง */
-    margin-right: auto; /* จัดให้อยู่กลาง */
-}
+        button.back-button {
+            margin-top: 20px;
+            font-size: 20px;
+            max-width: 600px;
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
         label {
             font-size: 18px;
             margin-left: 5%;
             color: #2c3e50;
-        }
-         .result {
-            background-color: lightyellow; /* สีพื้นหลังของผลลัพธ์ */
-    margin: 10px; /* กำหนด margin */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 3px solid green; /* ขอบสีเขียว */
-    display: inline-block; /* ให้กรอบปรับขนาดตามเนื้อหา */
-    padding: 10px; /* สามารถปรับได้ตามต้องการ */
-            display: none; /* ซ่อนผลลัพธ์เริ่มต้น */
         }
         .blue {
             color: blue; /* ตัวหนังสือสีน้ำเงิน */
@@ -82,28 +72,39 @@
             font-size: 14px;
             color: #95a5a6;
         }
+        .form-container {
+            border: 2px solid orange;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #resultContainer {
+    display: none;
+    margin-top: 20px;
+    background-color: #FFFFE0; /* สีพื้นหลังเหลืองจาง */
+    border: 2px solid #4CAF50; /* ขอบสีเขียว */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
+}
     </style>
-<script>
-        // ปิดการคลิกขวา
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-    </script>
 </head>
 <body>
-    <!-- ปุ่มกลับสู่หน้าหลัก -->
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <h1 style="text-align: center;">ฟอร์มแปลตัวเลข 3 ตัว</h1>
 
-    <h1>ฟอร์มแปลตัวเลข 4 ตัว</h1>
+        <div class="form-container">
+            <div style="text-align: center; margin-top: 20px;">
+                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
+                <button id="convertButton">แปลตัวเลข</button>
+            </div>
 
-    <div style="text-align: center;">
-        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
-        <button id="convertButton">แปลตัวเลข</button>
-    </div>
-
-    <label for="topicSelect">เลือกประเภท</label>
-    <select id="topicSelect">
-        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="topicSelect">เลือกประเภท</label>
+                <select id="topicSelect" style="font-size: 18px; padding: 5px;">
+                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
         <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
         <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
         <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
@@ -124,21 +125,28 @@
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
         <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
+            </div>
 
-    <label for="personSelect">เลือกผู้บอก:</label>
-    <select id="personSelect">
-        <option value="Team">Team</option>
+            <div style="text-align: center; margin-top: 20px;">
+            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
+            <select id="personSelect" style="font-size: 18px; padding: 5px;">
+                <option value="Team">Team</option>
         <option value="@">@</option>
-        <option value="โรงงาน">โรงงาน</option>
+  	 <option value="โรงงาน">โรงงาน</option>
         <option value="Udon Don">Udon Don</option>
         <option value="เจ้าที่">เจ้าที่</option>
     </select>
+        </div>
 
-    <div style="text-align: center;">
-        <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
+
+            <div style="text-align: center; margin-top: 20px;">
+                <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
+            </div>
+        </div>
+
+        <!-- เพิ่มการแสดงผลที่นี่ -->
+        <div id="resultContainer" style="display: none; margin-top: 20px;"></div>
     </div>
-
-    <div id="resultContainer" class="result" style="display: none;"></div>
 
     <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
