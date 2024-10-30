@@ -80,22 +80,22 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-        .input-container, .select-container {
-            display: flex;
-            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
-            align-items: center;
-            margin-top: 10px; /* เพิ่มระยะห่าง */
-        }
-        input, select, button {
-            font-size: 18px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 250px;
-            transition: border-color 0.3s;
-        }
+        .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* เพิ่มช่องว่างระหว่างช่องกรอกตัวเลขและปุ่ม */
+        width: 100%; /* ตั้งความกว้างเต็ม */
+    }
+    input, button {
+        font-size: 18px;
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 250px;
+        transition: border-color 0.3s;
+    }
         input:focus, select:focus {
             border-color: #4CAF50;
             outline: none;
@@ -123,12 +123,10 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวพัฒนา</h1>
 
-   <div class="input-container">
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 6 หลัก" style="width: 100%;">
-    <button id="convertButton" style="width: 100%;">แจงรายละเอียด</button>
-</div>
-
-</div>
+    <div class="input-container">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 6 หลัก">
+        <button id="convertButton">แจงรายละเอียด</button>
+    </div>
 
     <div id="resultContainer" class="result" style="display: none;"></div>
     
