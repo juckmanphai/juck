@@ -89,6 +89,12 @@
     box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
 }
     </style>
+    <script>
+        // ปิดการคลิกขวา
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
 </head>
 <body>
     <div class="container">
