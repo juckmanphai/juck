@@ -59,9 +59,23 @@
             margin: 0 10px;
             box-sizing: border-box;
         }
+        .square-orange {
+            display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0.5px; /* Reduced margin */
+    background-color: #F08080;
+    color: #fff; /* Change to white */
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 8px;
+    position: relative;
+}
         .back-button {
             display: block;
-            margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+            margin: 20px auto;
             text-align: center;
             background-color: #4CAF50;
             color: white;
@@ -81,9 +95,9 @@
         }
         .input-container, .select-container {
             display: flex;
-            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
+            flex-direction: column;
             align-items: center;
-            margin-top: 10px; /* เพิ่มระยะห่าง */
+            margin-top: 10px;
         }
         input, select, button {
             font-size: 18px;
@@ -112,7 +126,6 @@
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-
     <h1>ผลลาวกลุ่มลาวสตาร์</h1>
 
     <div class="input-container">
@@ -136,15 +149,15 @@
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-        <button id="convertButton" class="action-button">แจงรายละเอียด</button>
+        <button id="convertButton">แจงรายละเอียด</button>
     </div>
 
     <div id="resultContainer" class="result" style="display: none;"></div>
-    
+
     <div class="button-container">
-        <button id="circleButton" class="action-button">วงกลมล่าง</button>
-        <button id="squareButton" class="action-button">สี่เหลี่ยมสามตัวบน</button>
-        <button id="circleTopButton" class="action-button">วงกลมสองตัวบน</button>
+        <button id="circleButton">วงกลมล่าง</button>
+        <button id="squareButton">สี่เหลี่ยมสามตัวบน</button>
+        <button id="circleTopButton">วงกลมสองตัวบน</button>
     </div>
 
     <footer>
@@ -152,20 +165,19 @@
     </footer>
     
     <script>
-        let currentTwoDigits = "";
-
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
+            const selectedTopic = document.getElementById("topicSelect").value;
+
             if (num.length !== 5 || isNaN(num)) {
                 alert("กรุณากรอกตัวเลข 5 หลัก");
                 return;
             }
 
             const threeDigits = num.slice(2);
-            currentTwoDigits = num.slice(0, 2);
+            const twoDigits = num.slice(0, 2);
             const fiveDigits = num;
 
-            const selectedTopic = document.getElementById("topicSelect").value;
             const getThaiDate = () => {
                 const now = new Date();
                 const day = String(now.getDate()).padStart(2, '0');
@@ -179,11 +191,13 @@
                     <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
                     <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
                     <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
-                    <h2 class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
-                        <span style="color: red;">${fiveDigits}</span>
+                    <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
+                    <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+                        ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
                     </h2>
-                    <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
-                        บน <span id="threeDigits" style="color: green;">${threeDigits}</span> ล่าง <span id="twoDigits" style="color: blue;">${currentTwoDigits}</span>
+                    <p class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+                        บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
+                        ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
                     </p>
                 </div>
             `;
@@ -193,25 +207,23 @@
         }
 
         function createCircle() {
-            const twoDigitsElement = document.getElementById("twoDigits");
-            if (twoDigitsElement) {
-                twoDigitsElement.innerHTML = `<span class="circle">${twoDigitsElement.innerHTML}</span>`;
-            }
+            const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
+            twoDigitsDisplay.classList.add("circle-green");
         }
 
         function createSquare() {
-            const threeDigitsElement = document.getElementById("threeDigits");
-            if (threeDigitsElement) {
-                threeDigitsElement.innerHTML = `<span class="square">${threeDigitsElement.innerHTML}</span>`;
-            }
+            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+            threeDigitsDisplay.classList.add("square");
         }
 
         function createCircleTop() {
-            const threeDigitsElement = document.getElementById("threeDigits");
-            if (threeDigitsElement) {
-                const tenUnitDigits = threeDigitsElement.innerHTML.slice(1, 3);
-                threeDigitsElement.innerHTML = `${threeDigitsElement.innerHTML.charAt(0)}<span class="circle-green">${tenUnitDigits}</span>`;
-            }
+            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+            const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
+            const secondPart = threeDigitsDisplay.textContent.slice(1);
+
+            threeDigitsDisplay.innerHTML = `
+                ${firstPart}<span class="circle">${secondPart}</span>
+            `;
         }
 
         document.getElementById("convertButton").addEventListener("click", convertNumber);
