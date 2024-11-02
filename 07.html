@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -60,9 +59,21 @@
             margin: 0 10px;
             box-sizing: border-box;
         }
+        .square-orange {
+            display: inline-block;
+            border: 3px solid orange;
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
+            background-color: orange;
+            color: white;
+        }
         .back-button {
             display: block;
-            margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+            margin: 20px auto;
             text-align: center;
             background-color: #4CAF50;
             color: white;
@@ -82,9 +93,9 @@
         }
         .input-container, .select-container {
             display: flex;
-            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
+            flex-direction: column;
             align-items: center;
-            margin-top: 10px; /* เพิ่มระยะห่าง */
+            margin-top: 10px;
         }
         input, select, button {
             font-size: 18px;
@@ -172,8 +183,8 @@
                     <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
                     <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
                     <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
-                    <h2 class="blue" id="fiveDigitsDisplay" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-                        <span style="color: red;">${fiveDigits}</span>
+                    <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+                        ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
                     </h2>
                     <p class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
                         บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
