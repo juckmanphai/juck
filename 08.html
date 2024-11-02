@@ -6,174 +6,177 @@
     <title>ผลฉลากกินแบ่งรัฐบาล</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #fffde7;
-    margin: 0;
-    padding: 0 20px;
-    max-width: 600px;
-    margin: 0 auto;
-}
+            font-family: Arial, sans-serif;
+            background-color: #fffde7;
+            margin: 0;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-h1 {
-    text-align: center;
-    color: #e65100;
-    margin-top: 10px; /* Reduced margin */
-}
+        h1 {
+            text-align: center;
+            color: #e65100;
+            margin-top: 10px;
+        }
 
-h2 {
-    margin: 10px 0; /* Reduced margin */
-}
+        h2 {
+            margin: 10px 0;
+        }
 
-h3 {
-    margin: 5px 0; /* Reduced margin */
-}
+        h3 {
+            margin: 5px 0;
+        }
 
-.form-container {
-    background-color: lightyellow;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 3px solid green;
-    padding: 10px; /* Reduced padding */
-    max-width: 500px;
-    text-align: center;
-}
+        .form-container {
+            background-color: lightyellow;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid green;
+            padding: 10px;
+            max-width: 500px;
+            text-align: center;
+        }
 
-label {
-    font-size: 18px;
-    margin-bottom: 5px; /* Reduced margin */
-}
+        label {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
 
-input, select {
-    font-size: 18px;
-    padding: 8px; /* Reduced padding */
-    margin: 5px 0; /* Reduced margin */
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 150px;
-    transition: border-color 0.3s;
-}
+        input, select {
+            font-size: 18px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 150px;
+            transition: border-color 0.3s;
+        }
 
-.input-pair {
-    display: flex;
-    justify-content: center; /* Center the input pairs */
-}
+        .input-pair {
+            display: flex;
+            justify-content: center;
+        }
 
-.result-display {
-    background-color: lightyellow;
-    padding: 10px; /* Reduced padding */
-    border-radius: 10px;
-    border: 2px solid green;
-    margin-top: 20px;
-    text-align: center;
-}
+        .result-display {
+            background-color: lightyellow;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid green;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
 
-.header-title {
-    color: blue;
-    font-size: 30px;
-    border-radius: 5px;
-    display: block; /* เปลี่ยนให้เป็น block เพื่อให้มีบรรทัดใหม่ */
-    padding: 10px; /* Increased padding */
-    margin-top: 10px;
-    margin-bottom: 10px; /* Reduced margin */
-}
+        .header-title {
+            color: blue;
+            font-size: 30px;
+            border-radius: 5px;
+            display: block;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
 
-.draw-date {
-    background-color: rgba(0, 100, 255, 0.8); /* กรอบสีน้ำเงิน */
-    color: white;
-    padding: 5px; /* Reduced padding */
-    font-size: 18px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-top: 5px;
-}
+        .draw-date {
+            background-color: rgba(0, 100, 255, 0.8);
+            color: white;
+            padding: 5px;
+            font-size: 18px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 5px;
+        }
 
-.number-box {
-    display: inline-block;
-    background-color: rgba(233, 30, 99, 0.5); /* ทำให้สีจางลง */
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5px;
-    margin: 2px;
-}
+        .number-box {
+            display: inline-block;
+            background-color: rgba(233, 30, 99, 0.5);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 2px;
+        }
 
-.three-digit-box {
-    display: inline-block;
-    background-color: #1e88e5;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    width: 40px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5px;
-    margin: 5px;
-}
+        .three-digit-box {
+            display: inline-block;
+            background-color: #1e88e5;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 40px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 5px;
+        }
 
-.two-digit-box {
-    display: inline-block;
-    background-color: #ff9800; /* สีส้ม */
-    color: white;
-    font-size: 30px; /* ขนาดใหญ่ขึ้น */
-    font-weight: bold;
-    width: 90px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 5px; /* Reduced margin */
-}
+        .two-digit-box {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            width: 90px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
 
-.result-title {
-    font-weight: bold;
-    color: #e65100;
-    margin-bottom: 5px; /* Reduced margin */
-}
+        .result-title {
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 5px;
+        }
 
-.flex-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-button.back-button {
-    margin-top: 20px;
-    font-size: 20px;
-    max-width: 600px; /* กำหนดความกว้างให้เท่ากับกรอบ */
-    width: 100%; /* ทำให้ปุ่มใช้ความกว้าง 100% ของ max-width */
-    display: block; /* ทำให้ปุ่มแสดงในรูปแบบบล็อก */
-    margin-left: auto; /* จัดให้อยู่กลาง */
-    margin-right: auto; /* จัดให้อยู่กลาง */
-}
+        .flex-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
+        button.back-button {
+            margin-top: 20px;
+            font-size: 20px;
+            max-width: 600px;
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
     <div class="form-container">
-        <!-- วันที่งวด -->
         <div class="form-group">
             <label for="draw-date">งวดประจำวันที่ (วัน เดือน พ.ศ.)</label>
             <input type="text" id="draw-date" placeholder="กรอกวันที่ (ตัวอย่าง: 1 มกราคม 2567)">
         </div>
 
-        <!-- รางวัลที่ 1 -->
         <div class="form-group">
             <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
             <input type="text" id="first-prize" maxlength="6" placeholder="กรอกเลขรางวัลที่ 1">
         </div>
 
-        <!-- เลขหน้า 3 ตัว -->
         <div class="form-group">
             <label>เลขหน้า 3 ตัว</label>
             <div class="input-pair">
@@ -182,7 +185,6 @@ button.back-button {
             </div>
         </div>
 
-        <!-- เลขท้าย 3 ตัว -->
         <div class="form-group">
             <label>เลขท้าย 3 ตัว</label>
             <div class="input-pair">
@@ -191,7 +193,6 @@ button.back-button {
             </div>
         </div>
 
-        <!-- เลขท้าย 2 ตัว -->
         <div class="form-group">
             <label for="back-two">เลขท้าย 2 ตัว</label>
             <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
@@ -202,28 +203,28 @@ button.back-button {
         </div>
     </div>
 
-    <!-- Display Results -->
-    <div id="resultContainer" class="result-display" style="display: none; position: relative;">
-    <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+    <div id="resultContainer" class="result-display" style="display: none;">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" style="width: 70px;">
+        </div>
 
+        <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
         <div class="draw-date">
             งวดประจำวันที่: <span id="display-draw-date"></span>
         </div>
 
-        <!-- รางวัลที่ 1 -->
         <div class="result-section">
             <h3 class="result-title">รางวัลที่ 1</h3>
             <div id="first-prize-display"></div>
         </div>
 
-        <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว (อยู่ในบรรทัดเดียวกัน) -->
         <div class="result-section flex-row">
             <div>
                 <h3 class="result-title">เลขหน้า 3 ตัว</h3>
                 <div class="three-digit-box" id="display-front-three-1"></div>
                 <div class="three-digit-box" id="display-front-three-2"></div>
             </div>
-            <div style="margin: 0 15px;"></div> <!-- เพิ่มช่องว่างระหว่างกลุ่มเลขหน้าและเลขท้าย -->
+            <div style="margin: 0 15px;"></div>
             <div>
                 <h3 class="result-title">เลขท้าย 3 ตัว</h3>
                 <div class="three-digit-box" id="display-back-three-1"></div>
@@ -231,24 +232,16 @@ button.back-button {
             </div>
         </div>
 
-        <!-- เลขท้าย 2 ตัว -->
         <div class="result-section">
             <h3 class="result-title">เลขท้าย 2 ตัว</h3>
             <div class="two-digit-box" id="display-back-two"></div>
         </div>
-
-        <!-- โลโก้ -->
-        <div style="position: absolute; top: 10px; left: 10px;">
-            <img src="logo.png" alt="Logo" style="width: 70px;">
-        </div>
-    </div>
 
     <script>
         function displayResults() {
             document.getElementById("resultContainer").style.display = "block";
             document.getElementById("display-draw-date").innerText = document.getElementById("draw-date").value;
 
-            // แสดงผลรางวัลที่ 1 เป็นกล่องแต่ละตัวเลข
             const firstPrize = document.getElementById("first-prize").value;
             const firstPrizeDisplay = document.getElementById("first-prize-display");
             firstPrizeDisplay.innerHTML = "";
@@ -259,13 +252,10 @@ button.back-button {
                 firstPrizeDisplay.appendChild(box);
             }
 
-            // แสดงผลเลขหน้าและเลขท้าย 3 ตัวในกล่องเดียว
             document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
             document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
             document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
             document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
-
-            // แสดงผลเลขท้าย 2 ตัวในกล่อง
             document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
         }
     </script>
