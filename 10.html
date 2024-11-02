@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลาวกลุ่มลาวสตาร์</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffde7;
+            margin: 0;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #e65100;
+            margin-top: 20px;
+        }
+        .result {
+            background-color: lightyellow;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid green;
+            padding: 20px;
+            max-width: 500px;
+            text-align: center;
+        }
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+        .circle, .circle-green {
+            display: inline-block;
+            border: 3px solid orange;
+            border-radius: 50%;
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
+        }
+        .circle-green {
+            border-color: green;
+        }
+        .square {
+            display: inline-block;
+            border: 3px solid red;
+            font-size: 22px;
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 10px;
+            box-sizing: border-box;
+        }
+        .number-frame {
+            display: inline-block;
+            background-color: orange; /* พื้นหลังสีชมพู */
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 2px; /* ระยะห่างระหว่างกรอบ */
+            color: white; /* ตัวหนังสือสีขาว */
+            font-size: 22px; /* ขนาดตัวหนังสือ */
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover, .action-button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .input-container, .select-container {
+            display: flex;
+            flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
+            align-items: center;
+            margin-top: 10px; /* เพิ่มระยะห่าง */
+        }
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 250px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        input[type="text"]::placeholder {
+            text-align: center;
+        }
+    </style>
+<script>
+        // ปิดการคลิกขวา
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+
+    <h1>ผลลาวกลุ่มลาวสตาร์</h1>
+
+    <div class="input-container">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก">
+    </div>
+
+    <div class="select-container">
+        <label for="topicSelect" style="font-size: 18px;">เลือกประเภท:</label>
+        <select id="topicSelect">
+            <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+            <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+            <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+            <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+            <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+            <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+            <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+            <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+            <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+            <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+        </select>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="convertButton" class="action-button">แจงรายละเอียด</button>
+    </div>
+
+    <div id="resultContainer" class="result" style="display: none;"></div>
+    
+    <div class="button-container">
+        <button id="circleButton" class="action-button">วงกลมล่าง</button>
+        <button id="squareButton" class="action-button">สี่เหลี่ยมสามตัวบน</button>
+        <button id="circleTopButton" class="action-button">วงกลมสองตัวบน</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Juckmanphai. All Rights Reserved.
+    </footer>
+    
+    <script>
+        let currentTwoDigits = "";
+
+        function convertNumber() {
+            const num = document.getElementById("numberInput").value;
+            if (num.length !== 5 || isNaN(num)) {
+                alert("กรุณากรอกตัวเลข 5 หลัก");
+                return;
+            }
+
+            const threeDigits = num.slice(2);
+            currentTwoDigits = num.slice(0, 2);
+            const fiveDigits = num;
+
+            const selectedTopic = document.getElementById("topicSelect").value;
+            const getThaiDate = () => {
+                const now = new Date();
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+                const year = now.getFullYear() + 543;
+                return `วันที่ ${day} เดือน ${month} ${year}`;
+            };
+
+            let resultHtml = `
+                <div style="text-align: center; font-size: 18px; line-height: 0.5;">
+                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
+                    <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
+                    <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
+                    <h2 class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
+                        <span style="color: red;">${fiveDigits.split('').map(digit => `<span class="number-frame">${digit}</span>`).join('')}</span>
+                    </h2>
+                    <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
+                        บน <span id="threeDigits" style="color: green;">${threeDigits}</span> ล่าง <span id="twoDigits" style="color: blue;">${currentTwoDigits}</span>
+                    </p>
+                </div>
+            `;
+
+            document.getElementById("resultContainer").style.display = "block";
+            document.getElementById("resultContainer").innerHTML = resultHtml;
+        }
+
+        document.getElementById("convertButton").addEventListener("click", convertNumber);
+    </script>
+</body>
+</html>
+
