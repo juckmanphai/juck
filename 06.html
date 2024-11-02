@@ -16,24 +16,21 @@
         h1 {
             text-align: center;
             color: #e65100;
-            margin-top: 20px;
+            margin-top: 10px; /* Reduced margin for a more compact look */
+            font-size: 24px;
         }
         .result {
             background-color: lightyellow;
-            margin: 20px auto;
+            margin: 15px auto;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 3px solid green;
-            padding: 20px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid green;
+            padding: 15px;
             max-width: 500px;
             text-align: center;
         }
-        .blue {
-            color: blue;
-        }
-        .red {
-            color: red;
-        }
+        .blue { color: blue; }
+        .red { color: red; }
         .circle, .circle-green {
             display: inline-block;
             border: 3px solid orange;
@@ -43,11 +40,9 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 5px;
+            margin: 0 3px;
         }
-        .circle-green {
-            border-color: green;
-        }
+        .circle-green { border-color: green; }
         .square {
             display: inline-block;
             border: 3px solid red;
@@ -56,32 +51,33 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 10px;
+            margin: 0 8px;
             box-sizing: border-box;
         }
         .square-orange {
             display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: 0.5px; /* Reduced margin */
-    background-color: #F08080;
-    color: #fff; /* Change to white */
-    font-size: 26px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 8px;
-    position: relative;
-}
+            background-color: rgba(233, 30, 99, 0.5);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 2px;
+        }
         .back-button {
             display: block;
-            margin: 20px auto;
+            margin: 10px auto;
             text-align: center;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            padding: 8px 16px;
+            font-size: 16px;
             transition: background-color 0.3s;
         }
         .back-button:hover, .action-button:hover {
@@ -90,19 +86,19 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px; /* Reduced gap for compactness */
             flex-wrap: wrap;
         }
         .input-container, .select-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         input, select, button {
-            font-size: 18px;
-            padding: 10px;
-            margin: 10px 0;
+            font-size: 16px; /* Slightly smaller font for input elements */
+            padding: 8px;
+            margin: 6px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
             width: 100%;
@@ -113,12 +109,10 @@
             border-color: #4CAF50;
             outline: none;
         }
-        input[type="text"]::placeholder {
-            text-align: center;
-        }
+        input[type="text"]::placeholder { text-align: center; }
     </style>
 <script>
-        // ปิดการคลิกขวา
+        // Disable right-click
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -187,20 +181,20 @@
             };
 
             let resultHtml = `
-                <div style="text-align: center; font-size: 18px; line-height: 0.5;">
-                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-                    <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
-                    <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
-                    <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
-                    <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-                        ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
-                    </h2>
-                    <p class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-                        บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
-                        ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
-                    </p>
-                </div>
-            `;
+    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+        <img src="logo.png" alt="Logo" style="position: absolute; top: 0; right: 0; width: 30px; margin: 6px;">
+        <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
+        <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
+        <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
+        <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+            ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
+        </h2>
+        <p class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+            บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
+            ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
+        </p>
+    </div>
+`;
 
             document.getElementById("resultContainer").innerHTML = resultHtml;
             document.getElementById("resultContainer").style.display = "block";
