@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ผลลาวกลุ่มลาวสตาร์</title>
+    <title>ผลลาวพัฒนา</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fffde7;
+            background-color: #fff3e6;
             margin: 0;
             padding: 0 20px;
             max-width: 600px;
@@ -15,23 +15,23 @@
         }
         h1 {
             text-align: center;
-            color: #e65100;
-            margin-top: 10px; /* Reduced margin for a more compact look */
-            font-size: 24px;
+            color: #333;
+            margin-top: 10px;
         }
         .result {
             background-color: lightyellow;
-            margin: 10px auto;
+            margin: 15px auto;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
-            padding: 10px;
+            padding: 15px;
             max-width: 500px;
             text-align: center;
         }
-        .blue { color: blue; }
-        .red { color: red; }
-        .circle, .circle-green {
+        .blue {
+            color: blue;
+        }
+        .circle {
             display: inline-block;
             border: 3px solid orange;
             border-radius: 50%;
@@ -40,9 +40,10 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 3px;
+            margin: 0 5px;
+            position: relative;
+            z-index: 1;
         }
-        .circle-green { border-color: green; }
         .square {
             display: inline-block;
             border: 3px solid red;
@@ -51,10 +52,12 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 8px;
+            margin: 0 5px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 1;
         }
-        .square-orange {
+        .six-digit-frame {
             display: inline-block;
             background-color: rgba(233, 30, 99, 0.5);
             color: white;
@@ -67,34 +70,7 @@
             border-radius: 5px;
             margin: 2px;
         }
-        .back-button {
-            display: block;
-            margin: 10px auto;
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 8px 16px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .back-button:hover, .action-button:hover {
-            background-color: #45a049;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px; /* Reduced gap for compactness */
-            flex-wrap: wrap;
-        }
-         .input-container {
-        margin-top: 8px;
-        line-height: 1.2; /* Reduced line spacing */
-        text-align: center;
-    }
-    #numberInput {
+            #numberInput {
         background-color: #e3f2fd; /* Light blue background for easier reading */
         color: #1a237e; /* Dark blue text color */
         font-weight: bold;
@@ -111,60 +87,159 @@
         border-color: #3f51b5;
         outline: none;
     }
-        input, select, button {
-            font-size: 16px; /* Slightly smaller font for input elements */
-            padding: 8px;
-            margin: 6px 0;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 250px;
-            transition: border-color 0.3s;
-        }
-        input:focus, select:focus {
-            border-color: #4CAF50;
+        input[type="text"]:focus {
+            border-color: #66afe9;
             outline: none;
+            box-shadow: 0 0 5px rgba(102, 175, 233, .6);
         }
-        input[type="text"]::placeholder { text-align: center; }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            margin: 8px 4px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 8px;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover, .action-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
     </style>
-<script>
+    <script>
         // Disable right-click
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
+        });
+
+        function convertNumber() {
+            const num = document.getElementById("numberInput").value;
+
+            // Ensure num has six digits
+            if (num.length !== 6 || isNaN(num)) {
+                alert("กรุณากรอกตัวเลข 6 หลัก");
+                return;
+            }
+
+            // Format each digit in a rounded frame
+            let sixDigitHtml = '';
+            for (let i = 0; i < num.length; i++) {
+                sixDigitHtml += `<span class="six-digit-frame">${num[i]}</span>`;
+            }
+
+            // Get formatted date in Thai
+            const thaiDate = getThaiDate();
+
+            // Prepare three and two digits
+            const threeDigits = num.slice(3); // Get last three digits (456)
+            const twoDigits = num.slice(2, 4); // Get first two digits (34)
+
+            // Create HTML to display
+            const resultHtml = `
+    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+        <img src="logo.png" alt="Left Logo" style="position: absolute; top: 0; left: 0; width: 30px; margin: 6px;">
+        <img src="logo.png" alt="Right Logo" style="position: absolute; top: 0; right: 0; width: 30px; margin: 6px;">
+        <h3 class="blue" style="font-size: 24px; display: inline-block; vertical-align: top; margin: 0;">ผลลาวพัฒนา</h3>
+        <p class="blue" style="font-size: 18px; line-height: 0.5; margin-top: 20px;">${thaiDate}</p>
+        <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
+        <div style="text-align: center; margin-top: 10px;">
+            ${sixDigitHtml}
+        </div>
+        <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
+            บน <span style="color: green;" id="threeDigits">${threeDigits}</span> ล่าง <span style="color: blue;" id="twoDigits">${twoDigits}</span>
+        </p>
+    </div>
+`;
+
+            document.getElementById("resultContainer").innerHTML = resultHtml;
+            document.getElementById("resultContainer").style.display = "block";
+        }
+
+        function getThaiDate() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
+            const year = now.getFullYear() + 543;
+            return `วันที่ ${day} เดือน ${month} ${year}`;
+        }
+
+        // Function for creating circles around two digits
+        function createCircle() {
+            const twoDigits = document.getElementById("resultContainer").querySelector("#twoDigits");
+            if (twoDigits) {
+                twoDigits.innerHTML = `<span class="circle">${twoDigits.textContent}</span>`;
+            } else {
+                alert("กรุณากรอกตัวเลข 6 หลักก่อน");
+            }
+        }
+
+        // Function for creating circle around two top digits (last two digits of three digits)
+        function createCircleTop() {
+            const threeDigits = document.getElementById("resultContainer").querySelector("#threeDigits");
+            if (threeDigits) {
+                const digits = threeDigits.textContent.slice(-2); // Get last two digits only
+                const hundredsDigit = threeDigits.textContent.slice(0, 1); // Get the hundreds digit
+                threeDigits.innerHTML = `${hundredsDigit}<span class="circle">${digits}</span>`;
+            } else {
+                alert("กรุณากรอกตัวเลข 6 หลักก่อน");
+            }
+        }
+
+        // Function for creating squares around three digits
+        function createSquare() {
+            const threeDigits = document.getElementById("resultContainer").querySelector("#threeDigits");
+            if (threeDigits) {
+                const digits = threeDigits.textContent; // Get all three digits
+                threeDigits.innerHTML = `<span class="square">${digits}</span>`;
+            } else {
+                alert("กรุณากรอกตัวเลข 6 หลักก่อน");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("convertButton").addEventListener("click", convertNumber);
+            document.getElementById("circleButton").addEventListener("click", createCircle);
+            document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
+            document.getElementById("squareButton").addEventListener("click", createSquare);
         });
     </script>
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-    <h1>ผลลาวกลุ่มลาวสตาร์</h1>
-
-    <div class="input-container">
-    <label for="numberInput" style="font-size: 18px; color: #3f51b5; margin-bottom: 4px;">กรุณากรอกตัวเลข 5 หลัก:</label>
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก">
-</div>
-
-    <div class="select-container">
-        <label for="topicSelect" style="font-size: 18px;">เลือกประเภท:</label>
-        <select id="topicSelect">
-            <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-            <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-            <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-            <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-            <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-            <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-            <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-            <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-            <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-            <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-        </select>
-    </div>
+    <h1>ผลลาวพัฒนา</h1>
 
     <div style="text-align: center; margin-top: 20px;">
+        <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 6 หลัก">
         <button id="convertButton">แจงรายละเอียด</button>
     </div>
 
     <div id="resultContainer" class="result" style="display: none;"></div>
-
+    
     <div class="button-container">
         <button id="circleButton">วงกลมล่าง</button>
         <button id="squareButton">สี่เหลี่ยมสามตัวบน</button>
@@ -174,74 +249,5 @@
     <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
-    
-    <script>
-        function convertNumber() {
-            const num = document.getElementById("numberInput").value;
-            const selectedTopic = document.getElementById("topicSelect").value;
-
-            if (num.length !== 5 || isNaN(num)) {
-                alert("กรุณากรอกตัวเลข 5 หลัก");
-                return;
-            }
-
-            const threeDigits = num.slice(2);
-            const twoDigits = num.slice(0, 2);
-            const fiveDigits = num;
-
-            const getThaiDate = () => {
-                const now = new Date();
-                const day = String(now.getDate()).padStart(2, '0');
-                const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-                const year = now.getFullYear() + 543;
-                return `วันที่ ${day} เดือน ${month} ${year}`;
-            };
-
-            let resultHtml = `
-    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-        <img src="logo.png" alt="Left Logo" style="position: absolute; top: 0; left: 0; width: 30px; margin: 6px;">
-        <img src="logo.png" alt="Right Logo" style="position: absolute; top: 0; right: 0; width: 30px; margin: 6px;">
-        <h3 class="blue" style="font-size: 18px; line-height: 0.5;">ผล${selectedTopic}</h3>
-        <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
-        <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
-        <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-            ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
-        </h2>
-        <p class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-            บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
-            ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
-        </p>
-    </div>
-`;
-
-            document.getElementById("resultContainer").innerHTML = resultHtml;
-            document.getElementById("resultContainer").style.display = "block";
-        }
-
-        function createCircle() {
-            const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
-            twoDigitsDisplay.classList.add("circle-green");
-        }
-
-        function createSquare() {
-            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-            threeDigitsDisplay.classList.add("square");
-        }
-
-        function createCircleTop() {
-            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-            const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
-            const secondPart = threeDigitsDisplay.textContent.slice(1);
-
-            threeDigitsDisplay.innerHTML = `
-                ${firstPart}<span class="circle">${secondPart}</span>
-            `;
-        }
-
-        document.getElementById("convertButton").addEventListener("click", convertNumber);
-        document.getElementById("circleButton").addEventListener("click", createCircle);
-        document.getElementById("squareButton").addEventListener("click", createSquare);
-        document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
-    </script>
 </body>
 </html>
