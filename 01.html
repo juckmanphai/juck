@@ -7,66 +7,61 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fffde7; /* สีเหลืองอ่อน */
+            background-color: #fffde7;
             margin: 0;
-            padding: 0;
+            padding: 20px 0;
             color: #333;
             text-align: center;
-            padding-top: 30px;
         }
         .header {
             display: inline-block;
-            padding: 12px 20px;
-            border: 2px solid #ffb74d; /* สีส้มจาง */
-            background-color: #fff9e3; /* สีเหลืองจาง */
+            padding: 8px 16px;
+            border: 2px solid #ffb74d;
+            background-color: #fff9e3;
             border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
         }
         h1 {
-            color: #e65100; /* สีส้มเข้มน้อยลง */
-            font-size: 26px;
-            margin: 0;
+            color: #e65100;
+            font-size: 24px;
+            margin: 5px 0;
         }
         p {
-            color: #6d4c41; /* สีน้ำตาลอ่อน */
-            font-size: 18px;
-            margin-bottom: 24px;
+            color: #6d4c41;
+            font-size: 16px;
+            margin: 10px 0;
         }
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .button-group button {
-            padding: 12px 20px;
+            padding: 10px 18px;
             border: none;
             border-radius: 8px;
-            background-color: #4CAF50; /* สีส้มจาง */
+            background-color: #4CAF50;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            min-width: 200px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
         }
         .button-group button:hover {
-            background-color: #ffe0b2; /* สีส้มจางลงเมื่อ hover */
-            transform: translateY(-2px);
-        }
-        .button-group button:focus {
-            outline: none;
+            background-color: #66bb6a;
+            transform: translateY(-1px);
         }
         footer {
-            margin-top: 50px;
-            font-size: 14px;
-            color: #8d6e63; /* สีน้ำตาลอ่อน */
+            margin-top: 40px;
+            font-size: 13px;
+            color: #8d6e63;
         }
     </style>
     <script>
-        // ปิดการคลิกขวา
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -74,7 +69,6 @@
 </head>
 <body>
 
-    <!-- Section: เมนูฟอร์มแปลตัวเลข -->
     <div class="header">
         <h1>เมนูฟอร์มแปลตัวเลข</h1>
     </div>
@@ -86,17 +80,17 @@
         <button onclick="window.location.href='https://juckmanphai.github.io/juck/04.html'">แปลตัวเลข 4 หลัก</button>
     </div>
 
-    <!-- Section: เมนูกรอกผลตัวเลข -->
     <div class="header">
         <h1>เมนูฟอร์มกรอกผลตัวเลข</h1>
     </div>
     <p>ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
 
-    <div class="button-group results">
-        <button onclick="window.location.href='https://juckmanphai.github.io/juck/05.html'">กรอกผลลาวพัฒนา</button>
+    <div class="button-group">
         <button onclick="window.location.href='https://juckmanphai.github.io/juck/06.html'">กรอกผลกลุ่มลาวสตาร์</button>
         <button onclick="window.location.href='https://juckmanphai.github.io/juck/07.html'">กรอกผลกลุ่มลาวสามัคคี</button>
-    </div>
+        <button onclick="window.location.href='https://juckmanphai.github.io/juck/05.html'">กรอกผลลาวพัฒนา</button>
+	<button onclick="window.location.href='https://juckmanphai.github.io/juck/08.html'">กรอกผลรัฐบาล</button>
+           </div>
 
     <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
