@@ -81,10 +81,10 @@
         }
         #resultContainer {
     display: none;
-    margin-top: 20px;
+    margin-top: 15px;
     background-color: #FFFFE0; /* สีพื้นหลังเหลืองจาง */
     border: 2px solid #4CAF50; /* ขอบสีเขียว */
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
 }
@@ -230,10 +230,11 @@
 
             // แทนที่ใน HTML
             let resultHtml = `
-                <div style="text-align: center; font-size: 20px; line-height: 0.6;">
-                    <img src="logo.png" alt="Logo" style="display: block; margin: 0 auto; width: 70px;">
-                    <h2 class="blue" style="font-size: 20px;">${getThaiDate()}</h2>
-                    <p class="blue" style="font-size: 20px;">${selectedTopic}</p>
+                <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
+    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
+    <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
+	<p class="blue" style="font-size: 20px;">${getThaiDate()}</p>
                     <h2 class="blue" style="font-size: 20px;">
                         ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
                     </h2>
