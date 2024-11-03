@@ -60,15 +60,20 @@
             justify-content: center;
         }
 
-        #resultContainer {
-    display: none;
-    margin-top: 15px;
-    background-color: #FFFFE0; /* สีพื้นหลังเหลืองจาง */
-    border: 2px solid #4CAF50; /* ขอบสีเขียว */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
-}
+        .result-display {
+            background-color: lightyellow;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid green;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+	.result-section {
+            margin-top: 20px; /* Add spacing between each result section */
+        }
 
         .header-title {
             color: blue;
@@ -202,41 +207,43 @@
         </div>
     </div>
 
-    <div id="resultContainer" class="result-display" style="display: none;">
-        <div style="position: relative; text-align: center; font-size: 18px; line-height: 2;">
-    <img src="logo.png" alt="Logo Left" style="position: absolute; bottom: 0; left: 0; width: 40px; margin: 7px;">
-    <img src="logo.png" alt="Logo right" style="position: absolute; bottom: 0; right: 0; width: 40px; margin: 7px;">
+        <div id="resultContainer" class="result-display" style="display: none;">
+        <div style="position: relative; text-align: center; font-size: 18px; line-height: 1;">
+            <img src="logo.png" alt="Logo Left" style="position: absolute; bottom: 0; left: 0; width: 70px; margin: 7px;">
+            <img src="logo.png" alt="Logo Right" style="position: absolute; bottom: 0; right: 0; width: 70px; margin: 7px;">
 
-        <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-        <div class="draw-date">
-            งวดประจำวันที่: <span id="display-draw-date"></span>
-        </div>
-
-        <div class="result-section">
-            <h3 class="result-title">รางวัลที่ 1</h3>
-            <div id="first-prize-display"></div>
-        </div>
-
-        <div class="result-section flex-row">
-            <div>
-                <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                <div class="three-digit-box" id="display-front-three-1"></div>
-                <div class="three-digit-box" id="display-front-three-2"></div>
+            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+            <div class="draw-date">
+                งวดประจำวันที่: <span id="display-draw-date"></span>
             </div>
-            <div style="margin: 0 15px;"></div>
-            <div>
-                <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                <div class="three-digit-box" id="display-back-three-1"></div>
-                <div class="three-digit-box" id="display-back-three-2"></div>
+
+            <div class="result-section" style="margin-top: 30px;">
+                <h3 class="result-title">รางวัลที่ 1</h3>
+                <div id="first-prize-display"></div>
+            </div>
+
+            <div class="result-section flex-row">
+                <div>
+                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-front-three-1"></div>
+                    <div class="three-digit-box" id="display-front-three-2"></div>
+                </div>
+                <div style="margin: 0 15px;"></div>
+                <div>
+                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-back-three-1"></div>
+                    <div class="three-digit-box" id="display-back-three-2"></div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+                <div class="two-digit-box" id="display-back-two"></div>
             </div>
         </div>
+    </div>
 
-        <div class="result-section">
-            <h3 class="result-title">เลขท้าย 2 ตัว</h3>
-            <div class="two-digit-box" id="display-back-two"></div>
-        </div>
-
-    <script>
+           <script>
         function displayResults() {
             document.getElementById("resultContainer").style.display = "block";
             document.getElementById("display-draw-date").innerText = document.getElementById("draw-date").value;
