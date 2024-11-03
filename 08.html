@@ -150,15 +150,36 @@
             flex-wrap: wrap;
         }
 
-        button.back-button {
-            margin-top: 20px;
-            font-size: 20px;
-            max-width: 600px;
-            width: 100%;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+	.button-container button {
+        font-size: 22px; /* Increase font size for better visibility */
+        padding: 12px 20px; /* Adjust padding for larger button appearance */
+        border-radius: 8px; /* Optional: increase border radius for a softer look */
+        cursor: pointer;
+        background-color: #4CAF50; /* Button color */
+        color: white;
+    }
+
+        .back-button {
+        font-size: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #FF5722; /* Bold orange color for prominence */
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .back-button:hover {
+        background-color: #E64A19; /* Darker orange on hover */
+        transform: translateY(-2px); /* Slight lift effect on hover */
+    }
+
+    .back-button:active {
+        background-color: #D84315; /* Even darker on active click */
+        transform: translateY(0); /* Remove lift effect */
+    }
 
         .logo-container {
             text-align: center;
@@ -214,7 +235,7 @@
 
             <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
             <div class="draw-date">
-                งวดประจำวันที่: <span id="display-draw-date"></span>
+                งวดประจำวันที่ : <span id="display-draw-date"></span>
             </div>
 
             <div class="result-section" style="margin-top: 30px;">
