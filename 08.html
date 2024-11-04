@@ -17,15 +17,18 @@
         h1 {
             text-align: center;
             color: #e65100;
-            margin-top: 10px;
+            margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         h2 {
-            margin: 10px 0;
+            margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         h3 {
-            margin: 5px 0;
+            margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         .form-container {
@@ -41,7 +44,8 @@
 
         label {
             font-size: 18px;
-            margin-bottom: 5px;
+            margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         input, select {
@@ -69,6 +73,8 @@
             margin-bottom: 30px;
             text-align: center;
             position: relative;
+	    margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
 	.result-section {
@@ -83,7 +89,7 @@
             border-radius: 20px;
             display: inline-block;
             padding: 20px;
-            margin-top: 10px;
+            margin-top: 5px;
             margin-bottom: 5px;
         }
 
@@ -94,6 +100,8 @@
             border-radius: 2px;
             display: inline-block;
             margin-top: 5px;
+	    margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         .number-box {
@@ -109,6 +117,7 @@
             border-radius: 30px;
             margin: 1.5px;
 	    margin-top: 5px;
+	    margin-bottom: 5px;
         }
 
         .three-digit-box {
@@ -144,9 +153,9 @@
             font-weight: bold;
             color: green;
             margin-bottom: 5px;
+	    margin-top: 5px;
         }
-
-        .flex-row {
+	        .flex-row {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -192,7 +201,7 @@
         margin-top: 5px; /* ลดระยะห่างระหว่างส่วนต่าง ๆ */
     }
 .result-section .result-title {
-    margin-bottom: 10px; /* เพิ่มระยะห่างด้านล่างของข้อความ "รางวัลที่ 1" */
+    margin-bottom: 5px; /* เพิ่มระยะห่างด้านล่างของข้อความ "รางวัลที่ 1" */
 }
 
 #first-prize-display {
@@ -201,18 +210,18 @@
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
     <div class="form-container">
         <div class="form-group">
-            <label for="draw-date">งวดประจำวันที่ (วัน เดือน พ.ศ.)</label>
+            <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
             <input type="text" id="draw-date" placeholder="กรอกวันที่ (ตัวอย่าง: 1 มกราคม 2567)">
         </div>
 
         <div class="form-group">
-            <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
             <input type="text" id="first-prize" maxlength="6" placeholder="กรอกเลขรางวัลที่ 1">
+	   <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
         </div>
 
         <div class="form-group">
@@ -232,8 +241,8 @@
         </div>
 
         <div class="form-group">
-	    <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
-            <label for="back-two">เลขท้าย 2 ตัว</label>
+            <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
+	    <label for="back-two">เลขท้าย 2 ตัว</label>
         </div>
 
         <div class="button-container">
@@ -251,8 +260,8 @@
                 วันที่ <span id="display-draw-date"></span>
             </div>
 
-            <div class="result-section" style="margin-top: 20px;">
-                <h2 class="result-title">รางวัลที่ 1</h2>
+            <div class="result-section" style="margin-top: 30px;">
+                <h3 class="result-title">รางวัลที่ 1</h3>
                 <div id="first-prize-display"></div>
             </div>
 
@@ -274,11 +283,10 @@
 		<div class="two-digit-box" id="display-back-two"></div>                
 	        <h3 class="result-title">เลขท้าย 2 ตัว</h3>
             </div>
-            </div>
         </div>
     </div>
 <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckhai. All Rights Reserved.
     </footer>
            <script>
         function displayResults() {
@@ -346,3 +354,4 @@
     </script>
 </body>
 </html>
+
