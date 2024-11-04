@@ -299,6 +299,48 @@
             document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
             document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
         }
+ function formatThaiDate(dateString) {
+        const months = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", 
+            "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", 
+            "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
+        
+        const parts = dateString.split("/");
+        if (parts.length === 3) {
+            const day = parts[0];
+            const month = months[parseInt(parts[1], 10) - 1];
+            const year = parseInt(parts[2], 10) + 543; // เพิ่ม 543 เพื่อแปลงเป็นปีไทย
+            
+            return `${day} ${month} พ.ศ. ${year}`;
+        }
+        return dateString; // คืนค่าดั้งเดิมถ้าไม่ถูกต้อง
+    }
+
+    function displayResults() {
+        document.getElementById("resultContainer").style.display = "block";
+        
+        const rawDate = document.getElementById("draw-date").value;
+        const formattedDate = formatThaiDate(rawDate);
+        document.getElementById("display-draw-date").innerText = formattedDate;
+
+        const firstPrize = document.getElementById("first-prize").value;
+        const firstPrizeDisplay = document.getElementById("first-prize-display");
+        firstPrizeDisplay.innerHTML = "";
+        for (let i = 0; i < firstPrize.length; i++) {
+            const box = document.createElement("div");
+            box.className = "number-box";
+            box.innerText = firstPrize[i];
+            firstPrizeDisplay.appendChild(box);
+        }
+
+        document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
+        document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
+        document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
+        document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
+        document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
+    }
+
     </script>
 </body>
 </html>
