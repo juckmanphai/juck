@@ -210,6 +210,7 @@
             margin-top: 5px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
@@ -264,101 +265,51 @@
                 <h3 class="result-title">รางวัลที่ 1</h3>
                 <div id="first-prize-display"></div>
             </div>
-            <div class="result-section flex-row">
-                <div>
-                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                    <div class="three-digit-box" id="display-front-three-1"></div>
-                    <div class="three-digit-box" id="display-front-three-2"></div>
-                </div>
-                <div style="margin: 0 15px;"></div>
-                <div>
-                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                    <div class="three-digit-box" id="display-back-three-1"></div>
-                    <div class="three-digit-box" id="display-back-three-2"></div>
+
+            <div class="result-section">
+                <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                <div class="flex-row">
+                    <div id="display-front-three-1" class="three-digit-box"></div>
+                    <div id="display-front-three-2" class="three-digit-box"></div>
                 </div>
             </div>
+
             <div class="result-section">
-                <div class="two-digit-box" id="display-back-two"></div>
+                <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                <div class="flex-row">
+                    <div id="display-back-three-1" class="three-digit-box"></div>
+                    <div id="display-back-three-2" class="three-digit-box"></div>
+                </div>
+            </div>
+
+            <div class="result-section">
                 <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+                <div id="display-back-two" class="two-digit-box"></div>
             </div>
         </div>
     </div>
 
-    <div class="button-container">
-        <button onclick="saveAsJPG()">บันทึกเป็น .jpg</button>
-    </div>
-
-    <footer>
-        &copy; 2024 Juckhai. All Rights Reserved.
-    </footer>
-
-    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-
-        function formatThaiDate(dateString) {
-            const months = [
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", 
-                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", 
-                "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-            ];
-
-            const parts = dateString.split("/");
-            if (parts.length === 3) {
-                const day = parts[0];
-                const month = months[parseInt(parts[1], 10) - 1];
-                const year = parseInt(parts[2], 10) + 543; // เพิ่ม 543 เพื่อแปลงเป็นปีไทย
-
-                return `${day} ${month} พ.ศ. ${year}`;
-            }
-            return dateString; // คืนค่าดั้งเดิมถ้าไม่ถูกต้อง
-        }
-
+    <script>
         function displayResults() {
-            document.getElementById("resultContainer").style.display = "block";
-            
-            const rawDate = document.getElementById("draw-date").value;
-            const formattedDate = formatThaiDate(rawDate);
-            document.getElementById("display-draw-date").innerText = formattedDate;
-
+            const drawDate = document.getElementById("draw-date").value;
             const firstPrize = document.getElementById("first-prize").value;
-            const firstPrizeDisplay = document.getElementById("first-prize-display");
-            firstPrizeDisplay.innerHTML = "";
-            for (let i = 0; i < firstPrize.length; i++) {
-                const box = document.createElement("div");
-                box.className = "number-box";
-                box.innerText = firstPrize[i];
-                firstPrizeDisplay.appendChild(box);
-            }
+            const frontThree1 = document.getElementById("front-three-1").value;
+            const frontThree2 = document.getElementById("front-three-2").value;
+            const backThree1 = document.getElementById("back-three-1").value;
+            const backThree2 = document.getElementById("back-three-2").value;
+            const backTwo = document.getElementById("back-two").value;
 
-            document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
-            document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
-            document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
-            document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
-            document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
+            document.getElementById("display-draw-date").textContent = drawDate;
+            document.getElementById("first-prize-display").innerHTML = firstPrize.split("").map(num => `<span class="number-box">${num}</span>`).join("");
+
+            document.getElementById("display-front-three-1").textContent = frontThree1;
+            document.getElementById("display-front-three-2").textContent = frontThree2;
+            document.getElementById("display-back-three-1").textContent = backThree1;
+            document.getElementById("display-back-three-2").textContent = backThree2;
+            document.getElementById("display-back-two").textContent = backTwo;
+
+            document.getElementById("resultContainer").style.display = "block";
         }
-
-          function saveAsJPG() {
-        // เลือก container ที่ต้องการจับภาพ
-        const resultContainer = document.getElementById("resultContainer");
-
-        // ตรวจสอบว่า resultContainer แสดงอยู่หรือไม่
-        if (!resultContainer || resultContainer.style.display === "none") {
-            alert("กรุณาแสดงผลการจับสลากก่อน");
-            return;
-        }
-
-        // ใช้ html2canvas เพื่อจับภาพ
-        html2canvas(resultContainer).then(canvas => {
-            // แปลง canvas เป็นรูปภาพ .jpg
-            const imageURL = canvas.toDataURL("image/jpeg");
-
-            // สร้างลิงก์สำหรับดาวน์โหลดภาพ
-            const link = document.createElement('a');
-            link.href = imageURL;
-            link.download = "result-lottery.jpg"; // กำหนดชื่อไฟล์
-            link.click(); // จำลองการคลิกลิงก์เพื่อดาวน์โหลดไฟล์
-        });
-    }
     </script>
 </body>
 </html>
