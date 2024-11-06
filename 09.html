@@ -2,18 +2,362 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>ระบบบันทึกรายรับรายจ่าย</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> <!-- โหลด SheetJS จาก CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลฉลากกินแบ่งรัฐบาล</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffde7;
+            margin: 0;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e65100;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            background-color: lightyellow;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid green;
+            padding: 10px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 18px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            font-size: 18px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 150px;
+            transition: border-color 0.3s;
+        }
+
+        .input-pair {
+            display: flex;
+            justify-content: center;
+        }
+
+        .result-display {
+            background-color: lightyellow;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid green;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .result-section {
+            margin-top: 5px;
+        }
+
+        .header-title {
+            background-color: rgba(0, 100, 255, 0.8);
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .draw-date {
+            color: rgba(0, 100, 255, 0.8);
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 2px;
+            display: inline-block;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .number-box {
+            display: inline-block;
+            background-color: rgba(233, 30, 99, 0.5);
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 30px;
+            margin: 1.5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .three-digit-box {
+            display: inline-block;
+            background-color: #1e88e5;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 40px;
+            height: 30px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 5px;
+        }
+
+        .two-digit-box {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            width: 130px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: green;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .button-container button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .back-button {
+            font-size: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #E64A19;
+            transform: translateY(-2px);
+        }
+
+        .back-button:active {
+            background-color: #D84315;
+            transform: translateY(0);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .result-section {
+            margin-top: 5px;
+        }
+
+        .result-section .result-title {
+            margin-bottom: 5px;
+        }
+
+        #first-prize-display {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h2>บันทึกรายรับรายจ่าย</h2>
-    <form id="account-form">
-        <!-- ...ฟอร์มสำหรับกรอกข้อมูล... -->
-        <button type="button" onclick="downloadExcel()">ดาวน์โหลดเป็น Excel</button>
-    </form>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
+    <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
+    <div class="form-container">
+        <div class="form-group">
+            <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
+            <input type="text" id="draw-date" placeholder="กรอกวันที่ (ตัวอย่าง: 1 มกราคม 2567)">
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="first-prize" maxlength="6" placeholder="กรอกเลขรางวัลที่ 1">
+            <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
+        </div>
+
+        <div class="form-group">
+            <label>เลขหน้า 3 ตัว</label>
+            <div class="input-pair">
+                <input type="text" id="front-three-1" maxlength="3" placeholder="ชุดที่ 1">
+                <input type="text" id="front-three-2" maxlength="3" placeholder="ชุดที่ 2">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>เลขท้าย 3 ตัว</label>
+            <div class="input-pair">
+                <input type="text" id="back-three-1" maxlength="3" placeholder="ชุดที่ 1">
+                <input type="text" id="back-three-2" maxlength="3" placeholder="ชุดที่ 2">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
+            <label for="back-two">เลขท้าย 2 ตัว</label>
+        </div>
+
+        <div class="button-container">
+            <button onclick="displayResults()">แสดงผล</button>
+        </div>
+    </div>
+
+    <div id="resultContainer" class="result-display" style="display: none;">
+        <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+            <img src="logo.png" alt="Logo Left" style="position: absolute; bottom: 0; left: 0; width: 50px; margin: 7px;">
+            <img src="logo.png" alt="Logo Right" style="position: absolute; bottom: 0; right: 0; width: 50px; margin: 7px;">
+            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+            <div class="draw-date">
+                วันที่ <span id="display-draw-date"></span>
+            </div>
+            <div class="result-section" style="margin-top: 5px;">
+                <h3 class="result-title">รางวัลที่ 1</h3>
+                <div id="first-prize-display"></div>
+            </div>
+            <div class="result-section flex-row">
+                <div>
+                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-front-three-1"></div>
+                    <div class="three-digit-box" id="display-front-three-2"></div>
+                </div>
+                <div style="margin: 0 15px;"></div>
+                <div>
+                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-back-three-1"></div>
+                    <div class="three-digit-box" id="display-back-three-2"></div>
+                </div>
+            </div>
+            <div class="result-section">
+                <div class="two-digit-box" id="display-back-two"></div>
+                <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button onclick="saveAsJPG()">บันทึกเป็น .jpg</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Juckhai. All Rights Reserved.
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script>
-        // ฟังก์ชัน addEntry และ downloadExcel...
+        function formatThaiDate(dateString) {
+            const months = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", 
+                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", 
+                "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+
+            const parts = dateString.split("/");
+            if (parts.length === 3) {
+                const day = parts[0];
+                const month = months[parseInt(parts[1], 10) - 1];
+                const year = parseInt(parts[2], 10) + 543; // เพิ่ม 543 เพื่อแปลงเป็นปีไทย
+
+                return `${day} ${month} พ.ศ. ${year}`;
+            }
+            return dateString; // คืนค่าดั้งเดิมถ้าไม่ถูกต้อง
+        }
+
+        function displayResults() {
+            document.getElementById("resultContainer").style.display = "block";
+            
+            const rawDate = document.getElementById("draw-date").value;
+            const formattedDate = formatThaiDate(rawDate);
+            document.getElementById("display-draw-date").innerText = formattedDate;
+
+            const firstPrize = document.getElementById("first-prize").value;
+            const firstPrizeDisplay = document.getElementById("first-prize-display");
+            firstPrizeDisplay.innerHTML = "";
+            for (let i = 0; i < firstPrize.length; i++) {
+                const box = document.createElement("div");
+                box.className = "number-box";
+                box.innerText = firstPrize[i];
+                firstPrizeDisplay.appendChild(box);
+            }
+
+            document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
+            document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
+            document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
+            document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
+            document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
+        }
+
+          function saveAsJPG() {
+        // เลือก container ที่ต้องการจับภาพ
+        const resultContainer = document.getElementById("resultContainer");
+
+        // ตรวจสอบว่า resultContainer แสดงอยู่หรือไม่
+        if (!resultContainer || resultContainer.style.display === "none") {
+            alert("กรุณาแสดงผลการจับสลากก่อน");
+            return;
+        }
+
+        // ใช้ html2canvas เพื่อจับภาพ
+        html2canvas(resultContainer).then(canvas => {
+            // แปลง canvas เป็นรูปภาพ .jpg
+            const imageURL = canvas.toDataURL("image/jpeg");
+
+            // สร้างลิงก์สำหรับดาวน์โหลดภาพ
+            const link = document.createElement('a');
+            link.href = imageURL;
+            link.download = "result-lottery.jpg"; // กำหนดชื่อไฟล์
+            link.click(); // จำลองการคลิกลิงก์เพื่อดาวน์โหลดไฟล์
+        });
+    }
     </script>
 </body>
 </html>
