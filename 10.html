@@ -257,9 +257,12 @@ function displayRecords() {
 
     records.forEach((record, index) => {
         if (record.account === currentAccount) {
+            const dateTime = new Date(record.dateTime);
+            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
+
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${record.dateTime}</td>
+                <td>${formattedDate}</td>
                 <td>${record.type}</td>
                 <td>${record.description}</td>
                 <td>${record.amount.toLocaleString()} บาท</td> <!-- ใช้ toLocaleString() เพื่อคั่นหลักพัน -->
