@@ -101,7 +101,7 @@
     </select>
     <button type="button" onclick="addAccount()">เพิ่มบัญชีใหม่</button>
     <button type="button" onclick="deleteAccount()">ลบบัญชี</button>
-
+    <button type="button" onclick="editAccount()">แก้ไขชื่อบัญชี</button>
     <form id="accountForm">
         <input type="hidden" id="datetime" value="" required>
         <label for="type">ประเภท:</label>
@@ -178,6 +178,37 @@
             document.getElementById('accountName').textContent = currentAccount || "";
             displayRecords();
         }
+function editAccount() {
+    if (!currentAccount) {
+        alert("กรุณาเลือกบัญชีที่ต้องการแก้ไข");
+        return;
+    }
+
+    const newAccountName = prompt("กรุณากรอกชื่อบัญชีใหม่:", currentAccount);
+    if (newAccountName && newAccountName !== currentAccount && !accounts.includes(newAccountName)) {
+        const index = accounts.indexOf(currentAccount);
+        if (index > -1) {
+            // Update the account name in the accounts array
+            accounts[index] = newAccountName;
+
+            // Update the account name in each related record
+            records.forEach(record => {
+                if (record.account === currentAccount) {
+                    record.account = newAccountName;
+                }
+            });
+
+            // Update the current account to the new name and refresh the display
+            currentAccount = newAccountName;
+            updateAccountSelect();
+            document.getElementById('accountName').textContent = currentAccount;
+            displayRecords();
+            alert("แก้ไขชื่อบัญชีเรียบร้อย");
+        }
+    } else {
+        alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
+    }
+}
 
         function deleteAccount() {
             if (currentAccount) {
@@ -358,4 +389,3 @@ function summarize() {
     <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
 </body>
 </html>
-
