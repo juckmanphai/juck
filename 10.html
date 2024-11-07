@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บัญชีรายรับรายจ่าย</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7fb; margin: 0; padding: 0; }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+            font-size: 28px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+        select, input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .action-buttons button {
+            width: 48%;
+        }
+        select, input {
+            background-color: #f9f9f9;
+        }
+        .summary-section {
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        .summary-section select {
+            width: 50%;
+            margin: 10px auto;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .summaryResult {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            border: 2px solid green; /* Green border */
+            background-color: #ffffcc; /* Light yellow background */
+            color: blue; /* Blue text color */
+            padding: 15px;
+            border-radius: 8px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
+    <label for="accountSelect">เลือกบัญชี:</label>
+    <select id="accountSelect" onchange="changeAccount()">
+        <!-- Options will be dynamically populated -->
+    </select>
+    <button type="button" onclick="addAccount()">เพิ่มบัญชีใหม่</button>
+    <button type="button" onclick="deleteAccount()">ลบบัญชี</button>
+
+    <form id="accountForm">
+        <input type="hidden" id="datetime" value="" required>
+        <label for="type">ประเภท:</label>
+        <select id="type" required>
+            <option value="รายรับ">รายรับ</option>
+            <option value="รายจ่าย">รายจ่าย</option>
+        </select>
+        <label for="description">รายละเอียด:</label>
+        <input type="text" id="description" required>
+        <label for="amount">จำนวนเงิน:</label>
+        <input type="number" id="amount" required>
+        <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
+    </form>
+
+    <label for="summaryDays">สรุปผลย้อนหลัง:</label>
+    <select id="summaryDays">
+        <option value="1">1 วัน</option>
+        <option value="2">2 วัน</option>
+        <option value="3">3 วัน</option>
+        <option value="7">7 วัน</option>
+        <option value="30">30 วัน</option>
+    </select>
+    <button onclick="summarize()">สรุปยอด</button>
+    <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
+    <button onclick="saveToFile()">บันทึก</button>
+
+    <div id="detailsSection" style="display: none;">
+        <table id="recordTable">
+            <thead>
+                <tr>
+                    <th>วันที่และเวลา</th>
+                    <th>ประเภท</th>
+                    <th>รายละเอียด</th>
+                    <th>จำนวนเงิน</th>
+                    <th>การจัดการ</th>
+                </tr>
+            </thead>
+            <tbody id="recordBody"></tbody>
+        </table>
+    </div>
+
+    <div id="summaryResult" class="summaryResult"></div> <!-- Single summary result div -->
+
+    <script>
+        const accounts = [];
+        let currentAccount = null;
+        const records = [];
+        let editingIndex = null;
+
+        function addAccount() {
+            const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:");
+            if (accountName && !accounts.includes(accountName)) {
+                accounts.push(accountName);
+                updateAccountSelect();
+                alert("เพิ่มบัญชีสำเร็จ");
+            } else {
+                alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
+            }
+        }
+
+        function updateAccountSelect() {
+            const accountSelect = document.getElementById('accountSelect');
+            accountSelect.innerHTML = '<option value="">เลือกบัญชี</option>';
+            accounts.forEach(account => {
+                const option = document.createElement('option');
+                option.value = account;
+                option.textContent = account;
+                accountSelect.appendChild(option);
+            });
+        }
+
+        function changeAccount() {
+            currentAccount = document.getElementById('accountSelect').value;
+            document.getElementById('accountName').textContent = currentAccount || "";
+            displayRecords();
+        }
+
+        function deleteAccount() {
+            if (currentAccount) {
+                const confirmDelete = confirm(`คุณแน่ใจว่าจะลบบัญชี "${currentAccount}" หรือไม่?`);
+                if (confirmDelete) {
+                    const index = accounts.indexOf(currentAccount);
+                    if (index > -1) {
+                        accounts.splice(index, 1);
+                        currentAccount = null;
+                        updateAccountSelect();
+                        displayRecords();
+                        alert("ลบบัญชีเรียบร้อย");
+                    }
+                }
+            } else {
+                alert("กรุณาเลือกบัญชีที่ต้องการลบ");
+            }
+        }
+
+        function addEntry() {
+            const dateTime = getCurrentDateTime();
+            const type = document.getElementById('type').value;
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (currentAccount && type && description && amount) {
+                if (editingIndex !== null) {
+                    records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
+                    editingIndex = null;
+                } else {
+                    records.push({ dateTime, type, description, amount, account: currentAccount });
+                }
+                displayRecords();
+                document.getElementById('accountForm').reset();
+            } else {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+            }
+        }
+
+function displayRecords() {
+    const recordBody = document.getElementById('recordBody');
+    recordBody.innerHTML = ""; // ล้างข้อมูลเก่าก่อน
+
+    // เรียงข้อมูลจากใหม่สุดไปเก่าที่สุด โดยใช้ `sort()`
+    records.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+    records.forEach((record, index) => {
+        if (record.account === currentAccount) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${record.dateTime}</td>
+                <td>${record.type}</td>
+                <td>${record.description}</td>
+                <td>${record.amount.toLocaleString()} บาท</td> <!-- ใช้ toLocaleString() เพื่อคั่นหลักพัน -->
+                <td>
+                    <button onclick="editRecord(${index})">แก้ไข</button>
+                    <button onclick="deleteRecord(${index})">ลบ</button>
+                </td>
+            `;
+            recordBody.appendChild(row);
+        }
+    });
+}
+
+function editRecord(index) {
+    const record = records[index];
+    document.getElementById('type').value = record.type;
+    document.getElementById('description').value = record.description;
+    document.getElementById('amount').value = record.amount;
+    editingIndex = index; // ตั้งค่าตัวแปรเพื่อระบุว่าเรากำลังแก้ไขข้อมูลที่บันทึก
+}
+
+function deleteRecord(index) {
+    records.splice(index, 1); // ลบรายการจาก array
+    displayRecords(); // แสดงข้อมูลใหม่
+}
+
+        function getCurrentDateTime() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        }
+
+function summarize() {
+    const summaryDays = parseInt(document.getElementById('summaryDays').value);
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - summaryDays);
+
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    records.forEach(record => {
+        const [date, time] = record.dateTime.split(" ");
+        const [year, month, day] = date.split("-");
+        const [hour, minute] = time.split(":");
+        const recordDate = new Date(year, month - 1, day, hour, minute);
+
+        if (recordDate >= cutoffDate && record.account === currentAccount) {
+            if (record.type === "รายรับ") totalIncome += record.amount;
+            if (record.type === "รายจ่าย") totalExpense += record.amount;
+        }
+    });
+
+    const netTotal = totalIncome - totalExpense;
+    let remark = '';
+    if (netTotal > 0) {
+        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+    } else if (netTotal < 0) {
+        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+    } else {
+        remark = 'รายรับและรายจ่ายเท่ากัน';
+    }
+
+    // Get the current date and time for the summary
+    const summaryDateTime = new Date().toLocaleString("th-TH", {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปยอด: ${currentAccount}</p>
+        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>ช่วงวันที่: ${summaryDays} วันที่ผ่านมา</p>
+        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ: ${remark}</p>
+    `;
+}
+        function toggleVisibility() {
+            const detailsSection = document.getElementById('detailsSection');
+            detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function saveToFile() {
+            const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
+            if (!fileName) {
+                alert("กรุณากรอกชื่อไฟล์");
+                return;
+            }
+
+            const data = { accounts, currentAccount, records };
+            const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileName}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function loadFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = JSON.parse(e.target.result);
+                accounts.length = 0;
+                accounts.push(...data.accounts);
+                currentAccount = data.currentAccount;
+                records.length = 0;
+                records.push(...data.records);
+                updateAccountSelect();
+                changeAccount();
+            };
+            reader.readAsText(file);
+        }
+
+        window.onload = function() {
+            document.getElementById('datetime').value = getCurrentDateTime();
+            document.getElementById('detailsSection').style.display = 'none';
+            updateAccountSelect();
+        };
+    </script>
+    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
+    <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
+</body>
+</html>
+
