@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ฟอร์มชื้อ</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .form-container {
+        max-width: 500px;
+        margin: auto;
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+    input, select, textarea, button {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #fffacd; /* พื้นหลังสีเหลืองจาง */
+        border: 2px solid green; /* กรอบสีเขียว */
+        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+        max-width: 500px;
+        margin: 20px auto; /* จัดกึ่งกลาง */
+        border-radius: 8px; /* มุมโค้งมน */
+        color: blue; /* ตัวหนังสือสีน้ำเงิน */
+    }
+.back-button {
+        font-size: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #FF5722; /* Bold orange color for prominence */
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .back-button:hover {
+        background-color: #E64A19; /* Darker orange on hover */
+        transform: translateY(-2px); /* Slight lift effect on hover */
+    }
+
+    .back-button:active {
+        background-color: #D84315; /* Even darker on active click */
+        transform: translateY(0); /* Remove lift effect */
+    }
+
+</style>
+</head>
+<body>
+
+<div class="form-container">
+<button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <h2>ฟอร์มชื้อ</h2>
+    
+    <label for="numberInput">กรอกตัวเลข (2 หรือ 3 ตัว):</label>
+    <input type="text" id="numberInput" pattern="\d{2,3}" required>
+
+    <label for="typeSelect">เลือกประเภท:</label>
+    <select id="typeSelect" required>
+         <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+    </select>
+
+    <label for="threeDigitAmount">สามตัว (จำนวนเงิน):</label>
+    <input type="number" id="threeDigitAmount" min="0">
+
+    <label for="twoDigitAmount">สองตัว (จำนวนเงิน):</label>
+    <input type="number" id="twoDigitAmount" min="0">
+
+    <label for="shareType">เลือกประเภทการแชร์:</label>
+    <select id="shareType" required>
+        <option value="หารสองครับ">หารสอง</option>
+        <option value="หารสามครับ">หารสาม</option>
+        <option value="ซื้อคนเดียวครับ">ซื้อคนเดียว</option>
+    </select>
+
+    <label for="note">หมายเหตุ:</label>
+    <textarea id="note" rows="2"></textarea>
+
+    <button onclick="displayResult()">แสดงผล</button>
+
+    <div class="result" id="resultDisplay" style="display: none;">
+        <p id="currentDate"></p>
+        <p id="titleType"></p>
+        <p id="typeAndNumber"></p>
+        <p id="purchaseDetailsLabel"></p> <!-- Label line for รายละเอียดการซื้อ -->
+	<p id="amountDetails"></p> <!-- Second line for สามตัว, สองตัว, and sharing type -->
+        <p id="noteDisplay"></p>
+    </div>
+</div>
+
+<script>
+function displayResult() {
+    // Get form values
+    const number = document.getElementById("numberInput").value;
+    const type = document.getElementById("typeSelect").value;
+    const threeDigitAmount = document.getElementById("threeDigitAmount").value;
+    const twoDigitAmount = document.getElementById("twoDigitAmount").value;
+    const shareType = document.getElementById("shareType").value;
+    const note = document.getElementById("note").value || "No comment";
+
+    // Format current date in Thai format
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const thaiDate = currentDate.toLocaleDateString('th-TH', options);
+
+    // Display results
+    document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
+    document.getElementById("titleType").innerText = `ชื้อหวย${type}`;
+    document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
+    document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`; // Top line with label
+    document.getElementById("amountDetails").innerText = `สามตัว : ${threeDigitAmount ? threeDigitAmount + ' บาท' : 'ไม่ซื้อ'}, สองตัว : ${twoDigitAmount ? twoDigitAmount + ' บาท' : 'ไม่ซื้อ'}, ${shareType}`;
+    document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
+
+    document.getElementById("resultDisplay").style.display = "block";
+}
+</script>
+</body>
+</html>
