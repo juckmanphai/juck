@@ -91,9 +91,31 @@
             margin-left: auto;
             margin-right: auto;
         }
+.back-button {
+        font-size: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #FF5722; /* Bold orange color for prominence */
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .back-button:hover {
+        background-color: #E64A19; /* Darker orange on hover */
+        transform: translateY(-2px); /* Slight lift effect on hover */
+    }
+
+    .back-button:active {
+        background-color: #D84315; /* Even darker on active click */
+        transform: translateY(0); /* Remove lift effect */
+    }
     </style>
 </head>
 <body>
+<button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
     <label for="accountSelect">เลือกบัญชี:</label>
     <select id="accountSelect" onchange="changeAccount()">
@@ -124,6 +146,7 @@
         <option value="7">7 วัน</option>
         <option value="30">30 วัน</option>
     </select>
+    <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
     <button onclick="summarize()">สรุปยอด</button>
     <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
     <button onclick="saveToFile()">บันทึก</button>
@@ -227,6 +250,21 @@ function editAccount() {
                 alert("กรุณาเลือกบัญชีที่ต้องการลบ");
             }
         }
+
+	function autoFillDateTime() {
+  const dateField = document.getElementById('dateField');  // Your date input field
+  const timeField = document.getElementById('timeField');  // Your time input field
+
+  // Only set date and time if fields are empty (new entry)
+  if (!dateField.value && !timeField.value) {
+    const now = new Date();
+    const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
+    const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    
+    dateField.value = formattedDate;
+    timeField.value = formattedTime;
+  }
+}
 
         function addEntry() {
             const dateTime = getCurrentDateTime();
@@ -340,27 +378,81 @@ function summarize() {
         <p>หมายเหตุ: ${remark}</p>
     `;
 }
-        function toggleVisibility() {
+       function summarizeToday() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Start of the day
+
+            let totalIncome = 0;
+            let totalExpense = 0;
+
+            records.forEach(record => {
+                const [date, time] = record.dateTime.split(" ");
+                const [year, month, day] = date.split("-");
+                const recordDate = new Date(year, month - 1, day);
+
+                // Check if the record is from today and matches the current account
+                if (recordDate.getTime() === today.getTime() && record.account === currentAccount) {
+                    if (record.type === "รายรับ") totalIncome += record.amount;
+                    if (record.type === "รายจ่าย") totalExpense += record.amount;
+                }
+            });
+
+            const netTotal = totalIncome - totalExpense;
+            let remark = '';
+            if (netTotal > 0) {
+                remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+            } else if (netTotal < 0) {
+                remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+            } else {
+                remark = 'รายรับและรายจ่ายเท่ากัน';
+            }
+
+            // Display today’s summary in the summaryResult div
+            document.getElementById('summaryResult').innerHTML = `
+                <p>สรุปยอด: ${currentAccount}</p>
+                <p>วันที่: ${today.toLocaleDateString("th-TH", {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                })}</p>
+                <p>รายรับวันนี้: ${totalIncome.toLocaleString()} บาท</p>
+                <p>รายจ่ายวันนี้: ${totalExpense.toLocaleString()} บาท</p>
+                <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+                <p>หมายเหตุ: ${remark}</p>
+            `;
+        }
+
+	 function toggleVisibility() {
             const detailsSection = document.getElementById('detailsSection');
             detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
         }
 
-        function saveToFile() {
-            const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
-            if (!fileName) {
-                alert("กรุณากรอกชื่อไฟล์");
-                return;
-            }
+function saveToFile() {
+    const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
+    if (!fileName) {
+        alert("กรุณากรอกชื่อไฟล์");
+        return;
+    }
 
-            const data = { accounts, currentAccount, records };
-            const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${fileName}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
+    // ดึงวันที่และเวลาในรูปแบบ DDMMYYYY_HHMM
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const dateTimeString = `${day}${month}${year}_${hours}${minutes}`;
+
+    // ตั้งชื่อไฟล์ด้วยวันที่และเวลา
+    const fullFileName = `${fileName}_${dateTimeString}.json`;
+
+    const data = { accounts, currentAccount, records };
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fullFileName; // ใช้ชื่อไฟล์ที่รวมวันที่และเวลา
+    a.click();
+    URL.revokeObjectURL(url);
+}
 
         function loadFromFile(event) {
             const file = event.target.files[0];
