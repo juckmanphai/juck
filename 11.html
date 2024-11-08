@@ -22,45 +22,52 @@
         padding: 8px;
         margin: 5px 0;
     }
+    .inline-inputs {
+        display: flex;
+        gap: 10px;
+    }
+    .inline-inputs input {
+        width: 50%;
+    }
+    .result p {
+        line-height: 1;
+    }
     .result {
         margin-top: 20px;
         padding: 10px;
-        background-color: #FFFFE0; /* พื้นหลังสีเหลืองจาง */
-        border: 2px solid green; /* กรอบสีเขียว */
-        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+        background-color: #FFFFE0;
+        border: 2px solid green;
+        text-align: center;
         max-width: 500px;
-        margin: 20px auto; /* จัดกึ่งกลาง */
-        border-radius: 8px; /* มุมโค้งมน */
-        color: blue; /* ตัวหนังสือสีน้ำเงิน */
+        margin: 20px auto;
+        border-radius: 8px;
+        color: blue;
     }
-.back-button {
+    .back-button {
         font-size: 20px;
         padding: 12px 20px;
         border-radius: 8px;
-        background-color: #FF5722; /* Bold orange color for prominence */
+        background-color: #FF5722;
         color: white;
         border: none;
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transition: background-color 0.3s, transform 0.2s;
     }
-
     .back-button:hover {
-        background-color: #E64A19; /* Darker orange on hover */
-        transform: translateY(-2px); /* Slight lift effect on hover */
+        background-color: #E64A19;
+        transform: translateY(-2px);
     }
-
     .back-button:active {
-        background-color: #D84315; /* Even darker on active click */
-        transform: translateY(0); /* Remove lift effect */
+        background-color: #D84315;
+        transform: translateY(0);
     }
-
 </style>
 </head>
 <body>
 
 <div class="form-container">
-<button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ฟอร์มชื้อ</h2>
     
     <label for="numberInput">กรอกตัวเลข (2 หรือ 3 ตัว):</label>
@@ -87,14 +94,19 @@
         <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
         <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
 
-    <label for="threeDigitAmount">สามตัว (จำนวนเงิน):</label>
-    <input type="number" id="threeDigitAmount" min="0">
+    <label>สามตัว (จำนวนเงินและชุดตัวเลข):</label>
+    <div class="inline-inputs">
+        <input type="number" id="threeDigitAmount" min="0" placeholder="จำนวนเงิน">
+        <input type="number" id="threeDigitSets" min="1" placeholder="จำนวนชุด">
+    </div>
 
-    <label for="twoDigitAmount">สองตัว (จำนวนเงิน):</label>
-    <input type="number" id="twoDigitAmount" min="0">
+    <label>สองตัว (จำนวนเงินและชุดตัวเลข):</label>
+    <div class="inline-inputs">
+        <input type="number" id="twoDigitAmount" min="0" placeholder="จำนวนเงิน">
+        <input type="number" id="twoDigitSets" min="1" placeholder="จำนวนชุด">
+    </div>
 
     <label for="shareType">เลือกประเภทการแชร์:</label>
     <select id="shareType" required>
@@ -112,8 +124,9 @@
         <p id="currentDate"></p>
         <p id="titleType"></p>
         <p id="typeAndNumber"></p>
-        <p id="purchaseDetailsLabel"></p> <!-- Label line for รายละเอียดการซื้อ -->
-	<p id="amountDetails"></p> <!-- Second line for สามตัว, สองตัว, and sharing type -->
+        <p id="purchaseDetailsLabel"></p>
+        <p id="amountDetails"></p>
+        <p id="sharedAmount"></p>
         <p id="noteDisplay"></p>
     </div>
 </div>
@@ -123,8 +136,10 @@ function displayResult() {
     // Get form values
     const number = document.getElementById("numberInput").value;
     const type = document.getElementById("typeSelect").value;
-    const threeDigitAmount = document.getElementById("threeDigitAmount").value;
-    const twoDigitAmount = document.getElementById("twoDigitAmount").value;
+    const threeDigitAmount = parseFloat(document.getElementById("threeDigitAmount").value) || 0;
+    const threeDigitSets = parseInt(document.getElementById("threeDigitSets").value) || 1;
+    const twoDigitAmount = parseFloat(document.getElementById("twoDigitAmount").value) || 0;
+    const twoDigitSets = parseInt(document.getElementById("twoDigitSets").value) || 1;
     const shareType = document.getElementById("shareType").value;
     const note = document.getElementById("note").value || "No comment";
 
@@ -133,16 +148,35 @@ function displayResult() {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
     const thaiDate = currentDate.toLocaleDateString('th-TH', options);
 
+    // Calculate total amounts
+    const totalThreeDigit = threeDigitAmount * threeDigitSets;
+    const totalTwoDigit = twoDigitAmount * twoDigitSets;
+    let sharedTotal = totalThreeDigit + totalTwoDigit;
+
+    // Adjust shared total based on share type
+    if (shareType === "หารสองครับ") {
+        sharedTotal /= 2;
+    } else if (shareType === "หารสามครับ") {
+        sharedTotal /= 3;
+    }
+
+    // Format amounts with thousands separators
+    const totalThreeDigitFormatted = totalThreeDigit.toLocaleString();
+    const totalTwoDigitFormatted = totalTwoDigit.toLocaleString();
+    const sharedTotalFormatted = sharedTotal.toLocaleString();
+
     // Display results
     document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
     document.getElementById("titleType").innerText = `ชื้อหวย${type}`;
     document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
-    document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`; // Top line with label
-    document.getElementById("amountDetails").innerText = `สามตัว : ${threeDigitAmount ? threeDigitAmount + ' บาท' : 'ไม่ซื้อ'}, สองตัว : ${twoDigitAmount ? twoDigitAmount + ' บาท' : 'ไม่ซื้อ'}, ${shareType}`;
+    document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
+    document.getElementById("amountDetails").innerHTML = `สามตัวเป็นเงิน = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)<br>สองตัวเป็นเงิน = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
+    document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
     document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
 
     document.getElementById("resultDisplay").style.display = "block";
 }
 </script>
+
 </body>
 </html>
