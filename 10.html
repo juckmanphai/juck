@@ -83,7 +83,7 @@
             margin-top: 20px;
             font-weight: bold;
             border: 2px solid green; /* Green border */
-            background-color: #FFFFE0; /* Light yellow background */
+            background-color: #ffffcc; /* Light yellow background */
             color: blue; /* Blue text color */
             padding: 15px;
             border-radius: 8px;
@@ -379,46 +379,49 @@ function summarize() {
     `;
 }
        function summarizeToday() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // Start of the day
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Start of the day
 
-            let totalIncome = 0;
-            let totalExpense = 0;
+    let totalIncome = 0;
+    let totalExpense = 0;
 
-            records.forEach(record => {
-                const [date, time] = record.dateTime.split(" ");
-                const [year, month, day] = date.split("-");
-                const recordDate = new Date(year, month - 1, day);
+    records.forEach(record => {
+        const [date, time] = record.dateTime.split(" ");
+        const [year, month, day] = date.split("-");
+        const recordDate = new Date(year, month - 1, day);
 
-                // Check if the record is from today and matches the current account
-                if (recordDate.getTime() === today.getTime() && record.account === currentAccount) {
-                    if (record.type === "รายรับ") totalIncome += record.amount;
-                    if (record.type === "รายจ่าย") totalExpense += record.amount;
-                }
-            });
-
-            const netTotal = totalIncome - totalExpense;
-            let remark = '';
-            if (netTotal > 0) {
-                remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-            } else if (netTotal < 0) {
-                remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-            } else {
-                remark = 'รายรับและรายจ่ายเท่ากัน';
-            }
-
-            // Display today’s summary in the summaryResult div
-            document.getElementById('summaryResult').innerHTML = `
-                <p>สรุปยอด: ${currentAccount}</p>
-                <p>วันที่: ${today.toLocaleDateString("th-TH", {
-                    year: 'numeric', month: 'long', day: 'numeric'
-                })}</p>
-                <p>รายรับวันนี้: ${totalIncome.toLocaleString()} บาท</p>
-                <p>รายจ่ายวันนี้: ${totalExpense.toLocaleString()} บาท</p>
-                <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-                <p>หมายเหตุ: ${remark}</p>
-            `;
+        // Check if the record is from today and matches the current account
+        if (recordDate.getTime() === today.getTime() && record.account === currentAccount) {
+            if (record.type === "รายรับ") totalIncome += record.amount;
+            if (record.type === "รายจ่าย") totalExpense += record.amount;
         }
+    });
+
+    const netTotal = totalIncome - totalExpense;
+    let remark = '';
+    if (netTotal > 0) {
+        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+    } else if (netTotal < 0) {
+        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+    } else {
+        remark = 'รายรับและรายจ่ายเท่ากัน';
+    }
+
+    // Get the current date and time for today's summary
+    const summaryDateTime = new Date().toLocaleString("th-TH", {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปยอดวันนี้: ${currentAccount}</p>
+        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ: ${remark}</p>
+    `;
+}
 
 	 function toggleVisibility() {
             const detailsSection = document.getElementById('detailsSection');
