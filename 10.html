@@ -18,8 +18,7 @@
         .action-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
         .summary-section, .summaryResult { text-align: center; margin-top: 30px; font-weight: bold; color: #333; }
         .summaryResult {
-text-align: center;
-    text-align: center;
+            text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 15px; /* Regular text size */
@@ -45,11 +44,10 @@ text-align: center;
     font-size: 15px; /* Regular font size for details */
     margin: 0; /* Remove default margin for paragraph */
 }
-
         .back-button { font-size: 20px; padding: 12px 20px; border-radius: 8px; background-color: #FF5722; color: white; border: none; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
         .back-button:hover { background-color: #E64A19; transform: translateY(-2px); }    </style>
 </head>
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+     <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
 
     <div class="container">
@@ -262,24 +260,24 @@ function summarizeByDayMonth() {
 }
 
         function addEntry() {
-            const dateTime = getCurrentDateTime();
-            const type = document.getElementById('type').value;
-            const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
+    const dateTime = editingIndex !== null ? records[editingIndex].dateTime : getCurrentDateTime(); // Keep original date if editing
+    const type = document.getElementById('type').value;
+    const description = document.getElementById('description').value;
+    const amount = parseFloat(document.getElementById('amount').value);
 
-            if (currentAccount && type && description && amount) {
-                if (editingIndex !== null) {
-                    records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
-                    editingIndex = null;
-                } else {
-                    records.push({ dateTime, type, description, amount, account: currentAccount });
-                }
-                displayRecords();
-                document.getElementById('accountForm').reset();
-            } else {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-            }
+    if (currentAccount && type && description && amount) {
+        if (editingIndex !== null) {
+            records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
+            editingIndex = null; // Reset after saving
+        } else {
+            records.push({ dateTime, type, description, amount, account: currentAccount });
         }
+        displayRecords();
+        document.getElementById('accountForm').reset();
+    } else {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+    }
+}
 
 function displayRecords() {
     const recordBody = document.getElementById('recordBody');
@@ -314,7 +312,7 @@ function editRecord(index) {
     document.getElementById('type').value = record.type;
     document.getElementById('description').value = record.description;
     document.getElementById('amount').value = record.amount;
-    editingIndex = index; // ตั้งค่าตัวแปรเพื่อระบุว่าเรากำลังแก้ไขข้อมูลที่บันทึก
+    editingIndex = index; // Mark this record as being edited
 }
 
 function deleteRecord(index) {
