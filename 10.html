@@ -67,14 +67,14 @@
         <option value="20">20 วัน</option>
         <option value="30">30 วัน</option>
     </select>
-    <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
     <button onclick="summarize()">สรุปยอด</button>
+     <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
+    <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
+    <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
+    <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
     <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
     <button onclick="saveToFile()">บันทึก</button>
-   <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
-   <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
-  <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
-
+   
     <div id="detailsSection" style="display: none;">
         <table id="recordTable">
             <thead>
@@ -208,19 +208,26 @@ function summarizeByDayMonth() {
         remark = 'รายรับและรายจ่ายเท่ากัน';
     }
 
+    // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
+    const thaiDate = new Date(targetDate);
+    const thaiYear = thaiDate.getFullYear() + 543;  // แปลงเป็นปีพุทธศักราช
+    const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
+    const thaiDay = thaiDate.getDate();
+    
     const summaryDateTime = new Date().toLocaleString("th-TH", {
         year: 'numeric', month: 'long', day: 'numeric',
         hour: '2-digit', minute: '2-digit'
     });
 
+    // สรุปยอดและแสดงในช่อง
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุปเมื่อ: ${summaryDateTime}</p>
-        <p>สรุปยอดในวันที่ ${dayMonth}: </p>
+        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
         <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
         <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
         <p>ยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
         <p>${remark}</p>
-    `;
+     `;
 }
 
 	function autoFillDateTime() {
