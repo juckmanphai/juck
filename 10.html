@@ -71,6 +71,9 @@
     <button onclick="summarize()">สรุปยอด</button>
     <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
     <button onclick="saveToFile()">บันทึก</button>
+   <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
+   <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
+  <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
 
     <div id="detailsSection" style="display: none;">
         <table id="recordTable">
@@ -171,6 +174,54 @@ function editAccount() {
                 alert("กรุณาเลือกบัญชีที่ต้องการลบ");
             }
         }
+function summarizeByDayMonth() {
+    const dayMonth = document.getElementById('customDayMonth').value.trim();
+    
+    // ตรวจสอบว่าผู้ใช้กรอกข้อมูลครบถ้วนไหม
+    if (!dayMonth || !/^\d{1,2}\/\d{1,2}$/.test(dayMonth)) {
+        alert("กรุณากรอกวันและเดือนในรูปแบบ วัน/เดือน (เช่น 10/11)");
+        return;
+    }
+
+    const [day, month] = dayMonth.split('/');
+    const targetDate = new Date(new Date().getFullYear(), month - 1, day);  // ตั้งวันที่ให้ตรงกับปีปัจจุบัน
+
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    // ตรวจสอบบันทึกข้อมูลทั้งหมด
+    records.forEach(record => {
+        const recordDate = new Date(record.dateTime.split(" ")[0]); // ใช้แค่วันที่จาก dateTime
+        if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
+            if (record.type === "รายรับ") totalIncome += record.amount;
+            if (record.type === "รายจ่าย") totalExpense += record.amount;
+        }
+    });
+
+    const netTotal = totalIncome - totalExpense;
+    let remark = '';
+    if (netTotal > 0) {
+        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+    } else if (netTotal < 0) {
+        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+    } else {
+        remark = 'รายรับและรายจ่ายเท่ากัน';
+    }
+
+    const summaryDateTime = new Date().toLocaleString("th-TH", {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปเมื่อ: ${summaryDateTime}</p>
+        <p>สรุปยอดในวันที่ ${dayMonth}: </p>
+        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
+        <p>ยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>${remark}</p>
+    `;
+}
 
 	function autoFillDateTime() {
   const dateField = document.getElementById('dateField');  // Your date input field
