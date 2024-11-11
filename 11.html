@@ -70,10 +70,9 @@ body {
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ฟอร์มชื้อ</h2>
     
-    <label for="numberInput">กรอกตัวเลข (2 หรือ 3 ตัว):</label>
+    <label>กรอกตัวเลขและเลือกประเภท:</label>
+<div class="inline-inputs">
     <input type="text" id="numberInput" pattern="\d{2,3}" required>
-
-    <label for="typeSelect">เลือกประเภท:</label>
     <select id="typeSelect" required>
          <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
         <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
@@ -95,6 +94,8 @@ body {
         <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
     </select>
+</div>
+    </div>
 
     <label>สามตัว (จำนวนเงินและชุดตัวเลข):</label>
     <div class="inline-inputs">
@@ -125,9 +126,11 @@ body {
         <p id="titleType"></p>
         <p id="typeAndNumber"></p>
         <p id="purchaseDetailsLabel"></p>
-        <p id="amountDetails"></p>
-        <p id="sharedAmount"></p>
-        <p id="noteDisplay"></p>
+       <p id="amountDetailsThreeDigit"></p>
+       <p id="amountDetailsTwoDigit"></p>
+       <p id="totalAmount"></p>
+      <p id="sharedAmount"></p>
+      <p id="noteDisplay"></p>
     </div>
 </div>
 
@@ -165,16 +168,23 @@ function displayResult() {
     const totalTwoDigitFormatted = totalTwoDigit.toLocaleString();
     const sharedTotalFormatted = sharedTotal.toLocaleString();
 
-    // Display results
-    document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
-    document.getElementById("titleType").innerText = `ชื้อหวย${type}`;
-    document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
-    document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
-    document.getElementById("amountDetails").innerHTML = `สามตัว = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)<br>สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
-    document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
-    document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
+// Display results
+document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
+document.getElementById("titleType").innerText = `ชื้อหวย ${type}`;
+document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
+document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
 
-    document.getElementById("resultDisplay").style.display = "block";
+document.getElementById("amountDetailsThreeDigit").innerHTML = `สามตัว = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)`;
+document.getElementById("amountDetailsTwoDigit").innerHTML = `สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
+
+let totalAmount = parseFloat(totalThreeDigitFormatted.replace(/,/g, '')) + parseFloat(totalTwoDigitFormatted.replace(/,/g, ''));
+document.getElementById("totalAmount").innerHTML = `จำนวนเงินทั้งหมด = ${totalAmount.toLocaleString()} บาท`;
+
+document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
+document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
+
+document.getElementById("resultDisplay").style.display = "block";
+
 }
 </script>
 
