@@ -102,15 +102,17 @@
     <div class="container">
         <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1 style="text-align: center;">ฟอร์มแปลตัวเลข 2 ตัว</h1>
-
-
     <div class="form-container">
             <div style="text-align: center; margin-top: 20px;">
-                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 2 หลัก">
-                <button id="convertButton">แปลตัวเลข</button>
-            </div>
+            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก</label>
+            <select id="personSelect" style="font-size: 18px; padding: 5px;">
+                <option value="Team">Team</option>
+        <option value="@">@</option>
+  	 <option value="โรงงาน">โรงงาน</option>
+        <option value="Udon Don">Udon Don</option>
+        <option value="เจ้าที่">เจ้าที่</option>
+    </select>
 
-            <div style="text-align: center; margin-top: 20px;">
                 <label for="topicSelect">เลือกประเภท</label>
                 <select id="topicSelect" style="font-size: 18px; padding: 5px;">
                 <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
@@ -134,23 +136,15 @@
         <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
         <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
-            </div>
-
-            <div style="text-align: center; margin-top: 20px;">
-            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-            <select id="personSelect" style="font-size: 18px; padding: 5px;">
-                <option value="Team">Team</option>
-        <option value="@">@</option>
-  	 <option value="โรงงาน">โรงงาน</option>
-        <option value="Udon Don">Udon Don</option>
-        <option value="เจ้าที่">เจ้าที่</option>
-    </select>
+            
         </div>
-
+            <div style="text-align: center; margin-top: 20px;">
+                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 2 หลัก">
+                <button id="convertButton">แปลตัวเลข</button>
+            </div>
     <div style="text-align: center; margin-top: 20px;">
                 <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
             </div>
-        </div>
 
         <!-- เพิ่มการแสดงผลที่นี่ -->
         <div id="resultContainer" style="display: none; margin-top: 20px;"></div>
