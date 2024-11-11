@@ -186,7 +186,7 @@
     let noteInput = document.getElementById("noteInput").value;
 
     if (!noteInput.trim()) {
-        noteInput = '<span style="color: #4CAF50;">No comments</span>';
+        noteInput = '<span style="color: red;">No comments</span>';
     }
 
     if (num.length !== 3 || isNaN(num)) {
@@ -623,7 +623,7 @@ resultContainer.innerHTML = `
     <p class="blue" style="font-size: 15px;">${additionalNumbersForThirdSetText}</p>
     <h2 class="red" style="font-size: 15px;">แนวทางเท่านั้น</h2>
     <p class="blue" style="font-size: 15px;">แปล ${getThaiTime()}</p>
-    <p class="blue" style="font-size: 15px;">หมายเหตุ : <span style="color: #4CAF50;">${noteInput}</span></p>
+    <p class="blue" style="font-size: 15px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
 resultContainer.style.display = 'block';
