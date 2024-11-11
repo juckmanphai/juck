@@ -200,9 +200,9 @@
             let noteInput = document.getElementById("noteInput").value;
             
             if (!noteInput.trim()) {
-                noteInput = '<span style="color: #4CAF50;">No comments</span>';
+                noteInput = '<span style="color: red;">No comments</span>';
             } else {
-                noteInput = `<span style="color: #4CAF50;">${noteInput}</span>`;
+                noteInput = `<span style="color: red;">${noteInput}</span>`;
             }
 
             if (num.length !== 4 || isNaN(num)) {
