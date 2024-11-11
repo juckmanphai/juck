@@ -178,7 +178,7 @@ document.getElementById("amountDetailsThreeDigit").innerHTML = `สามตั�
 document.getElementById("amountDetailsTwoDigit").innerHTML = `สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
 
 let totalAmount = parseFloat(totalThreeDigitFormatted.replace(/,/g, '')) + parseFloat(totalTwoDigitFormatted.replace(/,/g, ''));
-document.getElementById("totalAmount").innerHTML = `จำนวนเงินทั้งหมด = ${totalAmount.toLocaleString()} บาท`;
+document.getElementById("totalAmount").innerHTML = `รวมเป็นเงินทั้งสิ้น = ${totalAmount.toLocaleString()} บาท`;
 
 document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
 document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
