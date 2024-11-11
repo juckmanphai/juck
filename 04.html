@@ -103,11 +103,16 @@
 
         <div class="form-container">
             <div style="text-align: center; margin-top: 20px;">
-                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
-                <button id="convertButton">แปลตัวเลข</button>
-            </div>
-
-            <div style="text-align: center; margin-top: 20px;">
+            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
+            <select id="personSelect" style="font-size: 18px; padding: 5px;">
+                <option value="Team">Team</option>
+        <option value="@">@</option>
+  	 <option value="โรงงาน">โรงงาน</option>
+        <option value="Udon Don">Udon Don</option>
+        <option value="เจ้าที่">เจ้าที่</option>
+    </select>
+        </div>
+<div style="text-align: center; margin-top: 20px;">
                 <label for="topicSelect">เลือกประเภท</label>
                 <select id="topicSelect" style="font-size: 18px; padding: 5px;">
                 <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
@@ -132,18 +137,10 @@
         <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
     </select>
             </div>
-
             <div style="text-align: center; margin-top: 20px;">
-            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-            <select id="personSelect" style="font-size: 18px; padding: 5px;">
-                <option value="Team">Team</option>
-        <option value="@">@</option>
-  	 <option value="โรงงาน">โรงงาน</option>
-        <option value="Udon Don">Udon Don</option>
-        <option value="เจ้าที่">เจ้าที่</option>
-    </select>
-        </div>
-
+                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
+                <button id="convertButton">แปลตัวเลข</button>
+            </div>
 
             <div style="text-align: center; margin-top: 20px;">
                 <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
