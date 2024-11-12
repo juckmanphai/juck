@@ -4,59 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>บัญชีรายรับรายจ่าย</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        /* CSS styles */
-        body { font-family: Arial, sans-serif; background-color: #f4f7fb; margin: 0; padding: 0; }
-        h2 { text-align: center; color: #333; margin-top: 30px; font-size: 28px; }
-        .container { max-width: 800px; margin: 20px auto; background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        .form-group { margin-bottom: 20px; }
-        label { font-weight: bold; color: #333; display: block; margin-bottom: 8px; }
-        select, input[type="text"], input[type="number"] { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; }
-        button { background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; width: 100%; transition: background-color 0.3s ease; margin-top: 10px; }
-        button:hover { background-color: #45a049; }
-        .action-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
-        .summary-section, .summaryResult { text-align: center; margin-top: 30px; font-weight: bold; color: #333; }
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header Styles */
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+            font-size: 28px;
+        }
+        
+        /* Container Styles */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Group Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        select,
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .back-button {
+            font-size: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-button:hover {
+            background-color: #E64A19;
+            transform: translateY(-2px);
+        }
+        
+        /* Summary Section Styles */
+        .summary-section,
         .summaryResult {
             text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 15px; /* Regular text size */
-    font-weight: normal; /* Regular font weight */
-    border: 2px solid green; /* Green border */
-    background-color: #ffffcc; /* Light yellow background */
-    color: blue; /* Blue text color */
-    padding: 15px;
-    border-radius: 8px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 2; /* Line spacing */
-}
-
-.summaryResult h1 {
-    font-size: 18px; /* Larger font size for heading */
-    font-weight: bold; /* Bold font for heading */
-    margin: 0; /* Remove default margin for heading */
-}
-
-.summaryResult p {
-    font-size: 15px; /* Regular font size for details */
-    margin: 0; /* Remove default margin for paragraph */
-}
-        .back-button { font-size: 20px; padding: 12px 20px; border-radius: 8px; background-color: #FF5722; color: white; border: none; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
-        .back-button:hover { background-color: #E64A19; transform: translateY(-2px); }    </style>
+            margin-top: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .summaryResult {
+            font-size: 15px;
+            font-weight: normal;
+            border: 2px solid green;
+            background-color: #ffffcc;
+            color: blue;
+            padding: 15px;
+            border-radius: 8px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 2;
+        }
+        
+        .summaryResult h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .summaryResult p {
+            font-size: 15px;
+            margin: 0;
+        }
+    </style>
 </head>
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+<body>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+</script>
+    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
+    <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
 
     <div class="container">
+        <!-- Account Management -->
         <label for="accountSelect">เลือกบัญชี:</label>
         <select id="accountSelect" onchange="changeAccount()"></select>
         <button type="button" onclick="addAccount()">เพิ่มบัญชีใหม่</button>
         <button type="button" onclick="deleteAccount()">ลบบัญชี</button>
         <button type="button" onclick="editAccount()">แก้ไขชื่อบัญชี</button>
 
+        <!-- Entry Form -->
         <form id="accountForm">
             <label for="type">ประเภท:</label>
             <select id="type" required>
@@ -70,34 +159,37 @@
             <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
         </form>
 
+        <!-- Summary Options -->
         <label for="summaryDays">จำนวนวันที่ต้องการสรุป:</label>
         <input type="number" id="summaryDays" name="summaryDays" min="1" placeholder="กรอกจำนวนวัน">
         <button onclick="getSummary()">แสดงสรุปผลย้อนหลัง</button>
 
-     <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
-    <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
-    <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
-    <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
-    <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
-    <button onclick="saveToFile()">บันทึก</button>
-   
-    <div id="detailsSection" style="display: none;">
-        <table id="recordTable">
-            <thead>
-                <tr>
-                    <th>วันที่และเวลา</th>
-                    <th>ประเภท</th>
-                    <th>รายละเอียด</th>
-                    <th>จำนวนเงิน</th>
-                    <th>การจัดการ</th>
-                </tr>
-            </thead>
-            <tbody id="recordBody"></tbody>
-        </table>
+        <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
+        <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
+        <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
+        <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
+        <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
+        <button onclick="saveToFile()">บันทึก</button>
+        
+        <!-- Details Section -->
+        <div id="detailsSection" style="display: none;">
+            <table id="recordTable">
+                <thead>
+                    <tr>
+                        <th>วันที่และเวลา</th>
+                        <th>ประเภท</th>
+                        <th>รายละเอียด</th>
+                        <th>จำนวนเงิน</th>
+                        <th>การจัดการ</th>
+                    </tr>
+                </thead>
+                <tbody id="recordBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Summary Result -->
+        <div id="summaryResult" class="summaryResult"></div>
     </div>
-
-    <div id="summaryResult" class="summaryResult"></div> <!-- Single summary result div -->
-
     <script>
         const accounts = [];
         let currentAccount = null;
@@ -514,7 +606,5 @@ function saveToFile() {
             updateAccountSelect();
         };
     </script>
-    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
-    <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
 </body>
 </html>
