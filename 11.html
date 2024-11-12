@@ -1,610 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บัญชีรายรับรายจ่าย</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fb;
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* Header Styles */
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: 30px;
-            font-size: 28px;
-        }
-        
-        /* Container Styles */
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Form Group Styles */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            font-weight: bold;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        select,
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        /* Button Styles */
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-        
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .back-button {
-            font-size: 20px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            background-color: #FF5722;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .back-button:hover {
-            background-color: #E64A19;
-            transform: translateY(-2px);
-        }
-        
-        /* Summary Section Styles */
-        .summary-section,
-        .summaryResult {
-            text-align: center;
-            margin-top: 30px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .summaryResult {
-            font-size: 15px;
-            font-weight: normal;
-            border: 2px solid green;
-            background-color: #ffffcc;
-            color: blue;
-            padding: 15px;
-            border-radius: 8px;
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 2;
-        }
-        
-        .summaryResult h1 {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0;
-        }
-        
-        .summaryResult p {
-            font-size: 15px;
-            margin: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ฟอร์มชื้อ</title>
+<style>
+body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .form-container {
+        max-width: 500px;
+        margin: auto;
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+    input, select, textarea, button {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+    }
+    .inline-inputs {
+        display: flex;
+        gap: 10px;
+    }
+    .inline-inputs input {
+        width: 50%;
+    }
+    .result p {
+        line-height: 1;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #ffffcc;
+        border: 2px solid green;
+        text-align: center;
+        max-width: 600px; /* Increased width */
+        margin: 20px auto;
+        border-radius: 8px;
+        color: blue;
+    }
+    .back-button {
+        font-size: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #FF5722;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .back-button:hover {
+        background-color: #E64A19;
+        transform: translateY(-2px);
+    }
+    .back-button:active {
+        background-color: #D84315;
+        transform: translateY(0);
+    }
+</style>
 </head>
 <body>
+
+<div class="form-container">
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-    <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
-</script>
-    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
-    <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
-
-    <div class="container">
-        <!-- Account Management -->
-        <label for="accountSelect">เลือกบัญชี:</label>
-        <select id="accountSelect" onchange="changeAccount()"></select>
-        <button type="button" onclick="addAccount()">เพิ่มบัญชีใหม่</button>
-        <button type="button" onclick="deleteAccount()">ลบบัญชี</button>
-        <button type="button" onclick="editAccount()">แก้ไขชื่อบัญชี</button>
-
-        <!-- Entry Form -->
-        <form id="accountForm">
-            <label for="type">ประเภท:</label>
-            <select id="type" required>
-                <option value="รายรับ">รายรับ</option>
-                <option value="รายจ่าย">รายจ่าย</option>
-            </select>
-            <label for="description">รายละเอียด:</label>
-            <input type="text" id="description" required>
-            <label for="amount">จำนวนเงิน:</label>
-            <input type="number" id="amount" required>
-            <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
-        </form>
-
-        <!-- Summary Options -->
-        <label for="summaryDays">จำนวนวันที่ต้องการสรุป:</label>
-        <input type="number" id="summaryDays" name="summaryDays" min="1" placeholder="กรอกจำนวนวัน">
-        <button onclick="getSummary()">แสดงสรุปผลย้อนหลัง</button>
-
-        <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
-        <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
-        <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
-        <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
-        <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
-        <button onclick="saveToFile()">บันทึก</button>
-        
-        <!-- Details Section -->
-        <div id="detailsSection" style="display: none;">
-            <table id="recordTable">
-                <thead>
-                    <tr>
-                        <th>วันที่และเวลา</th>
-                        <th>ประเภท</th>
-                        <th>รายละเอียด</th>
-                        <th>จำนวนเงิน</th>
-                        <th>การจัดการ</th>
-                    </tr>
-                </thead>
-                <tbody id="recordBody"></tbody>
-            </table>
-        </div>
-
-        <!-- Summary Result -->
-        <div id="summaryResult" class="summaryResult"></div>
+    <h2>ฟอร์มชื้อ</h2>
+    
+    <label>กรอกตัวเลขและเลือกประเภท:</label>
+<div class="inline-inputs">
+    <input type="text" id="numberInput" pattern="\d{2,3}" required>
+    <select id="typeSelect" required>
+         <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+    </select>
+</div>
     </div>
-    <script>
-        const accounts = [];
-        let currentAccount = null;
-        const records = [];
-        let editingIndex = null;
 
-        function addAccount() {
-            const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:");
-            if (accountName && !accounts.includes(accountName)) {
-                accounts.push(accountName);
-                updateAccountSelect();
-                alert("เพิ่มบัญชีสำเร็จ");
-            } else {
-                alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
-            }
-        }
+    <label>สามตัว (จำนวนเงินและชุดตัวเลข):</label>
+    <div class="inline-inputs">
+        <input type="number" id="threeDigitAmount" min="0" placeholder="จำนวนเงิน">
+        <input type="number" id="threeDigitSets" min="1" placeholder="จำนวนชุด">
+    </div>
 
-        function updateAccountSelect() {
-            const accountSelect = document.getElementById('accountSelect');
-            accountSelect.innerHTML = '<option value="">เลือกบัญชี</option>';
-            accounts.forEach(account => {
-                const option = document.createElement('option');
-                option.value = account;
-                option.textContent = account;
-                accountSelect.appendChild(option);
-            });
-        }
+    <label>สองตัว (จำนวนเงินและชุดตัวเลข):</label>
+    <div class="inline-inputs">
+        <input type="number" id="twoDigitAmount" min="0" placeholder="จำนวนเงิน">
+        <input type="number" id="twoDigitSets" min="1" placeholder="จำนวนชุด">
+    </div>
 
-        function changeAccount() {
-            currentAccount = document.getElementById('accountSelect').value;
-            document.getElementById('accountName').textContent = currentAccount || "";
-            displayRecords();
-        }
-function editAccount() {
-    if (!currentAccount) {
-        alert("กรุณาเลือกบัญชีที่ต้องการแก้ไข");
-        return;
+    <label for="shareType">เลือกประเภทการแชร์:</label>
+    <select id="shareType" required>
+        <option value="หารสองครับ">หารสอง</option>
+        <option value="หารสามครับ">หารสาม</option>
+        <option value="ซื้อคนเดียวครับ">ซื้อคนเดียว</option>
+    </select>
+
+    <label for="note">หมายเหตุ:</label>
+    <textarea id="note" rows="2"></textarea>
+
+    <button onclick="displayResult()">แสดงผล</button>
+
+    <div class="result" id="resultDisplay" style="display: none;">
+        <p id="currentDate"></p>
+        <p id="titleType"></p>
+        <p id="typeAndNumber"></p>
+        <p id="purchaseDetailsLabel"></p>
+       <p id="amountDetailsThreeDigit"></p>
+       <p id="amountDetailsTwoDigit"></p>
+       <p id="totalAmount"></p>
+      <p id="sharedAmount"></p>
+      <p id="noteDisplay"></p>
+    </div>
+</div>
+
+<script>
+function displayResult() {
+    // Get form values
+    const number = document.getElementById("numberInput").value;
+    const type = document.getElementById("typeSelect").value;
+    const threeDigitAmount = parseFloat(document.getElementById("threeDigitAmount").value) || 0;
+    const threeDigitSets = parseInt(document.getElementById("threeDigitSets").value) || 1;
+    const twoDigitAmount = parseFloat(document.getElementById("twoDigitAmount").value) || 0;
+    const twoDigitSets = parseInt(document.getElementById("twoDigitSets").value) || 1;
+    const shareType = document.getElementById("shareType").value;
+    const note = document.getElementById("note").value || "No comment";
+
+    // Format current date in Thai format
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const thaiDate = currentDate.toLocaleDateString('th-TH', options);
+
+    // Calculate total amounts
+    const totalThreeDigit = threeDigitAmount * threeDigitSets;
+    const totalTwoDigit = twoDigitAmount * twoDigitSets;
+    let sharedTotal = totalThreeDigit + totalTwoDigit;
+
+    // Adjust shared total based on share type
+    if (shareType === "หารสองครับ") {
+        sharedTotal /= 2;
+    } else if (shareType === "หารสามครับ") {
+        sharedTotal /= 3;
     }
 
-    const newAccountName = prompt("กรุณากรอกชื่อบัญชีใหม่:", currentAccount);
-    if (newAccountName && newAccountName !== currentAccount && !accounts.includes(newAccountName)) {
-        const index = accounts.indexOf(currentAccount);
-        if (index > -1) {
-            // Update the account name in the accounts array
-            accounts[index] = newAccountName;
+    // Format amounts with thousands separators
+    const totalThreeDigitFormatted = totalThreeDigit.toLocaleString();
+    const totalTwoDigitFormatted = totalTwoDigit.toLocaleString();
+    const sharedTotalFormatted = sharedTotal.toLocaleString();
 
-            // Update the account name in each related record
-            records.forEach(record => {
-                if (record.account === currentAccount) {
-                    record.account = newAccountName;
-                }
-            });
+// Display results
+document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
+document.getElementById("titleType").innerText = `ชื้อหวย ${type}`;
+document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
+document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
 
-            // Update the current account to the new name and refresh the display
-            currentAccount = newAccountName;
-            updateAccountSelect();
-            document.getElementById('accountName').textContent = currentAccount;
-            displayRecords();
-            alert("แก้ไขชื่อบัญชีเรียบร้อย");
-        }
-    } else {
-        alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
-    }
+document.getElementById("amountDetailsThreeDigit").innerHTML = `สามตัว = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)`;
+document.getElementById("amountDetailsTwoDigit").innerHTML = `สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
+
+let totalAmount = parseFloat(totalThreeDigitFormatted.replace(/,/g, '')) + parseFloat(totalTwoDigitFormatted.replace(/,/g, ''));
+document.getElementById("totalAmount").innerHTML = `จำนวนเงินทั้งหมด = ${totalAmount.toLocaleString()} บาท`;
+
+document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
+document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
+
+document.getElementById("resultDisplay").style.display = "block";
+
 }
+</script>
 
-        function deleteAccount() {
-            if (currentAccount) {
-                const confirmDelete = confirm(`คุณแน่ใจว่าจะลบบัญชี "${currentAccount}" หรือไม่?`);
-                if (confirmDelete) {
-                    const index = accounts.indexOf(currentAccount);
-                    if (index > -1) {
-                        accounts.splice(index, 1);
-                        currentAccount = null;
-                        updateAccountSelect();
-                        displayRecords();
-                        alert("ลบบัญชีเรียบร้อย");
-                    }
-                }
-            } else {
-                alert("กรุณาเลือกบัญชีที่ต้องการลบ");
-            }
-        }
-function summarizeByDayMonth() {
-    const dayMonth = document.getElementById('customDayMonth').value.trim();
-    
-    // ตรวจสอบว่าผู้ใช้กรอกข้อมูลครบถ้วนไหม
-    if (!dayMonth || !/^\d{1,2}\/\d{1,2}$/.test(dayMonth)) {
-        alert("กรุณากรอกวันและเดือนในรูปแบบ วัน/เดือน (เช่น 10/11)");
-        return;
-    }
-
-    const [day, month] = dayMonth.split('/');
-    const targetDate = new Date(new Date().getFullYear(), month - 1, day);  // ตั้งวันที่ให้ตรงกับปีปัจจุบัน
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-
-    // ตรวจสอบบันทึกข้อมูลทั้งหมด
-    records.forEach(record => {
-        const recordDate = new Date(record.dateTime.split(" ")[0]); // ใช้แค่วันที่จาก dateTime
-        if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
-        }
-    });
-
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
-
-    // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
-    const thaiDate = new Date(targetDate);
-    const thaiYear = thaiDate.getFullYear() + 543;  // แปลงเป็นปีพุทธศักราช
-    const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
-    const thaiDay = thaiDate.getDate();
-    
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
-
-    // สรุปยอดและแสดงในช่อง
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปเมื่อ: ${summaryDateTime}</p>
-        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>ยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>${remark}</p>
-     `;
-}
-
-	function autoFillDateTime() {
-  const dateField = document.getElementById('dateField');  // Your date input field
-  const timeField = document.getElementById('timeField');  // Your time input field
-
-  // Only set date and time if fields are empty (new entry)
-  if (!dateField.value && !timeField.value) {
-    const now = new Date();
-    const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
-    const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    
-    dateField.value = formattedDate;
-    timeField.value = formattedTime;
-  }
-}
-
-        function addEntry() {
-    const dateTime = editingIndex !== null ? records[editingIndex].dateTime : getCurrentDateTime(); // Keep original date if editing
-    const type = document.getElementById('type').value;
-    const description = document.getElementById('description').value;
-    const amount = parseFloat(document.getElementById('amount').value);
-
-    if (currentAccount && type && description && amount) {
-        if (editingIndex !== null) {
-            records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
-            editingIndex = null; // Reset after saving
-        } else {
-            records.push({ dateTime, type, description, amount, account: currentAccount });
-        }
-        displayRecords();
-        document.getElementById('accountForm').reset();
-    } else {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-    }
-}
-
-function displayRecords() {
-    const recordBody = document.getElementById('recordBody');
-    recordBody.innerHTML = ""; // ล้างข้อมูลเก่าก่อน
-
-    // เรียงข้อมูลจากใหม่สุดไปเก่าที่สุด โดยใช้ `sort()`
-    records.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-
-    records.forEach((record, index) => {
-        if (record.account === currentAccount) {
-            const dateTime = new Date(record.dateTime);
-            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${record.type}</td>
-                <td>${record.description}</td>
-                <td>${record.amount.toLocaleString()} บาท</td> <!-- ใช้ toLocaleString() เพื่อคั่นหลักพัน -->
-                <td>
-                    <button onclick="editRecord(${index})">แก้ไข</button>
-                    <button onclick="deleteRecord(${index})">ลบ</button>
-                </td>
-            `;
-            recordBody.appendChild(row);
-        }
-    });
-}
-
-function editRecord(index) {
-    const record = records[index];
-    document.getElementById('type').value = record.type;
-    document.getElementById('description').value = record.description;
-    document.getElementById('amount').value = record.amount;
-    editingIndex = index; // Mark this record as being edited
-}
-
-function deleteRecord(index) {
-    records.splice(index, 1); // ลบรายการจาก array
-    displayRecords(); // แสดงข้อมูลใหม่
-}
-
-        function getCurrentDateTime() {
-            const now = new Date();
-            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-        }
-
-function getSummary() {
-    const days = document.getElementById('summaryDays').value;
-    const summaryDate = new Date();
-    summaryDate.setDate(summaryDate.getDate() - days);
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-
-    records.forEach(record => {
-        const [date, time] = record.dateTime.split(" ");
-        const [year, month, day] = date.split("-");
-        const recordDate = new Date(year, month - 1, day);
-
-        // Check if the record is within the selected date range
-        if (recordDate >= summaryDate && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
-        }
-    });
-
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
-
-    // Get the current date and time for the summary
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
-
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดย้อนหลัง ${days} วัน: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
-    `;
-}
-
-function summarize() {
-    const summaryDays = parseInt(document.getElementById('summaryDays').value);
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - summaryDays);
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-
-    records.forEach(record => {
-        const [date, time] = record.dateTime.split(" ");
-        const [year, month, day] = date.split("-");
-        const [hour, minute] = time.split(":");
-        const recordDate = new Date(year, month - 1, day, hour, minute);
-
-        if (recordDate >= cutoffDate && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
-        }
-    });
-
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
-
-    // Get the current date and time for the summary
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
-
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอด: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>ช่วงวันที่: ${summaryDays} วันที่ผ่านมา</p>
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
-    `;
-}
-       function summarizeToday() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Start of the day
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-
-    records.forEach(record => {
-        const [date, time] = record.dateTime.split(" ");
-        const [year, month, day] = date.split("-");
-        const recordDate = new Date(year, month - 1, day);
-
-        // Check if the record is from today and matches the current account
-        if (recordDate.getTime() === today.getTime() && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
-        }
-    });
-
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
-
-    // Get the current date and time for today's summary
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
-
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดวันนี้: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
-    `;
-}
-
-	 function toggleVisibility() {
-            const detailsSection = document.getElementById('detailsSection');
-            detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
-        }
-
-function saveToFile() {
-    const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
-    if (!fileName) {
-        alert("กรุณากรอกชื่อไฟล์");
-        return;
-    }
-
-    // ดึงวันที่และเวลาในรูปแบบ DDMMYYYY_HHMM
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const dateTimeString = `${day}${month}${year}_${hours}${minutes}`;
-
-    // ตั้งชื่อไฟล์ด้วยวันที่และเวลา
-    const fullFileName = `${fileName}_${dateTimeString}.json`;
-
-    const data = { accounts, currentAccount, records };
-    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fullFileName; // ใช้ชื่อไฟล์ที่รวมวันที่และเวลา
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-        function loadFromFile(event) {
-            const file = event.target.files[0];
-            if (!file) {
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = JSON.parse(e.target.result);
-                accounts.length = 0;
-                accounts.push(...data.accounts);
-                currentAccount = data.currentAccount;
-                records.length = 0;
-                records.push(...data.records);
-                updateAccountSelect();
-                changeAccount();
-            };
-            reader.readAsText(file);
-        }
-
-        window.onload = function() {
-            document.getElementById('datetime').value = getCurrentDateTime();
-            document.getElementById('detailsSection').style.display = 'none';
-            updateAccountSelect();
-        };
-    </script>
 </body>
 </html>
