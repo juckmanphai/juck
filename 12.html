@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
+    <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,17 +17,14 @@
             color: #2c3e50;
             margin-top: 20px;
         }
-        .container {
+      .container {
             max-width: 600px;
-	    width: 95%;
             margin: 0 auto;
             padding: 15px;
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             margin-top: 15px;
-        }
-
         input, select, button {
             font-size: 18px;
             padding: 10px;
@@ -62,12 +59,6 @@
             margin-left: 5%;
             color: #2c3e50;
         }
-        .blue {
-            color: blue;
-        }
-        .red {
-            color: red;
-        }
         footer {
             text-align: center;
             padding: 20px;
@@ -75,67 +66,61 @@
             color: #95a5a6;
         }
         .form-container {
-            border: 2px solid red;
+            border: 2px solid orange;
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         #resultContainer {
-            display: none;
-            margin-top: 20px;
+            max-width: 600px;
+            width: 90%;
+            margin-top: 15px;
             background-color: #ffffcc;
             border: 2px solid #4CAF50;
-            padding: 20px;
+            padding: 15px;
+            margin-left: auto;
+            margin-right: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            text-align: center;
+        }
+        .blue {
+            color: #2c3e50;
+        }
+        .red {
+            color: red;
         }
     </style>
-
     <script>
-        // ปิดการคลิกขวา
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        function sortPair(pair) {
-            const digits = pair.split('');
-            return digits[0] > digits[1] ? digits[1] + digits[0] : pair;
+        function getThaiDate(date = new Date()) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+            const year = date.getFullYear() + 543;
+            return `วันที่ ${day} ${month} ${year}`;
         }
-
-function getThaiDate(date = new Date()) {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
-    const year = date.getFullYear() + 543;
-
-    return `วันที่ ${day}  ${month} ${year}`;
-}
-
 
         function getThaiTime() {
             const now = new Date();
-            const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
-            return `เวลา ${time} น.`;
+            return `เวลา ${String(now.getHours()).padStart(2, '0')}.${String(now.getMinutes()).padStart(2, '0')} น.`;
         }
 
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const topicSelect = document.getElementById("topicSelect");
-            const selectedTopic = topicSelect.value;
+            const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
             const personSelect = document.getElementById("personSelect");
-            const selectedPerson = personSelect.value;
+            const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
             let noteInput = document.getElementById("noteInput").value;
-            const dateInputValue = document.getElementById("dateInput").value;
-            const dateInput = dateInputValue ? new Date(dateInputValue) : new Date();  // ใช้วันที่ที่กรอกหรือวันที่ปัจจุบัน
 
-    if (!noteInput.trim()) {
-        noteInput = '<span style="color: red;">No comments</span>';
-    }
+            if (!noteInput.trim()) {
+                noteInput = '<span style="color: red;">No comments</span>';
+            }
 
-    if (num.length !== 3 || isNaN(num)) {
-        alert("กรุณาป้อนตัวเลข 3 หลัก");
-        return;
-    }
+            if (num.length !== 2 || isNaN(num)) {
+                alert("กรุณาป้อนตัวเลข 2 หลัก");
+                return;
+            }
 
             const transformRules = {
                 '0': '1', '1': '7', '2': '5', '3': '8',
@@ -144,486 +129,133 @@ function getThaiDate(date = new Date()) {
             };
 
             const transformed = num.split('').map(digit => transformRules[digit]).join('');
-
-            const firstSet = [
-                sortPair(`${num[0]}${num[1]}`),
-                sortPair(`${num[0]}${num[2]}`),
-                sortPair(`${num[1]}${num[2]}`)
+            const pairs = [
+                `${num[0]}${transformed[1]}`,
+                `${transformed[0]}${num[1]}`,
+                `${transformed[0]}${transformed[1]}`,
+                `${num[0]}${num[1]}`
             ];
 
-            let secondSet = [];
+            const formattedPairs = pairs.map(pair => {
+                const tens = parseInt(pair[0]);
+                const units = parseInt(pair[1]);
+                return tens <= units ? pair : `${units}${tens}`;
+            });
 
-            for (let i = 0; i < 3; i++) {
-                if (i === 0) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
-                } else if (i === 1) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
-                } else if (i === 2) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
+            const uniquePairs = [...new Set(formattedPairs)];
+            const additionRules = {
+                '00': '02', '11': '12', '33': '23',
+                '44': '24', '55': '25', '66': '26', '77': '27',
+                '88': '28', '99': '29'
+            };
+
+            uniquePairs.forEach(pair => {
+                const addition = additionRules[pair];
+                if (addition) {
+                    uniquePairs.push(addition);
                 }
-            }
+            });
 
-            const uniqueFirstSet = [...new Set(firstSet)].sort();
-            secondSet = [...new Set(secondSet)].sort();
+            const sortedPairs = [...new Set(uniquePairs)].sort();
 
-            const additionalNumbers = [];
-        if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
-            additionalNumbers.push('02');
-        }
-        if (uniqueFirstSet.includes('11') || secondSet.includes('11')) {
-            additionalNumbers.push('12');
-        }
-        if (uniqueFirstSet.includes('22') || secondSet.includes('22')) {
-            // ไม่ต้องเพิ่ม
-        }
-        if (uniqueFirstSet.includes('33') || secondSet.includes('33')) {
-            additionalNumbers.push('23');
-        }
-        if (uniqueFirstSet.includes('44') || secondSet.includes('44')) {
-            additionalNumbers.push('24');
-        }
-        if (uniqueFirstSet.includes('55') || secondSet.includes('55')) {
-            additionalNumbers.push('25');
-        }
-        if (uniqueFirstSet.includes('66') || secondSet.includes('66')) {
-            additionalNumbers.push('26');
-        }
-        if (uniqueFirstSet.includes('77') || secondSet.includes('77')) {
-            additionalNumbers.push('27');
-        }
-        if (uniqueFirstSet.includes('88') || secondSet.includes('88')) {
-            additionalNumbers.push('28');
-        }
-        if (uniqueFirstSet.includes('99') || secondSet.includes('99')) {
-            additionalNumbers.push('29');
-        }
+            const dateInput = document.getElementById("dateInput").value;
+            const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-            // เพิ่มกรณีอื่นๆ ที่ต้องการ
-
-            const finalSecondSet = [...new Set([...secondSet, ...additionalNumbers])].sort();
-            const filteredSecondSet = finalSecondSet.filter(pair => !uniqueFirstSet.includes(pair));
-
-            const thirdSet = [
-                `${num[0]}${num[1]}${num[2]}`,
-                `${num[0]}${num[1]}${transformed[2]}`,
-                `${num[0]}${transformed[1]}${num[2]}`,
-                `${num[0]}${transformed[1]}${transformed[2]}`,
-                `${transformed[0]}${num[1]}${num[2]}`,
-                `${transformed[0]}${num[1]}${transformed[2]}`,
-                `${transformed[0]}${transformed[1]}${num[2]}`,
-                `${transformed[0]}${transformed[1]}${transformed[2]}`
-            ];
-
-            const sortedThirdSet = [...new Set(thirdSet.map(triplet => triplet.split('').sort().join('')))].sort();
-
-            const additionalNumbersForThirdSet = [];
-            if (sortedThirdSet.includes('000')) {
-                additionalNumbersForThirdSet.push('002');
-            }
-            if (sortedThirdSet.includes('011')) {
-                additionalNumbersForThirdSet.push('012');
-            }
-            if (sortedThirdSet.includes('022')) {
-                additionalNumbersForThirdSet.push('022');
-            }
-	    if (sortedThirdSet.includes('033')) {
-                additionalNumbersForThirdSet.push('023');
-            }
-            if (sortedThirdSet.includes('044')) {
-                additionalNumbersForThirdSet.push('024');
-            }
-            if (sortedThirdSet.includes('055')) {
-                additionalNumbersForThirdSet.push('025');
-            }
-            if (sortedThirdSet.includes('066')) {
-                additionalNumbersForThirdSet.push('026');
-            }
-            if (sortedThirdSet.includes('077')) {
-                additionalNumbersForThirdSet.push('027');
-            }
-            if (sortedThirdSet.includes('088')) {
-                additionalNumbersForThirdSet.push('028');
-            }
-	    if (sortedThirdSet.includes('099')) {
-                additionalNumbersForThirdSet.push('029');
-            }
-           if (sortedThirdSet.includes('111')) {
-                additionalNumbersForThirdSet.push('112');
-            }
-            if (sortedThirdSet.includes('122')) {
-                additionalNumbersForThirdSet.push('122');
-            }
-	    if (sortedThirdSet.includes('133')) {
-                additionalNumbersForThirdSet.push('123');
-            }
-            if (sortedThirdSet.includes('144')) {
-                additionalNumbersForThirdSet.push('124');
-            }
-            if (sortedThirdSet.includes('155')) {
-                additionalNumbersForThirdSet.push('125');
-            }
-            if (sortedThirdSet.includes('166')) {
-                additionalNumbersForThirdSet.push('126');
-            }
-            if (sortedThirdSet.includes('177')) {
-                additionalNumbersForThirdSet.push('127');
-            }
-            if (sortedThirdSet.includes('188')) {
-                additionalNumbersForThirdSet.push('128');
-            }
-	    if (sortedThirdSet.includes('199')) {
-                additionalNumbersForThirdSet.push('129');
-            }
-            if (sortedThirdSet.includes('222')) {
-                additionalNumbersForThirdSet.push('222');
-            }
-	    if (sortedThirdSet.includes('233')) {
-                additionalNumbersForThirdSet.push('223');
-            }
-            if (sortedThirdSet.includes('244')) {
-                additionalNumbersForThirdSet.push('224');
-            }
-            if (sortedThirdSet.includes('255')) {
-                additionalNumbersForThirdSet.push('225');
-            }
-            if (sortedThirdSet.includes('266')) {
-                additionalNumbersForThirdSet.push('226');
-            }
-            if (sortedThirdSet.includes('277')) {
-                additionalNumbersForThirdSet.push('227');
-            }
-            if (sortedThirdSet.includes('288')) {
-                additionalNumbersForThirdSet.push('228');
-            }
-	    if (sortedThirdSet.includes('299')) {
-                additionalNumbersForThirdSet.push('229');
-            }
-            if (sortedThirdSet.includes('333')) {
-                additionalNumbersForThirdSet.push('233');
-            }
-            if (sortedThirdSet.includes('344')) {
-                additionalNumbersForThirdSet.push('234');
-            }
-            if (sortedThirdSet.includes('355')) {
-                additionalNumbersForThirdSet.push('235');
-            }
-            if (sortedThirdSet.includes('366')) {
-                additionalNumbersForThirdSet.push('236');
-            }
-            if (sortedThirdSet.includes('377')) {
-                additionalNumbersForThirdSet.push('237');
-            }
-            if (sortedThirdSet.includes('388')) {
-                additionalNumbersForThirdSet.push('238');
-            }
-	    if (sortedThirdSet.includes('399')) {
-                additionalNumbersForThirdSet.push('239');
-            }
-            if (sortedThirdSet.includes('444')) {
-                additionalNumbersForThirdSet.push('244');
-            }
-            if (sortedThirdSet.includes('455')) {
-                additionalNumbersForThirdSet.push('245');
-            }
-            if (sortedThirdSet.includes('466')) {
-                additionalNumbersForThirdSet.push('246');
-            }
-            if (sortedThirdSet.includes('477')) {
-                additionalNumbersForThirdSet.push('247');
-            }
-            if (sortedThirdSet.includes('488')) {
-                additionalNumbersForThirdSet.push('248');
-            }
-	    if (sortedThirdSet.includes('499')) {
-                additionalNumbersForThirdSet.push('249');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('566')) {
-                additionalNumbersForThirdSet.push('256');
-            }
-            if (sortedThirdSet.includes('577')) {
-                additionalNumbersForThirdSet.push('257');
-            }
-            if (sortedThirdSet.includes('588')) {
-                additionalNumbersForThirdSet.push('258');
-            }
-	    if (sortedThirdSet.includes('599')) {
-                additionalNumbersForThirdSet.push('259');
-            }
-            if (sortedThirdSet.includes('666')) {
-                additionalNumbersForThirdSet.push('266');
-            }
-            if (sortedThirdSet.includes('677')) {
-                additionalNumbersForThirdSet.push('267');
-            }
-            if (sortedThirdSet.includes('688')) {
-                additionalNumbersForThirdSet.push('268');
-            }
-	    if (sortedThirdSet.includes('699')) {
-                additionalNumbersForThirdSet.push('269');
-            }
-            if (sortedThirdSet.includes('777')) {
-                additionalNumbersForThirdSet.push('277');
-            }
-            if (sortedThirdSet.includes('788')) {
-                additionalNumbersForThirdSet.push('278');
-            }
-	    if (sortedThirdSet.includes('799')) {
-                additionalNumbersForThirdSet.push('279');
-            }
-            if (sortedThirdSet.includes('888')) {
-                additionalNumbersForThirdSet.push('288');
-            }
-	    if (sortedThirdSet.includes('899')) {
-                additionalNumbersForThirdSet.push('289');
-            }
-            if (sortedThirdSet.includes('999')) {
-                additionalNumbersForThirdSet.push('299');
-            }
-            if (sortedThirdSet.includes('001')) {
-                additionalNumbersForThirdSet.push('012');
-            }
-            if (sortedThirdSet.includes('002')) {
-                additionalNumbersForThirdSet.push('022');
-            }
-	    if (sortedThirdSet.includes('003')) {
-                additionalNumbersForThirdSet.push('023');
-            }
-            if (sortedThirdSet.includes('004')) {
-                additionalNumbersForThirdSet.push('024');
-            }
-            if (sortedThirdSet.includes('005')) {
-                additionalNumbersForThirdSet.push('025');
-            }
-            if (sortedThirdSet.includes('006')) {
-                additionalNumbersForThirdSet.push('026');
-            }
-            if (sortedThirdSet.includes('007')) {
-                additionalNumbersForThirdSet.push('027');
-            }
-            if (sortedThirdSet.includes('008')) {
-                additionalNumbersForThirdSet.push('028');
-            }
-	    if (sortedThirdSet.includes('009')) {
-                additionalNumbersForThirdSet.push('029');
-            }
-             if (sortedThirdSet.includes('112')) {
-                additionalNumbersForThirdSet.push('122');
-            }
-	    if (sortedThirdSet.includes('113')) {
-                additionalNumbersForThirdSet.push('123');
-            }
-            if (sortedThirdSet.includes('114')) {
-                additionalNumbersForThirdSet.push('124');
-            }
-            if (sortedThirdSet.includes('115')) {
-                additionalNumbersForThirdSet.push('125');
-            }
-            if (sortedThirdSet.includes('116')) {
-                additionalNumbersForThirdSet.push('126');
-            }
-            if (sortedThirdSet.includes('117')) {
-                additionalNumbersForThirdSet.push('127');
-            }
-            if (sortedThirdSet.includes('118')) {
-                additionalNumbersForThirdSet.push('128');
-            }
-	    if (sortedThirdSet.includes('119')) {
-                additionalNumbersForThirdSet.push('129');
-            }
-            if (sortedThirdSet.includes('223')) {
-                additionalNumbersForThirdSet.push('223');
-            }
-            if (sortedThirdSet.includes('224')) {
-                additionalNumbersForThirdSet.push('224');
-            }
-            if (sortedThirdSet.includes('225')) {
-                additionalNumbersForThirdSet.push('225');
-            }
-            if (sortedThirdSet.includes('226')) {
-                additionalNumbersForThirdSet.push('226');
-            }
-            if (sortedThirdSet.includes('227')) {
-                additionalNumbersForThirdSet.push('227');
-            }
-            if (sortedThirdSet.includes('228')) {
-                additionalNumbersForThirdSet.push('228');
-            }
-	    if (sortedThirdSet.includes('229')) {
-                additionalNumbersForThirdSet.push('229');
-            }
-            if (sortedThirdSet.includes('334')) {
-                additionalNumbersForThirdSet.push('234');
-            }
-            if (sortedThirdSet.includes('335')) {
-                additionalNumbersForThirdSet.push('235');
-            }
-            if (sortedThirdSet.includes('336')) {
-                additionalNumbersForThirdSet.push('236');
-            }
-            if (sortedThirdSet.includes('337')) {
-                additionalNumbersForThirdSet.push('237');
-            }
-            if (sortedThirdSet.includes('338')) {
-                additionalNumbersForThirdSet.push('238');
-            }
-	    if (sortedThirdSet.includes('339')) {
-                additionalNumbersForThirdSet.push('239');
-            }
-            if (sortedThirdSet.includes('445')) {
-                additionalNumbersForThirdSet.push('245');
-            }
-            if (sortedThirdSet.includes('446')) {
-                additionalNumbersForThirdSet.push('246');
-            }
-            if (sortedThirdSet.includes('447')) {
-                additionalNumbersForThirdSet.push('247');
-            }
-            if (sortedThirdSet.includes('448')) {
-                additionalNumbersForThirdSet.push('248');
-            }
-	    if (sortedThirdSet.includes('449')) {
-                additionalNumbersForThirdSet.push('249');
-            }
-           if (sortedThirdSet.includes('556')) {
-                additionalNumbersForThirdSet.push('256');
-            }
-            if (sortedThirdSet.includes('557')) {
-                additionalNumbersForThirdSet.push('257');
-            }
-            if (sortedThirdSet.includes('558')) {
-                additionalNumbersForThirdSet.push('258');
-            }
-	    if (sortedThirdSet.includes('559')) {
-                additionalNumbersForThirdSet.push('259');
-            }
-            if (sortedThirdSet.includes('667')) {
-                additionalNumbersForThirdSet.push('267');
-            }
-            if (sortedThirdSet.includes('668')) {
-                additionalNumbersForThirdSet.push('268');
-            }
-	    if (sortedThirdSet.includes('669')) {
-                additionalNumbersForThirdSet.push('269');
-            }
-            if (sortedThirdSet.includes('778')) {
-                additionalNumbersForThirdSet.push('278');
-            }
-	    if (sortedThirdSet.includes('779')) {
-                additionalNumbersForThirdSet.push('279');
-            }
-            if (sortedThirdSet.includes('889')) {
-                additionalNumbersForThirdSet.push('289');
-            }
-// สร้างชุดตัวเลข 3 ตัว (ปกติ)
-const filteredFinalThirdSet = [...new Set(sortedThirdSet)].sort((a, b) => a - b); // สร้างตัวแปร filteredFinalThirdSet
-
-// สร้างชุดตัวเลข 3 ตัว (แปลเพิ่ม) และทำให้เป็นเอกลักษณ์
-const uniqueAdditionalNumbersSet = new Set(additionalNumbersForThirdSet);
-const uniqueAdditionalNumbers = [...uniqueAdditionalNumbersSet];
-
-// ตัดตัวเลขที่ซ้ำกับชุด 3 ตัว (ปกติ)
-const finalAdditionalNumbers = uniqueAdditionalNumbers.filter(num => 
-    !filteredFinalThirdSet.includes(num)
-);
-
-// จัดเรียงชุด 3 ตัว (แปลเพิ่ม) จากน้อยไปหามาก
-finalAdditionalNumbers.sort((a, b) => a - b);
-
-const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
-    ? finalAdditionalNumbers.join(' - ')
-    : 'ไม่มีตัวเลขเพิ่ม';
-
-resultContainer.innerHTML = `
-<div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
-    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
-    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
-    <h2 class="blue" style="font-size: 15px;">${selectedTopic}</h2>
-    <p class="blue" style="font-size: 15px;">${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}</p>
-    <h2 class="blue" style="font-size: 15px;">
-        ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
-    </h2>
-    <h3 class="blue" style="font-size: 15px;">จัดชุดเด่น 2 ตัว</h3>
-    <p class="blue" style="font-size: 15px;">${uniqueFirstSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุดรอง 2 ตัว</h3>
-    <p class="blue" style="font-size: 15px;">${filteredSecondSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุด 3 ตัว (ปกติ)</h3>
-    <p class="blue" style="font-size: 15px;">${filteredFinalThirdSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุด 3 ตัว (แปลเพิ่ม)</h3>
-    <p class="blue" style="font-size: 15px;">${additionalNumbersForThirdSetText}</p>
-    <h2 class="red" style="font-size: 15px;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 10px; color: blue;"><strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}</p>
-    <p class="blue" style="font-size: 15px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
-</div>
+            const resultHtml = `
+    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+        <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
+        <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
+        
+        <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
+        <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
+        
+        <h2 style="font-size: 20px; color: blue;">
+            ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </h2>
+        
+        <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
+        <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
+        
+        <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
+        
+        <p style="font-size: 10px; color: blue;">
+            <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+        </p>
+        
+        <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    </div>
 `;
-resultContainer.style.display = 'block';
 
-}
 
-        document.getElementById("convertButton").addEventListener("click", convertNumber);
+            const resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = resultHtml;
+            resultContainer.style.display = "block";
+        }
+
+        window.onload = function() {
+            document.getElementById("convertButton").addEventListener("click", convertNumber);
+        };
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
-        <div style="text-align: center; margin-top: 20px;">
-<div style="text-align: center; margin-top: 20px;">
-    <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-    <select id="personSelect" style="font-size: 18px; padding: 5px;">
-       <option value="Team">Team</option>
-        <option value="@">@</option>
-  	 <option value="โรงงาน">โรงงาน</option>
-        <option value="Udon Don">Udon Don</option>
-        <option value="เจ้าที่">เจ้าที่</option>
-    </select>
-<div style="text-align: center; margin-top: 20px;">
-    <select id="topicSelect" style="font-size: 18px; padding: 5px;">
-        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-    </select>
-
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" style="font-size: 18px; padding: 5px;">
-    <button onclick="convertNumber()">แปลตัวเลข</button>
-</div>
-
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
-</div>
-            <label for="dateInput">เลือกวันที่:</label>
-            <input type="date" id="dateInput" />
-        </div>
-
-        <div id="resultContainer"></div>
         <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <h1>ฟอร์มแปลตัวเลข 2 ตัว</h1>
+
+        <div class="form-container">
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="personSelect">เลือกผู้บอก:</label>
+                <select id="personSelect">
+                    <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                </select>
+            </div>
+
+            <div style="text-align: center;">
+                <select id="topicSelect">
+                    <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+                    <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+                    <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+                    <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+                    <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+                    <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+                    <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+                    <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+                    <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+                    <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+                    <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+                    <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                    <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                    <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+                    <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+                    <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+                    <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+                    <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+                    <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+                    <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+                </select>
+            </div>
+
+            <div style="text-align: center;">
+                <input type="number" id="numberInput" placeholder="ใส่ตัวเลข 2 หลัก" required>
+            </div>
+
+            <div style="text-align: center;">
+                <label for="noteInput">หมายเหตุ:</label>
+                <input type="text" id="noteInput" placeholder="ใส่หมายเหตุ (ถ้ามี)">
+            </div>
+
+            <div style="text-align: center;">
+                <input type="date" id="dateInput">
+            </div>
+
+            <button id="convertButton">แปลตัวเลข</button>
+        </div>
+        
+        <div id="resultContainer"></div>
     </div>
 
     <footer>
