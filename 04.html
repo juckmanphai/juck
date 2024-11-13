@@ -61,10 +61,10 @@
             color: #2c3e50;
         }
         .blue {
-            color: blue; /* ตัวหนังสือสีน้ำเงิน */
+            color: blue;
         }
         .red {
-            color: red; /* ตัวหนังสือสีแดง */
+            color: red;
         }
         footer {
             text-align: center;
@@ -80,88 +80,24 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         #resultContainer {
-    display: none;
-    margin-top: 15px;
-    background-color: #ffffcc; /* สีพื้นหลังเหลืองจาง */
-    border: 2px solid #4CAF50; /* ขอบสีเขียว */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); /* เงาขอบสีเขียวอ่อน */
-}
+            display: none;
+            margin-top: 15px;
+            background-color: #ffffcc;
+            border: 2px solid #4CAF50;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        }
     </style>
     <script>
-        // ปิดการคลิกขวา
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
-    </script>
-</head>
-<body>
-    <div class="container">
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-        <h1 style="text-align: center;">ฟอร์มแปลตัวเลข 4 ตัว</h1>
 
-        <div class="form-container">
-            <div style="text-align: center; margin-top: 20px;">
-            <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-            <select id="personSelect" style="font-size: 18px; padding: 5px;">
-                <option value="Team">Team</option>
-        <option value="@">@</option>
-  	 <option value="โรงงาน">โรงงาน</option>
-        <option value="Udon Don">Udon Don</option>
-        <option value="เจ้าที่">เจ้าที่</option>
-    </select>
-        </div>
-<div style="text-align: center; margin-top: 20px;">
-                <label for="topicSelect">เลือกประเภท</label>
-                <select id="topicSelect" style="font-size: 18px; padding: 5px;">
-                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-    </select>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 4 หลัก">
-                <button id="convertButton">แปลตัวเลข</button>
-            </div>
-
-            <div style="text-align: center; margin-top: 20px;">
-                <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ">
-            </div>
-        </div>
-
-        <!-- เพิ่มการแสดงผลที่นี่ -->
-        <div id="resultContainer" style="display: none; margin-top: 20px;"></div>
-    </div>
-
-    <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
-    </footer>
-
-    <script>
-        // ฟังก์ชันสำหรับการเรียงลำดับตัวเลข
         function sortDigits(str) {
             return str.split('').sort().join('');
         }
 
-        // ฟังก์ชันจับคู่เลข 3 ตัวจาก 4 ตัว
         function getThreeDigitCombinations(num) {
             const combinations = [];
             const digits = num.split('');
@@ -173,7 +109,6 @@
             return Array.from(new Set(sortedCombinations)).sort();
         }
 
-        // ฟังก์ชันสำหรับสลับและจัดเรียงชุดตัวเลขสองตัวจากตัวเลขสี่ตัว
         function swapAndSort(num) {
             const pairs = [];
             const digits = num.split('');
@@ -187,15 +122,28 @@
             return Array.from(new Set(pairs)).sort();
         }
 
-        // ฟังก์ชันแปลงตัวเลข
+        function getThaiDate(date = new Date()) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+            const year = date.getFullYear() + 543;
+            return `วันที่ ${day}  ${month} ${year}`;
+        }
+
+        function getThaiTime() {
+            const now = new Date();
+            const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
+            return `เวลา ${time} น.`;
+        }
+
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const topicSelect = document.getElementById("topicSelect");
             const selectedTopic = topicSelect.options[topicSelect.selectedIndex].value;
             const personSelect = document.getElementById("personSelect");
             const selectedPerson = personSelect.options[personSelect.selectedIndex].value;
+            const dateInput = document.getElementById("dateInput").value;
             let noteInput = document.getElementById("noteInput").value;
-            
+
             if (!noteInput.trim()) {
                 noteInput = '<span style="color: red;">No comments</span>';
             } else {
@@ -209,47 +157,97 @@
 
             const twoDigitPairs = swapAndSort(num);
             const threeDigitCombinations = getThreeDigitCombinations(num);
+            const displayDate = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-            // แสดงวันที่และเวลา
-            const getThaiDate = () => {
-                const now = new Date();
-                const day = String(now.getDate()).padStart(2, '0');
-                const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-                const year = now.getFullYear() + 543;
-                return `วันที่ ${day} เดือน ${month} ${year}`;
-            };
-
-            const getThaiTime = () => {
-                const now = new Date();
-                const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
-                return `เวลา ${time} น.`;
-            };
-
-            // แทนที่ใน HTML
             let resultHtml = `
-                <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
-    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
-    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
-    <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
-	<p class="blue" style="font-size: 15px;">${getThaiDate()}</p>
-                    <h2 class="blue" style="font-size: 20px;">
-                        ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
-                    </h2>
+                <div style="position: relative; text-align: center; font-size: 18px; line-height: 1.4;">
+                    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
+                    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
+                    <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
+                    <p class="blue" style="font-size: 15px;">${displayDate}</p>
+                    <h2 class="blue" style="font-size: 20px;">ตัวเลข 4 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}</h2>
                     <h3 class="blue" style="font-size: 20px;">จัดชุด 2 ตัว</h3>
                     <p class="blue" style="font-size: 20px;">${twoDigitPairs.join(' - ')}</p>
                     <h3 class="blue" style="font-size: 20px;">จัดชุด 3 ตัว</h3>
                     <p class="blue" style="font-size: 20px;">${threeDigitCombinations.join(' - ')}</p>
-                    <h2 class="red" style="font-size: 20px;">แนวทางเท่านั้น</h2>
-                    <p class="blue" style="font-size: 20px;">แปล${getThaiTime()}</p>
-                    <p class="blue" style="font-size: 18px;">หมายเหตุ : ${noteInput}</p>
+    <p style="font-size: 10px; color: blue;"><strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}</p>                    
+<h3 class="red" style="font-size: 18px;">หมายเหตุ: ${noteInput}</h3>
                 </div>
             `;
 
-            document.getElementById("resultContainer").innerHTML = resultHtml;
-            document.getElementById("resultContainer").style.display = "block";
+            const resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = resultHtml;
+            resultContainer.style.display = "block";
         }
 
-        document.getElementById("convertButton").addEventListener("click", convertNumber);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("convertButton").addEventListener("click", convertNumber);
+        });
     </script>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <h1>ฟอร์มแปลตัวเลข 4 ตัว</h1>
+
+        <div class="form-container">
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="personSelect">เลือกผู้บอก:</label>
+                <select id="personSelect">
+                    <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                </select>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="topicSelect">เลือกประเภท</label>
+                <select id="topicSelect">
+                     <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+                    <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+                    <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+                    <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+                    <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+                    <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+                    <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+                    <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+                    <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+                    <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+                    <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+                    <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                    <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                    <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+                    <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+                    <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+                    <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+                    <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+                    <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+                    <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+                </select>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <input type="text" id="numberInput" placeholder="กรอกตัวเลข 4 หลัก">
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="dateInput">เลือกวันที่</label>
+                <input type="date" id="dateInput">
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="noteInput">หมายเหตุ:</label>
+                <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)">
+            </div>
+
+            <button id="convertButton">แปลงตัวเลข</button>
+        </div>
+
+        <div id="resultContainer"></div>
+    </div>
+
+    <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
 </body>
 </html>
