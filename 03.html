@@ -18,7 +18,7 @@
             margin-top: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -79,15 +79,16 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        #resultContainer {
-            display: none;
-            margin-top: 20px;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        }
+#resultContainer {
+    display: none;
+    margin-top: 20px;
+    background-color: #ffffcc;
+    border: 2px solid #4CAF50; /* กรอบสีเขียว */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    width: var(--container-width, 95%); /* ความกว้างของกรอบที่สามารถปรับได้ */
+}
     </style>
 	<script>
         // ปิดการคลิกขวา
@@ -143,30 +144,40 @@
             </div>
 
             <div style="text-align: center; margin-top: 20px;">
-                <input type="text" id="noteInput" placeholder="กรุณาใส่ข้อความที่ต้องการ">
-            </div>
-        </div>
+    <input type="text" id="noteInput" placeholder="กรุณาใส่ข้อความที่ต้องการ">
+</div>
 
-        <div id="resultContainer"></div>
-    </div>
+<div style="text-align: center; margin-top: 20px;">
+    <label for="dateInput">เลือกวันที่:</label>
+    <input type="date" id="dateInput" />
+</div>
 
-    <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
-    </footer>
+<div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+</div>
 
-    <script>
+<footer style="text-align: center; margin-top: 20px;">
+    &copy; 2024 Juckmanphai. All Rights Reserved.
+</footer>
+
+<script>
+ // ปิดการคลิกขวา
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
         function sortPair(pair) {
             const digits = pair.split('');
             return digits[0] > digits[1] ? digits[1] + digits[0] : pair;
         }
 
-        function getThaiDate() {
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-            const year = now.getFullYear() + 543;
-            return `วันที่ ${day} เดือน ${month} ${year}`;
-        }
+function getThaiDate(date = new Date()) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const year = date.getFullYear() + 543;
+
+    return `วันที่ ${day}  ${month} ${year}`;
+}
+
 
         function getThaiTime() {
             const now = new Date();
@@ -175,12 +186,14 @@
         }
 
         function convertNumber() {
-    const num = document.getElementById("numberInput").value;
-    const topicSelect = document.getElementById("topicSelect");
-    const selectedTopic = topicSelect.value;
-    const personSelect = document.getElementById("personSelect");
-    const selectedPerson = personSelect.value;
-    let noteInput = document.getElementById("noteInput").value;
+            const num = document.getElementById("numberInput").value;
+            const topicSelect = document.getElementById("topicSelect");
+            const selectedTopic = topicSelect.value;
+            const personSelect = document.getElementById("personSelect");
+            const selectedPerson = personSelect.value;
+            let noteInput = document.getElementById("noteInput").value;
+            const dateInputValue = document.getElementById("dateInput").value;
+            const dateInput = dateInputValue ? new Date(dateInputValue) : new Date();  // ใช้วันที่ที่กรอกหรือวันที่ปัจจุบัน
 
     if (!noteInput.trim()) {
         noteInput = '<span style="color: red;">No comments</span>';
@@ -580,8 +593,6 @@
             if (sortedThirdSet.includes('889')) {
                 additionalNumbersForThirdSet.push('289');
             }
-
-
 // สร้างชุดตัวเลข 3 ตัว (ปกติ)
 const filteredFinalThirdSet = [...new Set(sortedThirdSet)].sort((a, b) => a - b); // สร้างตัวแปร filteredFinalThirdSet
 
@@ -601,12 +612,13 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
     : 'ไม่มีตัวเลขเพิ่ม';
 
+
 resultContainer.innerHTML = `
 <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
     <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
     <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
     <h2 class="blue" style="font-size: 15px;">${selectedTopic}</h2>
-    <p class="blue" style="font-size: 15px;">${getThaiDate()}</p>
+    <p class="blue" style="font-size: 15px;">${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}</p>
     <h2 class="blue" style="font-size: 15px;">
         ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
@@ -619,7 +631,7 @@ resultContainer.innerHTML = `
     <h3 class="blue" style="font-size: 15px;">จัดชุด 3 ตัว (แปลเพิ่ม)</h3>
     <p class="blue" style="font-size: 15px;">${additionalNumbersForThirdSetText}</p>
     <h2 class="red" style="font-size: 15px;">แนวทางเท่านั้น</h2>
-    <p class="blue" style="font-size: 15px;">แปล ${getThaiTime()}</p>
+    <p style="font-size: 10px; color: blue;"><strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}</p>
     <p class="blue" style="font-size: 15px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
