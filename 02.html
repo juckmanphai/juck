@@ -159,30 +159,31 @@
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-            const resultHtml = `
-                <div style="position: relative; text-align: center; font-size: 18px;">
-                    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
-                    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
-                    
-                    <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
-                    <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
-                    
-                    <h2 style="font-size: 20px; color: blue;">
-                        ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-                    </h2>
-                    
-                    <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
-                    <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
-                    
-                    <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
-                    
-                    <p style="font-size: 10px; color: blue;">
-                        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-                    </p>
-                    
-                    <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
-                </div>
-            `;
+ const resultHtml = `
+    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+        <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
+        <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
+        
+        <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
+        <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
+        
+        <h2 style="font-size: 20px; color: blue;">
+            ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </h2>
+        
+        <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
+        <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
+        
+        <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
+        
+        <p style="font-size: 10px; color: blue;">
+            <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+        </p>
+        
+        <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    </div>
+`;
+
 
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
