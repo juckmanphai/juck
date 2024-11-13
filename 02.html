@@ -159,7 +159,7 @@
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
- const resultHtml = `
+            const resultHtml = `
     <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
         <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
         <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
@@ -213,7 +213,6 @@
             </div>
 
             <div style="text-align: center;">
-                <label for="topicSelect">หัวข้อ:</label>
                 <select id="topicSelect">
                     <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
                     <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
@@ -239,7 +238,6 @@
             </div>
 
             <div style="text-align: center;">
-                <label for="numberInput">ป้อนตัวเลข 2 ตัว:</label>
                 <input type="number" id="numberInput" placeholder="ใส่ตัวเลข 2 หลัก" required>
             </div>
 
@@ -249,7 +247,6 @@
             </div>
 
             <div style="text-align: center;">
-                <label for="dateInput">วันที่:</label>
                 <input type="date" id="dateInput">
             </div>
 
