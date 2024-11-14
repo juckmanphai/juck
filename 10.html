@@ -103,8 +103,145 @@
             font-weight: bold;
             color: #333;
         }
-        
-        .summaryResult {
+
+#accountSelect {
+    width: 200px; /* กำหนดความกว้างที่เหมาะสมสำหรับช่องเลือกบัญชี */
+    padding: 5px;
+    font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 5px; /* ระยะห่างระหว่างปุ่ม */
+}
+
+.button-group button {
+    padding: 8px 12px; /* เพิ่มขนาดปุ่ม */
+    font-size: 16px; /* ขนาดฟอนต์ให้พอดี */
+}
+
+/* เพิ่มการจัดการให้ฟอร์มดูสวยงาม */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#amount {
+    width: 70%;  /* ทำให้ช่องจำนวนเงินกว้าง 70% */
+    padding: 8px;
+    font-size: 16px;
+}
+
+#type {
+    width: 25%;  /* ทำให้ช่องประเภทกว้าง 30% */
+    padding: 8px;
+    font-size: 16px;
+}
+
+select {
+    font-size: 16px;
+    padding: 8px;
+}
+    
+/* จัดการเลย์เอาต์ของส่วนสรุป */
+.summary-options {
+    display: flex;
+    justify-content: space-between; /* จัดให้ช่องทั้งสองอยู่ห่างกัน */
+    align-items: center;
+    gap: 20px; /* ระยะห่างระหว่างช่อง */
+    margin-bottom: 15px; /* ระยะห่างจากบรรทัดล่าง */
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column; /* ทำให้ label, input และ button อยู่ในแนวตั้ง */
+    gap: 10px; /* ระยะห่างระหว่าง label, input, และ button */
+    width: 48%; /* ทำให้แต่ละช่องกว้างประมาณครึ่งหนึ่ง */
+}
+
+label {
+    font-size: 16px;
+}
+
+input[type="number"], input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%; /* ทำให้ input กว้างเต็มที่ */
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50; /* สีปุ่ม */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049; /* เปลี่ยนสีปุ่มเมื่อ hover */
+}
+
+/* จัดการเลย์เอาต์ของปุ่ม */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* จัดให้ปุ่มอยู่ห่างกัน */
+    gap: 15px; /* ระยะห่างระหว่างปุ่ม */
+    margin-top: 15px; /* ระยะห่างจากส่วนบน */
+    margin-bottom: 15px; /* ระยะห่างจากส่วนล่าง */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* เพิ่มเอฟเฟกต์เวลา hover */
+}
+
+button:hover {
+    background-color: #45a049; /* เปลี่ยนสีปุ่มเมื่อ hover */
+    transform: translateY(-3px); /* ทำให้ปุ่มยกขึ้นเล็กน้อยเมื่อ hover */
+}
+
+button:active {
+    transform: translateY(1px); /* ปุ่มยุบเมื่อกด */
+}
+
+/* ปรับแต่งปุ่มโหลดข้อมูล */
+.file-button {
+    padding: 8px 15px; /* ขนาดปุ่มเล็กลง */
+    font-size: 14px; /* ขนาดตัวอักษรเล็กลง */
+    background-color: #007BFF; /* สีพื้นหลังปุ่ม */
+    color: white; /* สีข้อความ */
+    border: none;
+    border-radius: 5px; /* มุมปุ่มโค้ง */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อ hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* เอฟเฟกต์ */
+}
+
+.file-button:hover {
+    background-color: #0056b3; /* สีเมื่อ hover */
+    transform: translateY(-3px); /* ปุ่มยกขึ้นเล็กน้อยเมื่อ hover */
+}
+
+.file-button:active {
+    transform: translateY(1px); /* ปุ่มยุบเมื่อกด */
+}
+
+    .summaryResult {
             font-size: 15px;
             font-weight: normal;
             border: 2px solid green;
@@ -133,44 +270,60 @@
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
-</script>
-    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
-    <button type="button" onclick="document.getElementById('fileInput').click()">โหลดข้อมูลจากไฟล์</button>
+<input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
+<button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
 
-    <div class="container">
-        <!-- Account Management -->
-        <label for="accountSelect">เลือกบัญชี:</label>
-        <select id="accountSelect" onchange="changeAccount()"></select>
+ <div class="container">
+    <!-- Account Management -->
+    <label for="accountSelect">เลือกบัญชี:</label>
+    <select id="accountSelect" onchange="changeAccount()"></select>
+    <div class="button-group">
         <button type="button" onclick="addAccount()">เพิ่มบัญชีใหม่</button>
         <button type="button" onclick="deleteAccount()">ลบบัญชี</button>
         <button type="button" onclick="editAccount()">แก้ไขชื่อบัญชี</button>
+    </div>
+</div>
 
-        <!-- Entry Form -->
-        <form id="accountForm">
-            <label for="type">ประเภท:</label>
-            <select id="type" required>
-                <option value="รายรับ">รายรับ</option>
-                <option value="รายจ่าย">รายจ่าย</option>
-            </select>
-            <label for="description">รายละเอียด:</label>
-            <input type="text" id="description" required>
-            <label for="amount">จำนวนเงิน:</label>
-            <input type="number" id="amount" required>
-            <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
-        </form>
+<!-- Entry Form -->
+<form id="accountForm">
+    <div class="form-group">
+        <label for="amount">จำนวนเงิน:</label>
+        <input type="number" id="amount" required>
+    </div>
 
-        <!-- Summary Options -->
+    <div class="form-group">
+        <label for="type">ประเภท:</label>
+        <select id="type" required>
+            <option value="รายรับ">รายรับ</option>
+            <option value="รายจ่าย">รายจ่าย</option>
+        </select>
+    </div>
+     <label for="description">รายละเอียด:</label>
+    <input type="text" id="description" required>
+
+    <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
+</form>
+
+<div class="summary-options">
+    <!-- สรุปผลย้อนหลัง -->
+    <div class="summary-item">
         <label for="summaryDays">จำนวนวันที่ต้องการสรุป:</label>
         <input type="number" id="summaryDays" name="summaryDays" min="1" placeholder="กรอกจำนวนวัน">
         <button onclick="getSummary()">แสดงสรุปผลย้อนหลัง</button>
+    </div>
 
+    <!-- สรุปยอดในวันที่เลือก -->
+    <div class="summary-item">
         <label for="customDayMonth">กรุณากรอกวันที่ (วัน/เดือน):</label>
         <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
         <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
-        <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
-        <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
-        <button onclick="saveToFile()">บันทึก</button>
-        
+    </div>
+</div>
+<div class="button-container">
+    <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
+    <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
+    <button onclick="saveToFile()">บันทึก</button>
+</div>        
         <!-- Details Section -->
         <div id="detailsSection" style="display: none;">
             <table id="recordTable">
