@@ -574,56 +574,79 @@ resultContainer.style.display = 'block';
     </script>
 </head>
 <body>
-    <div class="container">
-        <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
-        <div style="text-align: center; margin-top: 20px;">
-<div style="text-align: center; margin-top: 20px;">
-    <label for="personSelect" style="font-size: 18px;">เลือกผู้บอก:</label>
-    <select id="personSelect" style="font-size: 18px; padding: 5px;">
-       <option value="Team">Team</option>
-        <option value="@">@</option>
-  	 <option value="โรงงาน">โรงงาน</option>
-        <option value="Udon Don">Udon Don</option>
-        <option value="เจ้าที่">เจ้าที่</option>
-    </select>
-<div style="text-align: center; margin-top: 20px;">
-    <select id="topicSelect" style="font-size: 18px; padding: 5px;">
-        <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-        <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-        <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-        <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-        <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-        <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-        <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-        <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-        <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-        <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-        <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-        <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-        <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-        <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-        <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-        <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-        <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-        <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-        <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-    </select>
+<div class="container">
+    <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
+    <div style="text-align: center; margin-top: 20px;">
 
-    <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" style="font-size: 18px; padding: 5px;">
-    <button onclick="convertNumber()">แปลตัวเลข</button>
-</div>
+        <!-- Number Input and Person Selection in One Row -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+            <!-- Number Input on the Left -->
+            <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" style="font-size: 18px; padding: 5px; width: 150px;">
 
-<div style="text-align: center; margin-top: 20px;">
-    <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
-</div>
-            <label for="dateInput">เลือกวันที่:</label>
-            <input type="date" id="dateInput" />
+            <!-- Person Selection on the Right -->
+            <div style="display: inline-block;">
+                <label for="personSelect" style="font-size: 18px; margin-right: 5px;">เลือกผู้บอก:</label>
+                <select id="personSelect" style="font-size: 18px; padding: 5px;">
+                    <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                </select>
+            </div>
         </div>
 
-        <div id="resultContainer"></div>
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <!-- Topic Selection Dropdown -->
+        <div style="text-align: center; margin-top: 10px;">
+            <select id="topicSelect" style="font-size: 18px; padding: 5px;">
+                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+                <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+                <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+                <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+                <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+                <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+                <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+                <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+                <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+                <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+                <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+                <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+                <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+                <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+                <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+                <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+                <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+                <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+            </select>
+        </div>
+
+        <!-- Convert Button -->
+        <div style="text-align: center; margin-top: 10px;">
+            <button onclick="convertNumber()" style="font-size: 18px; padding: 5px;">แปลตัวเลข</button>
+        </div>
+
+        <!-- Note Input -->
+        <div style="text-align: center; margin-top: 10px;">
+            <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" style="font-size: 18px; padding: 5px;">
+        </div>
+
+        <!-- Date Input -->
+        <div style="text-align: center; margin-top: 10px;">
+            <label for="dateInput" style="font-size: 18px;">เลือกวันที่:</label>
+            <input type="date" id="dateInput" style="font-size: 18px; padding: 5px;">
+        </div>
+
     </div>
+
+    <!-- Result Container -->
+    <div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="margin-top: 20px; font-size: 18px;">กลับสู่หน้าหลัก</button>
+</div>
+
 
     <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
