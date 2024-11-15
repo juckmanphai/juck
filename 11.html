@@ -133,6 +133,12 @@ body {
       <p id="sharedAmount"></p>
       <p id="noteDisplay"></p>
     </div>
+
+    <!-- Line height control -->
+    <label for="lineHeightControl">ปรับช่องว่างระหว่างบรรทัด:</label>
+    <input type="range" id="lineHeightControl" min="0.5" max="2" step="0.1" value="1" onchange="adjustLineHeight()">
+    <span id="lineHeightValue">1</span>
+
 </div>
 
 <script>
@@ -146,11 +152,6 @@ function displayResult() {
     const twoDigitSets = parseInt(document.getElementById("twoDigitSets").value) || 1;
     const shareType = document.getElementById("shareType").value;
     const note = document.getElementById("note").value || "No comment";
-
-// Set line spacing for specific elements
-document.querySelectorAll("#resultDisplay p").forEach(function(element) {
-    element.style.lineHeight = "0.5"; // Adjust as needed for each paragraph
-});
 
     // Format current date in Thai format
     const currentDate = new Date();
@@ -174,29 +175,28 @@ document.querySelectorAll("#resultDisplay p").forEach(function(element) {
     const totalTwoDigitFormatted = totalTwoDigit.toLocaleString();
     const sharedTotalFormatted = sharedTotal.toLocaleString();
 
-// Display results
-document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
-document.getElementById("titleType").innerText = `ชื้อหวย ${type}`;
-document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
-document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
+    // Display results
+    document.getElementById("currentDate").textContent = "วันที่: " + thaiDate;
+    document.getElementById("titleType").textContent = "ประเภทการซื้อ: " + type;
+    document.getElementById("typeAndNumber").textContent = `หมายเลข: ${number}`;
+    document.getElementById("purchaseDetailsLabel").textContent = `รายละเอียดการซื้อ (สามตัว)`;
+    document.getElementById("amountDetailsThreeDigit").textContent = `ยอดรวมสามตัว: ฿${totalThreeDigitFormatted}`;
+    document.getElementById("amountDetailsTwoDigit").textContent = `ยอดรวมสองตัว: ฿${totalTwoDigitFormatted}`;
+    document.getElementById("totalAmount").textContent = `รวม: ฿${(totalThreeDigit + totalTwoDigit).toLocaleString()}`;
+    document.getElementById("sharedAmount").textContent = `จำนวนเงินที่แชร์: ฿${sharedTotalFormatted}`;
+    document.getElementById("noteDisplay").textContent = "หมายเหตุ: " + note;
 
-document.getElementById("amountDetailsThreeDigit").innerHTML = `สามตัว = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)`;
-document.getElementById("amountDetailsTwoDigit").innerHTML = `สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
+    // Show result section
+    document.getElementById("resultDisplay").style.display = "block";
+}
 
-let totalAmount = parseFloat(totalThreeDigitFormatted.replace(/,/g, '')) + parseFloat(totalTwoDigitFormatted.replace(/,/g, ''));
-document.getElementById("totalAmount").innerHTML = `จำนวนเงินทั้งหมด = ${totalAmount.toLocaleString()} บาท`;
-
-document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
-document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
-
-// Set line spacing (line height) for the result display section
-document.getElementById("resultDisplay").style.lineHeight = "0.5"; // Set line spacing to 1
-
-// Show the result display section
-document.getElementById("resultDisplay").style.display = "block";
-
+function adjustLineHeight() {
+    const lineHeight = document.getElementById("lineHeightControl").value;
+    document.getElementById("lineHeightValue").textContent = lineHeight;
+    document.querySelectorAll('.result p').forEach(p => {
+        p.style.lineHeight = lineHeight;
+    });
 }
 </script>
-
 </body>
 </html>
