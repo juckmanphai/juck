@@ -89,12 +89,27 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         }
+        #resultContainer p {
+            line-height: 1.5;
+        }
     </style>
 
     <script>
         // ปิดการคลิกขวา
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
+        });
+        // Function to update line height based on slider value
+        function updateLineHeight() {
+            const lineHeight = document.getElementById("lineHeightSlider").value;
+            const resultContent = document.getElementById("resultContent");
+            resultContent.style.lineHeight = lineHeight;
+            document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("convertButton").addEventListener("click", convertNumber);
+            document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
         });
 
         function sortPair(pair) {
@@ -545,7 +560,7 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     : 'ไม่มีตัวเลขเพิ่ม';
 
 resultContainer.innerHTML = `
-<div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px;">
     <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
     <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
     <h2 class="blue" style="font-size: 15px;">${selectedTopic}</h2>
@@ -642,6 +657,9 @@ resultContainer.style.display = 'block';
 
     <!-- Result Container -->
     <div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+           <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
+            <input type="range" id="lineHeightSlider" min="0.2" max="2" step="0.1" value="1" onchange="updateLineHeight()">
+            <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.6</span></p>
 
     <!-- Back Button -->
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="margin-top: 20px; font-size: 18px;">กลับสู่หน้าหลัก</button>
