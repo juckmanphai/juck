@@ -176,15 +176,20 @@ function displayResult() {
     const sharedTotalFormatted = sharedTotal.toLocaleString();
 
     // Display results
-    document.getElementById("currentDate").textContent = "วันที่: " + thaiDate;
-    document.getElementById("titleType").textContent = "ประเภทการซื้อ: " + type;
-    document.getElementById("typeAndNumber").textContent = `หมายเลข: ${number}`;
-    document.getElementById("purchaseDetailsLabel").textContent = `รายละเอียดการซื้อ (สามตัว)`;
-    document.getElementById("amountDetailsThreeDigit").textContent = `ยอดรวมสามตัว: ฿${totalThreeDigitFormatted}`;
-    document.getElementById("amountDetailsTwoDigit").textContent = `ยอดรวมสองตัว: ฿${totalTwoDigitFormatted}`;
-    document.getElementById("totalAmount").textContent = `รวม: ฿${(totalThreeDigit + totalTwoDigit).toLocaleString()}`;
-    document.getElementById("sharedAmount").textContent = `จำนวนเงินที่แชร์: ฿${sharedTotalFormatted}`;
-    document.getElementById("noteDisplay").textContent = "หมายเหตุ: " + note;
+ document.getElementById("currentDate").innerText = `วันที่ ${thaiDate}`;
+document.getElementById("titleType").innerText = `ชื้อหวย ${type}`;
+document.getElementById("typeAndNumber").innerText = `ชุดตัวเลข : ${number}`;
+document.getElementById("purchaseDetailsLabel").innerText = `รายละเอียดการซื้อ`;
+
+document.getElementById("amountDetailsThreeDigit").innerHTML = `สามตัว = ${totalThreeDigitFormatted} บาท (จำนวน ${threeDigitSets} ชุดๆ ละ ${threeDigitAmount} บาท)`;
+document.getElementById("amountDetailsTwoDigit").innerHTML = `สองตัว = ${totalTwoDigitFormatted} บาท (จำนวน ${twoDigitSets} ชุดๆ ละ ${twoDigitAmount} บาท)`;
+
+let totalAmount = parseFloat(totalThreeDigitFormatted.replace(/,/g, '')) + parseFloat(totalTwoDigitFormatted.replace(/,/g, ''));
+document.getElementById("totalAmount").innerHTML = `จำนวนเงินทั้งหมด = ${totalAmount.toLocaleString()} บาท`;
+
+document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
+document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
+
 
     // Show result section
     document.getElementById("resultDisplay").style.display = "block";
