@@ -90,7 +90,7 @@
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         }
         #resultContainer p {
-            line-height: 1.5;
+            line-height: 0.6;
         }
     </style>
 
@@ -661,10 +661,10 @@ resultContainer.style.display = 'block';
 <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
 <input type="range" 
        id="lineHeightSlider" 
-       min="0.2" 
+       min="0.0001" 
        max="2" 
        step="0.1" 
-       value="0.6" 
+       value="1" 
        onchange="updateLineHeight()">
 <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.6</span></p>
 
