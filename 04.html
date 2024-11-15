@@ -90,8 +90,21 @@
         }
     </style>
     <script>
+        // ปิดการคลิกขวา
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
+        });
+        // Function to update line height based on slider value
+        function updateLineHeight() {
+            const lineHeight = document.getElementById("lineHeightSlider").value;
+            const resultContent = document.getElementById("resultContent");
+            resultContent.style.lineHeight = lineHeight;
+            document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("convertButton").addEventListener("click", convertNumber);
+            document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
         });
 
         function sortDigits(str) {
@@ -160,7 +173,7 @@
             const displayDate = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
             let resultHtml = `
-                <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px;">
                     <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
                     <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
                     <h2 class="blue" style="font-size: 20px;">${selectedTopic}</h2>
@@ -259,6 +272,14 @@
 
         <button id="convertButton">แปลงตัวเลข</button>
     </div>
+
+   </div>
+
+    <!-- Result Container -->
+    <div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+           <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
+            <input type="range" id="lineHeightSlider" min="0.2" max="2" step="0.1" value="1" onchange="updateLineHeight()">
+            <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.6</span></p>
 
     <div id="resultContainer"></div>
 </div>
