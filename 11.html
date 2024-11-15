@@ -184,6 +184,10 @@ document.getElementById("totalAmount").innerHTML = `จำนวนเงิน�
 document.getElementById("sharedAmount").innerText = `ยอดที่แชร์ (${shareType}) เป็นเงิน = ${sharedTotalFormatted} บาท`;
 document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
 
+// Set line spacing (line height) for the result display section
+document.getElementById("resultDisplay").style.lineHeight = "0.6"; // Set line spacing to 1
+
+// Show the result display section
 document.getElementById("resultDisplay").style.display = "block";
 
 }
