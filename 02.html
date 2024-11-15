@@ -17,7 +17,7 @@
             color: #2c3e50;
             margin-top: 20px;
         }
-      .container {
+        .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 15px;
@@ -25,6 +25,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             margin-top: 15px;
+        }
         input, select, button {
             font-size: 18px;
             padding: 10px;
@@ -44,15 +45,6 @@
         }
         button:hover {
             background-color: #45a049;
-        }
-        button.back-button {
-            margin-top: 20px;
-            font-size: 20px;
-            max-width: 600px;
-            width: 100%;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
         label {
             font-size: 18px;
@@ -91,6 +83,14 @@
         .red {
             color: red;
         }
+        #lineHeightSlider {
+            width: 100%;
+            margin: 20px 0;
+        }
+        #lineHeightValue {
+            font-size: 16px;
+            color: #2c3e50;
+        }
     </style>
     <script>
         function getThaiDate(date = new Date()) {
@@ -102,7 +102,7 @@
 
         function getThaiTime() {
             const now = new Date();
-            return `เวลา ${String(now.getHours()).padStart(2, '0')}.${String(now.getMinutes()).padStart(2, '0')} น.`;
+            return `เวลา ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} น.`;
         }
 
         function convertNumber() {
@@ -161,71 +161,61 @@
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
+            // Generate result HTML
             const resultHtml = `
-    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
-        <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
-        <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
-        
-        <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
-        <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
-        
-        <h2 style="font-size: 20px; color: blue;">
-            ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-        </h2>
-        
-        <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
-        <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
-        
-        <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
-        
-        <p style="font-size: 10px; color: blue;">
-            <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-        </p>
-        
-        <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
-    </div>
-`;
-
+                <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.0;">
+                    <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
+                    <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
+                    <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
+                    <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
+                    <h2 style="font-size: 20px; color: blue;">
+                        ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+                    </h2>
+                    <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
+                    <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
+                    <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
+                    <p style="font-size: 10px; color: blue;">
+                        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+                    </p>
+                    <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+                </div>
+            `;
 
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
         }
 
-        window.onload = function() {
+        // Function to update line height based on slider value
+        function updateLineHeight() {
+            const lineHeight = document.getElementById("lineHeightSlider").value;
+            const resultContent = document.getElementById("resultContent");
+            resultContent.style.lineHeight = lineHeight;
+            document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("convertButton").addEventListener("click", convertNumber);
-        };
+            document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
+        });
     </script>
 </head>
 <body>
+
+    <div class="container">
 <div class="container">
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-    <h1>ฟอร์มแปลตัวเลข 2 ตัว</h1>
 
-    <div class="form-container">
-        
-        <!-- Number Input and Person Selection in One Row -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <!-- Number Input on the Left -->
-            <input type="number" id="numberInput" placeholder="ใส่ตัวเลข 2 หลัก" required style="font-size: 16px; padding: 5px; width: 150px;">
+        <h1>ฟอร์มแปลตัวเลข 2 ตัว</h1>
+        <div class="form-container">
+            <label for="numberInput">กรุณากรอกตัวเลข 2 ตัว</label>
+            <input type="number" id="numberInput" placeholder="ตัวเลข 2 ตัว" />
 
-            <!-- Person Selection on the Right -->
-            <div>
-                <label for="personSelect">เลือกผู้บอก:</label>
-                <select id="personSelect" style="font-size: 16px; padding: 5px;">
-                    <option value="Team">Team</option>
-                    <option value="@">@</option>
-                    <option value="โรงงาน">โรงงาน</option>
-                    <option value="Udon Don">Udon Don</option>
-                    <option value="เจ้าที่">เจ้าที่</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Topic Selection Dropdown -->
-        <div style="text-align: center; margin-bottom: 10px;">
-            <select id="topicSelect" style="font-size: 16px; padding: 5px;">
-                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="flex: 1; margin-right: 10px;">
+                    <label for="topicSelect">เลือกหัวข้อ</label>
+                    <select id="topicSelect">
+              <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
                 <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
                 <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
                 <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
@@ -245,31 +235,45 @@
                 <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
                 <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
                 <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-            </select>
+                    </select>
+                </div>
+                <div style="flex: 1; margin-left: 10px;">
+                    <label for="personSelect">เลือกบุคคล</label>
+                    <select id="personSelect">
+                     <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <div style="flex: 1; margin-right: 10px;">
+                    <label for="noteInput">หมายเหตุ</label>
+                    <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)" />
+                </div>
+            </div>
+
+            <label for="dateInput">กรุณากรอกวันที่</label>
+            <input type="date" id="dateInput" />
+
+            <button id="convertButton">แปลงตัวเลข</button>
+
+            <!-- New slider to adjust line height -->
+            <label for="lineHeightSlider">ปรับความสูงของบรรทัด:</label>
+            <input type="range" id="lineHeightSlider" min="0.3" max="2" step="0.1" value="1" />
+            <p id="lineHeightValue">ความสูงของบรรทัด: 0.6</p>
         </div>
 
-        <!-- Note Input -->
-        <div style="text-align: center; margin-bottom: 10px;">
-            <input type="text" id="noteInput" placeholder="ใส่หมายเหตุ (ถ้ามี)" style="font-size: 16px; padding: 5px;">
-        </div>
-
-        <!-- Date Input -->
-        <div style="text-align: center; margin-bottom: 10px;">
-            <input type="date" id="dateInput" style="font-size: 16px; padding: 5px;">
-        </div>
-
-        <!-- Convert Button -->
-        <div style="text-align: center; margin-bottom: 10px;">
-            <button id="convertButton" style="font-size: 16px; padding: 5px;">แปลตัวเลข</button>
-        </div>
+        <div id="resultContainer" style="display: none;"></div>
     </div>
-    
-    <div id="resultContainer"></div>
-</div>
 
-    <footer>
+     <footer>
 <div style="text-align: center; margin-bottom: 10px;">
         &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
+
 </body>
 </html>
