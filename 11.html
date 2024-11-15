@@ -147,6 +147,11 @@ function displayResult() {
     const shareType = document.getElementById("shareType").value;
     const note = document.getElementById("note").value || "No comment";
 
+// Set line spacing for specific elements
+document.querySelectorAll("#resultDisplay p").forEach(function(element) {
+    element.style.lineHeight = "0.5"; // Adjust as needed for each paragraph
+});
+
     // Format current date in Thai format
     const currentDate = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
@@ -185,7 +190,7 @@ document.getElementById("sharedAmount").innerText = `ยอดที่แชร
 document.getElementById("noteDisplay").innerText = `หมายเหตุ : ${note}`;
 
 // Set line spacing (line height) for the result display section
-document.getElementById("resultDisplay").style.lineHeight = "0.6"; // Set line spacing to 1
+document.getElementById("resultDisplay").style.lineHeight = "0.5"; // Set line spacing to 1
 
 // Show the result display section
 document.getElementById("resultDisplay").style.display = "block";
