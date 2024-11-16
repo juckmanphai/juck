@@ -86,7 +86,7 @@
             font-size: 20px;
             padding: 12px 20px;
             border-radius: 8px;
-            background-color: #FF5722;
+            background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
@@ -226,8 +226,8 @@ button:active {
 
 /* ปรับแต่งปุ่มโหลดข้อมูล */
 .file-button {
-    padding: 8px 15px; /* ขนาดปุ่มเล็กลง */
-    font-size: 14px; /* ขนาดตัวอักษรเล็กลง */
+    padding: 12px 20px; /* ขนาดปุ่มเล็กลง */
+    font-size: 20px; /* ขนาดตัวอักษรเล็กลง */
     background-color: #007BFF; /* สีพื้นหลังปุ่ม */
     color: white; /* สีข้อความ */
     border: none;
@@ -245,37 +245,35 @@ button:active {
     transform: translateY(1px); /* ปุ่มยุบเมื่อกด */
 }
 
-    .summaryResult {
-            font-size: 15px;
-            font-weight: normal;
-            border: 2px solid green;
-            background-color: #ffffcc;
-	    margin-top: 20px;
-	    margin-bottom: 20px;
-            color: blue;
-            padding: 15px;
-            border-radius: 8px;
-            width: 90%;
-            margin-left: 10px;
-            margin-right: 10px;
-            line-height: 2;
-        }
-        
-        .summaryResult h1 {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0;
-        }
-        
-        .summaryResult p {
-            font-size: 15px;
-            margin: 0;
-        }
+.summaryResult {
+    font-size: 15px;
+    font-weight: normal;
+    border: 2px solid green;
+    background-color: #ffffcc;
+    max-width: 600px;
+    margin: 20px auto;  /* Centers the element horizontally */
+    color: blue;
+    padding: 15px;
+    border-radius: 8px;
+    width: 90%;
+    line-height: 2;
+    text-align: center;  /* Centers text inside the element */
+}
+
+.summaryResult h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.summaryResult p {
+    font-size: 15px;
+    margin: 0;
+}
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-    <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
+    <h2>บัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
 
@@ -349,6 +347,7 @@ button:active {
         <!-- Summary Result -->
         <div id="summaryResult" class="summaryResult"></div>
     </div>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <script>
         const accounts = [];
         let currentAccount = null;
@@ -478,11 +477,12 @@ function summarizeByDayMonth() {
 
     // สรุปยอดและแสดงในช่อง
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปเมื่อ: ${summaryDateTime}</p>
-        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>ยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>สรุปยอด : ${currentAccount}</p>
+       <p>สรุปเมื่อ : ${summaryDateTime}</p>
+        <p>สรุปยอดของวันที่ : ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
+        <p>ยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
         <p>${remark}</p>
      `;
 }
@@ -604,13 +604,13 @@ function getSummary() {
         hour: '2-digit', minute: '2-digit'
     });
 
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดย้อนหลัง ${days} วัน: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
+    document.getElementById('summaryResult').innerHTML = `       
+ 	<p>สรุปยอดย้อนหลัง ${days} วัน : ${currentAccount}</p>
+        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ : ${remark}</p>
     `;
 }
 
@@ -651,13 +651,13 @@ function summarize() {
     });
 
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอด: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>ช่วงวันที่: ${summaryDays} วันที่ผ่านมา</p>
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
+        <p>สรุปยอด : ${currentAccount}</p>
+        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>ช่วงวันที่ : ${summaryDays} วันที่ผ่านมา</p>
+        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ : ${remark}</p>
     `;
 }
        function summarizeToday() {
@@ -696,12 +696,12 @@ function summarize() {
     });
 
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดวันนี้: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ: ${remark}</p>
+        <p>สรุปยอดวันนี้ : ${currentAccount}</p>
+        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ : ${remark}</p>
     `;
 }
 
