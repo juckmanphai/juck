@@ -134,10 +134,15 @@ body {
       <p id="noteDisplay"></p>
     </div>
 
-    <!-- Line height control -->
-    <label for="lineHeightControl">ปรับช่องว่างระหว่างบรรทัด:</label>
-    <input type="range" id="lineHeightControl" min="0" max="2" step="0.1" value="1" onchange="adjustLineHeight()">
-    <span id="lineHeightValue">0.3</span>
+<label for="lineHeightControl">ปรับขนาดบรรทัด:</label>
+<input type="range" 
+       id="lineHeightControl" 
+       min="0" 
+       max="2" 
+       step="0.1" 
+       value="1" 
+       onchange="adjustLineHeight()">
+<p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
 
 </div>
 
