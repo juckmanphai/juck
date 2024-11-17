@@ -250,20 +250,16 @@ button:active {
     font-weight: normal;
     border: 2px solid green;
     background-color: #ffffcc;
-    max-width: 600px;
-    margin: 20px auto;  /* Centers the element horizontally */   
+    max-width: 550px;      /* กำหนดความกว้างสูงสุด */
+    margin: 20px auto;     /* จัดกึ่งกลางทั้งแนวตั้งและแนวนอน */
     color: blue;
     padding: 15px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 8px;
-    width: 100%;
-    line-height: 2;
-    text-align: center;  /* Centers text inside the element */
+    border-radius: 8px;    /* มุมโค้ง */
+    width: 90%;            /* ใช้ 90% ของความกว้างหน้าจอ */
+    line-height: 2;        /* ความสูงของบรรทัด */
+    text-align: center;    /* จัดข้อความให้อยู่ตรงกลาง */
+    box-sizing: border-box; /* ทำให้ padding ไม่ส่งผลต่อ width */
 }
-
 .summaryResult h1 {
     font-size: 18px;
     font-weight: bold;
@@ -316,18 +312,15 @@ button:active {
     font-weight: normal;
     border: 2px solid green;
     background-color: #ffffcc;
-    max-width: 600px;
-    margin: 20px auto;  /* Centers the element horizontally */   
+    max-width: 550px;       /* กำหนดความกว้างสูงสุด */
+    margin: 20px auto;      /* จัดให้อยู่กึ่งกลางทั้งแนวตั้งและแนวนอน */
     color: blue;
     padding: 15px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 8px;
-    width: 100%;
-    line-height: 2;
-    text-align: center;  /* Centers text inside the element */
+    border-radius: 8px;     /* มุมโค้ง */
+    width: 90%;             /* ใช้ 90% ของความกว้างหน้าจอ */
+    line-height: 2;         /* ความสูงของบรรทัด */
+    text-align: center;     /* จัดข้อความให้อยู่ตรงกลาง */
+    box-sizing: border-box; /* รวม padding ในการคำนวณความกว้าง */
 }
     #summarySection h3,
     #summarySection p {
@@ -449,7 +442,7 @@ button:active {
 </div>
 
     </div>
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+     <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <script>
         const accounts = [];
         let currentAccount = null;
