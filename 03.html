@@ -74,22 +74,29 @@
             color: #95a5a6;
         }
         .form-container {
-            border: 2px solid red;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+     border: 2px solid orange;
+        background-color: #ffffff;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        line-height: 1.4; /* ลดช่องว่างใน form */
+    }
         #resultContainer {
-            display: none;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        }
+           display: none;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #ffffcc;
+        border: 2px solid #4CAF50;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+}
         #resultContainer p {
             line-height: 0.2;
         }
@@ -590,26 +597,15 @@ resultContainer.style.display = 'block';
     </script>
 </head>
 <body>
-<div class="container">
+<div class="form-container">
     <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
     <div style="text-align: center; margin-top: 20px;">
 
         <!-- Number Input and Person Selection in One Row -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+        </div>
             <!-- Number Input on the Left -->
             <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" style="font-size: 18px; padding: 5px; width: 150px;">
-
-            <!-- Person Selection on the Right -->
-            <div style="display: inline-block;">
-                <label for="personSelect" style="font-size: 18px; margin-right: 5px;">เลือกผู้บอก:</label>
-                <select id="personSelect" style="font-size: 18px; padding: 5px;">
-                    <option value="Team">Team</option>
-                    <option value="@">@</option>
-                    <option value="โรงงาน">โรงงาน</option>
-                    <option value="Udon Don">Udon Don</option>
-                    <option value="เจ้าที่">เจ้าที่</option>
-                </select>
-            </div>
         </div>
 
         <!-- Topic Selection Dropdown -->
@@ -636,8 +632,18 @@ resultContainer.style.display = 'block';
                 <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
                 <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
             </select>
+            <!-- Person Selection on the Right -->
+            <div style="display: inline-block;">
+                <label for="personSelect" style="font-size: 18px; margin-right: 5px;">เลือกผู้บอก:</label>
+                <select id="personSelect" style="font-size: 18px; padding: 5px;">
+                    <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                </select>
+            </div>
         </div>
-
         <!-- Convert Button -->
         <div style="text-align: center; margin-top: 10px;">
             <button onclick="convertNumber()" style="font-size: 18px; padding: 5px;">แปลตัวเลข</button>
@@ -670,12 +676,12 @@ resultContainer.style.display = 'block';
 <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
 
     <!-- Back Button -->
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="margin-top: 20px; font-size: 18px;">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
 </body>
 </html>
