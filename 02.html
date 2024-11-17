@@ -5,93 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fffde7;
-            margin: 0;
-            padding: 0;
+font-family: Arial, sans-serif;
+        background-color: #fffde7;
+        margin: 0;
+        padding: 0;
+        line-height: 1.4; /* ลดค่า line-height */
+    }
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        color: #2c3e50;
+        margin-top: 20px;
+        line-height: 1.2; /* ปรับให้กระชับขึ้น */
+    }
+    .container {
+        max-width: 600px;
+         margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #ffffcc;
+        border: 2px solid #4CAF50;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);   
+        line-height: 1.4; /* ลดช่องว่างใน container */
+    }
+
+    input, select, button {
+        font-size: 18px;
+        padding: 10px;
+        width: 90%;
+        margin: 10px 0; /* ลดช่องว่างระหว่าง input */
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.2; /* ลดช่องว่างใน input */
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        line-height: 1.2;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    label {
+        font-size: 18px;
+        margin-left: 5%;
+        color: #2c3e50;
+        line-height: 1.2; /* ลดช่องว่างใน label */
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #95a5a6;
+        line-height: 1.2; /* ลดช่องว่างใน footer */
+    }
+    .form-container {
+        border: 2px solid orange;
+        background-color: #ffffff;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        line-height: 1.4; /* ลดช่องว่างใน form */
+    }
+
+    #resultContainer {
+          display: none;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #ffffcc;
+        border: 2px solid #4CAF50;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+}
+        #resultContainer p {
+            line-height: 0.2;
         }
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            color: #2c3e50;
-            margin-top: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 15px;
-            background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-        input, select, button {
-            font-size: 18px;
-            padding: 10px;
-            width: 90%;
-            margin: 15px 0;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        label {
-            font-size: 18px;
-            margin-left: 5%;
-            color: #2c3e50;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #95a5a6;
-        }
-        .form-container {
-            border: 2px solid orange;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        #resultContainer {
-            max-width: 600px;
-            width: 90%;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
-            padding: 15px;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-            text-align: center;
-        }
-        .blue {
-            color: #2c3e50;
-        }
-        .red {
-            color: red;
-        }
-        #lineHeightSlider {
-            width: 100%;
-            margin: 20px 0;
-        }
-        #lineHeightValue {
-            font-size: 16px;
-            color: #2c3e50;
-        }
+
+    #lineHeightSlider {
+        width: 100%;
+        margin: 10px 0; /* ลดช่องว่างระหว่าง slider */
+    }
+    #lineHeightValue {
+        font-size: 16px;
+        color: #2c3e50;
+        line-height: 1.2; /* ลดช่องว่างของข้อความใน slider */
+    }
+
     </style>
     <script>
         function getThaiDate(date = new Date()) {
@@ -167,15 +181,15 @@
                 <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.0;">
                     <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 40px; margin: 7px;">
                     <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 40px; margin: 7px;">
-                    <h2 style="font-size: 20px; color: blue;">${selectedTopic}</h2>
-                    <p style="font-size: 16px; color: blue;">${dateDisplay}</p>
-                    <h2 style="font-size: 20px; color: blue;">
+                    <h2 style="font-size: 16px; color: blue;">${selectedTopic}</h2>
+                    <p style="font-size: 15px; color: blue;">${dateDisplay}</p>
+                    <h2 style="font-size: 16px; color: blue;">
                         ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
                     </h2>
-                    <h2 style="font-size: 20px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
-                    <h2 style="font-size: 20px; color: blue;">${sortedPairs.join(' - ')}</h2>
-                    <h2 style="font-size: 16px; color: red;">แนวทางเท่านั้น</h2>
-                    <p style="font-size: 10px; color: blue;">
+                    <h2 style="font-size: 16px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
+                    <h2 style="font-size: 16px; color: blue;">${sortedPairs.join(' - ')}</h2>
+                    <h2 style="font-size: 14px; color: red;">แนวทางเท่านั้น</h2>
+                    <p style="font-size: 12px; color: blue;">
                         <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
                     </p>
                     <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
@@ -202,19 +216,12 @@
     </script>
 </head>
 <body>
-
-    <div class="container">
-<div class="container">
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-
         <h1>ฟอร์มแปลตัวเลข 2 ตัว</h1>
         <div class="form-container">
             <label for="numberInput">กรุณากรอกตัวเลข 2 ตัว</label>
             <input type="number" id="numberInput" placeholder="ตัวเลข 2 ตัว" />
-
             <div style="display: flex; justify-content: space-between;">
                 <div style="flex: 1; margin-right: 10px;">
-                    <label for="topicSelect">เลือกหัวข้อ</label>
                     <select id="topicSelect">
               <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
                 <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
@@ -239,7 +246,6 @@
                     </select>
                 </div>
                 <div style="flex: 1; margin-left: 10px;">
-                    <label for="personSelect">เลือกบุคคล</label>
                     <select id="personSelect">
                      <option value="Team">Team</option>
                     <option value="@">@</option>
@@ -252,28 +258,22 @@
 
             <div style="display: flex; justify-content: space-between;">
                 <div style="flex: 1; margin-right: 10px;">
-                    <label for="noteInput">หมายเหตุ</label>
                     <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)" />
                 </div>
             </div>
-
-            <label for="dateInput">กรุณากรอกวันที่</label>
             <input type="date" id="dateInput" />
-
             <button id="convertButton">แปลตัวเลข</button>
-
-            <!-- New slider to adjust line height -->
+</div>
+        <div id="resultContainer" style="display: none;"></div>
+           <!-- New slider to adjust line height -->
             <label for="lineHeightSlider">ปรับความสูงของบรรทัด:</label>
             <input type="range" id="lineHeightSlider" min="0" max="2" step="0.1" value="1" />
             <p id="lineHeightValue">ความสูงของบรรทัด: 0.4</p>
-        </div>
 
-        <div id="resultContainer" style="display: none;"></div>
-    </div>
-
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
      <footer>
-<div style="text-align: center; margin-bottom: 10px;">
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+<div style="text-align: center; margin-bottom: 20px;">
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
 
 </body>
