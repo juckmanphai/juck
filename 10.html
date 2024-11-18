@@ -13,6 +13,59 @@
             padding: 0;
         }
         
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 10px;
+}
+
+/* To arrange the amount and type inputs in one line */
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    margin-right: 10px;
+}
+
+/* Styling for Date Range form */
+.date-range-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.date-range-form label {
+    margin-right: 10px;
+}
+
+/* Summary item layout */
+.summary-item {
+    margin-top: 10px;
+}
+
+/* Button Container */
+.button-container {
+    margin-top: 20px;
+}
+
+/* Details Section */
+#detailsSection {
+    margin-top: 20px;
+}
+
+/* Summary Result styling */
+#summaryResult {
+    margin-top: 20px;
+}
+
         /* Header Styles */
         h2 {
             text-align: center;
@@ -24,11 +77,11 @@
         /* Container Styles */
         .container {
             max-width: 600px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            padding: 15px;
+            margin: 20px auto;
+	    margin-top: 20px;
+	    margin-bottom: 20px;
+	    margin-left: 10px;
+            margin-right: 10px;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
@@ -86,7 +139,7 @@
             font-size: 20px;
             padding: 12px 20px;
             border-radius: 8px;
-            background-color: #007BFF;
+            background-color: #FF5722;
             color: white;
             border: none;
             cursor: pointer;
@@ -226,8 +279,8 @@ button:active {
 
 /* ปรับแต่งปุ่มโหลดข้อมูล */
 .file-button {
-    padding: 12px 20px; /* ขนาดปุ่มเล็กลง */
-    font-size: 20px; /* ขนาดตัวอักษรเล็กลง */
+    padding: 8px 15px; /* ขนาดปุ่มเล็กลง */
+    font-size: 14px; /* ขนาดตัวอักษรเล็กลง */
     background-color: #007BFF; /* สีพื้นหลังปุ่ม */
     color: white; /* สีข้อความ */
     border: none;
@@ -245,8 +298,8 @@ button:active {
     transform: translateY(1px); /* ปุ่มยุบเมื่อกด */
 }
 
-.summaryResult {
-    font-size: 15px;
+    .summaryResult {
+   font-size: 15px;
     font-weight: normal;
     border: 2px solid green;
     background-color: #ffffcc;
@@ -260,81 +313,22 @@ button:active {
     text-align: center;    /* จัดข้อความให้อยู่ตรงกลาง */
     box-sizing: border-box; /* ทำให้ padding ไม่ส่งผลต่อ width */
 }
-.summaryResult h1 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.summaryResult p {
-    font-size: 15px;
-    margin: 0;
-}
-
-    /* จัดปุ่มให้อยู่กึ่งกลาง */
-    .button-container {
-        text-align: center;
-        margin: 20px 0;
-    }
-
-    /* กรอบและพื้นหลังสำหรับสรุปยอด */
-    .summary-box {
-        margin: 20px auto; /* จัดให้อยู่ตรงกลาง */
-        padding: 20px;
-        width: 50%; /* ความกว้าง 50% ของหน้าจอ */
-        background-color: #f9f9f9; /* พื้นหลังสีอ่อน */
-        border: 2px solid #4CAF50; /* เส้นขอบสีเขียว */
-        border-radius: 10px; /* มุมโค้งมน */
-        text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* เงาเบาๆ */
-    }
-
-    /* จัดข้อความในตาราง */
-    #detailsSection table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-
-    #detailsSection th, #detailsSection td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    #detailsSection th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
-
-   #summarySection {
-    font-size: 15px;
-    font-weight: normal;
-    border: 2px solid green;
-    background-color: #ffffcc;
-    max-width: 550px;       /* กำหนดความกว้างสูงสุด */
-    margin: 20px auto;      /* จัดให้อยู่กึ่งกลางทั้งแนวตั้งและแนวนอน */
-    color: blue;
-    padding: 15px;
-    border-radius: 8px;     /* มุมโค้ง */
-    width: 90%;             /* ใช้ 90% ของความกว้างหน้าจอ */
-    line-height: 2;         /* ความสูงของบรรทัด */
-    text-align: center;     /* จัดข้อความให้อยู่ตรงกลาง */
-    box-sizing: border-box; /* รวม padding ในการคำนวณความกว้าง */
-}
-    #summarySection h3,
-    #summarySection p {
-        margin: 10px 0; /* ลดระยะห่างระหว่างบรรทัด */
-    }
-
-    #summarySection span {
-        font-weight: bold; /* ตัวหนาสำหรับตัวเลข */
-    }
-
+        
+        .summaryResult h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .summaryResult p {
+            font-size: 15px;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
-    <h2>บัญชี - <span id="accountName"></span></h2>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
+    <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
 
@@ -352,82 +346,56 @@ button:active {
 <!-- Entry Form -->
 <form id="accountForm">
     <div class="form-group">
-        <label for="amount">จำนวนเงิน:</label>
-        <input type="number" id="amount" required>
+        <div class="input-group">
+            <label for="amount">จำนวนเงิน:</label>
+            <input type="number" id="amount" required>
+        </div>
+        <div class="input-group">
+            <label for="type">ประเภท:</label>
+            <select id="type" required>
+                <option value="รายรับ">รายรับ</option>
+                <option value="รายจ่าย">รายจ่าย</option>
+            </select>
+        </div>
     </div>
 
     <div class="form-group">
-        <label for="type">ประเภท:</label>
-        <select id="type" required>
-            <option value="รายรับ">รายรับ</option>
-            <option value="รายจ่าย">รายจ่าย</option>
-        </select>
+        <label for="description">รายละเอียด:</label>
+        <input type="text" id="description" required>
     </div>
-     <label for="description">รายละเอียด:</label>
-    <input type="text" id="description" required>
 
     <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
 </form>
 
-<div class="summary-options">
-    <!-- สรุปผลย้อนหลัง -->
-    <div class="summary-item">
-        <label for="summaryDays">จำนวนวันที่ต้องการสรุป:</label>
-        <input type="number" id="summaryDays" name="summaryDays" min="1" placeholder="กรอกจำนวนวัน">
-        <button onclick="getSummary()">แสดงสรุปผลย้อนหลัง</button>
-    </div>
+<!-- Date Range Form -->
+<form>
+    <div class="date-range-form">
+        <label for="startDate">จากวันที่:</label>
+        <input type="date" id="startDate" />
 
-    <!-- สรุปยอดในวันที่เลือก -->
-    <div class="summary-item">
-        <label for="customDayMonth">กรอกวันที่(วัน/เดือน):</label>
-        <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
-        <button type="button" onclick="summarizeByDayMonth()">สรุปยอดในวันที่เลือก</button>
+        <label for="endDate">ถึงวันที่:</label>
+        <input type="date" id="endDate" />
+
+        <button type="button" onclick="summarize()">สรุปวันที่ถึงวันที่</button>
     </div>
+</form>
+
+<!-- Summary by Day/Month -->
+<div class="summary-item">
+    <label for="customDayMonth">กรอกวันที่(วัน/เดือน):</label>
+    <input type="text" id="customDayMonth" placeholder="กรอกวัน/เดือน (เช่น 10/11)">
+    <button type="button" onclick="summarizeByDayMonth()">สรุปวันที่เลือก</button>
 </div>
+
+<!-- Button Container -->
 <div class="button-container">
     <button onclick="summarizeToday()">สรุปยอดวันนี้</button>
     <button onclick="toggleVisibility()">แสดง/ซ่อน รายละเอียด</button>
     <button onclick="saveToFile()">บันทึก</button>
-</div>        
-        <!-- Details Section -->
-        <div id="detailsSection" style="display: none;">
-            <table id="recordTable">
-                <thead>
-                    <tr>
-                        <th>วันที่และเวลา</th>
-                        <th>ประเภท</th>
-                        <th>รายละเอียด</th>
-                        <th>จำนวนเงิน</th>
-                        <th>การจัดการ</th>
-                    </tr>
-                </thead>
-                <tbody id="recordBody"></tbody>
-            </table>
-        </div>
-
-        <!-- Summary Result -->
-        <div id="summaryResult" class="summaryResult"></div>
-<div class="button-container">
-    <!-- ปุ่มสำหรับสรุปยอด -->
-    <button type="button" onclick="summarizeRecords()">สรุปยอด</button>
-    <!-- ปุ่มสำหรับแสดงรายการ -->
-    <button type="button" onclick="toggleDetails()">แสดง/ซ่อน รายการ</button>
 </div>
 
-<!-- แสดงผลสรุปยอด -->
-<div id="summarySection" class="summary-box" style="display: none;">
-    <h3 style="color: blue;">สรุปยอดบัญชี: <span id="summaryAccount"></span></h3>
-    <p style="color: blue;">รายรับทั้งหมด: <span id="totalIncome">0</span> บาท</p>
-    <p style="color: blue;">รายจ่ายทั้งหมด: <span id="totalExpense">0</span> บาท</p>
-    <p style="color: blue;">ยอดสุทธิ: <span id="netTotal">0</span> บาท</p>
-    <p style="margin-top: 20px; font-weight: bold; color: blue;">
-        สรุปเมื่อวันที่: <span id="summaryDate"></span>
-    </p>
-</div>
-
-<!-- แสดงรายการ -->
+<!-- Details Section -->
 <div id="detailsSection" style="display: none;">
-    <h3>รายการของบัญชี: <span id="detailsAccount"></span></h3>
     <table id="recordTable">
         <thead>
             <tr>
@@ -435,14 +403,15 @@ button:active {
                 <th>ประเภท</th>
                 <th>รายละเอียด</th>
                 <th>จำนวนเงิน</th>
+                <th>การจัดการ</th>
             </tr>
         </thead>
         <tbody id="recordBody"></tbody>
     </table>
 </div>
 
-    </div>
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+<!-- Summary Result -->
+<div id="summaryResult" class="summaryResult"></div>
     <script>
         const accounts = [];
         let currentAccount = null;
@@ -525,6 +494,7 @@ function editAccount() {
                 alert("กรุณาเลือกบัญชีที่ต้องการลบ");
             }
         }
+
 function summarizeByDayMonth() {
     const dayMonth = document.getElementById('customDayMonth').value.trim();
     
@@ -535,33 +505,36 @@ function summarizeByDayMonth() {
     }
 
     const [day, month] = dayMonth.split('/');
-    const targetDate = new Date(new Date().getFullYear(), month - 1, day);  // ตั้งวันที่ให้ตรงกับปีปัจจุบัน
+    const targetDate = new Date(new Date().getFullYear(), month - 1, day); // ตั้งวันที่ให้ตรงกับปีปัจจุบัน
 
-    let totalIncome = 0;
-    let totalExpense = 0;
+    let totalIncomeToday = 0;
+    let totalExpenseToday = 0;
+    let totalIncomeAccumulated = 0;
+    let totalExpenseAccumulated = 0;
 
     // ตรวจสอบบันทึกข้อมูลทั้งหมด
     records.forEach(record => {
         const recordDate = new Date(record.dateTime.split(" ")[0]); // ใช้แค่วันที่จาก dateTime
+
+        // คำนวณรายรับและรายจ่ายเฉพาะวันที่ที่กรอกข้อมูล
         if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
+            if (record.type === "รายรับ") totalIncomeToday += record.amount;
+            if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
+        }
+
+        // คำนวณรายรับและรายจ่ายสะสมจนถึงวันที่ที่กรอกข้อมูล
+        if (recordDate <= targetDate && record.account === currentAccount) {
+            if (record.type === "รายรับ") totalIncomeAccumulated += record.amount;
+            if (record.type === "รายจ่าย") totalExpenseAccumulated += record.amount;
         }
     });
 
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
+    const netTotalToday = totalIncomeToday - totalExpenseToday; // ยอดสุทธิของวันที่กรอกข้อมูล
+    const netBalance = totalIncomeAccumulated - totalExpenseAccumulated; // เงินเหลือในบัญชีจนถึงวันที่กรอกข้อมูล
 
     // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
     const thaiDate = new Date(targetDate);
-    const thaiYear = thaiDate.getFullYear() + 543;  // แปลงเป็นปีพุทธศักราช
+    const thaiYear = thaiDate.getFullYear() + 543; // แปลงเป็นปีพุทธศักราช
     const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
     const thaiDay = thaiDate.getDate();
     
@@ -572,14 +545,13 @@ function summarizeByDayMonth() {
 
     // สรุปยอดและแสดงในช่อง
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอด : ${currentAccount}</p>
-       <p>สรุปเมื่อ : ${summaryDateTime}</p>
-        <p>สรุปยอดของวันที่ : ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
-        <p>ยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
-        <p>${remark}</p>
-     `;
+        <p>สรุปเมื่อ: ${summaryDateTime}</p>
+        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+        <p>รายรับวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท</p>
+        <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>ยอดสุทธิวันสรุปยอด: ${netTotalToday.toLocaleString()} บาท</p>
+        <p>เงินในบัญเหลืออยู่ถึงวันนี้: ${netBalance.toLocaleString()} บาท</p>
+    `;
 }
 
 	function autoFillDateTime() {
@@ -699,65 +671,34 @@ function getSummary() {
         hour: '2-digit', minute: '2-digit'
     });
 
-    document.getElementById('summaryResult').innerHTML = `       
- 	<p>สรุปยอดย้อนหลัง ${days} วัน : ${currentAccount}</p>
-        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ : ${remark}</p>
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปยอดย้อนหลัง ${days} วัน: ${currentAccount}</p>
+        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ: ${remark}</p>
     `;
 }
 
 function summarize() {
-    const summaryDays = parseInt(document.getElementById('summaryDays').value);
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - summaryDays);
+    const startDateInput = document.getElementById('startDate').value;
+    const endDateInput = document.getElementById('endDate').value;
 
-    let totalIncome = 0;
-    let totalExpense = 0;
-
-    records.forEach(record => {
-        const [date, time] = record.dateTime.split(" ");
-        const [year, month, day] = date.split("-");
-        const [hour, minute] = time.split(":");
-        const recordDate = new Date(year, month - 1, day, hour, minute);
-
-        if (recordDate >= cutoffDate && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
-        }
-    });
-
-    const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
+    if (!startDateInput || !endDateInput) {
+        alert("กรุณาเลือกวันที่ให้ครบถ้วน");
+        return;
     }
 
-    // Get the current date and time for the summary
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
+    const startDate = new Date(startDateInput);
+    const endDate = new Date(endDateInput);
 
-    document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอด : ${currentAccount}</p>
-        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>ช่วงวันที่ : ${summaryDays} วันที่ผ่านมา</p>
-        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ : ${remark}</p>
-    `;
-}
-       function summarizeToday() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Start of the day
+    if (startDate > endDate) {
+        alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
+        return;
+    }
+
+    endDate.setHours(23, 59, 59, 999);
 
     let totalIncome = 0;
     let totalExpense = 0;
@@ -767,22 +708,64 @@ function summarize() {
         const [year, month, day] = date.split("-");
         const recordDate = new Date(year, month - 1, day);
 
-        // Check if the record is from today and matches the current account
-        if (recordDate.getTime() === today.getTime() && record.account === currentAccount) {
+        if (recordDate >= startDate && recordDate <= endDate && record.account === currentAccount) {
             if (record.type === "รายรับ") totalIncome += record.amount;
             if (record.type === "รายจ่าย") totalExpense += record.amount;
         }
     });
 
     const netTotal = totalIncome - totalExpense;
-    let remark = '';
-    if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
-    } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
-    } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
-    }
+
+    const startDateFormatted = startDate.toLocaleDateString("th-TH", {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+    const endDateFormatted = endDate.toLocaleDateString("th-TH", {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    // อัปเดตผลลัพธ์ใน <div id="summaryResult">
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปยอด: ${currentAccount}</p>
+        <p>ช่วงวันที่: ${startDateFormatted} - ${endDateFormatted}</p>
+        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
+        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+    `;
+}
+
+function summarizeToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Start of the day
+
+    let totalIncomeToday = 0;
+    let totalExpenseToday = 0;
+    let totalIncomeAll = 0;
+    let totalExpenseAll = 0;
+
+    records.forEach(record => {
+        const [date, time] = record.dateTime.split(" ");
+        const [year, month, day] = date.split("-");
+        const recordDate = new Date(year, month - 1, day);
+
+        // Calculate today's income and expense for the current account
+        if (record.account === currentAccount) {
+            if (record.type === "รายรับ") {
+                totalIncomeAll += record.amount; // Total income of this account
+                if (recordDate.getTime() === today.getTime()) {
+                    totalIncomeToday += record.amount;
+                }
+            }
+            if (record.type === "รายจ่าย") {
+                totalExpenseAll += record.amount; // Total expense of this account
+                if (recordDate.getTime() === today.getTime()) {
+                    totalExpenseToday += record.amount;
+                }
+            }
+        }
+    });
+
+    const netTotalToday = totalIncomeToday - totalExpenseToday;
+    const netBalanceAll = totalIncomeAll - totalExpenseAll; // Total balance of the account
 
     // Get the current date and time for today's summary
     const summaryDateTime = new Date().toLocaleString("th-TH", {
@@ -791,12 +774,11 @@ function summarize() {
     });
 
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดวันนี้ : ${currentAccount}</p>
-        <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
-        <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
-        <p>สรุปยอดสุทธิ : ${netTotal.toLocaleString()} บาท</p>
-        <p>หมายเหตุ : ${remark}</p>
+        <p>สรุปยอดวันนี้: ${currentAccount}</p>
+        <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
+        <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
+        <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>เงินในบัญชีถึงวันนี้เหลืออยู่: ${netBalanceAll.toLocaleString()} บาท</p>
     `;
 }
 
@@ -859,122 +841,6 @@ function saveToFile() {
             document.getElementById('detailsSection').style.display = 'none';
             updateAccountSelect();
         };
-
-   // ฟังก์ชันสำหรับสรุปยอด
-    function summarizeRecords() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนทำการสรุปยอด");
-            return;
-        }
-
-        let totalIncome = 0;
-        let totalExpense = 0;
-
-        // คำนวณรายรับและรายจ่ายของบัญชีปัจจุบัน
-        records.forEach(record => {
-            if (record.account === currentAccount) {
-                if (record.type === "รายรับ") {
-                    totalIncome += record.amount;
-                } else if (record.type === "รายจ่าย") {
-                    totalExpense += record.amount;
-                }
-            }
-        });
-
-        const netTotal = totalIncome - totalExpense;
-
-        // แสดงผลในส่วนของสรุปยอด
-        document.getElementById('summaryAccount').textContent = currentAccount;
-        document.getElementById('totalIncome').textContent = totalIncome.toLocaleString();
-        document.getElementById('totalExpense').textContent = totalExpense.toLocaleString();
-        document.getElementById('netTotal').textContent = netTotal.toLocaleString();
-
-        // แสดงส่วนสรุปยอด
-        document.getElementById('summarySection').style.display = "block";
-    }
-
-    // ฟังก์ชันสำหรับแสดง/ซ่อนรายละเอียด
-    function toggleDetails() {
-        const detailsSection = document.getElementById('detailsSection');
-        const isHidden = detailsSection.style.display === "none";
-
-        if (isHidden) {
-            displayRecords(); // เรียกฟังก์ชันแสดงรายการ
-            document.getElementById('detailsAccount').textContent = currentAccount;
-            detailsSection.style.display = "block";
-        } else {
-            detailsSection.style.display = "none";
-        }
-    }
-
-    // ฟังก์ชันสำหรับแสดงรายการในตาราง
-    function displayRecords() {
-        const recordBody = document.getElementById('recordBody');
-        recordBody.innerHTML = ""; // ล้างข้อมูลในตารางก่อน
-
-        records.forEach(record => {
-            if (record.account === currentAccount) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${record.dateTime}</td>
-                    <td>${record.type}</td>
-                    <td>${record.description}</td>
-                    <td>${record.amount.toLocaleString()} บาท</td>
-                `;
-                recordBody.appendChild(row);
-            }
-        });
-    }
-
- // ฟังก์ชันสำหรับสรุปยอด
-    function summarizeRecords() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนทำการสรุปยอด");
-            return;
-        }
-
-        let totalIncome = 0;
-        let totalExpense = 0;
-
-        // คำนวณรายรับและรายจ่ายของบัญชีปัจจุบัน
-        records.forEach(record => {
-            if (record.account === currentAccount) {
-                if (record.type === "รายรับ") {
-                    totalIncome += record.amount;
-                } else if (record.type === "รายจ่าย") {
-                    totalExpense += record.amount;
-                }
-            }
-        });
-
-        const netTotal = totalIncome - totalExpense;
-
-        // แสดงผลในส่วนของสรุปยอด
-        document.getElementById('summaryAccount').textContent = currentAccount;
-        document.getElementById('totalIncome').textContent = totalIncome.toLocaleString();
-        document.getElementById('totalExpense').textContent = totalExpense.toLocaleString();
-        document.getElementById('netTotal').textContent = netTotal.toLocaleString();
-
-        // เพิ่มวันที่และเวลาในรูปแบบภาษาไทย
-        const now = new Date();
-        const thaiMonths = [
-            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", 
-            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-        ];
-
-        const thaiDate = `
-            ${now.getDate()} 
-            ${thaiMonths[now.getMonth()]} 
-            ${now.getFullYear() + 543} 
-            เวลา ${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}
-        `;
-
-        document.getElementById('summaryDate').textContent = thaiDate;
-
-        // แสดงส่วนสรุปยอด
-        document.getElementById('summarySection').style.display = "block";
-    }
-
     </script>
 </body>
 </html>
