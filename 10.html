@@ -329,7 +329,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -749,25 +749,35 @@ function summarizeToday() {
         const [year, month, day] = date.split("-");
         const recordDate = new Date(year, month - 1, day);
 
-        // Calculate today's income and expense for the current account
+        // Check if the record matches the current account
         if (record.account === currentAccount) {
-            if (record.type === "รายรับ") {
-                totalIncomeAll += record.amount; // Total income of this account
-                if (recordDate.getTime() === today.getTime()) {
-                    totalIncomeToday += record.amount;
-                }
+            if (recordDate.getTime() === today.getTime()) {
+                // Calculate today's income and expense
+                if (record.type === "รายรับ") totalIncomeToday += record.amount;
+                if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
             }
-            if (record.type === "รายจ่าย") {
-                totalExpenseAll += record.amount; // Total expense of this account
-                if (recordDate.getTime() === today.getTime()) {
-                    totalExpenseToday += record.amount;
-                }
-            }
+
+            // Calculate total income and expense for the account (not just today)
+            if (record.type === "รายรับ") totalIncomeAll += record.amount;
+            if (record.type === "รายจ่าย") totalExpenseAll += record.amount;
         }
     });
 
-    const netTotalToday = totalIncomeToday - totalExpenseToday;
-    const netBalanceAll = totalIncomeAll - totalExpenseAll; // Total balance of the account
+    const netTotal = totalIncomeToday - totalExpenseToday;
+    let remark = '';
+    if (netTotal > 0) {
+        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+    } else if (netTotal < 0) {
+        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+    } else {
+        remark = 'รายรับและรายจ่ายเท่ากัน';
+    }
+
+    // Calculate remaining balance for today (income - expense for today)
+    const remainingBalance = totalIncomeToday - totalExpenseToday;
+
+    // Calculate account balance (total income - total expense for the account)
+    const accountBalance = totalIncomeAll - totalExpenseAll;
 
     // Get the current date and time for today's summary
     const summaryDateTime = new Date().toLocaleString("th-TH", {
@@ -780,7 +790,9 @@ function summarizeToday() {
         <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
         <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
         <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
-        <p>เงินในบัญชีถึงวันนี้เหลืออยู่: ${netBalanceAll.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: ${netTotal.toLocaleString()} บาท</p>
+        <p>หมายเหตุ: ${remark}</p>
+        <p>เงินในบัญชีถึงวันนี้เหลืออยู่: ${accountBalance.toLocaleString()} บาท</p> <!-- Display account balance -->
     `;
 }
 
