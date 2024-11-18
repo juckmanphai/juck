@@ -139,8 +139,8 @@ body {
         
         .back-button {
             font-size: 20px;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 16px 30px;
+            border-radius: 15px;
             background-color: #FF5722;
             color: white;
             border: none;
@@ -164,8 +164,8 @@ body {
         }
 
 #accountSelect {
-    width: 400px; /* กำหนดความกว้างที่เหมาะสมสำหรับช่องเลือกบัญชี */
-    padding: 20px;
+    width: 600px; /* กำหนดความกว้างที่เหมาะสมสำหรับช่องเลือกบัญชี */
+    padding: 15px;
     font-size: 16px;
 }
 
@@ -199,7 +199,7 @@ label {
 }
 
 #type {
-    width: 25%;  /* ทำให้ช่องประเภทกว้าง 30% */
+    width: 30%;  /* ทำให้ช่องประเภทกว้าง 30% */
     padding: 8px;
     font-size: 16px;
 }
@@ -281,12 +281,12 @@ button:active {
 
 /* ปรับแต่งปุ่มโหลดข้อมูล */
 .file-button {
-    padding: 8px 15px; /* ขนาดปุ่มเล็กลง */
-    font-size: 14px; /* ขนาดตัวอักษรเล็กลง */
+    padding: 16px 30px; /* ขนาดปุ่มเล็กลง */
+    font-size: 20px; /* ขนาดตัวอักษรเล็กลง */
     background-color: #007BFF; /* สีพื้นหลังปุ่ม */
     color: white; /* สีข้อความ */
     border: none;
-    border-radius: 5px; /* มุมปุ่มโค้ง */
+    border-radius: 15px; /* มุมปุ่มโค้ง */
     cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อ hover */
     transition: background-color 0.3s ease, transform 0.2s ease; /* เอฟเฟกต์ */
 }
@@ -326,10 +326,45 @@ button:active {
             font-size: 15px;
             margin: 0;
         }
+
+    #recordTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #recordTable th, #recordTable td {
+        border: 1px solid #ccc;
+        padding: 2px; /* ลด padding เพื่อลดความสูง */
+        line-height: 1.2; /* ลด line-height เพื่อลดระยะระหว่างบรรทัด */
+        text-align: center;
+    }
+
+    #recordTable th {
+        background-color: #f4f4f4;
+    }
+
+    #recordTable tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    #recordTable tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    button {
+        padding: 5px 8px; /* ปรับขนาดปุ่มให้เล็กลง */
+        margin: 2px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #ddd;
+    }
+
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>บัญชีรายรับรายจ่าย - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -401,17 +436,31 @@ button:active {
     <table id="recordTable">
         <thead>
             <tr>
-                <th>วันที่และเวลา</th>
+                <th>วันเดือนปี</th>
+                <th>เวลา</th>
                 <th>ประเภท</th>
                 <th>รายละเอียด</th>
                 <th>จำนวนเงิน</th>
-                <th>การจัดการ</th>
             </tr>
         </thead>
         <tbody id="recordBody"></tbody>
     </table>
 </div>
-
+<table id="recordTable" border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+    <thead>
+        <tr>
+            <th>วันที่</th>
+            <th>เวลา</th>
+            <th>ประเภท</th>
+            <th>รายละเอียด</th>
+            <th>จำนวนเงิน (บาท)</th>
+            <th>การจัดการ</th>
+        </tr>
+    </thead>
+    <tbody id="recordBody">
+        <!-- รายการจะแสดงที่นี่ -->
+    </tbody>
+</table>
 <!-- Summary Result -->
 <div id="summaryResult" class="summaryResult"></div>
     <script>
@@ -593,19 +642,22 @@ function summarizeByDayMonth() {
 
 function displayRecords() {
     const recordBody = document.getElementById('recordBody');
-    recordBody.innerHTML = ""; // ล้างข้อมูลเก่าก่อน
+    recordBody.innerHTML = ""; // ล้างข้อมูลเก่า
 
-    // เรียงข้อมูลจากใหม่สุดไปเก่าที่สุด โดยใช้ `sort()`
+    // เรียงข้อมูลจากใหม่ไปเก่า
     records.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
     records.forEach((record, index) => {
         if (record.account === currentAccount) {
             const dateTime = new Date(record.dateTime);
-            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
+            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
+            const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
 
+            // สร้างแถวใหม่ในตาราง
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${formattedDate}</td>
+                <td>${formattedTime}</td>
                 <td>${record.type}</td>
                 <td>${record.description}</td>
                 <td>${record.amount.toLocaleString()} บาท</td> <!-- ใช้ toLocaleString() เพื่อคั่นหลักพัน -->
@@ -617,6 +669,15 @@ function displayRecords() {
             recordBody.appendChild(row);
         }
     });
+
+    // กรณีไม่มีข้อมูล
+    if (recordBody.innerHTML === "") {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>
+        `;
+        recordBody.appendChild(row);
+    }
 }
 
 function editRecord(index) {
