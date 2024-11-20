@@ -137,37 +137,44 @@
 <body>
     <h1>จัดเรียงตัวเลข 4 หลัก</h1>
     <form onsubmit="processNumbers(); return false;">
-        <label for="date">วันที่:</label>
-        <input type="date" id="date"><br><br>
-        
-        <label for="type">ประเภท:</label>
-        <select id="type">
-               <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-                <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-                <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-                <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-                <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-                <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-                <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-        </select><br><br>
-        
-        <label for="provider">ผู้บอก:</label>
-        <select id="provider">
-      <option value="นาคน้อยทีม">นาคน้อยทีม</option>
-      <option value="เจ้าที่โรงงาน">เจ้าที่โรงงาน</option>
-      <option value="Team">Team</option>
-      <option value="@">@</option>
-      <option value="Udon Don">Udon Don</option>
-        </select><br><br>
-        
+        <!-- ลำดับที่ 1: ช่องกรอกตัวเลข -->
         <label for="numbers">ตัวเลข 4 หลัก:</label>
         <input type="text" id="numbers" maxlength="4" placeholder="กรอกตัวเลข 4 หลัก"><br><br>
-        
+
+        <!-- ลำดับที่ 2: ประเภท -->
+        <label for="type">ประเภท:</label>
+        <select id="type">
+            <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+            <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+            <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+            <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+            <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+            <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+            <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+        </select><br><br>
+
+        <!-- ลำดับที่ 3: ผู้บอก -->
+        <label for="provider">ผู้บอก:</label>
+        <select id="provider">
+            <option value="นาคน้อยทีม">นาคน้อยทีม</option>
+            <option value="เจ้าที่โรงงาน">เจ้าที่โรงงาน</option>
+            <option value="Team">Team</option>
+            <option value="@">@</option>
+            <option value="Udon Don">Udon Don</option>
+        </select><br><br>
+
+        <!-- ลำดับที่ 4: หมายเหตุ -->
         <label for="comment">หมายเหตุ:</label>
         <input type="text" id="comment" placeholder="หมายเหตุ (ถ้ามี)"><br><br>
-        
-        <button type="submit">จัดเรียงตัวเลข</button>
+
+        <!-- ลำดับที่ 5: ปุ่มจัดเรียงตัวเลข -->
+        <button type="submit">จัดเรียงตัวเลข</button><br><br>
+
+        <!-- ลำดับที่ 6: ช่องเลือกวันที่ -->
+        <label for="date">วันที่:</label>
+        <input type="date" id="date"><br><br>
     </form>
+</body>
     
  <div id="resultContainer" style="text-align: center; margin-top: 18px;">
     <div id="resultContent" style="position: relative; text-align: center; font-size: size: 16px;">
