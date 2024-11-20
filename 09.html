@@ -82,6 +82,56 @@
             text-align: center;
             max-width: 600px; /* จำกัดความกว้าง */
         }
+
+        /* เพิ่มการปรับขนาดปุ่ม */
+        button {
+            font-size: 20px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+            padding: 12px 20px; /* เพิ่มระยะห่างด้านในปุ่ม */
+            background-color: #4CAF50; /* สีพื้นหลังปุ่ม */
+            color: white; /* สีตัวอักษร */
+            border: none;
+            border-radius: 8px; /* มุมโค้งของปุ่ม */
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้ปุ่ม */
+        }
+
+        button:hover {
+            background-color: #45a049; /* สีปุ่มเมื่อชี้เมาส์ */
+        }
+
+        /* เพิ่มการปรับขนาดช่องกรอก */
+        input[type="text"], input[type="number"], textarea, input[type="date"] {
+            font-size: 18px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+            padding: 10px; /* เพิ่มระยะห่างด้านใน */
+            width: 90%; /* ขยายความกว้าง */
+            max-width: 500px; /* จำกัดความกว้างสูงสุด */
+            border: 2px solid #99ccff; /* สีขอบ */
+            border-radius: 8px; /* มุมโค้งของช่องกรอก */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: #4CAF50; /* เปลี่ยนสีขอบเมื่อคลิก */
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* เงาเมื่อโฟกัส */
+        }
+
+        /* เพิ่มการปรับขนาดช่องเลือก */
+        select {
+            font-size: 18px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+            padding: 10px; /* เพิ่มระยะห่างด้านใน */
+            width: 90%; /* ขยายความกว้าง */
+            max-width: 500px; /* จำกัดความกว้างสูงสุด */
+            border: 2px solid #99ccff; /* สีขอบ */
+            border-radius: 8px; /* มุมโค้งของช่องเลือก */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4CAF50; /* เปลี่ยนสีขอบเมื่อคลิก */
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* เงาเมื่อโฟกัส */
+        }
     </style>
 </head>
 <body>
@@ -103,7 +153,7 @@
         
         <label for="provider">ผู้บอก:</label>
         <select id="provider">
-      <option value="ทีมนาคน้อย">ทีมนาคน้อย</option>
+      <option value="นาคน้อยทีม">นาคน้อยทีม</option>
       <option value="เจ้าที่โรงงาน">เจ้าที่โรงงาน</option>
       <option value="Team">Team</option>
       <option value="@">@</option>
