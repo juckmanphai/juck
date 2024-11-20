@@ -11,12 +11,14 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
             text-align: center;
             font-size: 32px;
             color: #2c3e50;
             margin-top: 20px;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -28,25 +30,29 @@
         }
 
         input, select, button {
-            font-size: 18px;
-            padding: 10px;
-            width: 90%;
+            font-size: 20px; /* เพิ่มขนาดตัวอักษร */
+            padding: 12px; /* เพิ่มพื้นที่ภายในช่องกรอก */
+            width: 95%; /* เพิ่มความกว้าง */
             margin: 15px 0;
-            border-radius: 6px;
+            border-radius: 8px; /* มุมโค้งของช่องกรอก */
             border: 1px solid #ddd;
             display: block;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
         }
+
         button {
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         button.back-button {
             margin-top: 20px;
             font-size: 20px;
@@ -56,47 +62,54 @@
             margin-left: auto;
             margin-right: auto;
         }
+
         label {
             font-size: 18px;
             margin-left: 5%;
             color: #2c3e50;
         }
+
         .blue {
             color: blue;
         }
+
         .red {
             color: red;
         }
+
         footer {
             text-align: center;
             padding: 20px;
             font-size: 14px;
             color: #95a5a6;
         }
+
         .form-container {
-     border: 2px solid orange;
-        background-color: #ffffff;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        line-height: 1.4; /* ลดช่องว่างใน form */
-    }
+            border: 2px solid orange;
+            background-color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 15px; /* ลดระยะห่างภายใน */
+            margin-left: 10px; /* ลดระยะขอบซ้าย */
+            margin-right: 10px; /* ลดระยะขอบขวา */
+            border-radius: 8px; /* ลดมุมโค้ง */
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            line-height: 1.4; /* ลดช่องว่างในฟอร์ม */
+        }
+
         #resultContainer {
-           display: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-color: #ffffcc;
-        border: 2px solid #4CAF50;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-}
+            display: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffcc;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        }
+
         #resultContainer p {
             line-height: 0.2;
         }
