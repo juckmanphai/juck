@@ -197,12 +197,14 @@
 
 let resultHtml = `
     <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-        <h3 class="blue" style="font-size: 18px; line-height: 0.5; display: inline-block; vertical-align: middle; margin: 0;">
-            <img src="logo.png" alt="Left Logo" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+        <h3 class="blue" style="font-size: 18px; line-height: 0.5; display: inline-block; vertical-align: middle; margin: 0; margin-bottom: 8px; margin-top: 8px;">
             ผล${selectedTopic}
-            <img src="logo.png" alt="Right Logo" style="width: 30px; vertical-align: middle; margin-left: 8px;">
         </h3>
-        <p class="blue" style="font-size: 18px; line-height: 0.5;">${getThaiDate()}</p>
+        <p class="blue" style="font-size: 18px; line-height: 0.5; margin: 0; margin-top: 8px; display: inline-flex; align-items: center;">
+            <img src="logo.png" alt="Left Logo" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+            ${getThaiDate()}
+            <img src="logo.png" alt="Right Logo" style="width: 30px; vertical-align: middle; margin-left: 8px;">
+        </p>
         <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
         <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
             ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
