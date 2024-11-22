@@ -151,18 +151,20 @@
             const threeDigits = num.slice(3); // Get last three digits (456)
             const twoDigits = num.slice(2, 4); // Get first two digits (34)
 
-            // Create HTML to display
-            const resultHtml = `
+ // Create HTML to display
+const resultHtml = `
     <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-        <img src="logo.png" alt="Left Logo" style="position: absolute; top: 0; left: 0; width: 30px; margin: 6px;">
-        <img src="logo.png" alt="Right Logo" style="position: absolute; top: 0; right: 0; width: 30px; margin: 6px;">
-        <h3 class="blue" style="font-size: 24px; display: inline-block; vertical-align: top; margin: 0;">ผลลาวพัฒนา</h3>
+        <h3 class="blue" style="font-size: 24px; display: inline-block; vertical-align: middle; margin: 0;">
+            <img src="logo.png" alt="Left Logo" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+            ผลลาวพัฒนา
+            <img src="logo.png" alt="Right Logo" style="width: 30px; vertical-align: middle; margin-left: 8px;">
+        </h3>
         <p class="blue" style="font-size: 18px; line-height: 0.5; margin-top: 20px;">${thaiDate}</p>
         <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 6 ตัว</h2>
         <div style="text-align: center; margin-top: 10px;">
             ${sixDigitHtml}
         </div>
-        <p class="blue" style="font-size: 26px; letter-spacing: 5px; line-height: 0.5;">
+        <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
             บน <span style="color: green;" id="threeDigits">${threeDigits}</span> ล่าง <span style="color: blue;" id="twoDigits">${twoDigits}</span>
         </p>
     </div>
@@ -222,7 +224,7 @@
     </script>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวพัฒนา</h1>
 
     <div style="text-align: center; margin-top: 20px;">
@@ -239,7 +241,7 @@
     </div>
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
 </body>
 </html>
