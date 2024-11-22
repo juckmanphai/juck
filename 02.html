@@ -176,13 +176,15 @@ font-family: Arial, sans-serif;
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-        // Generate result HTML
+ // Generate result HTML
 const resultHtml = `
     <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.0;">
-        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
         <h2 class="blue" style="font-size: 15px; display: inline; vertical-align: middle; color: blue; font-weight: bold;">${selectedTopic}</h2>
-        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
-        <p style="font-size: 15px; color: blue;">${dateDisplay}</p>
+        <p style="font-size: 15px; color: blue;">
+            <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
+            ${dateDisplay}
+            <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
+        </p>
         <h2 style="font-size: 16px; color: blue;">
             ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
         </h2>
@@ -195,7 +197,6 @@ const resultHtml = `
         <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
     </div>
 `;
-
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
