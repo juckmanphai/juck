@@ -597,10 +597,12 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
 
 resultContainer.innerHTML = `
 <div id="resultContent" style="position: relative; text-align: center; font-size: 18px;">
-    <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
     <h2 class="blue" style="font-size: 15px; display: inline; vertical-align: middle;">${selectedTopic}</h2>
-    <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
-    <p class="blue" style="font-size: 15px;">${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}</p>
+    <p class="blue" style="font-size: 15px;">
+        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
+        ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
+        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
+    </p>
     <h2 class="blue" style="font-size: 15px;">
         ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
