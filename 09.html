@@ -176,51 +176,38 @@
     </form>
 </body>
     
-<div id="resultContainer" style="text-align: center; margin-top: 18px;">
-    <div id="resultContent" style="text-align: center; font-size: 16px; position: relative;">
+ <div id="resultContainer" style="text-align: center; margin-top: 18px;">
+    <div id="resultContent" style="position: relative; text-align: center; font-size: size: 16px;">
         <!-- โลโก้ซ้าย -->
-        <span style="display: inline-flex; align-items: center;">
-            <img src="logo.png" alt="Logo Left" style="width: 40px; height: auto; margin-right: 2px;">
-        </span>
-
-        <!-- ประเภท -->
-        <h3 id="resultType" style="color: red; font-size: 20px; font-weight: bold; display: inline-block; margin: 0;">
-            ประเภท:
-        </h3>
-
+        <img src="logo.png" alt="Logo Left" style="position: absolute; top: 10px; left: 3px; width: 40px;">
+        
         <!-- โลโก้ขวา -->
-        <span style="display: inline-flex; align-items: center;">
-            <img src="logo.png" alt="Logo Right" style="width: 40px; height: auto; margin-left: 2px;">
-        </span>
+        <img src="logo.png" alt="Logo Right" style="position: absolute; top: 10px; right: 3px; width: 40px;">
+
+                <!-- ประเภท -->
+        <h3 id="resultType" style="color: red; font-size: 20px; font-weight: bold; margin-top: 20px; margin-bottom: 20px;">ประเภท: </h3>
 
         <!-- วันที่ -->
         <h2 id="resultDate" style="color: blue; font-size: 18px; font-weight: normal; margin-top: 20px; margin-bottom: 20px;">วันที่: </h2>
         
         <!-- ตัวเลขที่กรอก + ผู้บอก -->
-        <h3 id="inputNumbersAndProvider" style="color: blue; font-size: 18px; font-weight: normal; margin-top: 20px; margin-bottom: 20px;">
-            ตัวเลขที่กรอก: | ผู้บอก:
-        </h3>
+        <h3 id="inputNumbersAndProvider" style="color: blue; font-size: 18px; font-weight: normal;" margin-top: 20px; margin-bottom: 20px;>ตัวเลขที่กรอก: | ผู้บอก:</h3>
         
         <!-- คำอธิบาย -->
         <h3 style="color: blue; font-size: 18px; margin-top: 20px; font-weight: normal;">ตัวเลขที่จัดเรียงมีดังต่อไปนี้</h3>
         
         <!-- ตัวเลขที่จัดเรียง -->
         <div id="resultNumbers" style="font-size: 14px; color: blue; margin: 10px 0;"></div>
-        
         <!-- หมายเหตุเพิ่มเติม -->
         <div class="note" style="color: #FF0000; font-size: 18px; margin-top: 15px;">แนวทางเท่านั้น</div>
 
-        <!-- วันและเวลาปัจจุบัน -->
-        <h5 id="currentDateTime" style="color: blue; font-size: 14px; margin-top: 20px; font-weight: normal;">จัดเรียงเมื่อ:</h5>
-    </div>
-    
-    <!-- หมายเหตุ -->
-    <div class="comment-box" style="font-size: 18px; color: blue; margin-top: 20px;">
-        หมายเหตุ:
-        <span id="commentText" style="color: red; font-size: 18px;"></span>
-    </div>
+       <!-- วันและเวลาปัจจุบัน -->
+<h5 id="currentDateTime" style="color: blue; font-size: 14px; margin-top: 20px; font-weight: normal;">จัดเรียงเมื่อ:</h5>
 </div>
-
+        <!-- หมายเหตุ -->
+        <div class="comment-box" style="font-size: 18px; color: blue; margin-top: 20px;">หมายเหตุ:<span id="commentText" style="color: red; font-size: 18px;"></div></span>
+</div>
+</div>
 
 <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
 <input type="range" 
