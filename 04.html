@@ -7,130 +7,132 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-        background-color: #fffde7;
-        margin: 0;
-        padding: 0;
-        line-height: 1.4; /* ลดค่า line-height */
-    }
-    h1 {
-        text-align: center;
-        font-size: 32px;
-        color: #2c3e50;
-        margin-top: 20px;
-        line-height: 1.2; /* ปรับให้กระชับขึ้น */
-    }
-    .container {
-       display: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-color: #ffffcc;
-        border: 2px solid #4CAF50;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 20px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);   
-        line-height: 1.4; /* ลดช่องว่างใน container */
-    }
-    input, select, button {
-        font-size: 18px;
-        padding: 10px;
-        width: 90%;
-        margin: 10px 0; /* ลดช่องว่างระหว่าง input */
-        border-radius: 6px;
-        border: 1px solid #ddd;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.2; /* ลดช่องว่างใน input */
-    }
-    button {
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        line-height: 1.2;
-    }
-    button:hover {
-        background-color: #45a049;
-    }
-    label {
-        font-size: 18px;
-        margin-left: 5%;
-        color: #2c3e50;
-        line-height: 1.2; /* ลดช่องว่างใน label */
-    }
-    footer {
-        text-align: center;
-        padding: 20px;
-        font-size: 14px;
-        color: #95a5a6;
-        line-height: 1.2; /* ลดช่องว่างใน footer */
-    }
-    .form-container {
-        border: 2px solid orange;
-        background-color: #ffffff;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        line-height: 1.4; /* ลดช่องว่างใน form */
-    }
- #resultContainer {
-           display: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-color: #ffffcc;
-        border: 2px solid #4CAF50;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-}
+            background-color: #fffde7;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4; /* ลดค่า line-height */
+        }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-top: 20px;
+            line-height: 1.2; /* ปรับให้กระชับขึ้น */
+        }
+        .container {
+            display: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffcc;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);   
+            line-height: 1.4; /* ลดช่องว่างใน container */
+        }
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            width: 90%;
+            margin: 10px 0; /* ลดช่องว่างระหว่าง input */
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2; /* ลดช่องว่างใน input */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            line-height: 1.2;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        label {
+            font-size: 18px;
+            margin-left: 5%;
+            color: #2c3e50;
+            line-height: 1.2; /* ลดช่องว่างใน label */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #95a5a6;
+            line-height: 1.2; /* ลดช่องว่างใน footer */
+        }
+        .form-container {
+            border: 2px solid orange;
+            background-color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            line-height: 1.4; /* ลดช่องว่างใน form */
+        }
+        #resultContainer {
+            display: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffcc;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            display: flex;
+            align-items: center; /* Align logo and text horizontally */
+            justify-content: start;
+        }
 
-#resultContainer h2.blue, 
-#resultContainer p.blue, 
-#resultContainer h3.blue {
-    color: #0000ff; /* สีฟ้า */
-}
+        #resultContainer h2.blue, 
+        #resultContainer p.blue, 
+        #resultContainer h3.blue {
+            color: #0000ff; /* สีฟ้า */
+        }
 
-#resultContainer h3.red {
-    color: red; /* สีแดง */
-}
+        #resultContainer h3.red {
+            color: red; /* สีแดง */
+        }
 
-#resultContainer p.note {
-    font-size: 14px;
-    color: blue;
-}
+        #resultContainer p.note {
+            font-size: 14px;
+            color: blue;
+        }
 
-#resultContainer img {
-    position: absolute;
-    top: 0;
-    width: 40px;
-    margin: 7px;
-}
-#resultContainer img.left {
-    left: 0;
-}
-#resultContainer img.right {
-    right: 0;
-}
+        #resultContainer img {
+            width: 40px;
+            margin-right: 10px; /* Adds space between the logo and text */
+        }
 
+        #resultContainer img.left {
+            margin-right: 10px;
+        }
 
-    #lineHeightSlider {
-        width: 100%;
-        margin: 10px 0; /* ลดช่องว่างระหว่าง slider */
-    }
-    #lineHeightValue {
-        font-size: 16px;
-        color: #2c3e50;
-        line-height: 1.2; /* ลดช่องว่างของข้อความใน slider */
-    }
+        #resultContainer img.right {
+            right: 0;
+        }
 
+        #lineHeightSlider {
+            width: 100%;
+            margin: 10px 0; /* ลดช่องว่างระหว่าง slider */
+        }
+
+        #lineHeightValue {
+            font-size: 16px;
+            color: #2c3e50;
+            line-height: 1.2; /* ลดช่องว่างของข้อความใน slider */
+        }
     </style>
     <script>
         // ปิดการคลิกขวา
