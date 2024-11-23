@@ -108,12 +108,14 @@ font-family: Arial, sans-serif;
 
     </style>
     <script>
-        function getThaiDate(date = new Date()) {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
-            const year = date.getFullYear() + 543;
-            return `วันที่ ${day} ${month} ${year}`;
-        }
+function getThaiDate(date = new Date()) {
+    const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const year = date.getFullYear() + 543;
+    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+}
 
         function getThaiTime() {
             const now = new Date();
@@ -178,18 +180,22 @@ font-family: Arial, sans-serif;
 
  // Generate result HTML
 const resultHtml = `
-    <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.0;">
-        <h2 class="blue" style="font-size: 15px; display: inline; vertical-align: middle; color: blue; font-weight: bold;">${selectedTopic}</h2>
-        <p style="font-size: 15px; color: blue;">
-            <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1; margin-top: 10px;">
+    <!-- ใช้ flexbox เพื่อจัดโลโก้และข้อความให้อยู่ในแนวเดียวกัน -->
+    <p style="display: flex; align-items: center; justify-content: center; margin: 5px 0;">
+        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px;">
+        <span style="color: blue; font-size: 16px;">${selectedTopic}</span>
+        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px;">
+    </p>
+        <h3 class="blue" style="font-size: 15px; display: inline; vertical-align: middle; color: blue; font-weight: normal;">
             ${dateDisplay}
-            <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
-        </p>
-        <h2 style="font-size: 16px; color: blue;">
+        </h3>
+        <p style="font-size: 15px; color: blue;">
+<h2 style="font-size: 16px; color: blue;">
             ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
         </h2>
         <h2 style="font-size: 16px; color: blue;">จัดชุด 2 ตัวดังนี้</h2>
-        <h2 style="font-size: 16px; color: blue;">${sortedPairs.join(' - ')}</h2>
+        <h2 style="font-size: 18px; color: blue; font-weight: normal;">${sortedPairs.join(' - ')}</h2>
         <h2 style="font-size: 14px; color: red;">แนวทางเท่านั้น</h2>
         <p style="font-size: 12px; color: blue;">
             <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
@@ -197,6 +203,7 @@ const resultHtml = `
         <p style="font-size: 16px; color: blue;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
     </div>
 `;
+
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
