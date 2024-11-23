@@ -154,11 +154,12 @@
         }
 
 function getThaiDate(date = new Date()) {
+    const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
     const day = String(date.getDate()).padStart(2, '0');
     const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
     const year = date.getFullYear() + 543;
-
-    return `วันที่ ${day}  ${month} ${year}`;
+    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
 }
 
 
@@ -596,12 +597,16 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     : 'ไม่มีตัวเลขเพิ่ม';
 
 resultContainer.innerHTML = `
-<div id="resultContent" style="position: relative; text-align: center; font-size: 18px;">
-    <h2 class="blue" style="font-size: 15px; display: inline; vertical-align: middle;">${selectedTopic}</h2>
-    <p class="blue" style="font-size: 15px;">
-        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 5px; vertical-align: middle;">
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1; margin-top: 10px;">
+    <!-- โลโก้ย้ายไปแถวแรก และตั้งค่าให้อยู่ในระดับเดียวกับข้อความ -->
+    <p style="font-size: 15px; margin: 0;">
+        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px; vertical-align: middle;">
+        <span class="blue" style="vertical-align: middle; font-size: 15px; font-weight: bold;">${selectedTopic}</span>
+        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px; vertical-align: middle;">
+    </p>
+    <!-- แสดงวันที่ในแถวที่สอง -->
+    <p class="blue" style="font-size: 15px; margin: 5px 0;">
         ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
-        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 5px; vertical-align: middle;">
     </p>
     <h2 class="blue" style="font-size: 15px;">
         ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
@@ -704,7 +709,7 @@ resultContainer.style.display = 'block';
 <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
 
     <!-- Back Button -->
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
