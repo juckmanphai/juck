@@ -174,13 +174,14 @@ const resultHtml = `
             document.getElementById("resultContainer").style.display = "block";
         }
 
-        function getThaiDate() {
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][now.getMonth()];
-            const year = now.getFullYear() + 543;
-            return `วันที่ ${day} เดือน ${month} ${year}`;
-        }
+function getThaiDate(date = new Date()) {
+    const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const year = date.getFullYear() + 543;
+    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+}
 
         // Function for creating circles around two digits
         function createCircle() {
@@ -224,7 +225,7 @@ const resultHtml = `
     </script>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
+        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวพัฒนา</h1>
 
     <div style="text-align: center; margin-top: 20px;">
@@ -241,7 +242,7 @@ const resultHtml = `
     </div>
 
     <footer>
-        &copy; 2024 Juckphai. All Rights Reserved.
+        &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
 </body>
 </html>
