@@ -178,12 +178,14 @@
             return Array.from(new Set(pairs)).sort();
         }
 
-        function getThaiDate(date = new Date()) {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
-            const year = date.getFullYear() + 543;
-            return `วันที่ ${day}  ${month} ${year}`;
-        }
+function getThaiDate(date = new Date()) {
+    const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const year = date.getFullYear() + 543;
+    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+}
 
         function getThaiTime() {
             const now = new Date();
@@ -216,9 +218,9 @@
             const displayDate = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
 // กำหนดตัวแปรขนาดฟอนต์ในที่เดียว
-const fontSizeTopic = "18px";       // ขนาดฟอนต์สำหรับหัวข้อ
+const fontSizeTopic = "16px";       // ขนาดฟอนต์สำหรับหัวข้อ
 const fontSizeDate = "18px";        // ขนาดฟอนต์สำหรับวันที่
-const fontSizeNumber = "18px";      // ขนาดฟอนต์สำหรับตัวเลข
+const fontSizeNumber = "16px";      // ขนาดฟอนต์สำหรับตัวเลข
 const fontSizeTwoDigit = "18px";    // ขนาดฟอนต์สำหรับชุดตัวเลข 2 ตัว
 const fontSizeThreeDigit = "18px";  // ขนาดฟอนต์สำหรับชุดตัวเลข 3 ตัว
 const fontSizeNote = "16px";        // ขนาดฟอนต์สำหรับหมายเหตุ
