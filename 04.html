@@ -112,11 +112,11 @@
 
         #resultContainer img {
             width: 40px;
-            margin-right: 10px; /* Adds space between the logo and text */
+            margin-right: 2px; /* Adds space between the logo and text */
         }
 
         #resultContainer img.left {
-            margin-right: 10px;
+            margin-right: 2px;
         }
 
         #resultContainer img.right {
@@ -218,7 +218,7 @@
             const displayDate = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
 // กำหนดตัวแปรขนาดฟอนต์ในที่เดียว
-const fontSizeTopic = "18px";       // ขนาดฟอนต์สำหรับหัวข้อ
+const fontSizeTopic = "16px";       // ขนาดฟอนต์สำหรับหัวข้อ
 const fontSizeDate = "18px";        // ขนาดฟอนต์สำหรับวันที่
 const fontSizeNumber = "18px";      // ขนาดฟอนต์สำหรับตัวเลข
 const fontSizeTwoDigit = "18px";    // ขนาดฟอนต์สำหรับชุดตัวเลข 2 ตัว
@@ -229,12 +229,16 @@ const fontSizeTranslation = "14px"; // ขนาดฟอนต์สำหร�
 
 // HTML ที่ใช้ตัวแปรฟอนต์
 let resultHtml = `
-<div id="resultContent" style="position: relative;">
-    <h2 class="blue" style="font-size: ${fontSizeTopic}; display: inline; margin: 0;">${selectedTopic}</h2>
-    <p class="blue" style="font-size: ${fontSizeDate};">
-        <img src="logo.png" alt="Logo Left" class="left" style="vertical-align: middle; margin-right: 5px;">
+<div id="resultContent" style="position: relative; text-align: center;">
+    <!-- ใช้ flexbox เพื่อจัดโลโก้และข้อความให้อยู่ในแนวเดียวกัน -->
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px;">
+        <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
+        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px;">
+    </div>
+    <!-- แสดงวันที่ในแถวที่สอง -->
+    <p class="blue" style="font-size: ${fontSizeDate}; margin: 5px 0;">
         ${displayDate}
-        <img src="logo.png" alt="Logo Right" class="right" style="vertical-align: middle; margin-left: 5px;">
     </p>
     <h2 class="blue" style="font-size: ${fontSizeNumber};">
         ตัวเลข 4 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
@@ -311,8 +315,8 @@ resultContainer.style.display = "block";
                 <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
                 <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
                 <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-                <option value="ลาวสามัคคีVIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-                <option value="ลาวสตาร์VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
                 <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
                 <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
                 <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
@@ -342,7 +346,7 @@ resultContainer.style.display = "block";
 
     <div id="resultContainer"></div>
 </div>
-<button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
 </body>
 </html>
