@@ -122,7 +122,7 @@
             margin-left: 20px;
             margin-right: 20px;
             border-radius: 20px;
-	    line-height: 1.4;
+            line-height: 1.4; /
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         }
 
@@ -600,29 +600,29 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
 resultContainer.innerHTML = `
 <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px;">
     <!-- โลโก้ย้ายไปแถวแรก และตั้งค่าให้อยู่ในระดับเดียวกับข้อความ -->
-    <p style="font-size: 15px; margin: 0; line-height: 1; display: inline-flex; align-items: center;">
+    <p style="font-size: 16px; margin: 0; line-height: 1; display: inline-flex; align-items: center;">
         <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px; vertical-align: middle;">
         <span class="blue" style="font-size: 15px; font-weight: bold; vertical-align: middle;">${selectedTopic}</span>
         <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px; vertical-align: middle;">
     </p>
     <!-- แสดงวันที่ในแถวที่สอง -->
-    <p class="blue" style="font-size: 15px; margin: 5px 0;">
+    <p class="blue" style="font-size: 16px; margin: 5px 0;">
         ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
     </p>
-    <h2 class="blue" style="font-size: 15px;">
+    <h2 class="blue" style="font-size: 16px;">
         ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
-    <h3 class="blue" style="font-size: 15px;">จัดชุดเด่น 2 ตัว</h3>
-    <p class="blue" style="font-size: 15px;">${uniqueFirstSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุดรอง 2 ตัว</h3>
-    <p class="blue" style="font-size: 15px;">${filteredSecondSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุด 3 ตัว (ปกติ)</h3>
-    <p class="blue" style="font-size: 15px;">${filteredFinalThirdSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 15px;">จัดชุด 3 ตัว (แปลเพิ่ม)</h3>
-    <p class="blue" style="font-size: 15px;">${additionalNumbersForThirdSetText}</p>
-    <h2 class="red" style="font-size: 15px;">แนวทางเท่านั้น</h2>
+    <h3 class="blue" style="font-size: 16px;">จัดชุดเด่น 2 ตัว</h3>
+    <p class="blue" style="font-size: 16px;">${uniqueFirstSet.join(' - ')}</p>
+    <h3 class="blue" style="font-size: 16px;">จัดชุดรอง 2 ตัว</h3>
+    <p class="blue" style="font-size: 16px;">${filteredSecondSet.join(' - ')}</p>
+    <h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว (ปกติ)</h3>
+    <p class="blue" style="font-size: 16px;">${filteredFinalThirdSet.join(' - ')}</p>
+    <h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว (แปลเพิ่ม)</h3>
+    <p class="blue" style="font-size: 16px;">${additionalNumbersForThirdSetText}</p>
+    <h2 class="red" style="font-size: 16px;">แนวทางเท่านั้น</h2>
     <p style="font-size: 10px; color: blue;"><strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}</p>
-    <p class="blue" style="font-size: 15px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    <p class="blue" style="font-size: 16px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
 resultContainer.style.display = 'block';
