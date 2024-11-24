@@ -84,7 +84,7 @@
         .header-title {
 	    background-color: rgba(0, 100, 255, 0.8);
             color: white;
-            font-size: 20px;
+            font-size: 26px;
 	    font-weight: bold;
             border-radius: 20px;
             display: inline-block;
@@ -250,12 +250,8 @@
         </div>
     </div>
 
-  <div id="resultContainer" class="result-display" style="display: none;">
+<div id="resultContainer" class="result-display" style="display: none;">
     <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.6;">
-        <!-- โลโก้ที่อยู่หัวแถวและท้ายแถว -->
-        <img src="logo.png" alt="Logo Left" style="position: absolute; top: 0; left: 0; width: 50px; margin: 7px;">
-        <img src="logo.png" alt="Logo Right" style="position: absolute; top: 0; right: 0; width: 50px; margin: 7px;">
-
         <!-- หัวข้อหลัก -->
         <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
         <div class="draw-date">
@@ -263,10 +259,16 @@
         </div>
 
         <!-- ผลรางวัลที่ 1 -->
-        <div class="result-section" style="margin-top: 5px;">
-            <h3 class="result-title">รางวัลที่ 1</h3>
-            <div id="first-prize-display"></div>
+        <div class="result-section" style="margin-top: 20px; position: relative;">
+            <!-- โลโก้ด้านซ้าย -->
+            <img src="logo.png" alt="Logo Left" style="position: absolute; top: 50%; transform: translateY(-50%); left: 0; width: 40px;">
+
+            <h3 class="result-title" style="display: inline-block; margin: 0 10px;">รางวัลที่ 1</h3>
+
+            <!-- โลโก้ด้านขวา -->
+            <img src="logo.png" alt="Logo Right" style="position: absolute; top: 50%; transform: translateY(-50%); right: 0; width: 40px;">
         </div>
+        <div id="first-prize-display" style="margin-top: 15px;"></div>
 
         <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
         <div class="result-section flex-row">
@@ -285,7 +287,7 @@
 
         <!-- เลขท้าย 2 ตัว -->
         <div class="result-section">
-            <div class="two-digit-box" id="display-back-two"></div>                
+            <div class="two-digit-box" id="display-back-two"></div>
             <h3 class="result-title">เลขท้าย 2 ตัว</h3>
         </div>
     </div>
