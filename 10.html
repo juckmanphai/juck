@@ -581,7 +581,7 @@ function summarizeByDayMonth() {
     });
 
     const netTotalToday = totalIncomeToday - totalExpenseToday; // ยอดสุทธิของวันที่กรอกข้อมูล
-    const netBalance = totalIncomeAccumulated - totalExpenseAccumulated; // เงินเหลือในบัญชีจนถึงวันที่กรอกข้อมูล
+    const netBalance = totalIncomeAccumulated - totalExpenseAccumulated + netTotalToday; // เงินเหลือในบัญชีถึงวันที่กรอกข้อมูลรวมรายรับ/รายจ่ายวันนั้นด้วย
 
     // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
     const thaiDate = new Date(targetDate);
@@ -590,23 +590,25 @@ function summarizeByDayMonth() {
     const thaiDay = thaiDate.getDate();
     
     const summaryDateTime = new Date().toLocaleString("th-TH", {
-     year: 'numeric', 
-    month: 'long', 
-    day: 'numeric',
-    hour: '2-digit', 
-    minute: '2-digit'
-}) + ' น.';
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit', 
+        minute: '2-digit'
+    }) + ' น.';
 
     // สรุปยอดและแสดงในช่อง
-document.getElementById('summaryResult').innerHTML = `
-    <p>สรุปเมื่อ: ${summaryDateTime}</p>
-    <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-    <p>รายรับวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท</p>
-    <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
-    <p>ยอดสุทธิวันสรุปยอด: <span style="color: red;">${netTotalToday.toLocaleString()}</span> บาท</p>
-    <p>เงินในบัญเหลืออยู่ถึงวันนี้: <span style="color: red;">${netBalance.toLocaleString()}</span> บาท</p>
-`;
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปเมื่อ: ${summaryDateTime}</p>
+        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+        <p>รายรับวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท</p>
+        <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>ยอดสุทธิวันสรุปยอด: <span style="color: red;">${netTotalToday.toLocaleString()}</span> บาท</p>
+        <p>เงินในบัญชีเหลืออยู่ถึงวันนี้: <span style="color: red;">${netBalance.toLocaleString()}</span> บาท</p>
+    `;
 }
+
+
 
 	function autoFillDateTime() {
   const dateField = document.getElementById('dateField');  // Your date input field
