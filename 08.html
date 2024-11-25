@@ -82,10 +82,11 @@
         }
 
         .header-title {
-	    background-color: rgba(0, 100, 255, 0.8);
-            color: white;
+	    background-color: white;
+            color: rgba(0, 100, 255, 0.8);
             font-size: 26px;
 	    font-weight: bold;
+	    border: 3px solid red;
             border-radius: 20px;
             display: inline-block;
             padding: 20px;
@@ -94,26 +95,29 @@
         }
 
         .draw-date {
-            color: rgba(0, 100, 255, 0.8);
+            color: blue;
             padding: 15px;
-            font-size: 16px;
-            border-radius: 2px;
+            font-size: 18px;
+	    border: 2px solid blue;
+            background-color: white;
+            color: blue;
+            border-radius: 15px;
             display: inline-block;
             margin-top: 5px;
-	    margin-top: 5px;
 	    margin-bottom: 5px;
         }
 
         .number-box {
             display: inline-block;
-            background-color: rgba(233, 30, 99, 0.5);
-            color: white;
+            background-color: white;
+            color: red;
             font-size: 30px;
             font-weight: bold;
             width: 35px;
             height: 35px;
             line-height: 35px;
             text-align: center;
+	    border: 2px solid blue;
             border-radius: 30px;
             margin: 1.5px;
 	    margin-top: 5px;
@@ -122,31 +126,33 @@
 
         .three-digit-box {
             display: inline-block;
-            background-color: #1e88e5;
-            color: white;
+            background-color: white;
+            color: rgba(233, 30, 99, 0.5);
             font-size: 20px;
             font-weight: bold;
-            width: 40px;
-            height: 30px;
-            line-height: 35px;
+            width: 50px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
-            border-radius: 15px;
+	    border: 2px solid blue;
+            border-radius: 30px;
             margin: 5px;
         }
 
         .two-digit-box {
             display: inline-block;
-            background-color: #ff9800;
-            color: white;
+            background-color: white;
+            color: #ff9800;
             font-size: 36px;
             font-weight: bold;
-            width: 130px;
+            width: 90px;
             height: 50px;
             line-height: 50px;
             text-align: center;
-            border-radius: 15px;
-            margin-top: 5px;
-	    margin-bottom: 5px;
+            border-radius: 40px;
+	    border: 2px solid blue;
+            margin-top: 10px;
+	    margin-bottom: 10px;
         }
 
         .result-title {
@@ -173,8 +179,8 @@
 
         .back-button {
         font-size: 20px;
-        padding: 12px 20px;
-        border-radius: 8px;
+        padding: 10px 150px;
+        border-radius: 20px;
         background-color: #FF5722; /* Bold orange color for prominence */
         color: white;
         border: none;
@@ -195,14 +201,25 @@
 
         .logo-container {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 .result-section {
         margin-top: 5px; /* ลดระยะห่างระหว่างส่วนต่าง ๆ */
     }
-.result-section .result-title {
-    margin-bottom: 5px; /* เพิ่มระยะห่างด้านล่างของข้อความ "รางวัลที่ 1" */
-}
+.result-section .result-title      
+   .result-title {
+            font-weight: bold;
+            color: green;
+            margin-bottom: 5px;
+	    margin-top: 5px;
+        }
+	        .flex-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
 
 #first-prize-display {
     margin-top: 5px; /* เพิ่มระยะห่างด้านบนของตัวเลข */
@@ -259,15 +276,17 @@
         </div>
 
         <!-- ผลรางวัลที่ 1 -->
-        <div class="result-section" style="margin-top: 20px; position: relative;">
-            <!-- โลโก้ด้านซ้าย -->
-            <img src="logo.png" alt="Logo Left" style="position: absolute; top: 50%; transform: translateY(-50%); left: 0; width: 50px;">
+<div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+    <!-- โลโก้ด้านซ้าย -->
+    <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 10px;">
 
-            <h3 class="result-title" style="display: inline-block; margin: 0 1px;">รางวัลที่ 1</h3>
+    <!-- หัวข้อรางวัล -->
+    <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
 
-            <!-- โลโก้ด้านขวา -->
-            <img src="logo.png" alt="Logo Right" style="position: absolute; top: 50%; transform: translateY(-50%); right: 0; width: 50px;">
-        </div>
+    <!-- โลโก้ด้านขวา -->
+    <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 10px;">
+</div>
+
         <div id="first-prize-display" style="margin-top: 5px;"></div>
 
         <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
