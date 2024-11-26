@@ -54,7 +54,7 @@
             margin: 0 8px;
             box-sizing: border-box;
         }
-        .square-orange {
+       .square-orange {
             display: inline-block;
             background-color: white;
             color: red;
@@ -136,7 +136,7 @@
     </script>
 </head>
 <body>
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวกลุ่มลาวสตาร์</h1>
 
     <div class="input-container">
@@ -161,6 +161,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
+<input type="date" id="dateInput" placeholder="กรุณาเลือกวันที่">
         <button id="convertButton">แจงรายละเอียด</button>
     </div>
 
@@ -177,18 +178,74 @@
     </footer>
     
     <script>
-        function convertNumber() {
-            const num = document.getElementById("numberInput").value;
-            const selectedTopic = document.getElementById("topicSelect").value;
+function setDefaultDate() {
+    const dateInput = document.getElementById("dateInput");
+    const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    dateInput.value = today;
+}
 
-            if (num.length !== 5 || isNaN(num)) {
-                alert("กรุณากรอกตัวเลข 5 หลัก");
-                return;
-            }
+function convertNumber() {
+    const num = document.getElementById("numberInput").value;
+    const selectedTopic = document.getElementById("topicSelect").value;
+    const dateInput = document.getElementById("dateInput").value; // รับค่าจากช่องวันที่
 
-            const threeDigits = num.slice(2);
-            const twoDigits = num.slice(0, 2);
-            const fiveDigits = num;
+    if (num.length !== 5 || isNaN(num)) {
+        alert("กรุณากรอกตัวเลข 5 หลัก");
+        return;
+    }
+
+    const threeDigits = num.slice(2);
+    const twoDigits = num.slice(0, 2);
+    const fiveDigits = num;
+
+    // ตรวจสอบว่ามีวันที่ที่ถูกต้องหรือไม่
+    const date = dateInput ? new Date(dateInput) : new Date(); // ถ้าไม่มีค่า ให้ใช้วันที่ปัจจุบัน
+    const thaiDate = getThaiDate(date);
+
+    let resultHtml = `
+        <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+            <h3 class="blue" style="font-size: 18px; line-height: 0.5; margin: 0; margin-top: 8px; display: inline-flex; align-items: center;">
+                <img src="logo.png" alt="Left Logo" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+                ผล${selectedTopic}
+                <img src="logo.png" alt="Right Logo" style="width: 30px; vertical-align: middle; margin-left: 8px;">
+            </h3>
+            <p class="blue" style="font-size: 18px; line-height: 0.5; display: inline-block; vertical-align: middle; margin: 0; margin-bottom: 8px; margin-top: 8px;">
+                ${thaiDate}
+            </p>
+            <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
+            <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
+                ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
+            </h2>
+            <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
+                บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
+                ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
+            </p>
+        </div>
+    `;
+
+    document.getElementById("resultContainer").innerHTML = resultHtml;
+    document.getElementById("resultContainer").style.display = "block";
+}
+
+function createCircle() {
+    const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
+    twoDigitsDisplay.classList.add("circle-green");
+}
+
+function createSquare() {
+    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+    threeDigitsDisplay.classList.add("square");
+}
+
+function createCircleTop() {
+    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+    const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
+    const secondPart = threeDigitsDisplay.textContent.slice(1);
+
+    threeDigitsDisplay.innerHTML = `
+        ${firstPart}<span class="circle">${secondPart}</span>
+    `;
+}
 
 function getThaiDate(date = new Date()) {
     const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
@@ -197,57 +254,14 @@ function getThaiDate(date = new Date()) {
     const year = date.getFullYear() + 543;
     const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
     return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
-}
+}           
 
-let resultHtml = `
-    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-        <h3 class="blue" style="font-size: 18px; line-height: 0.5; margin: 0; margin-top: 8px; display: inline-flex; align-items: center;">
-            <img src="logo.png" alt="Left Logo" style="width: 30px; vertical-align: middle; margin-right: 8px;">
-            ผล${selectedTopic}
-            <img src="logo.png" alt="Right Logo" style="width: 30px; vertical-align: middle; margin-left: 8px;">
-        </h3>
-        <p class="blue" style="font-size: 18px; line-height: 0.5; display: inline-block; vertical-align: middle; margin: 0; margin-bottom: 8px; margin-top: 8px;">
-            ${getThaiDate()}
-        </p>
-        <h2 class="blue" style="font-size: 18px; line-height: 0.5;">รางวัลเลข 5 ตัว</h2>
-        <h2 class="blue" style="font-size: 20px; letter-spacing: 5px; line-height: 0.5;">
-            ${fiveDigits.split('').map(digit => `<span class="square-orange">${digit}</span>`).join('')}
-        </h2>
-        <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
-            บน <span id="threeDigitsDisplay" style="color: blue;">${threeDigits}</span> 
-            ล่าง <span id="twoDigitsDisplay" style="color: green;">${twoDigits}</span>
-        </p>
-    </div>
-`;
+document.getElementById("convertButton").addEventListener("click", convertNumber);
+document.getElementById("circleButton").addEventListener("click", createCircle);
+document.getElementById("squareButton").addEventListener("click", createSquare);
+document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
+window.onload = setDefaultDate;
 
-            document.getElementById("resultContainer").innerHTML = resultHtml;
-            document.getElementById("resultContainer").style.display = "block";
-        }
-
-        function createCircle() {
-            const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
-            twoDigitsDisplay.classList.add("circle-green");
-        }
-
-        function createSquare() {
-            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-            threeDigitsDisplay.classList.add("square");
-        }
-
-        function createCircleTop() {
-            const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-            const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
-            const secondPart = threeDigitsDisplay.textContent.slice(1);
-
-            threeDigitsDisplay.innerHTML = `
-                ${firstPart}<span class="circle">${secondPart}</span>
-            `;
-        }
-
-        document.getElementById("convertButton").addEventListener("click", convertNumber);
-        document.getElementById("circleButton").addEventListener("click", createCircle);
-        document.getElementById("squareButton").addEventListener("click", createSquare);
-        document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
     </script>
 </body>
 </html>
