@@ -16,7 +16,8 @@
         h1 {
             text-align: center;
             color: #e65100;
-            margin-top: 20px;
+            margin-top: 10px; /* Reduced margin for a more compact look */
+            font-size: 24px;
         }
         .result {
             background-color: #ffffcc;
@@ -28,12 +29,8 @@
             max-width: 500px;
             text-align: center;
         }
-        .blue {
-            color: blue;
-        }
-        .red {
-            color: red;
-        }
+        .blue { color: blue; }
+        .red { color: red; }
         .circle, .circle-green {
             display: inline-block;
             border: 3px solid orange;
@@ -43,10 +40,7 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 5px;
-        }
-        .circle-green {
-            border-color: green;
+            margin: 0 3px;
         }
         .square {
             display: inline-block;
@@ -56,11 +50,11 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            margin: 0 10px;
+            margin: 0 8px;
             box-sizing: border-box;
         }
-        .square-orange {
-    display: inline-block;
+       .square-orange {
+            display: inline-block;
             background-color: white;
             color: red;
             font-size: 24px;
@@ -75,13 +69,15 @@
         }
         .back-button {
             display: block;
-            margin: 20px auto;
+            margin: 10px auto;
             text-align: center;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            padding: 8px 16px;
+            font-size: 16px;
             transition: background-color 0.3s;
         }
         .back-button:hover, .action-button:hover {
@@ -90,10 +86,10 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px; /* Reduced gap for compactness */
             flex-wrap: wrap;
         }
-          .input-container {
+         .input-container {
         margin-top: 8px;
         line-height: 1.2; /* Reduced line spacing */
         text-align: center;
@@ -115,33 +111,31 @@
         border-color: #3f51b5;
         outline: none;
     }
-    input, select, button {
-        font-size: 18px;
-        padding: 10px;
-        margin: 5px 0; /* Reduced margin */
-        border: 2px solid #ddd;
-        border-radius: 5px;
-        width: 100%;
-        max-width: 250px;
-        transition: border-color 0.3s;
-    }
+        input, select, button {
+            font-size: 16px; /* Slightly smaller font for input elements */
+            padding: 8px;
+            margin: 6px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 250px;
+            transition: border-color 0.3s;
+        }
         input:focus, select:focus {
             border-color: #4CAF50;
             outline: none;
         }
-        input[type="text"]::placeholder {
-            text-align: center;
-        }
+        input[type="text"]::placeholder { text-align: center; }
     </style>
 <script>
-        // ปิดการคลิกขวา
+        // Disable right-click
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
     </script>
 </head>
 <body>
-       <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวกลุ่มลาวสามัคคี</h1>
 
     <div class="input-container">
@@ -159,7 +153,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-        <input type="date" id="dateInput" placeholder="กรุณาเลือกวันที่">
+<input type="date" id="dateInput" placeholder="กรุณาเลือกวันที่">
         <button id="convertButton">แจงรายละเอียด</button>
     </div>
 
@@ -172,20 +166,24 @@
     </div>
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
     
     <script>
+// Set the default date in the date input field
 function setDefaultDate() {
     const dateInput = document.getElementById("dateInput");
-    const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
-    dateInput.value = today;
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        dateInput.value = today;
+    }
 }
 
+// Convert the input number and display the result
 function convertNumber() {
     const num = document.getElementById("numberInput").value;
     const selectedTopic = document.getElementById("topicSelect").value;
-    const dateInput = document.getElementById("dateInput").value; // รับค่าจากช่องวันที่
+    const dateInput = document.getElementById("dateInput").value; // Get date input value
 
     if (num.length !== 5 || isNaN(num)) {
         alert("กรุณากรอกตัวเลข 5 หลัก");
@@ -196,8 +194,8 @@ function convertNumber() {
     const twoDigits = num.slice(1, 3);
     const fiveDigits = num;
 
-    // ตรวจสอบว่ามีวันที่ที่ถูกต้องหรือไม่
-    const date = dateInput ? new Date(dateInput) : new Date(); // ถ้าไม่มีค่า ให้ใช้วันที่ปัจจุบัน
+    // Check if a valid date is entered
+    const date = dateInput ? new Date(dateInput) : new Date(); // Use current date if not entered
     const thaiDate = getThaiDate(date);
 
     let resultHtml = `
@@ -221,45 +219,66 @@ function convertNumber() {
         </div>
     `;
 
-    document.getElementById("resultContainer").innerHTML = resultHtml;
-    document.getElementById("resultContainer").style.display = "block";
+    const resultContainer = document.getElementById("resultContainer");
+    if (resultContainer) {
+        resultContainer.innerHTML = resultHtml;
+        resultContainer.style.display = "block";
+    }
 }
 
-function createCircle() {
-    const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
-    twoDigitsDisplay.classList.add("circle-green");
-}
-
-function createSquare() {
-    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-    threeDigitsDisplay.classList.add("square");
-}
-
+// Function for creating a circle around the last two digits of three digits
 function createCircleTop() {
     const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-    const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
-    const secondPart = threeDigitsDisplay.textContent.slice(1);
-
-    threeDigitsDisplay.innerHTML = `
-        ${firstPart}<span class="circle">${secondPart}</span>
-    `;
+    if (threeDigitsDisplay) {
+        const digits = threeDigitsDisplay.textContent.slice(-2); // Get last two digits only
+        const hundredsDigit = threeDigitsDisplay.textContent.slice(0, 1); // Get the hundreds digit
+        threeDigitsDisplay.innerHTML = `${hundredsDigit}<span class="circle-green">${digits}</span>`;
+    } else {
+        alert("กรุณากรอกตัวเลข 3 หลักก่อน");
+    }
 }
 
+// Function for creating a circle around two digits (ล่าง)
+function createCircle() {
+    const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
+    if (twoDigitsDisplay) {
+        twoDigitsDisplay.classList.add("circle-green");
+    } else {
+        alert("กรุณากรอกตัวเลข 2 หลักก่อน");
+    }
+}
+
+// Function for creating squares around three digits
+function createSquare() {
+    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+    if (threeDigitsDisplay) {
+        const digits = threeDigitsDisplay.textContent; // Get all three digits
+        threeDigitsDisplay.innerHTML = `<span class="square">${digits}</span>`;
+    } else {
+        alert("กรุณากรอกตัวเลข 3 หลักก่อน");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("convertButton").addEventListener("click", convertNumber);
+    document.getElementById("circleButton").addEventListener("click", createCircle);
+    document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
+    document.getElementById("squareButton").addEventListener("click", createSquare);
+    setDefaultDate();
+});
+
+// Convert a Date object to a formatted Thai date
 function getThaiDate(date = new Date()) {
     const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
     const day = String(date.getDate()).padStart(2, '0');
-    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const month = [
+        "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ][date.getMonth()];
     const year = date.getFullYear() + 543;
-    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    const dayOfWeek = daysOfWeek[date.getDay()];
     return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
 }
-
-document.getElementById("convertButton").addEventListener("click", convertNumber);
-document.getElementById("circleButton").addEventListener("click", createCircle);
-document.getElementById("squareButton").addEventListener("click", createSquare);
-document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
-window.onload = setDefaultDate;
-
     </script>
 </body>
 </html>
