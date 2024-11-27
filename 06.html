@@ -42,7 +42,6 @@
             line-height: 40px;
             margin: 0 3px;
         }
-        .circle-green { border-color: green; }
         .square {
             display: inline-block;
             border: 3px solid red;
@@ -136,7 +135,7 @@
     </script>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลลาวกลุ่มลาวสตาร์</h1>
 
     <div class="input-container">
@@ -174,20 +173,24 @@
     </div>
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
     
     <script>
+// Set the default date in the date input field
 function setDefaultDate() {
     const dateInput = document.getElementById("dateInput");
-    const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
-    dateInput.value = today;
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        dateInput.value = today;
+    }
 }
 
+// Convert the input number and display the result
 function convertNumber() {
     const num = document.getElementById("numberInput").value;
     const selectedTopic = document.getElementById("topicSelect").value;
-    const dateInput = document.getElementById("dateInput").value; // รับค่าจากช่องวันที่
+    const dateInput = document.getElementById("dateInput").value; // Get date input value
 
     if (num.length !== 5 || isNaN(num)) {
         alert("กรุณากรอกตัวเลข 5 หลัก");
@@ -198,8 +201,8 @@ function convertNumber() {
     const twoDigits = num.slice(0, 2);
     const fiveDigits = num;
 
-    // ตรวจสอบว่ามีวันที่ที่ถูกต้องหรือไม่
-    const date = dateInput ? new Date(dateInput) : new Date(); // ถ้าไม่มีค่า ให้ใช้วันที่ปัจจุบัน
+    // Check if a valid date is entered
+    const date = dateInput ? new Date(dateInput) : new Date(); // Use current date if not entered
     const thaiDate = getThaiDate(date);
 
     let resultHtml = `
@@ -223,45 +226,66 @@ function convertNumber() {
         </div>
     `;
 
-    document.getElementById("resultContainer").innerHTML = resultHtml;
-    document.getElementById("resultContainer").style.display = "block";
+    const resultContainer = document.getElementById("resultContainer");
+    if (resultContainer) {
+        resultContainer.innerHTML = resultHtml;
+        resultContainer.style.display = "block";
+    }
 }
 
-function createCircle() {
-    const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
-    twoDigitsDisplay.classList.add("circle-green");
-}
-
-function createSquare() {
-    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-    threeDigitsDisplay.classList.add("square");
-}
-
+// Function for creating a circle around the last two digits of three digits
 function createCircleTop() {
     const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
-    const firstPart = threeDigitsDisplay.textContent.slice(0, 1);
-    const secondPart = threeDigitsDisplay.textContent.slice(1);
-
-    threeDigitsDisplay.innerHTML = `
-        ${firstPart}<span class="circle">${secondPart}</span>
-    `;
+    if (threeDigitsDisplay) {
+        const digits = threeDigitsDisplay.textContent.slice(-2); // Get last two digits only
+        const hundredsDigit = threeDigitsDisplay.textContent.slice(0, 1); // Get the hundreds digit
+        threeDigitsDisplay.innerHTML = `${hundredsDigit}<span class="circle-green">${digits}</span>`;
+    } else {
+        alert("กรุณากรอกตัวเลข 3 หลักก่อน");
+    }
 }
 
+// Function for creating a circle around two digits (ล่าง)
+function createCircle() {
+    const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
+    if (twoDigitsDisplay) {
+        twoDigitsDisplay.classList.add("circle-green");
+    } else {
+        alert("กรุณากรอกตัวเลข 2 หลักก่อน");
+    }
+}
+
+// Function for creating squares around three digits
+function createSquare() {
+    const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
+    if (threeDigitsDisplay) {
+        const digits = threeDigitsDisplay.textContent; // Get all three digits
+        threeDigitsDisplay.innerHTML = `<span class="square">${digits}</span>`;
+    } else {
+        alert("กรุณากรอกตัวเลข 3 หลักก่อน");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("convertButton").addEventListener("click", convertNumber);
+    document.getElementById("circleButton").addEventListener("click", createCircle);
+    document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
+    document.getElementById("squareButton").addEventListener("click", createSquare);
+    setDefaultDate();
+});
+
+// Convert a Date object to a formatted Thai date
 function getThaiDate(date = new Date()) {
     const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
     const day = String(date.getDate()).padStart(2, '0');
-    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+    const month = [
+        "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ][date.getMonth()];
     const year = date.getFullYear() + 543;
-    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+    const dayOfWeek = daysOfWeek[date.getDay()];
     return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
-}           
-
-document.getElementById("convertButton").addEventListener("click", convertNumber);
-document.getElementById("circleButton").addEventListener("click", createCircle);
-document.getElementById("squareButton").addEventListener("click", createSquare);
-document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
-window.onload = setDefaultDate;
-
+}
     </script>
 </body>
 </html>
