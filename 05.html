@@ -124,20 +124,35 @@
             color: #666;
         }
     </style>
-    <script>
+<script>
     // Disable right-click
-    document.addEventListener('contextmenu', function(e) {
+    document.addEventListener('contextmenu', function (e) {
         e.preventDefault();
     });
 
+    // Set the default date in the date input field
+    function setDefaultDate() {
+        const dateInput = document.getElementById("dateInput");
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            dateInput.value = today; // Set the default date
+        }
+    }
+
+    // Function to convert the entered number and display the result
     function convertNumber() {
         const num = document.getElementById("numberInput").value;
+        const dateInput = document.getElementById("dateInput").value; // Get date input value
 
-        // Ensure num has six digits
+        // Validate the 6-digit number
         if (num.length !== 6 || isNaN(num)) {
-            alert("กรุณากรอกตัวเลข 6 หลัก หรือปล่อยว่างเพื่อใช้วันที่ปัจจุบัน");
+            alert("กรุณากรอกตัวเลข 6 หลัก");
             return;
         }
+
+        // Prepare date for display
+        const date = dateInput ? new Date(dateInput) : new Date(); // Use entered date or current date
+        const thaiDate = getThaiDate(date);
 
         // Format each digit in a rounded frame
         let sixDigitHtml = '';
@@ -145,13 +160,9 @@
             sixDigitHtml += `<span class="six-digit-frame">${num[i]}</span>`;
         }
 
-        // กำหนดวันที่ (ใช้วันที่ที่ป้อน หรือวันที่ปัจจุบันถ้าไม่มีการป้อน)
-        const selectedDate = document.getElementById("dateInput").value ? new Date(document.getElementById("dateInput").value) : new Date();
-        const thaiDate = getThaiDate(selectedDate);
-
         // Prepare three and two digits
         const threeDigits = num.slice(3); // Get last three digits (456)
-        const twoDigits = num.slice(2, 4); // Get first two digits (34)
+        const twoDigits = num.slice(2, 4); // Get middle two digits (34)
 
         // Create HTML to display
         const resultHtml = `
@@ -167,25 +178,33 @@
                     ${sixDigitHtml}
                 </div>
                 <p class="blue" style="font-size: 24px; letter-spacing: 5px; line-height: 0.5;">
-                    บน <span style="color: green;" id="threeDigits">${threeDigits}</span> ล่าง <span style="color: blue;" id="twoDigits">${twoDigits}</span>
+                    บน <span style="color: green;" id="threeDigits">${threeDigits}</span> 
+                    ล่าง <span style="color: blue;" id="twoDigits">${twoDigits}</span>
                 </p>
             </div>
         `;
 
-        document.getElementById("resultContainer").innerHTML = resultHtml;
-        document.getElementById("resultContainer").style.display = "block";
+        // Display the result
+        const resultContainer = document.getElementById("resultContainer");
+        resultContainer.innerHTML = resultHtml;
+        resultContainer.style.display = "block";
     }
 
+    // Convert a Date object to a formatted Thai date
     function getThaiDate(date = new Date()) {
         const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+        const months = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
         const day = String(date.getDate()).padStart(2, '0');
-        const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+        const month = months[date.getMonth()];
         const year = date.getFullYear() + 543;
-        const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
+        const dayOfWeek = daysOfWeek[date.getDay()];
         return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
     }
 
-    // Function for creating circles around two digits
+    // Function to create circles around two digits
     function createCircle() {
         const twoDigits = document.getElementById("resultContainer").querySelector("#twoDigits");
         if (twoDigits) {
@@ -195,11 +214,11 @@
         }
     }
 
-    // Function for creating circle around two top digits (last two digits of three digits)
+    // Function to create a circle around two top digits (last two digits of three digits)
     function createCircleTop() {
         const threeDigits = document.getElementById("resultContainer").querySelector("#threeDigits");
         if (threeDigits) {
-            const digits = threeDigits.textContent.slice(-2); // Get last two digits only
+            const digits = threeDigits.textContent.slice(-2); // Get last two digits
             const hundredsDigit = threeDigits.textContent.slice(0, 1); // Get the hundreds digit
             threeDigits.innerHTML = `${hundredsDigit}<span class="circle">${digits}</span>`;
         } else {
@@ -207,7 +226,7 @@
         }
     }
 
-    // Function for creating squares around three digits
+    // Function to create squares around three digits
     function createSquare() {
         const threeDigits = document.getElementById("resultContainer").querySelector("#threeDigits");
         if (threeDigits) {
@@ -218,13 +237,16 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    // Initialize event listeners on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        setDefaultDate(); // Set default date on page load
         document.getElementById("convertButton").addEventListener("click", convertNumber);
         document.getElementById("circleButton").addEventListener("click", createCircle);
         document.getElementById("circleTopButton").addEventListener("click", createCircleTop);
         document.getElementById("squareButton").addEventListener("click", createSquare);
     });
 </script>
+
 
 </head>
 <body>
