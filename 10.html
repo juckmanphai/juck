@@ -907,6 +907,7 @@ function summarizeToday() {
         <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
         <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
         <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
+        <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p>
         <p>หมายเหตุ: ${
             remark.replace(/\d+(,\d{3})*/g, (num) => {
                 return `<span style="color: red;">${num}</span>`;
@@ -914,7 +915,6 @@ function summarizeToday() {
         }</p>
         <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง มูลค่ารวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง มูลค่ารวม ${totalWithdrawal.toLocaleString()} บาท</p>
-        <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p>
     `;
 }
 
