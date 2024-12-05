@@ -364,7 +364,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ชื่อบัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -390,8 +390,10 @@ button:active {
         <div class="input-group">
             <label for="type">ประเภท:</label>
             <select id="type" required>
-                <option value="รายรับ">รายรับ</option>
-                <option value="รายจ่าย">รายจ่าย</option>
+    <option value="รายรับ">รายรับ</option>
+    <option value="รายจ่าย">รายจ่าย</option>
+    <option value="เพิ่มทุน">เพิ่มทุน</option>
+    <option value="ถอนทุน">ถอนทุน</option>
             </select>
         </div>
     </div>
@@ -708,7 +710,7 @@ function getSummary() {
     const summaryDate = new Date();
     summaryDate.setDate(summaryDate.getDate() - days);
 
-    let totalIncome = 0;เงินในบัญชีเหลืออยู่ถึงวันที่สรุป
+    let totalIncome = 0;
     let totalExpense = 0;
 
     records.forEach(record => {
@@ -819,32 +821,49 @@ console.log(endDateFormatted);   // Output: 21/11/2567 10:30 น.
 
 function summarizeToday() {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Start of the day
+    today.setHours(0, 0, 0, 0); // เริ่มต้นของวัน
 
+    // ตัวแปรสรุปยอด
     let totalIncomeToday = 0;
     let totalExpenseToday = 0;
     let totalIncomeAll = 0;
     let totalExpenseAll = 0;
+    let totalIncrease = 0;
+    let totalWithdrawal = 0;
+    let increaseCount = 0;
+    let withdrawalCount = 0;
 
+    // วนลูปประมวลผลข้อมูล
     records.forEach(record => {
         const [date, time] = record.dateTime.split(" ");
         const [year, month, day] = date.split("-");
         const recordDate = new Date(year, month - 1, day);
 
-        // Check if the record matches the current account
+        // ตรวจสอบว่าตรงกับบัญชีปัจจุบันหรือไม่
         if (record.account === currentAccount) {
+            // ตรวจสอบว่าข้อมูลเป็นของวันนี้หรือไม่
             if (recordDate.getTime() === today.getTime()) {
-                // Calculate today's income and expense
+                // คำนวณรายรับและรายจ่ายของวันนี้
                 if (record.type === "รายรับ") totalIncomeToday += record.amount;
                 if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
             }
 
-            // Calculate total income and expense for the account (not just today)
+            // คำนวณเพิ่มทุนและถอนทุนทั้งหมดของบัญชี
+            if (record.type === "เพิ่มทุน") {
+                totalIncrease += record.amount;
+                increaseCount++; // นับจำนวนครั้งที่เพิ่มทุน
+            } else if (record.type === "ถอนทุน") {
+                totalWithdrawal += record.amount;
+                withdrawalCount++; // นับจำนวนครั้งที่ถอนทุน
+            }
+
+            // คำนวณรายรับและรายจ่ายทั้งหมดสำหรับบัญชี
             if (record.type === "รายรับ") totalIncomeAll += record.amount;
             if (record.type === "รายจ่าย") totalExpenseAll += record.amount;
         }
     });
 
+    // สรุปยอดสุทธิรายรับและรายจ่ายของวันนี้
     const netTotal = totalIncomeToday - totalExpenseToday;
     let remark = '';
     if (netTotal > 0) {
@@ -855,43 +874,40 @@ function summarizeToday() {
         remark = 'รายรับและรายจ่ายเท่ากัน';
     }
 
-    // Calculate remaining balance for today (income - expense for today)
-    const remainingBalance = totalIncomeToday - totalExpenseToday;
+    // คำนวณยอดคงเหลือในบัญชี
+    const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
 
-    // Calculate account balance (total income - total expense for the account)
-    const accountBalance = totalIncomeAll - totalExpenseAll;
+    // วันที่และเวลาปัจจุบันในรูปแบบภาษาไทย
+    const summaryDateTime = new Date().toLocaleString("th-TH", {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    }) + ' น.';
 
-   // Get the current date and time for today's summary
-const summaryDateTime = new Date().toLocaleString("th-TH", {
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric',
-    hour: '2-digit', 
-    minute: '2-digit'
-}) + ' น.';
-
-console.log(summaryDateTime); // ตัวอย่างผลลัพธ์: "21 พฤศจิกายน 2566 15:45 น."
-
-
-document.getElementById('summaryResult').innerHTML = `
-    <p>สรุปยอดวันนี้: ${currentAccount}</p>
-    <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-    <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
-    <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
-    <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-    <p>หมายเหตุ: ${
-      remark.replace(/\d+(,\d{3})*/g, (num) => {
-        return `<span style="color: red;">${num}</span>`;
-      })
-    }</p> <!-- Remark with numbers and thousand separators in red -->
-    <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p> <!-- Account balance number in red -->
-`;
+    // แสดงผลในหน้า HTML
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปยอดวันนี้: ${currentAccount}</p>
+        <p>สรุปวันที่: ${summaryDateTime}</p>
+        <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
+        <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
+        <p>หมายเหตุ: ${
+            remark.replace(/\d+(,\d{3})*/g, (num) => {
+                return `<span style="color: red;">${num}</span>`;
+            })
+        }</p>
+        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง มูลค่ารวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง มูลค่ารวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p>
+    `;
 }
 
-	 function toggleVisibility() {
-            const detailsSection = document.getElementById('detailsSection');
-            detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
-        }
+function toggleVisibility() {
+    const detailsSection = document.getElementById('detailsSection');
+    detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
+}
 
 function saveToFile() {
     const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
@@ -922,31 +938,31 @@ function saveToFile() {
     URL.revokeObjectURL(url);
 }
 
-        function loadFromFile(event) {
-            const file = event.target.files[0];
-            if (!file) {
-                return;
-            }
+function loadFromFile(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return;
+    }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = JSON.parse(e.target.result);
-                accounts.length = 0;
-                accounts.push(...data.accounts);
-                currentAccount = data.currentAccount;
-                records.length = 0;
-                records.push(...data.records);
-                updateAccountSelect();
-                changeAccount();
-            };
-            reader.readAsText(file);
-        }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const data = JSON.parse(e.target.result);
+        accounts.length = 0;
+        accounts.push(...data.accounts);
+        currentAccount = data.currentAccount;
+        records.length = 0;
+        records.push(...data.records);
+        updateAccountSelect();
+        changeAccount();
+    };
+    reader.readAsText(file);
+}
 
-        window.onload = function() {
-            document.getElementById('datetime').value = getCurrentDateTime();
-            document.getElementById('detailsSection').style.display = 'none';
-            updateAccountSelect();
-        };
+window.onload = function() {
+    document.getElementById('datetime').value = getCurrentDateTime();
+    document.getElementById('detailsSection').style.display = 'none';
+    updateAccountSelect();
+};
     </script>
 </body>
 </html>
