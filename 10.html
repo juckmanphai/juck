@@ -620,8 +620,8 @@ function summarizeByDayMonth() {
         <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
         <p>ยอดสุทธิวันสรุปยอด: <span style="color: red;">${netTotalToday.toLocaleString()}</span> บาท</p>
         <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: red;">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
-        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง มูลค่ารวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง มูลค่ารวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
 
@@ -913,8 +913,8 @@ function summarizeToday() {
                 return `<span style="color: red;">${num}</span>`;
             })
         }</p>
-        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง มูลค่ารวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง มูลค่ารวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
 
