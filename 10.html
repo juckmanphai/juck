@@ -562,28 +562,41 @@ function summarizeByDayMonth() {
 
     let totalIncomeToday = 0;
     let totalExpenseToday = 0;
-    let totalIncomeAccumulated = 0;
-    let totalExpenseAccumulated = 0;
+    let totalIncrease = 0;
+    let totalIncome = 0;
+    let totalWithdrawal = 0;
+    let totalExpense = 0;
+    let increaseCount = 0;
+    let withdrawalCount = 0;
 
-    // ตรวจสอบบันทึกข้อมูลทั้งหมด
     records.forEach(record => {
-        const recordDate = new Date(record.dateTime.split(" ")[0]); // ใช้แค่วันที่จาก dateTime
+        const recordDate = new Date(record.dateTime.split(" ")[0]);
 
-        // คำนวณรายรับและรายจ่ายเฉพาะวันที่ที่กรอกข้อมูล
+        // คำนวณรายรับและรายจ่ายของวันสรุปยอด
         if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
             if (record.type === "รายรับ") totalIncomeToday += record.amount;
             if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
         }
 
-        // คำนวณรายรับและรายจ่ายสะสมจนถึงวันที่ที่กรอกข้อมูล
+        // คำนวณยอดสะสมจนถึงวันที่สรุปยอด (รวมเพิ่มทุน รายรับ ถอนทุน และรายจ่าย)
         if (recordDate <= targetDate && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncomeAccumulated += record.amount;
-            if (record.type === "รายจ่าย") totalExpenseAccumulated += record.amount;
+            if (record.type === "เพิ่มทุน") {
+                totalIncrease += record.amount;
+                increaseCount++;
+            }
+            if (record.type === "รายรับ") totalIncome += record.amount;
+            if (record.type === "ถอนทุน") {
+                totalWithdrawal += record.amount;
+                withdrawalCount++;
+            }
+            if (record.type === "รายจ่าย") totalExpense += record.amount;
         }
     });
 
-    const netTotalToday = totalIncomeToday - totalExpenseToday; // ยอดสุทธิของวันที่กรอกข้อมูล
-    const netBalance = totalIncomeAccumulated - totalExpenseAccumulated + netTotalToday; // เงินเหลือในบัญชีถึงวันที่กรอกข้อมูลรวมรายรับ/รายจ่ายวันนั้นด้วย
+    // คำนวณยอดคงเหลือในบัญชี
+    const netBalance = totalIncrease + totalIncome - totalWithdrawal - totalExpense;
+    const netTotalToday = totalIncomeToday - totalExpenseToday;
+    const netBalanceWithToday = netBalance + netTotalToday;
 
     // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
     const thaiDate = new Date(targetDate);
@@ -606,10 +619,11 @@ function summarizeByDayMonth() {
         <p>รายรับวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท</p>
         <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
         <p>ยอดสุทธิวันสรุปยอด: <span style="color: red;">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: red;">${netBalance.toLocaleString()}</span> บาท</p>
+        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: red;">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
+        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง มูลค่ารวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง มูลค่ารวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
-
 
 
 	function autoFillDateTime() {
