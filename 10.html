@@ -364,7 +364,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ชื่อบัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -390,8 +390,8 @@ button:active {
         <div class="input-group">
             <label for="type">ประเภท:</label>
             <select id="type" required>
-    <option value="รายรับ">รายรับ</option>
-    <option value="รายจ่าย">รายจ่าย</option>
+    <option value="รายจ่าย">ชื้อหวย</option>
+    <option value="รายรับ">ถูกหวย</option>
     <option value="เพิ่มทุน">เพิ่มทุน</option>
     <option value="ถอนทุน">ถอนทุน</option>
             </select>
@@ -569,13 +569,25 @@ function summarizeByDayMonth() {
     let increaseCount = 0;
     let withdrawalCount = 0;
 
+    let incomeCountToday = 0; // ตัวนับจำนวนรายการรายรับของวัน
+    let expenseCountToday = 0; // ตัวนับจำนวนรายการรายจ่ายของวัน
+
+    let incomeCount = 0; // ตัวนับจำนวนรายการรายรับทั้งหมด
+    let expenseCount = 0; // ตัวนับจำนวนรายการรายจ่ายทั้งหมด
+
     records.forEach(record => {
         const recordDate = new Date(record.dateTime.split(" ")[0]);
 
         // คำนวณรายรับและรายจ่ายของวันสรุปยอด
         if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncomeToday += record.amount;
-            if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
+            if (record.type === "รายรับ") {
+                totalIncomeToday += record.amount;
+                incomeCountToday++; // เพิ่มจำนวนรายการรายรับของวัน
+            }
+            if (record.type === "รายจ่าย") {
+                totalExpenseToday += record.amount;
+                expenseCountToday++; // เพิ่มจำนวนรายการรายจ่ายของวัน
+            }
         }
 
         // คำนวณยอดสะสมจนถึงวันที่สรุปยอด (รวมเพิ่มทุน รายรับ ถอนทุน และรายจ่าย)
@@ -584,12 +596,18 @@ function summarizeByDayMonth() {
                 totalIncrease += record.amount;
                 increaseCount++;
             }
-            if (record.type === "รายรับ") totalIncome += record.amount;
+            if (record.type === "รายรับ") {
+                totalIncome += record.amount;
+                incomeCount++; // เพิ่มจำนวนรายการรายรับทั้งหมด
+            }
             if (record.type === "ถอนทุน") {
                 totalWithdrawal += record.amount;
                 withdrawalCount++;
             }
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
+            if (record.type === "รายจ่าย") {
+                totalExpense += record.amount;
+                expenseCount++; // เพิ่มจำนวนรายการรายจ่ายทั้งหมด
+            }
         }
     });
 
@@ -616,10 +634,10 @@ function summarizeByDayMonth() {
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุปเมื่อ: ${summaryDateTime}</p>
         <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>รายรับวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท</p>
-        <p>รายจ่ายวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท</p>
-        <p>ยอดสุทธิวันสรุปยอด: <span style="color: red;">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: red;">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
+        <p>ถูกหวยวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
+        <p>ชื้อหวยวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
+        <p>ยอดสุทธิวันสรุปยอด: <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
+        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalanceWithToday >= 0 ? 'red' : 'green'};">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
         <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
@@ -772,6 +790,7 @@ function summarize() {
     const startDateInput = document.getElementById('startDate').value;
     const endDateInput = document.getElementById('endDate').value;
 
+    // ตรวจสอบการกรอกวันที่
     if (!startDateInput || !endDateInput) {
         alert("กรุณาเลือกวันที่ให้ครบถ้วน");
         return;
@@ -780,56 +799,83 @@ function summarize() {
     const startDate = new Date(startDateInput);
     const endDate = new Date(endDateInput);
 
+    // ตรวจสอบวันที่เริ่มต้นและวันที่สิ้นสุด
     if (startDate > endDate) {
         alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
         return;
     }
 
-    endDate.setHours(23, 59, 59, 999);
+    endDate.setHours(23, 59, 59, 999); // ตั้งค่าเวลาเป็นสิ้นสุดของวัน
 
-    let totalIncome = 0;
-    let totalExpense = 0;
+    // ตัวแปรสำหรับสรุปยอด
+    let totalIncomeInRange = 0;
+    let totalExpenseInRange = 0;
+    let totalIncreaseInRange = 0;
+    let totalWithdrawalInRange = 0;
 
+    // ตัวนับรายการ
+    let incomeCount = 0;
+    let expenseCount = 0;
+
+    // คำนวณจำนวนวัน
+    const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+    const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    // วนลูปประมวลผลข้อมูล
     records.forEach(record => {
         const [date, time] = record.dateTime.split(" ");
         const [year, month, day] = date.split("-");
         const recordDate = new Date(year, month - 1, day);
 
         if (recordDate >= startDate && recordDate <= endDate && record.account === currentAccount) {
-            if (record.type === "รายรับ") totalIncome += record.amount;
-            if (record.type === "รายจ่าย") totalExpense += record.amount;
+            if (record.type === "รายรับ") {
+                totalIncomeInRange += record.amount;
+                incomeCount++; // เพิ่มตัวนับรายการรายรับ
+            } else if (record.type === "รายจ่าย") {
+                totalExpenseInRange += record.amount;
+                expenseCount++; // เพิ่มตัวนับรายการรายจ่าย
+            } else if (record.type === "เพิ่มทุน") {
+                totalIncreaseInRange += record.amount;
+            } else if (record.type === "ถอนทุน") {
+                totalWithdrawalInRange += record.amount;
+            }
         }
     });
 
-    const netTotal = totalIncome - totalExpense;
+    // คำนวณยอดสุทธิเฉพาะรายรับและรายจ่าย
+    const netTotalInRange = totalIncomeInRange - totalExpenseInRange;
 
-// Format startDate in the format: 21/11/2567
-const startDateFormatted = startDate.toLocaleDateString("th-TH", {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-});
+    // แปลงวันที่เริ่มต้นเป็นรูปแบบ "วัน/เดือน/ปี"
+    const startDateFormatted = startDate.toLocaleDateString("th-TH", {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
 
-// แปลงวันสิ้นสุดเป็นรูปแบบ "วัน/เดือน/ปี เวลา"
-const endDateFormatted = endDate.toLocaleDateString("th-TH", {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-}) + ' เวลา ' + endDate.toLocaleTimeString("th-TH", {
-    hour: '2-digit',
-    minute: '2-digit'
-}) + ' น.';
+    // แปลงวันสิ้นสุดเป็นรูปแบบ "วัน/เดือน/ปี เวลา"
+    const endDateFormatted = endDate.toLocaleDateString("th-TH", {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }) + ' เวลา ' + endDate.toLocaleTimeString("th-TH", {
+        hour: '2-digit',
+        minute: '2-digit'
+    }) + ' น.';
 
-console.log(startDateFormatted); // Output: 21/11/2567
-console.log(endDateFormatted);   // Output: 21/11/2567 10:30 น.
-
-    // อัปเดตผลลัพธ์ใน <div id="summaryResult">
+    // แสดงผลลัพธ์ใน <div id="summaryResult">
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุปยอด: ${currentAccount}</p>
-        <p>ช่วงวันที่: ${startDateFormatted} ถึง ${endDateFormatted}</p>
-        <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-        <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-    <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p> <!-- Net total in red -->
+        <p>ช่วงวันที่: ${startDateFormatted} ถึง ${endDateFormatted} (รวม ${days} วัน)</p>
+        <p>ถูกหวยรวมเป็นเงิน: ${totalIncomeInRange.toLocaleString()} บาท (ถูก ${incomeCount} รอบ)</p>
+        <p>ชื้อหวยรวมเป็นเงิน: ${totalExpenseInRange.toLocaleString()} บาท (ชื้อ ${expenseCount} รอบ)</p>
+        <p>ยอดสุทธิ: 
+            <span style="color: ${netTotalInRange >= 0 ? 'green' : 'red'};">
+                ${netTotalInRange.toLocaleString()}
+            </span> บาท
+        </p>
+        <p>หมายเหตุ: ${netTotalInRange > 0 ? 'ถูกหวยได้มากกว่าชื้อหวย' : netTotalInRange < 0 ? 'ชื้อหวยมากกว่าถูกหวย' : 'ถูกหวยและชื้อหวยเท่ากัน'}</p>
+        <p>เพิ่มทุน: ${totalIncreaseInRange.toLocaleString()} บาท</p>
+        <p>ถอนทุน: ${totalWithdrawalInRange.toLocaleString()} บาท</p>
     `;
 }
 
@@ -844,6 +890,8 @@ function summarizeToday() {
     let totalExpenseAll = 0;
     let totalIncrease = 0;
     let totalWithdrawal = 0;
+    let incomeCountToday = 0; // ตัวนับจำนวนรายการรายรับของวันนี้
+    let expenseCountToday = 0; // ตัวนับจำนวนรายการรายจ่ายของวันนี้
     let increaseCount = 0;
     let withdrawalCount = 0;
 
@@ -858,8 +906,14 @@ function summarizeToday() {
             // ตรวจสอบว่าข้อมูลเป็นของวันนี้หรือไม่
             if (recordDate.getTime() === today.getTime()) {
                 // คำนวณรายรับและรายจ่ายของวันนี้
-                if (record.type === "รายรับ") totalIncomeToday += record.amount;
-                if (record.type === "รายจ่าย") totalExpenseToday += record.amount;
+                if (record.type === "รายรับ") {
+                    totalIncomeToday += record.amount;
+                    incomeCountToday++; // นับจำนวนรายการรายรับ
+                }
+                if (record.type === "รายจ่าย") {
+                    totalExpenseToday += record.amount;
+                    expenseCountToday++; // นับจำนวนรายการรายจ่าย
+                }
             }
 
             // คำนวณเพิ่มทุนและถอนทุนทั้งหมดของบัญชี
@@ -881,11 +935,11 @@ function summarizeToday() {
     const netTotal = totalIncomeToday - totalExpenseToday;
     let remark = '';
     if (netTotal > 0) {
-        remark = `รายได้มากกว่ารายจ่าย ${netTotal.toLocaleString()} บาท`;
+        remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotal.toLocaleString()} บาท`;
     } else if (netTotal < 0) {
-        remark = `รายจ่ายมากกว่ารายได้ ${Math.abs(netTotal).toLocaleString()} บาท`;
+        remark = `ชื้อหวยมากกว่าถูกหวย ${Math.abs(netTotal).toLocaleString()} บาท`;
     } else {
-        remark = 'รายรับและรายจ่ายเท่ากัน';
+        remark = 'ชื้อหวยและถูกหวยเท่ากัน';
     }
 
     // คำนวณยอดคงเหลือในบัญชี
@@ -904,8 +958,10 @@ function summarizeToday() {
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุปยอดวันนี้: ${currentAccount}</p>
         <p>สรุปวันที่: ${summaryDateTime}</p>
-        <p>รายรับวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
-        <p>รายจ่ายวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>ถูกหวยวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
+        <p>ถูก: ${incomeCountToday} รอบ</p>
+        <p>ชื้อหวยวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
+        <p>ชื้อหวยวันนี้: ${expenseCountToday} รอบ</p>
         <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
         <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p>
         <p>หมายเหตุ: ${
