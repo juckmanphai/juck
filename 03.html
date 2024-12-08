@@ -26,7 +26,6 @@
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 28px;
-	    line-height: 1;
             margin-top: 15px;
         }
 
@@ -272,313 +271,94 @@ function getThaiDate(date = new Date()) {
 
             const sortedThirdSet = [...new Set(thirdSet.map(triplet => triplet.split('').sort().join('')))].sort();
 
-            const additionalNumbersForThirdSet = [];
-            if (sortedThirdSet.includes('000')) {
-                additionalNumbersForThirdSet.push('002');
-            }
-            if (sortedThirdSet.includes('011')) {
-                additionalNumbersForThirdSet.push('012');
-            }
-            if (sortedThirdSet.includes('022')) {
-                additionalNumbersForThirdSet.push('022');
-            }
-	    if (sortedThirdSet.includes('033')) {
-                additionalNumbersForThirdSet.push('023');
-            }
-            if (sortedThirdSet.includes('044')) {
-                additionalNumbersForThirdSet.push('024');
-            }
-            if (sortedThirdSet.includes('055')) {
-                additionalNumbersForThirdSet.push('025');
-            }
-            if (sortedThirdSet.includes('066')) {
-                additionalNumbersForThirdSet.push('026');
-            }
-            if (sortedThirdSet.includes('077')) {
-                additionalNumbersForThirdSet.push('027');
-            }
-            if (sortedThirdSet.includes('088')) {
-                additionalNumbersForThirdSet.push('028');
-            }
-	    if (sortedThirdSet.includes('099')) {
-                additionalNumbersForThirdSet.push('029');
-            }
-           if (sortedThirdSet.includes('111')) {
-                additionalNumbersForThirdSet.push('112');
-            }
-            if (sortedThirdSet.includes('122')) {
-                additionalNumbersForThirdSet.push('122');
-            }
-	    if (sortedThirdSet.includes('133')) {
-                additionalNumbersForThirdSet.push('123');
-            }
-            if (sortedThirdSet.includes('144')) {
-                additionalNumbersForThirdSet.push('124');
-            }
-            if (sortedThirdSet.includes('155')) {
-                additionalNumbersForThirdSet.push('125');
-            }
-            if (sortedThirdSet.includes('166')) {
-                additionalNumbersForThirdSet.push('126');
-            }
-            if (sortedThirdSet.includes('177')) {
-                additionalNumbersForThirdSet.push('127');
-            }
-            if (sortedThirdSet.includes('188')) {
-                additionalNumbersForThirdSet.push('128');
-            }
-	    if (sortedThirdSet.includes('199')) {
-                additionalNumbersForThirdSet.push('129');
-            }
-            if (sortedThirdSet.includes('222')) {
-                additionalNumbersForThirdSet.push('222');
-            }
-	    if (sortedThirdSet.includes('233')) {
-                additionalNumbersForThirdSet.push('223');
-            }
-            if (sortedThirdSet.includes('244')) {
-                additionalNumbersForThirdSet.push('224');
-            }
-            if (sortedThirdSet.includes('255')) {
-                additionalNumbersForThirdSet.push('225');
-            }
-            if (sortedThirdSet.includes('266')) {
-                additionalNumbersForThirdSet.push('226');
-            }
-            if (sortedThirdSet.includes('277')) {
-                additionalNumbersForThirdSet.push('227');
-            }
-            if (sortedThirdSet.includes('288')) {
-                additionalNumbersForThirdSet.push('228');
-            }
-	    if (sortedThirdSet.includes('299')) {
-                additionalNumbersForThirdSet.push('229');
-            }
-            if (sortedThirdSet.includes('333')) {
-                additionalNumbersForThirdSet.push('233');
-            }
-            if (sortedThirdSet.includes('344')) {
-                additionalNumbersForThirdSet.push('234');
-            }
-            if (sortedThirdSet.includes('355')) {
-                additionalNumbersForThirdSet.push('235');
-            }
-            if (sortedThirdSet.includes('366')) {
-                additionalNumbersForThirdSet.push('236');
-            }
-            if (sortedThirdSet.includes('377')) {
-                additionalNumbersForThirdSet.push('237');
-            }
-            if (sortedThirdSet.includes('388')) {
-                additionalNumbersForThirdSet.push('238');
-            }
-	    if (sortedThirdSet.includes('399')) {
-                additionalNumbersForThirdSet.push('239');
-            }
-            if (sortedThirdSet.includes('444')) {
-                additionalNumbersForThirdSet.push('244');
-            }
-            if (sortedThirdSet.includes('455')) {
-                additionalNumbersForThirdSet.push('245');
-            }
-            if (sortedThirdSet.includes('466')) {
-                additionalNumbersForThirdSet.push('246');
-            }
-            if (sortedThirdSet.includes('477')) {
-                additionalNumbersForThirdSet.push('247');
-            }
-            if (sortedThirdSet.includes('488')) {
-                additionalNumbersForThirdSet.push('248');
-            }
-	    if (sortedThirdSet.includes('499')) {
-                additionalNumbersForThirdSet.push('249');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('555')) {
-                additionalNumbersForThirdSet.push('255');
-            }
-            if (sortedThirdSet.includes('566')) {
-                additionalNumbersForThirdSet.push('256');
-            }
-            if (sortedThirdSet.includes('577')) {
-                additionalNumbersForThirdSet.push('257');
-            }
-            if (sortedThirdSet.includes('588')) {
-                additionalNumbersForThirdSet.push('258');
-            }
-	    if (sortedThirdSet.includes('599')) {
-                additionalNumbersForThirdSet.push('259');
-            }
-            if (sortedThirdSet.includes('666')) {
-                additionalNumbersForThirdSet.push('266');
-            }
-            if (sortedThirdSet.includes('677')) {
-                additionalNumbersForThirdSet.push('267');
-            }
-            if (sortedThirdSet.includes('688')) {
-                additionalNumbersForThirdSet.push('268');
-            }
-	    if (sortedThirdSet.includes('699')) {
-                additionalNumbersForThirdSet.push('269');
-            }
-            if (sortedThirdSet.includes('777')) {
-                additionalNumbersForThirdSet.push('277');
-            }
-            if (sortedThirdSet.includes('788')) {
-                additionalNumbersForThirdSet.push('278');
-            }
-	    if (sortedThirdSet.includes('799')) {
-                additionalNumbersForThirdSet.push('279');
-            }
-            if (sortedThirdSet.includes('888')) {
-                additionalNumbersForThirdSet.push('288');
-            }
-	    if (sortedThirdSet.includes('899')) {
-                additionalNumbersForThirdSet.push('289');
-            }
-            if (sortedThirdSet.includes('999')) {
-                additionalNumbersForThirdSet.push('299');
-            }
-            if (sortedThirdSet.includes('001')) {
-                additionalNumbersForThirdSet.push('012');
-            }
-            if (sortedThirdSet.includes('002')) {
-                additionalNumbersForThirdSet.push('022');
-            }
-	    if (sortedThirdSet.includes('003')) {
-                additionalNumbersForThirdSet.push('023');
-            }
-            if (sortedThirdSet.includes('004')) {
-                additionalNumbersForThirdSet.push('024');
-            }
-            if (sortedThirdSet.includes('005')) {
-                additionalNumbersForThirdSet.push('025');
-            }
-            if (sortedThirdSet.includes('006')) {
-                additionalNumbersForThirdSet.push('026');
-            }
-            if (sortedThirdSet.includes('007')) {
-                additionalNumbersForThirdSet.push('027');
-            }
-            if (sortedThirdSet.includes('008')) {
-                additionalNumbersForThirdSet.push('028');
-            }
-	    if (sortedThirdSet.includes('009')) {
-                additionalNumbersForThirdSet.push('029');
-            }
-             if (sortedThirdSet.includes('112')) {
-                additionalNumbersForThirdSet.push('122');
-            }
-	    if (sortedThirdSet.includes('113')) {
-                additionalNumbersForThirdSet.push('123');
-            }
-            if (sortedThirdSet.includes('114')) {
-                additionalNumbersForThirdSet.push('124');
-            }
-            if (sortedThirdSet.includes('115')) {
-                additionalNumbersForThirdSet.push('125');
-            }
-            if (sortedThirdSet.includes('116')) {
-                additionalNumbersForThirdSet.push('126');
-            }
-            if (sortedThirdSet.includes('117')) {
-                additionalNumbersForThirdSet.push('127');
-            }
-            if (sortedThirdSet.includes('118')) {
-                additionalNumbersForThirdSet.push('128');
-            }
-	    if (sortedThirdSet.includes('119')) {
-                additionalNumbersForThirdSet.push('129');
-            }
-            if (sortedThirdSet.includes('223')) {
-                additionalNumbersForThirdSet.push('223');
-            }
-            if (sortedThirdSet.includes('224')) {
-                additionalNumbersForThirdSet.push('224');
-            }
-            if (sortedThirdSet.includes('225')) {
-                additionalNumbersForThirdSet.push('225');
-            }
-            if (sortedThirdSet.includes('226')) {
-                additionalNumbersForThirdSet.push('226');
-            }
-            if (sortedThirdSet.includes('227')) {
-                additionalNumbersForThirdSet.push('227');
-            }
-            if (sortedThirdSet.includes('228')) {
-                additionalNumbersForThirdSet.push('228');
-            }
-	    if (sortedThirdSet.includes('229')) {
-                additionalNumbersForThirdSet.push('229');
-            }
-            if (sortedThirdSet.includes('334')) {
-                additionalNumbersForThirdSet.push('234');
-            }
-            if (sortedThirdSet.includes('335')) {
-                additionalNumbersForThirdSet.push('235');
-            }
-            if (sortedThirdSet.includes('336')) {
-                additionalNumbersForThirdSet.push('236');
-            }
-            if (sortedThirdSet.includes('337')) {
-                additionalNumbersForThirdSet.push('237');
-            }
-            if (sortedThirdSet.includes('338')) {
-                additionalNumbersForThirdSet.push('238');
-            }
-	    if (sortedThirdSet.includes('339')) {
-                additionalNumbersForThirdSet.push('239');
-            }
-            if (sortedThirdSet.includes('445')) {
-                additionalNumbersForThirdSet.push('245');
-            }
-            if (sortedThirdSet.includes('446')) {
-                additionalNumbersForThirdSet.push('246');
-            }
-            if (sortedThirdSet.includes('447')) {
-                additionalNumbersForThirdSet.push('247');
-            }
-            if (sortedThirdSet.includes('448')) {
-                additionalNumbersForThirdSet.push('248');
-            }
-	    if (sortedThirdSet.includes('449')) {
-                additionalNumbersForThirdSet.push('249');
-            }
-           if (sortedThirdSet.includes('556')) {
-                additionalNumbersForThirdSet.push('256');
-            }
-            if (sortedThirdSet.includes('557')) {
-                additionalNumbersForThirdSet.push('257');
-            }
-            if (sortedThirdSet.includes('558')) {
-                additionalNumbersForThirdSet.push('258');
-            }
-	    if (sortedThirdSet.includes('559')) {
-                additionalNumbersForThirdSet.push('259');
-            }
-            if (sortedThirdSet.includes('667')) {
-                additionalNumbersForThirdSet.push('267');
-            }
-            if (sortedThirdSet.includes('668')) {
-                additionalNumbersForThirdSet.push('268');
-            }
-	    if (sortedThirdSet.includes('669')) {
-                additionalNumbersForThirdSet.push('269');
-            }
-            if (sortedThirdSet.includes('778')) {
-                additionalNumbersForThirdSet.push('278');
-            }
-	    if (sortedThirdSet.includes('779')) {
-                additionalNumbersForThirdSet.push('279');
-            }
-            if (sortedThirdSet.includes('889')) {
-                additionalNumbersForThirdSet.push('289');
-            }
+ const additionalNumbersForThirdSet = [];
+
+const rules = [
+    { check: '000', add: '002' },
+    { check: '011', add: '012' },
+    { check: '033', add: '023' },
+    { check: '044', add: '024' },
+    { check: '055', add: '025' },
+    { check: '066', add: '026' },
+    { check: '077', add: '027' },
+    { check: '088', add: '028' },
+    { check: '099', add: '029' },
+    { check: '111', add: '112' },
+    { check: '133', add: '123' },
+    { check: '144', add: '124' },
+    { check: '155', add: '125' },
+    { check: '166', add: '126' },
+    { check: '177', add: '127' },
+    { check: '188', add: '128' },
+    { check: '199', add: '129' },
+    { check: '222', add: '222' },
+    { check: '233', add: '223' },
+    { check: '244', add: '224' },
+    { check: '255', add: '225' },
+    { check: '266', add: '226' },
+    { check: '277', add: '227' },
+    { check: '288', add: '228' },
+    { check: '299', add: '229' },
+    { check: '333', add: '233' },
+    { check: '344', add: '234' },
+    { check: '355', add: '235' },
+    { check: '366', add: '236' },
+    { check: '377', add: '237' },
+    { check: '388', add: '238' },
+    { check: '399', add: '239' },
+    { check: '444', add: '244' },
+    { check: '455', add: '245' },
+    { check: '466', add: '246' },
+    { check: '477', add: '247' },
+    { check: '488', add: '248' },
+    { check: '499', add: '249' },
+    { check: '555', add: '255' },
+    { check: '566', add: '256' },
+    { check: '577', add: '257' },
+    { check: '588', add: '258' },
+    { check: '599', add: '259' },
+    { check: '666', add: '266' },
+    { check: '677', add: '267' },
+    { check: '688', add: '268' },
+    { check: '699', add: '269' },
+    { check: '777', add: '277' },
+    { check: '788', add: '278' },
+    { check: '799', add: '279' },
+    { check: '888', add: '288' },
+    { check: '899', add: '289' },
+    { check: '999', add: '299' },
+    { check: '001', add: '012' },
+    { check: '002', add: '022' },
+    { check: '003', add: '023' },
+    { check: '004', add: '024' },
+    { check: '005', add: '025' },
+    { check: '006', add: '026' },
+    { check: '007', add: '027' },
+    { check: '008', add: '028' },
+    { check: '009', add: '029' },
+    { check: '112', add: '122' },
+    { check: '113', add: '123' },
+    { check: '114', add: '124' },
+    { check: '115', add: '125' },
+    { check: '116', add: '126' },
+    { check: '117', add: '127' },
+    { check: '118', add: '128' },
+    { check: '119', add: '129' },
+    { check: '334', add: '234' },
+    { check: '445', add: '245' },
+    { check: '556', add: '256' },
+    { check: '667', add: '267' },
+    { check: '778', add: '278' },
+    { check: '889', add: '289' },
+];
+
+// ใช้ loop เพื่อเพิ่มตัวเลขตามกฎ
+rules.forEach(rule => {
+    if (sortedThirdSet.includes(rule.check)) {
+        additionalNumbersForThirdSet.push(rule.add);
+    }
+});
+
 // สร้างชุดตัวเลข 3 ตัว (ปกติ)
 const filteredFinalThirdSet = [...new Set(sortedThirdSet)].sort((a, b) => a - b); // สร้างตัวแปร filteredFinalThirdSet
 
@@ -672,8 +452,8 @@ resultContainer.style.display = 'block';
             <!-- Person Selection on the Right -->
             <div style="display: inline-block;">
                 <select id="personSelect" style="font-size: 18px; padding: 15px;">
+		    <option value="@">@</option>
                     <option value="Team">Team</option>
-                    <option value="@">@</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
                     <option value="เจ้าที่">เจ้าที่</option>
@@ -711,12 +491,12 @@ resultContainer.style.display = 'block';
 <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
 
     <!-- Back Button -->
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
 </body>
 </html>
