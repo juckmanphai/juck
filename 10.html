@@ -369,7 +369,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ชื่อบัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -637,14 +637,15 @@ function summarizeByDayMonth() {
 
     // สรุปยอดและแสดงในช่อง
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปเมื่อ: ${summaryDateTime}</p>
-        <p>สรุปยอดของวันที่: ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>ถูกหวยวันสรุปยอด: ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
-        <p>ชื้อหวยวันสรุปยอด: ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
-        <p>ยอดสุทธิวันสรุปยอด: <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
+        <p>สรุป : ${currentAccount}</p>
+        <p>สรุปเมื่อ : ${summaryDateTime}</p>
+        <p>สรุปยอดของวันที่ : ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+        <p>ถูกหวยวันสรุปยอด : ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
+        <p>ชื้อหวยวันสรุปยอด : ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
+        <p>ยอดสุทธิวันสรุปยอด : <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
         <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalanceWithToday >= 0 ? 'red' : 'green'};">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
-        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
 
@@ -782,12 +783,12 @@ function getSummary() {
 }) + ' น.';
 
 document.getElementById('summaryResult').innerHTML = `
-    <p>สรุปยอดย้อนหลัง ${days} วัน: ${currentAccount}</p>
-    <p>สรุปวันที่: ${summaryDateTime}</p> <!-- Display current date and time -->
-    <p>รายรับ: ${totalIncome.toLocaleString()} บาท</p>
-    <p>รายจ่าย: ${totalExpense.toLocaleString()} บาท</p>
-    <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p> <!-- Net total in red -->
-    <p>หมายเหตุ: <span style="color: red;">${remark}</span></p> <!-- Remark in red -->
+    <p>สรุปยอดย้อนหลัง ${days} วัน : ${currentAccount}</p>
+    <p>สรุปวันที่ : ${summaryDateTime}</p> <!-- Display current date and time -->
+    <p>รายรับ : ${totalIncome.toLocaleString()} บาท</p>
+    <p>รายจ่าย : ${totalExpense.toLocaleString()} บาท</p>
+    <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p> <!-- Net total in red -->
+    <p>หมายเหตุ : <span style="color: red;">${remark}</span></p> <!-- Remark in red -->
 `;
 }
 
@@ -869,18 +870,18 @@ function summarize() {
 
     // แสดงผลลัพธ์ใน <div id="summaryResult">
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอด: ${currentAccount}</p>
-        <p>ช่วงวันที่: ${startDateFormatted} ถึง ${endDateFormatted} (รวม ${days} วัน)</p>
-        <p>ถูกหวยรวมเป็นเงิน: ${totalIncomeInRange.toLocaleString()} บาท (ถูก ${incomeCount} รอบ)</p>
-        <p>ชื้อหวยรวมเป็นเงิน: ${totalExpenseInRange.toLocaleString()} บาท (ชื้อ ${expenseCount} รอบ)</p>
+        <p>สรุป : ${currentAccount}</p>
+        <p>ช่วงวันที่ : ${startDateFormatted} ถึง ${endDateFormatted} (รวม ${days} วัน)</p>
+        <p>ถูกหวยรวมเป็นเงิน : ${totalIncomeInRange.toLocaleString()} บาท (ถูก ${incomeCount} รอบ)</p>
+        <p>ชื้อหวยรวมเป็นเงิน : ${totalExpenseInRange.toLocaleString()} บาท (ชื้อ ${expenseCount} รอบ)</p>
         <p>ยอดสุทธิ: 
             <span style="color: ${netTotalInRange >= 0 ? 'green' : 'red'};">
                 ${netTotalInRange.toLocaleString()}
             </span> บาท
         </p>
-        <p>หมายเหตุ: ${netTotalInRange > 0 ? 'ถูกหวยได้มากกว่าชื้อหวย' : netTotalInRange < 0 ? 'ชื้อหวยมากกว่าถูกหวย' : 'ถูกหวยและชื้อหวยเท่ากัน'}</p>
-        <p>เพิ่มทุน: ${totalIncreaseInRange.toLocaleString()} บาท</p>
-        <p>ถอนทุน: ${totalWithdrawalInRange.toLocaleString()} บาท</p>
+        <p>หมายเหตุ : ${netTotalInRange > 0 ? 'ถูกหวยได้มากกว่าชื้อหวย' : netTotalInRange < 0 ? 'ชื้อหวยมากกว่าถูกหวย' : 'ถูกหวยและชื้อหวยเท่ากัน'}</p>
+        <p>เพิ่มทุน : ${totalIncreaseInRange.toLocaleString()} บาท</p>
+        <p>ถอนทุน : ${totalWithdrawalInRange.toLocaleString()} บาท</p>
     `;
 }
 
@@ -961,28 +962,28 @@ function summarizeToday() {
 
     // แสดงผลในหน้า HTML
     document.getElementById('summaryResult').innerHTML = `
-        <p>สรุปยอดวันนี้: ${currentAccount}</p>
-        <p>สรุปวันที่: ${summaryDateTime}</p>
+        <p>สรุปวันนี้ : ${currentAccount}</p>
+        <p>${summaryDateTime}</p>
         <p>
-            ถูกหวยวันนี้: ${totalIncomeToday.toLocaleString()} บาท 
-            <span style="margin-left: 20px;">ถูก: ${incomeCountToday} รอบ</span>
+            ถูกหวยวันนี้ : ${totalIncomeToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ถูก : ${incomeCountToday} รอบ</span>
         </p>
         <p>
-            ชื้อหวยวันนี้: ${totalExpenseToday.toLocaleString()} บาท 
-            <span style="margin-left: 20px;">ชื้อ: ${expenseCountToday} รอบ</span>
+            ชื้อหวยวันนี้ : ${totalExpenseToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
         </p>
-        <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
+        <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
         <p>
-            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> 
+            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
             <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
         </p>
-        <p>หมายเหตุ: ${
+        <p>หมายเหตุ : ${
             remark.replace(/\d+(,\d{3})*/g, (num) => {
                 return `<span style="color: red;">${num}</span>`;
             })
         }</p>
-        <p>เพิ่มทุนถึงวันนี้: ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้: ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
 
