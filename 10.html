@@ -314,8 +314,8 @@ button:active {
     border-radius: 8px; /* มุมโค้ง */
     padding: 15px;
     max-width: 600px;
-    width: 95%; /* ใช้ 90% ของความกว้างหน้าจอ */
-    margin: 10px auto 10px 10px; /* ลดการเขียน margin หลายบรรทัด */
+    width: calc(100% - 20px); /* ลดความกว้างเพื่อให้เหลือช่องว่างซ้ายขวารวม 20px */
+    margin: 10px auto; /* ช่องว่างด้านบนและล่าง 10px, ซ้ายขวาจะอัตโนมัติ */
     line-height: 1.5; /* ความสูงของบรรทัด */
     text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
     box-sizing: border-box; /* ทำให้ padding ไม่ส่งผลต่อ width */
@@ -369,7 +369,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ชื่อบัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
