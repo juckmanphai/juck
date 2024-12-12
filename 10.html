@@ -63,6 +63,11 @@ body {
     margin-top: 20px;
 }
 
+    #summaryResult p {
+        line-height: 1.5; /* กำหนดความสูงของแถวเป็น 1 */
+        margin: 0; /* ลดช่องว่างระหว่างย่อหน้า */
+    }
+
 /* Summary Result styling */
 #summaryResult {
     margin-top: 20px;
@@ -364,7 +369,7 @@ button:active {
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
     <h2>ชื่อบัญชี - <span id="accountName"></span></h2>
 <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
 <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
@@ -958,12 +963,19 @@ function summarizeToday() {
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุปยอดวันนี้: ${currentAccount}</p>
         <p>สรุปวันที่: ${summaryDateTime}</p>
-        <p>ถูกหวยวันนี้: ${totalIncomeToday.toLocaleString()} บาท</p>
-        <p>ถูก: ${incomeCountToday} รอบ</p>
-        <p>ชื้อหวยวันนี้: ${totalExpenseToday.toLocaleString()} บาท</p>
-        <p>ชื้อหวยวันนี้: ${expenseCountToday} รอบ</p>
+        <p>
+            ถูกหวยวันนี้: ${totalIncomeToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ถูก: ${incomeCountToday} รอบ</span>
+        </p>
+        <p>
+            ชื้อหวยวันนี้: ${totalExpenseToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ชื้อ: ${expenseCountToday} รอบ</span>
+        </p>
         <p>สรุปยอดสุทธิ: <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-        <p><span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท</p>
+        <p>
+            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่:</span> 
+            <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
+        </p>
         <p>หมายเหตุ: ${
             remark.replace(/\d+(,\d{3})*/g, (num) => {
                 return `<span style="color: red;">${num}</span>`;
