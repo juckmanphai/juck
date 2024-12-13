@@ -563,8 +563,11 @@ function summarizeByDayMonth() {
     }
 
     const [day, month] = dayMonth.split('/');
-    // ตั้งวันที่ให้ตรงกับเวลา 23:59 ของวันที่ต้องการ
-    const targetDate = new Date(new Date().getFullYear(), month - 1, day, 23, 59, 59);
+    const currentYear = new Date().getFullYear();
+
+    // ตั้งวันที่เริ่มต้นและสิ้นสุดของวัน
+    const startOfDay = new Date(currentYear, month - 1, day, 0, 0, 0, 0); // เริ่มต้นของวัน 00:00:00
+    const endOfDay = new Date(currentYear, month - 1, day, 23, 59, 59, 999); // สิ้นสุดของวัน 23:59:59
 
     let totalIncomeToday = 0;
     let totalExpenseToday = 0;
@@ -582,10 +585,14 @@ function summarizeByDayMonth() {
     let expenseCount = 0; // ตัวนับจำนวนรายการรายจ่ายทั้งหมด
 
     records.forEach(record => {
-        const recordDate = new Date(record.dateTime.split(" ")[0]);
+        const recordDate = new Date(record.dateTime);
 
         // คำนวณรายรับและรายจ่ายของวันสรุปยอด
-        if (recordDate.getDate() === targetDate.getDate() && recordDate.getMonth() === targetDate.getMonth() && record.account === currentAccount) {
+        if (
+            recordDate >= startOfDay && 
+            recordDate <= endOfDay && 
+            record.account === currentAccount
+        ) {
             if (record.type === "รายรับ") {
                 totalIncomeToday += record.amount;
                 incomeCountToday++; // เพิ่มจำนวนรายการรายรับของวัน
@@ -597,7 +604,7 @@ function summarizeByDayMonth() {
         }
 
         // คำนวณยอดสะสมจนถึงเวลา 23:59 ของวันที่สรุปยอด (รวมเพิ่มทุน รายรับ ถอนทุน และรายจ่าย)
-        if (recordDate <= targetDate && record.account === currentAccount) {
+        if (recordDate <= endOfDay && record.account === currentAccount) {
             if (record.type === "เพิ่มทุน") {
                 totalIncrease += record.amount;
                 increaseCount++;
@@ -622,7 +629,7 @@ function summarizeByDayMonth() {
     const netTotalToday = totalIncomeToday - totalExpenseToday;
 
     // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
-    const thaiDate = new Date(targetDate);
+    const thaiDate = new Date(startOfDay);
     const thaiYear = thaiDate.getFullYear() + 543; // แปลงเป็นปีพุทธศักราช
     const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
     const thaiDay = thaiDate.getDate();
@@ -804,29 +811,30 @@ function summarize() {
     const startDate = new Date(startDateInput);
     const endDate = new Date(endDateInput);
 
+    // ตั้งค่าเวลาเริ่มต้นของวัน
+    startDate.setHours(0, 0, 0, 0);
+
+    // ตั้งค่าเวลาสิ้นสุดของวัน
+    endDate.setHours(23, 59, 59, 999);
+
     // ตรวจสอบวันที่เริ่มต้นและวันที่สิ้นสุด
     if (startDate > endDate) {
         alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
         return;
     }
 
-    endDate.setHours(23, 59, 59, 999); // ตั้งค่าเวลาเป็นสิ้นสุดของวัน
-
-    // ตัวแปรสำหรับสรุปยอด
+    // ส่วนอื่นยังคงเดิม
     let totalIncomeInRange = 0;
     let totalExpenseInRange = 0;
     let totalIncreaseInRange = 0;
     let totalWithdrawalInRange = 0;
 
-    // ตัวนับรายการ
     let incomeCount = 0;
     let expenseCount = 0;
 
-    // คำนวณจำนวนวัน
     const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
     const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    // วนลูปประมวลผลข้อมูล
     records.forEach(record => {
         const [date, time] = record.dateTime.split(" ");
         const [year, month, day] = date.split("-");
@@ -835,10 +843,10 @@ function summarize() {
         if (recordDate >= startDate && recordDate <= endDate && record.account === currentAccount) {
             if (record.type === "รายรับ") {
                 totalIncomeInRange += record.amount;
-                incomeCount++; // เพิ่มตัวนับรายการรายรับ
+                incomeCount++;
             } else if (record.type === "รายจ่าย") {
                 totalExpenseInRange += record.amount;
-                expenseCount++; // เพิ่มตัวนับรายการรายจ่าย
+                expenseCount++;
             } else if (record.type === "เพิ่มทุน") {
                 totalIncreaseInRange += record.amount;
             } else if (record.type === "ถอนทุน") {
@@ -847,17 +855,14 @@ function summarize() {
         }
     });
 
-    // คำนวณยอดสุทธิเฉพาะรายรับและรายจ่าย
     const netTotalInRange = totalIncomeInRange - totalExpenseInRange;
 
-    // แปลงวันที่เริ่มต้นเป็นรูปแบบ "วัน/เดือน/ปี"
     const startDateFormatted = startDate.toLocaleDateString("th-TH", {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
     });
 
-    // แปลงวันสิ้นสุดเป็นรูปแบบ "วัน/เดือน/ปี เวลา"
     const endDateFormatted = endDate.toLocaleDateString("th-TH", {
         day: '2-digit',
         month: '2-digit',
@@ -867,7 +872,6 @@ function summarize() {
         minute: '2-digit'
     }) + ' น.';
 
-    // แสดงผลลัพธ์ใน <div id="summaryResult">
     document.getElementById('summaryResult').innerHTML = `
         <p>สรุป : ${currentAccount}</p>
         <p>ช่วงวันที่ : ${startDateFormatted} ถึง ${endDateFormatted} (รวม ${days} วัน)</p>
@@ -886,7 +890,10 @@ function summarize() {
 
 function summarizeToday() {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // เริ่มต้นของวัน
+    today.setHours(0, 0, 0, 0); // เริ่มต้นของวัน (00:00:00)
+
+    const endOfToday = new Date(today);
+    endOfToday.setHours(23, 59, 59, 999); // สิ้นสุดของวัน (23:59:59)
 
     // ตัวแปรสรุปยอด
     let totalIncomeToday = 0;
@@ -908,8 +915,8 @@ function summarizeToday() {
 
         // ตรวจสอบว่าตรงกับบัญชีปัจจุบันหรือไม่
         if (record.account === currentAccount) {
-            // ตรวจสอบว่าข้อมูลเป็นของวันนี้หรือไม่
-            if (recordDate.getTime() === today.getTime()) {
+            // ตรวจสอบว่าข้อมูลอยู่ในช่วงวันนี้หรือไม่
+            if (recordDate >= today && recordDate <= endOfToday) {
                 // คำนวณรายรับและรายจ่ายของวันนี้
                 if (record.type === "รายรับ") {
                     totalIncomeToday += record.amount;
