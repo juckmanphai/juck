@@ -555,7 +555,7 @@ function editAccount() {
 
 function summarizeByDayMonth() {
     const dayMonth = document.getElementById('customDayMonth').value.trim();
-    
+
     // ตรวจสอบว่าผู้ใช้กรอกข้อมูลครบถ้วนไหม
     if (!dayMonth || !/^\d{1,2}\/\d{1,2}$/.test(dayMonth)) {
         alert("กรุณากรอกวันและเดือนในรูปแบบ วัน/เดือน (เช่น 10/11)");
@@ -563,14 +563,15 @@ function summarizeByDayMonth() {
     }
 
     const [day, month] = dayMonth.split('/');
-    const targetDate = new Date(new Date().getFullYear(), month - 1, day); // ตั้งวันที่ให้ตรงกับปีปัจจุบัน
+    // ตั้งวันที่ให้ตรงกับเวลา 23:59 ของวันที่ต้องการ
+    const targetDate = new Date(new Date().getFullYear(), month - 1, day, 23, 59, 59);
 
     let totalIncomeToday = 0;
     let totalExpenseToday = 0;
     let totalIncrease = 0;
-    let totalIncome = 0;
     let totalWithdrawal = 0;
     let totalExpense = 0;
+    let totalIncome = 0;
     let increaseCount = 0;
     let withdrawalCount = 0;
 
@@ -595,7 +596,7 @@ function summarizeByDayMonth() {
             }
         }
 
-        // คำนวณยอดสะสมจนถึงวันที่สรุปยอด (รวมเพิ่มทุน รายรับ ถอนทุน และรายจ่าย)
+        // คำนวณยอดสะสมจนถึงเวลา 23:59 ของวันที่สรุปยอด (รวมเพิ่มทุน รายรับ ถอนทุน และรายจ่าย)
         if (recordDate <= targetDate && record.account === currentAccount) {
             if (record.type === "เพิ่มทุน") {
                 totalIncrease += record.amount;
@@ -616,17 +617,16 @@ function summarizeByDayMonth() {
         }
     });
 
-    // คำนวณยอดคงเหลือในบัญชี
-    const netBalance = totalIncrease + totalIncome - totalWithdrawal - totalExpense;
+    // คำนวณยอดคงเหลือในบัญชี (เพิ่มทุน + รายรับ - รายจ่าย - ถอนทุน)
+    const netBalance = totalIncrease + totalIncome - totalExpense - totalWithdrawal;
     const netTotalToday = totalIncomeToday - totalExpenseToday;
-    const netBalanceWithToday = netBalance + netTotalToday;
 
     // สร้างวันที่ในรูปแบบไทย (วัน เดือน ปี พ.ศ.)
     const thaiDate = new Date(targetDate);
     const thaiYear = thaiDate.getFullYear() + 543; // แปลงเป็นปีพุทธศักราช
     const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
     const thaiDay = thaiDate.getDate();
-    
+
     const summaryDateTime = new Date().toLocaleString("th-TH", {
         year: 'numeric', 
         month: 'long', 
@@ -643,12 +643,11 @@ function summarizeByDayMonth() {
         <p>ถูกหวยวันสรุปยอด : ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
         <p>ชื้อหวยวันสรุปยอด : ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
         <p>ยอดสุทธิวันสรุปยอด : <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalanceWithToday >= 0 ? 'red' : 'green'};">${netBalanceWithToday.toLocaleString()}</span> บาท</p>
+        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'red' : 'green'};">${netBalance.toLocaleString()}</span> บาท</p>
         <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
 }
-
 
 	function autoFillDateTime() {
   const dateField = document.getElementById('dateField');  // Your date input field
@@ -973,15 +972,15 @@ function summarizeToday() {
             <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
         </p>
         <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-        <p>
-            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
-            <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
-        </p>
         <p>หมายเหตุ : ${
             remark.replace(/\d+(,\d{3})*/g, (num) => {
                 return `<span style="color: red;">${num}</span>`;
             })
         }</p>
+        <p>
+            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
+            <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
+        </p>
         <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
     `;
