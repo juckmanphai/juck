@@ -9,14 +9,14 @@ font-family: Arial, sans-serif;
         background-color: #fffde7;
         margin: 0;
         padding: 0;
-        line-height: 1; /* ลดค่า line-height */
+        line-height: 1.4; /* ลดค่า line-height */
     }
     h1 {
         text-align: center;
         font-size: 32px;
         color: #2c3e50;
         margin-top: 20px;
-        line-height: 1; /* ปรับให้กระชับขึ้น */
+        line-height: 1.2; /* ปรับให้กระชับขึ้น */
     }
     .container {
         max-width: 600px;
@@ -42,14 +42,14 @@ font-family: Arial, sans-serif;
         display: block;
         margin-left: auto;
         margin-right: auto;
-        line-height: 1; /* ลดช่องว่างใน input */
+        line-height: 1.2; /* ลดช่องว่างใน input */
     }
     button {
         background-color: #4CAF50;
         color: white;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        line-height: 1;
+        line-height: 1.2;
     }
     button:hover {
         background-color: #45a049;
@@ -77,22 +77,23 @@ font-family: Arial, sans-serif;
         margin-right: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        line-height: 1; /* ลดช่องว่างใน form */
+        line-height: 1.4; /* ลดช่องว่างใน form */
     }
 
-#resultContainer {
-    display: none;
-    margin: 5px auto; /* กำหนดให้กึ่งกลางในแนวนอน */
-    background-color: #ffffcc;
-    border: 2px solid #4CAF50;
-    padding: 10px;
-    border-radius: 10px;
-    width: fit-content; /* ปรับขนาดให้พอดีกับเนื้อหา */
-    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    #resultContainer {
+          display: none;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #ffffcc;
+        border: 2px solid #4CAF50;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
 }
         #resultContainer p {
-            line-height: 0.5;
+            line-height: 0.2;
         }
 
     #lineHeightSlider {
