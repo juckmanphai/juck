@@ -171,15 +171,15 @@ function getThaiDate(date = new Date()) {
             return `เวลา ${time} น.`;
         }
 
-        function convertNumber() {
-            const num = document.getElementById("numberInput").value;
-            const topicSelect = document.getElementById("topicSelect");
-            const selectedTopic = topicSelect.value;
-            const personSelect = document.getElementById("personSelect");
-            const selectedPerson = personSelect.value;
-            let noteInput = document.getElementById("noteInput").value;
-            const dateInputValue = document.getElementById("dateInput").value;
-            const dateInput = dateInputValue ? new Date(dateInputValue) : new Date();  // ใช้วันที่ที่กรอกหรือวันที่ปัจจุบัน
+function convertNumber() {
+    const num = document.getElementById("numberInput").value;
+    const topicSelect = document.getElementById("topicSelect");
+    const selectedTopic = topicSelect.value;
+    const personSelect = document.getElementById("personSelect");
+    const selectedPerson = personSelect.value;
+    let noteInput = document.getElementById("noteInput").value;
+    const dateInputValue = document.getElementById("dateInput").value;
+    const dateInput = dateInputValue ? new Date(dateInputValue) : new Date();
 
     if (!noteInput.trim()) {
         noteInput = '<span style="color: red;">No comments</span>';
@@ -190,45 +190,75 @@ function getThaiDate(date = new Date()) {
         return;
     }
 
-            const transformRules = {
-                '0': '1', '1': '7', '2': '5', '3': '8',
-                '4': '9', '5': '2', '6': '9', '7': '1',
-                '8': '3', '9': '6'
-            };
+    const transformRules = {
+        '0': '1', '1': '7', '2': '5', '3': '8',
+        '4': '9', '5': '2', '6': '9', '7': '1',
+        '8': '3', '9': '6'
+    };
 
-            const transformed = num.split('').map(digit => transformRules[digit]).join('');
+    const transformed = num.split('').map(digit => transformRules[digit]).join('');
 
-            const firstSet = [
-                sortPair(`${num[0]}${num[1]}`),
-                sortPair(`${num[0]}${num[2]}`),
-                sortPair(`${num[1]}${num[2]}`)
-            ];
+    const firstSet = [
+        sortPair(`${num[0]}${num[1]}`),
+        sortPair(`${num[0]}${num[2]}`),
+        sortPair(`${num[1]}${num[2]}`)
+    ];
 
-            let secondSet = [];
+    let secondSet = [];
 
-            for (let i = 0; i < 3; i++) {
-                if (i === 0) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
-                } else if (i === 1) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
-                } else if (i === 2) {
-                    secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
-                    secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
-                }
-            }
-
-            const uniqueFirstSet = [...new Set(firstSet)].sort();
-            secondSet = [...new Set(secondSet)].sort();
-
-            const additionalNumbers = [];
-        if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
-            additionalNumbers.push('02');
+    for (let i = 0; i < 3; i++) {
+        if (i === 0) {
+            secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
+            secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+        } else if (i === 1) {
+            secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+            secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+        } else if (i === 2) {
+            secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+            secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
         }
-        if (uniqueFirstSet.includes('11') || secondSet.includes('11')) {
-            additionalNumbers.push('12');
-        }
+    }
+
+    const uniqueFirstSet = [...new Set(firstSet)].sort();
+    secondSet = [...new Set(secondSet)].sort();
+
+    console.log("Unique First Set: ", uniqueFirstSet);
+    console.log("Unique Second Set: ", secondSet);
+
+const transformedPairs = [
+    sortPair(`${transformed[0]}${transformed[1]}`),
+    sortPair(`${transformed[0]}${transformed[2]}`),
+    sortPair(`${transformed[1]}${transformed[2]}`)
+];
+
+// Sort transformed pairs
+const sortedTransformedPairs = transformedPairs.sort();
+
+// Filter out duplicates from uniqueFirstSet and secondSet
+const uniquePairs = sortedTransformedPairs.filter(pair => 
+    !uniqueFirstSet.includes(pair) && !secondSet.includes(pair)
+);
+
+// Check if uniquePairs is empty
+let transformedPairsText = '';
+if (uniquePairs.length === 0) {
+    transformedPairsText = '<span style="color: orange;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+} else {
+    transformedPairsText = uniquePairs.join(' - ');
+}
+
+console.log("Unique Transformed Pairs: ", uniquePairs);
+console.log("Transformed Pairs Text: ", transformedPairsText);
+
+
+
+    const additionalNumbers = [];
+    if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
+        additionalNumbers.push('02');
+    }
+    if (uniqueFirstSet.includes('11') || secondSet.includes('11')) {
+        additionalNumbers.push('12');
+    }
         if (uniqueFirstSet.includes('22') || secondSet.includes('22')) {
             // ไม่ต้องเพิ่ม
         }
@@ -596,7 +626,7 @@ finalAdditionalNumbers.sort((a, b) => a - b);
 
 const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
-    : 'ไม่มีตัวเลขเพิ่ม';
+    : '<span style="color: orange;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
 resultContainer.innerHTML = `
 <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px;">
@@ -617,6 +647,8 @@ resultContainer.innerHTML = `
     <p class="blue" style="font-size: 16px;">${uniqueFirstSet.join(' - ')}</p>
     <h3 class="blue" style="font-size: 16px;">จัดชุดรอง 2 ตัว</h3>
     <p class="blue" style="font-size: 16px;">${filteredSecondSet.join(' - ')}</p>
+        <h3 class="blue" style="font-size: 16px;">จัดชุด 2 ตัว (แปลเพิ่ม)</h3>
+        <p class="blue" style="font-size: 16px;">${transformedPairsText}</p>
     <h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว (ปกติ)</h3>
     <p class="blue" style="font-size: 16px;">${filteredFinalThirdSet.join(' - ')}</p>
     <h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว (แปลเพิ่ม)</h3>
