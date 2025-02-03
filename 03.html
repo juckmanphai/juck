@@ -231,12 +231,16 @@ const transformedPairs = [
     sortPair(`${transformed[1]}${transformed[2]}`)
 ];
 
-// Sort transformed pairs
-const sortedTransformedPairs = transformedPairs.sort();
+// Remove duplicates within transformedPairs itself
+const uniqueTransformedPairs = [...new Set(transformedPairs)];
 
-// Filter out duplicates from uniqueFirstSet and secondSet
+// Sort transformed pairs
+const sortedTransformedPairs = uniqueTransformedPairs.sort();
+
+// Filter out duplicates from uniqueFirstSet, secondSet, and self
 const uniquePairs = sortedTransformedPairs.filter(pair => 
-    !uniqueFirstSet.includes(pair) && !secondSet.includes(pair)
+    !uniqueFirstSet.includes(pair) && 
+    !secondSet.includes(pair)
 );
 
 // Check if uniquePairs is empty
@@ -249,8 +253,6 @@ if (uniquePairs.length === 0) {
 
 console.log("Unique Transformed Pairs: ", uniquePairs);
 console.log("Transformed Pairs Text: ", transformedPairsText);
-
-
 
     const additionalNumbers = [];
     if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
