@@ -18,6 +18,28 @@ font-family: Arial, sans-serif;
         margin-top: 20px;
         line-height: 1.2; /* ปรับให้กระชับขึ้น */
     }
+    #resultContent h2 {
+        font-size: 16px;
+        margin: 8px 0;
+        line-height: 1.2;
+    }
+    #resultContent h3 {
+        font-size: 14px;
+        margin: 8px 0;
+        line-height: 1.2;
+    }
+    #resultContent .number-pairs {
+        font-size: 16px;
+        margin: 12px 0;
+    }
+    #resultContent .note {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+    #resultContent .translation {
+        font-size: 12px;
+        margin: 8px 0;
+    }
     .container {
         max-width: 600px;
          margin-top: 20px;
@@ -29,7 +51,7 @@ font-family: Arial, sans-serif;
         margin-right: 20px;
         border-radius: 20px;
         box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);   
-        line-height: 1; /* ลดช่องว่างใน container */
+        line-height: 1.4; /* ลดช่องว่างใน container */
     }
 
     input, select, button {
@@ -67,31 +89,56 @@ font-family: Arial, sans-serif;
         color: #95a5a6;
         line-height: 1.2; /* ลดช่องว่างใน footer */
     }
-    .form-container {
-        border: 2px solid orange;
-        background-color: #ffffff;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        line-height: 1.4; /* ลดช่องว่างใน form */
-    }
+        .form-container {
+            border: 2px solid orange;
+            background-color: #ffffff;
+            margin: 10px auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            line-height: 1;
+        }
 
     #resultContainer {
-          display: none;
+        display: none;
+        margin: 10px auto;
+        max-width: 600px;
         margin-top: 20px;
         margin-bottom: 20px;
         background-color: #ffffcc;
         border: 2px solid #4CAF50;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
+        padding: 10px;
         border-radius: 10px;
+        /* เปลี่ยนจาก width: fit-content เป็น width: auto */
+        width: auto;
+        text-align: center;
         box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-}
+        position: relative;
+        min-height: 300px;
+        /* เพิ่ม padding-bottom เพื่อให้มีระยะห่างด้านล่าง */
+        padding-bottom: 10px;
+    }
+
+        #resultContainer::before {
+            content: "";
+            background-image: url('logo.png');
+            background-size: 80% auto;
+            background-repeat: no-repeat;
+            background-position: center top 15px; /* Adjusted to align with first line */
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            margin: auto;
+        }
+
         #resultContainer p {
             line-height: 0.2;
         }
@@ -178,28 +225,30 @@ function getThaiDate(date = new Date()) {
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-const resultHtml = `
-<div id="resultContent" style="position: relative; text-align: center; font-size: 16px; line-height: 1.2; margin-top: 10px;">
-    <!-- ใช้ flexbox เพื่อจัดโลโก้และข้อความให้อยู่ในแนวเดียวกัน -->
-    <h2 style="display: flex; align-items: center; justify-content: center; margin: 2px 0; line-height: 1;">
-        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px;">
-        <span style="color: blue; font-size: 15px; line-height: 1;">${selectedTopic}</span>
-        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px;">
-    </h2>
-    <h3 class="blue" style="font-size: 15px; display: inline; vertical-align: middle; color: blue; font-weight: normal; line-height: 1;">
-        ${dateDisplay}
-    </h3>
-    <p style="font-size: 15px; color: blue; line-height: 1;">
-    <h2 style="font-size: 16px; color: blue; line-height: 1;">
-        ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-    </h2>
-    <h2 style="font-size: 16px; color: blue; line-height: 1;">จัดชุด 2 ตัวดังนี้</h2>
-    <h2 style="font-size: 18px; color: blue; font-weight: normal; line-height: 1;">${sortedPairs.join(' - ')}</h2>
-    <h2 style="font-size: 14px; color: red; line-height: 1;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 10px; color: blue; line-height: 1;">
-        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-    </p>
-    <p style="font-size: 16px; color: blue; line-height: 1;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    const resultHtml = `
+    <div id="resultContent" style="position: relative; text-align: center;">
+        <h2 style="color: blue; margin-bottom: 5px;">${selectedTopic}</h2>
+        <h3 style="color: blue; font-weight: normal; margin-bottom: 10px;">${dateDisplay}</h3>
+        
+        <h2 style="color: blue; margin-bottom: 8px;">
+            ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </h2>
+        
+        <h2 style="color: blue; margin-bottom: 8px;">จัดชุด 2 ตัวดังนี้</h2>
+        
+        <div class="number-pairs" style="color: blue; font-weight: bold; margin-bottom: 12px;">
+            ${sortedPairs.join(' - ')}
+        </div>
+        
+        <h2 style="color: red; font-size: 14px; margin-bottom: 10px;">แนวทางเท่านั้น</h2>
+        
+        <p class="translation" style="color: blue; margin-bottom: 8px;">
+            <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+        </p>
+        
+        <p class="note" style="color: blue;">
+            หมายเหตุ : <span style="color: red;">${noteInput}</span>
+        </p>
 </div>
 `;
 
@@ -254,8 +303,8 @@ const resultHtml = `
                 </div>
                 <div style="flex: 1; margin-left: 10px;">
                     <select id="personSelect">
-                     <option value="Team">Team</option>
                     <option value="@">@</option>
+                     <option value="Team">Team</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
                     <option value="เจ้าที่">เจ้าที่</option>
@@ -277,7 +326,7 @@ const resultHtml = `
             <input type="range" id="lineHeightSlider" min="0" max="2" step="0.1" value="1" />
             <p id="lineHeightValue">ความสูงของบรรทัด: 0.4</p>
 
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+<button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
      <footer>
 <div style="text-align: center; margin-bottom: 20px;">
         &copy; 2024 Juckmanphai. All Rights Reserved.
