@@ -79,18 +79,39 @@
         box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         line-height: 1.4; /* ลดช่องว่างใน form */
     }
- #resultContainer {
-           display: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-color: #ffffcc;
-        border: 2px solid #4CAF50;
-        padding: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+#resultContainer {
+    display: none;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #ffffcc;
+    border: 2px solid #4CAF50;
+    padding: 10px;
+    padding-left: 10px; /* เพิ่ม padding ด้านซ้าย */
+    padding-right: 10px; /* เพิ่ม padding ด้านขวา */
+    border-radius: 10px;
+    width: 90%; /* ลดขนาดให้เล็กลง 20% จากกรอบฟอร์ม */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    position: relative;
+    min-height: 300px;
+    padding-bottom: 30px;
 }
+
+        #resultContainer::before {
+            content: "";
+            background-image: url('logo.png');
+            background-size: 90% auto;
+            background-repeat: no-repeat;
+            background-position: center top 15px;
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            margin: auto;
+        }
 
 #resultContainer h2.blue, 
 #resultContainer p.blue, 
@@ -230,30 +251,34 @@ const fontSizeTranslation = "10px"; // ขนาดฟอนต์สำหร�
 // HTML ที่ใช้ตัวแปรฟอนต์
 let resultHtml = `
 <div id="resultContent" style="position: relative; text-align: center;">
-    <!-- ใช้ flexbox เพื่อจัดโลโก้และข้อความให้อยู่ในแนวเดียวกัน -->
-    <div style="display: flex; align-items: center; justify-content: center;">
-        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px;">
-        <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
-        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px;">
-    </div>
+    <!-- แสดงหัวข้อ -->
+    <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
+
     <!-- แสดงวันที่ในแถวที่สอง -->
     <p class="blue" style="font-size: ${fontSizeDate}; margin: 5px 0;">
         ${displayDate}
     </p>
+
     <h2 class="blue" style="font-size: ${fontSizeNumber};">
         ตัวเลข 4 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
+
     <h3 class="blue" style="font-size: ${fontSizeTwoDigit};">จัดชุด 2 ตัว</h3>
     <p class="blue" style="font-size: ${fontSizeTwoDigit};">${twoDigitPairs.join(' - ')}</p>
+
     <h3 class="blue" style="font-size: ${fontSizeThreeDigit};">จัดชุด 3 ตัว</h3>
     <p class="blue" style="font-size: ${fontSizeThreeDigit};">${threeDigitCombinations.join(' - ')}</p>
+
     <p class="blue" style="font-size: ${fontSizeGuide}; color: red;">แนวทางเท่านั้น</p>
+    
     <p class="note" style="font-size: ${fontSizeTranslation};">
         <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
     </p>
+
     <p class="blue" style="font-size: ${fontSizeNote};">หมายเหตุ: ${noteInput}</p>
 </div>
 `;
+
 
 // กำหนดผลลัพธ์ให้ปรากฏ
 const resultContainer = document.getElementById("resultContainer");
