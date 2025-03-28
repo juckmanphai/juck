@@ -658,43 +658,43 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
     : '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
-    resultContainer.innerHTML = `
-    <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px; color: blue;">
-        <!-- หัวข้อ -->
-        <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.2; font-weight: bold;">
-            ${selectedTopic}
-        </p>
-        <!-- วันที่ -->
-        <p style="font-size: 16px; margin: 0 0 15px 0;">
-            ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
-        </p>
-        <!-- ตัวเลข 3 ตัว -->
-        <h2 style="font-size: 16px; margin: 0 0 20px 0;">
-            ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-        </h2>
-        <!-- ชุดตัวเลขต่างๆ -->
-        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดเด่น 2 ตัว</h3>
-        <p style="font-size: 16px; margin: 0 0 15px 0;">${uniqueFirstSet.join(' - ')}</p>
-        
-        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดรอง 2 ตัว</h3>
-        <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredSecondSet.join(' - ')}</p>
-        
-        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-        <p style="font-size: 16px; margin: 0 0 15px 0;">${transformedPairsText}</p>
-        
-        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว (ปกติ)</h3>
-        <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredFinalThirdSet.join(' - ')}</p>
-        
-        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-        <p style="font-size: 16px; margin: 0 0 15px 0;">${additionalNumbersForThirdSetText}</p>
-        
-        <!-- ข้อความท้าย -->
-        <h2 style="font-size: 16px; margin: 20px 0 10px 0; color: red;">แนวทางเท่านั้น</h2>
-        <p style="font-size: 12px; margin: 0 0 10px 0;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-        <p style="font-size: 16px; margin: 0;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
-    </div>
-    `;
-    resultContainer.style.display = 'block';
+resultContainer.innerHTML = `
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.5; margin-top: 10px; color: blue;">
+    <!-- หัวข้อ -->
+    <p style="font-size: 16px; margin: 0 0 15px 0; font-weight: bold;">
+        ${selectedTopic}
+    </p>
+    <!-- วันที่ -->
+    <p style="font-size: 16px; margin: 0 0 15px 0;">
+        ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
+    </p>
+    <!-- ตัวเลข 3 ตัว -->
+    <h2 style="font-size: 16px; margin: 0 0 20px 0;">
+        ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+    </h2>
+    <!-- ชุดตัวเลขต่างๆ -->
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดเด่น 2 ตัว</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0;">${uniqueFirstSet.join(' - ')}</p>
+    
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดรอง 2 ตัว</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredSecondSet.join(' - ')}</p>
+    
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0;">${transformedPairsText}</p>
+    
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว (ปกติ)</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredFinalThirdSet.join(' - ')}</p>
+    
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0;">${additionalNumbersForThirdSetText}</p>
+    
+    <!-- ข้อความท้าย -->
+    <h2 style="font-size: 16px; margin: 20px 0 10px 0; color: red;">แนวทางเท่านั้น</h2>
+    <p style="font-size: 12px; margin: 0 0 10px 0;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+    <p style="font-size: 16px; margin: 0;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+</div>
+`;
+resultContainer.style.display = 'block';
 }
 
         document.getElementById("convertButton").addEventListener("click", convertNumber);
