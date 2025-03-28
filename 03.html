@@ -658,42 +658,43 @@ const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
     : '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 resultContainer.innerHTML = `
-<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 2; margin-top: 10px; color: blue;">
+<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.5; margin-top: 10px; color: blue;">
     <!-- หัวข้อ -->
-    <p style="font-size: 16px; margin: 0 0 15px 0; font-weight: bold; line-height: 2;">
+    <p style="font-size: 16px; margin: 0 0 15px 0; font-weight: bold; line-height: 1.5;">
         ${selectedTopic}
     </p>
     <!-- วันที่ -->
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">
         ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
     </p>
     <!-- ตัวเลข 3 ตัว -->
-    <h2 style="font-size: 16px; margin: 0 0 20px 0; line-height: 2;">
+    <h2 style="font-size: 16px; margin: 0 0 20px 0; line-height: 1.5;">
         ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
-    <!-- ชุดตัวเลขต่างๆ -->
-    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 2;">จัดชุดเด่น 2 ตัว</h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">${uniqueFirstSet.join(' - ')}</p>
     
-    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 2;">จัดชุดรอง 2 ตัว</h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">${filteredSecondSet.join(' - ')}</p>
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 1.5;">จัดชุดเด่น 2 ตัว</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">${uniqueFirstSet.join(' - ')}</p>
     
-    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 2;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">${transformedPairsText}</p>
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 1.5;">จัดชุดรอง 2 ตัว</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">${filteredSecondSet.join(' - ')}</p>
     
-    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 2;">จัดชุด 3 ตัว (ปกติ)</h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">${filteredFinalThirdSet.join(' - ')}</p>
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 1.5;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">${transformedPairsText}</p>
     
-    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 2;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2;">${additionalNumbersForThirdSetText}</p>
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 1.5;">จัดชุด 3 ตัว (ปกติ)</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">${filteredFinalThirdSet.join(' - ')}</p>
+    
+    <h3 style="font-size: 16px; margin: 10px 0 5px 0; line-height: 1.5;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.5;">${additionalNumbersForThirdSetText}</p>
     
     <!-- ข้อความท้าย -->
-    <h2 style="font-size: 16px; margin: 20px 0 10px 0; color: red; line-height: 2;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 12px; margin: 0 0 10px 0; line-height: 2;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-    <p style="font-size: 16px; margin: 0; line-height: 2;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    <h2 style="font-size: 16px; margin: 20px 0 10px 0; color: red; line-height: 1.5;">แนวทางเท่านั้น</h2>
+    <p style="font-size: 12px; margin: 0 0 10px 0; line-height: 1.5;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+    <p style="font-size: 16px; margin: 0; line-height: 1.5;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
 resultContainer.style.display = 'block';
+
 }
 
         document.getElementById("convertButton").addEventListener("click", convertNumber);
