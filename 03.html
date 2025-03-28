@@ -3,132 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
+    <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #fffde7;
             margin: 0;
             padding: 0;
+            line-height: 1.4;
         }
-
         h1 {
             text-align: center;
             font-size: 32px;
             color: #2c3e50;
             margin-top: 20px;
+            line-height: 1.2;
         }
-
+        
+        /* ปรับสไตล์ข้อความในผลลัพธ์ใหม่ */
+        #resultContent h2 {
+            font-size: 15px;
+            margin: 6px 0;
+            line-height: 1.2;
+        }
+        #resultContent h3 {
+            font-size: 14px;
+            margin: 6px 0;
+            line-height: 1.2;
+        }
+        #resultContent .number-pairs {
+            font-size: 15px;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+        #resultContent .note {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+        #resultContent .translation {
+            font-size: 12px;
+            margin: 6px 0;
+        }
+        
         .container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 15px;
-            background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 28px;
-	    line-height: 1;
-            margin-top: 15px;
-        }
-
-        input, select, button {
-            font-size: 20px;
-            padding: 12px; /* เพิ่มพื้นที่ภายในช่องกรอก */
-            width: 98%; /* เพิ่มความกว้าง */
-            margin: 12px 0; /* ลดระยะห่างระหว่างช่อง */
-            border-radius: 10px; /* มุมโค้งของช่องกรอก */
-            border: 1px solid #ccc;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* เพิ่มเงา */
-            background-color: #f9f9f9; /* สีพื้นหลังของช่องกรอก */
-            transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อ hover */
-        }
-
-        input:focus, select:focus {
-            border-color: #4CAF50;
-            font-size: 20px;
-            padding: 12px; /* เพิ่มพื้นที่ภายในช่องกรอก */
-            width: 98%; /* เพิ่มความกว้าง */
-            margin: 12px 0; /* ลดระยะห่างระหว่างช่อง */
-            border-radius: 20px; /* มุมโค้งของช่องกรอก */
-            border: 1px solid #ccc;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        button.back-button {
-            margin-top: 20px;
-            font-size: 20px;
-            max-width: 600px;
-            width: 100%;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        label {
-            font-size: 18px;
-            margin-left: 5%;
-            color: #2c3e50;
-        }
-
-        .blue {
-            color: blue;
-        }
-
-        .red {
-            color: red;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #95a5a6;
-        }
-
-        .form-container {
-            border: 2px solid orange;
-            background-color: #ffffff;
-            margin-top: 10px; /* ลดระยะขอบด้านบน */
-            margin-bottom: 10px; /* ลดระยะขอบด้านล่าง */
-            padding: 10px; /* ลดระยะห่างภายใน */
-            margin-left: 10px;
-            margin-right: 10px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-            line-height: 1;
-        }
-
-        #resultContainer {
-            display: none;
             margin-top: 20px;
             margin-bottom: 20px;
             background-color: #ffffcc;
             border: 2px solid #4CAF50;
             padding: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-left: auto;
+            margin-right: auto;
             border-radius: 20px;
-            line-height: 1.4; /
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            line-height: 1.4;
+        }
+
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            width: 90%;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            line-height: 1.2;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        label {
+            font-size: 18px;
+            margin-left: 5%;
+            color: #2c3e50;
+            line-height: 1.2;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #95a5a6;
+            line-height: 1.2;
+        }
+        
+        /* ปรับกรอบฟอร์มให้ตรงกับกรอบผลลัพธ์ */
+     .form-container {
+    border: 2px solid orange;
+    background-color: #ffffff;
+    margin: 10px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 90%; /* กรอบฟอร์มขนาด 90% */
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    line-height: 1;
+}
+
+#resultContainer {
+    display: none;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #ffffcc;
+    border: 2px solid #4CAF50;
+    padding: 10px;
+    padding-left: 10px; /* เพิ่ม padding ด้านซ้าย */
+    padding-right: 10px; /* เพิ่ม padding ด้านขวา */
+    border-radius: 10px;
+    width: 90%; /* ลดขนาดให้เล็กลง 20% จากกรอบฟอร์ม */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    position: relative;
+    min-height: 300px;
+    padding-bottom: 30px;
+}
+
+        #resultContainer::before {
+            content: "";
+            background-image: url('logo.png');
+            background-size: 90% auto;
+            background-repeat: no-repeat;
+            background-position: center top 15px;
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            margin: auto;
         }
 
         #resultContainer p {
             line-height: 0.2;
+        }
+
+        #lineHeightSlider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        #lineHeightValue {
+            font-size: 16px;
+            color: #2c3e50;
+            line-height: 1.2;
         }
     </style>
 
@@ -246,7 +274,7 @@ const uniquePairs = sortedTransformedPairs.filter(pair =>
 // Check if uniquePairs is empty
 let transformedPairsText = '';
 if (uniquePairs.length === 0) {
-    transformedPairsText = '<span style="color: orange;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+    transformedPairsText = '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 } else {
     transformedPairsText = uniquePairs.join(' - ');
 }
@@ -628,40 +656,45 @@ finalAdditionalNumbers.sort((a, b) => a - b);
 
 const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
-    : '<span style="color: orange;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+    : '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
-resultContainer.innerHTML = `
-<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px;">
-    <!-- โลโก้ย้ายไปแถวแรก และตั้งค่าให้อยู่ในระดับเดียวกับข้อความ -->
-    <p style="font-size: 16px; margin: 0; line-height: 1; display: inline-flex; align-items: center;">
-        <img src="logo.png" alt="Logo Left" style="width: 40px; margin-right: 2px; vertical-align: middle;">
-        <span class="blue" style="font-size: 15px; font-weight: bold; vertical-align: middle;">${selectedTopic}</span>
-        <img src="logo.png" alt="Logo Right" style="width: 40px; margin-left: 2px; vertical-align: middle;">
-    </p>
-    <!-- แสดงวันที่ในแถวที่สอง -->
-    <p class="blue" style="font-size: 16px; margin: 5px 0;">
-        ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
-    </p>
-    <h2 class="blue" style="font-size: 16px;">
-        ตัวเลข 3 ตัว  <span style="color: red;">${num}</span> By : ${selectedPerson}
-    </h2>
-    <h3 class="blue" style="font-size: 16px;">จัดชุดเด่น 2 ตัว</h3>
-    <p class="blue" style="font-size: 16px;">${uniqueFirstSet.join(' - ')}</p>
-    <h3 class="blue" style="font-size: 16px;">จัดชุดรอง 2 ตัว</h3>
-    <p class="blue" style="font-size: 16px;">${filteredSecondSet.join(' - ')}</p>
-<h3 class="blue" style="font-size: 16px;">จัดชุด 2 ตัว <span style="color: orange;">(แปลเพิ่ม)</span></h3>
-        <p class="blue" style="font-size: 16px;">${transformedPairsText}</p>
-    <h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว (ปกติ)</h3>
-    <p class="blue" style="font-size: 16px;">${filteredFinalThirdSet.join(' - ')}</p>
-<h3 class="blue" style="font-size: 16px;">จัดชุด 3 ตัว <span style="color: orange;">(แปลเพิ่ม)</span></h3>
-    <p class="blue" style="font-size: 16px;">${additionalNumbersForThirdSetText}</p>
-    <h2 class="red" style="font-size: 16px;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 10px; color: blue;"><strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}</p>
-    <p class="blue" style="font-size: 16px;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
-</div>
-`;
-resultContainer.style.display = 'block';
-
+    resultContainer.innerHTML = `
+    <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px; color: blue;">
+        <!-- หัวข้อ -->
+        <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.2; font-weight: bold;">
+            ${selectedTopic}
+        </p>
+        <!-- วันที่ -->
+        <p style="font-size: 16px; margin: 0 0 15px 0;">
+            ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
+        </p>
+        <!-- ตัวเลข 3 ตัว -->
+        <h2 style="font-size: 16px; margin: 0 0 20px 0;">
+            ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+        </h2>
+        <!-- ชุดตัวเลขต่างๆ -->
+        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดเด่น 2 ตัว</h3>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">${uniqueFirstSet.join(' - ')}</p>
+        
+        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุดรอง 2 ตัว</h3>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredSecondSet.join(' - ')}</p>
+        
+        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">${transformedPairsText}</p>
+        
+        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว (ปกติ)</h3>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">${filteredFinalThirdSet.join(' - ')}</p>
+        
+        <h3 style="font-size: 16px; margin: 10px 0 5px 0;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">${additionalNumbersForThirdSetText}</p>
+        
+        <!-- ข้อความท้าย -->
+        <h2 style="font-size: 16px; margin: 20px 0 10px 0; color: red;">แนวทางเท่านั้น</h2>
+        <p style="font-size: 12px; margin: 0 0 10px 0;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+        <p style="font-size: 16px; margin: 0;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    </div>
+    `;
+    resultContainer.style.display = 'block';
 }
 
         document.getElementById("convertButton").addEventListener("click", convertNumber);
@@ -706,8 +739,8 @@ resultContainer.style.display = 'block';
             <!-- Person Selection on the Right -->
             <div style="display: inline-block;">
                 <select id="personSelect" style="font-size: 18px; padding: 15px;">
+		    <option value="@">@</option>
                     <option value="Team">Team</option>
-                    <option value="@">@</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
                     <option value="เจ้าที่">เจ้าที่</option>
@@ -745,12 +778,12 @@ resultContainer.style.display = 'block';
 <p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
 
     <!-- Back Button -->
-        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+        <button class="back-button" onclick="window.location.href='https://juckphai.github.io/juckim/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
     <footer>
-        &copy; 2024 Juckmanphai. All Rights Reserved.
+        &copy; 2024 Juckphai. All Rights Reserved.
     </footer>
 </body>
 </html>
