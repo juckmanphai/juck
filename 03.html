@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
+    <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@
             margin-right: auto;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-            line-height: 0.5;
+            line-height: 1.4;
         }
 
         input, select, button {
@@ -113,20 +113,18 @@
 
 #resultContainer {
     display: none;
-    margin: 20px auto;
+    margin: 20px auto; /* จัดกลางแนวตั้งและแนวนอน */
     max-width: 600px;
     background-color: #FEFEF0;
     border: 2px solid #4CAF50;
-    padding: 10px;
-    padding-left: 10px; /* เพิ่ม padding ด้านซ้าย */
-    padding-right: 10px; /* เพิ่ม padding ด้านขวา */
+    padding: 10px; /* ระยะห่างทุกด้านเท่ากัน 10px */
     border-radius: 10px;
-    width: 90%; /* ลดขนาดให้เล็กลง 20% จากกรอบฟอร์ม */
+    width: fit-content; /* ปรับความกว้างให้พอดีกับเนื้อหา */
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
     position: relative;
     min-height: 300px;
-    padding-bottom: 30px;
+    box-sizing: border-box; /* รวม padding และ border ในความกว้าง */
 }
 
         #resultContainer::before {
@@ -150,14 +148,15 @@
         }
 
         #lineHeightSlider {
-            width: 100%;
-            margin: 10px 0;
+            width: 80%;
+            margin: 10px auto;
         }
         #lineHeightValue {
             font-size: 16px;
             color: #2c3e50;
             line-height: 2;
         }
+
     </style>
 
     <script>
@@ -165,17 +164,31 @@
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
+        
         // Function to update line height based on slider value
         function updateLineHeight() {
             const lineHeight = document.getElementById("lineHeightSlider").value;
             const resultContent = document.getElementById("resultContent");
+            
+            // ตั้งค่าความสูงของบรรทัดให้กับทุกองค์ประกอบใน resultContent
+            const elements = resultContent.querySelectorAll('*');
+            elements.forEach(element => {
+                element.style.lineHeight = lineHeight;
+            });
+            
+            // ตั้งค่าความสูงของบรรทัดให้กับ resultContent เอง
             resultContent.style.lineHeight = lineHeight;
+            
             document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("convertButton").addEventListener("click", convertNumber);
             document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
+            
+            // ตั้งค่าเริ่มต้นของ slider ที่ 1.00
+            document.getElementById("lineHeightSlider").value = 1.0;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
         });
 
         function sortPair(pair) {
@@ -183,15 +196,14 @@
             return digits[0] > digits[1] ? digits[1] + digits[0] : pair;
         }
 
-function getThaiDate(date = new Date()) {
-    const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
-    const year = date.getFullYear() + 543;
-    const dayOfWeek = daysOfWeek[date.getDay()];  // หา วันในสัปดาห์
-    return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
-}
-
+        function getThaiDate(date = new Date()) {
+            const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+            const year = date.getFullYear() + 543;
+            const dayOfWeek = daysOfWeek[date.getDay()];
+            return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+        }
 
         function getThaiTime() {
             const now = new Date();
@@ -657,8 +669,10 @@ finalAdditionalNumbers.sort((a, b) => a - b);
 const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
     ? finalAdditionalNumbers.join(' - ')
     : '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+
+const resultContainer = document.getElementById("resultContainer");
 resultContainer.innerHTML = `
-<div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.2; margin-top: 10px; color: blue;">
+              <div id="resultContent" style="position: relative; text-align: center; font-size: 18px; line-height: 1.0; margin-top: 10px; color: blue;">
     <!-- หัวข้อ -->
     <p style="font-size: 16px; margin: 0 0 15px 0; font-weight: bold; line-height: 1.2;">
         ${selectedTopic}
@@ -695,12 +709,14 @@ resultContainer.innerHTML = `
 `;
 resultContainer.style.display = 'block';
 
-}
 
-        document.getElementById("convertButton").addEventListener("click", convertNumber);
+            // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 1.00
+            document.getElementById("lineHeightSlider").value = 1.0;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
+            updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
+        }
     </script>
 </head>
-<body>
 <div class="form-container">
     <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
     <div style="text-align: center; margin-top: 20px;">
@@ -739,7 +755,7 @@ resultContainer.style.display = 'block';
             <!-- Person Selection on the Right -->
             <div style="display: inline-block;">
                 <select id="personSelect" style="font-size: 18px; padding: 15px;">
-		    <option value="Team">Team</option>
+                    <option value="Team">Team</option>
 		    <option value="@">@</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
@@ -749,7 +765,7 @@ resultContainer.style.display = 'block';
         </div>
         <!-- Convert Button -->
         <div style="text-align: center; margin-top: 10px;">
-            <button onclick="convertNumber()" style="font-size: 18px; padding: 10px;">แปลตัวเลข</button>
+            <button id="convertButton" style="font-size: 18px; padding: 10px;">แปลตัวเลข</button>
         </div>
 
         <!-- Note Input -->
@@ -770,12 +786,11 @@ resultContainer.style.display = 'block';
 <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
 <input type="range" 
        id="lineHeightSlider" 
-       min="0" 
+       min="0.5" 
        max="2" 
        step="0.1" 
-       value="1" 
-       onchange="updateLineHeight()">
-<p>ค่าปัจจุบัน: <span id="lineHeightValue">0.3</span></p>
+       value="1.2">
+<p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
 
     <!-- Back Button -->
         <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
