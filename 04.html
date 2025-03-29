@@ -79,29 +79,29 @@
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
             line-height: 1.4;
         }
-#resultContainer {
-    display: none;
-    margin: 20px auto;
-    max-width: 600px;
-    background-color: #FEFEF0;
-    border: 2px solid #4CAF50;
-    padding: 10px;
-    border-radius: 10px;
-    width: fit-content;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-    position: relative;
-    min-height: 300px;
-    box-sizing: border-box;
-}
-
+        #resultContainer {
+            display: none;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #FEFEF0;
+            border: 2px solid #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            position: relative;
+            min-height: 300px;
+            box-sizing: border-box;
+            line-height: 1.2;
+        }
         #resultContainer::before {
             content: "";
             background-image: url('logo.png');
             background-size: 90% auto;
             background-repeat: no-repeat;
             background-position: center top 15px;
-            opacity: 0.4;
+            opacity: 0.3;
             position: absolute;
             top: 0;
             left: 0;
@@ -110,35 +110,28 @@
             z-index: 0;
             margin: auto;
         }
-
         #resultContainer h2.blue, 
         #resultContainer p.blue, 
         #resultContainer h3.blue {
             color: #0000ff;
         }
-
         #resultContainer h3.red {
             color: red;
         }
-
         #resultContainer p.note {
             font-size: 14px;
             color: blue;
         }
-
         #resultContainer img {
             width: 40px;
             margin-right: 2px;
         }
-
         #resultContainer img.left {
             margin-right: 2px;
         }
-
         #resultContainer img.right {
             right: 0;
         }
-
         #lineHeightSlider {
             width: 100%;
             margin: 10px 0;
@@ -166,26 +159,21 @@
         }
     </style>
     <script>
-        // ปิดการคลิกขวา
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Function to update line height based on slider value
         function updateLineHeight() {
             const lineHeight = document.getElementById("lineHeightSlider").value;
             const resultContent = document.getElementById("resultContent");
             
             if (resultContent) {
-                // ตั้งค่าความสูงของบรรทัดให้กับทุกองค์ประกอบใน resultContent
                 const elements = resultContent.querySelectorAll('*');
                 elements.forEach(element => {
                     element.style.lineHeight = lineHeight;
                 });
                 
-                // ตั้งค่าความสูงของบรรทัดให้กับ resultContent เอง
                 resultContent.style.lineHeight = lineHeight;
-                
                 document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
             }
         }
@@ -194,9 +182,9 @@
             document.getElementById("convertButton").addEventListener("click", convertNumber);
             document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
-            // ตั้งค่าเริ่มต้นของ slider เป็น 1.0
-            document.getElementById("lineHeightSlider").value = 1.0;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
+            // ตั้งค่าเริ่มต้นของ slider เป็น 1.2
+            document.getElementById("lineHeightSlider").value = 1.2;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
         });
 
         function sortDigits(str) {
@@ -276,7 +264,7 @@
             const fontSizeTranslation = "14px";
 
             let resultHtml = `
-            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.0;">
+            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.2;">
                 <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
                 <p class="blue" style="font-size: ${fontSizeDate}; margin: 5px 0;">${displayDate}</p>
                 <h2 class="blue" style="font-size: ${fontSizeNumber};">
@@ -298,8 +286,8 @@
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
             
-            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.0
-            document.getElementById("lineHeightSlider").value = 1.0;
+            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.2
+            document.getElementById("lineHeightSlider").value = 1.2;
             updateLineHeight();
         }
     </script>
@@ -310,8 +298,8 @@
         <div class="input-group form-group">
             <input type="text" id="numberInput" placeholder="กรอกตัวเลข 4 หลัก">
             <select id="personSelect">
-                <option value="Team">Team</option> 
-               <option value="@">@</option>
+                <option value="@">@</option>
+                <option value="Team">Team</option>
                 <option value="โรงงาน">โรงงาน</option>
                 <option value="Udon Don">Udon Don</option>
                 <option value="เจ้าที่">เจ้าที่</option>
@@ -359,11 +347,11 @@
     
     <div style="text-align: center; margin: 10px auto; max-width: 600px;">
         <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
-        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.0">
-        <p id="lineHeightValue">ความสูงของบรรทัด: 1.0</p>
+        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.2">
+        <p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
     </div>
 
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
 </body>
 </html>
