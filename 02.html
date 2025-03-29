@@ -126,7 +126,7 @@
             background-size: 90% auto;
             background-repeat: no-repeat;
             background-position: center top 15px;
-            opacity: 0.4;
+            opacity: 0.3;
             position: absolute;
             top: 0;
             left: 0;
@@ -220,7 +220,7 @@
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
             const resultHtml = `
-            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.0;">
+            <div id="resultContent" style="position: relative; text-align: center; line-height: 2.0;">
                 <h2 style="color: blue; margin-bottom: 5px;">${selectedTopic}</h2>
                 <h3 style="color: blue; font-weight: normal; margin-bottom: 10px;">${dateDisplay}</h3>
                 
@@ -250,8 +250,8 @@
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
             
-            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.0
-            document.getElementById("lineHeightSlider").value = 1.0;
+            // ตั้งค่า lineHeight เริ่มต้นเป็น 2.0
+            document.getElementById("lineHeightSlider").value = 2.0;
             updateLineHeight();
         }
 
@@ -274,9 +274,9 @@
             document.getElementById("convertButton").addEventListener("click", convertNumber);
             document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
-            // ตั้งค่าเริ่มต้นของ slider เป็น 1.0
-            document.getElementById("lineHeightSlider").value = 1.0;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
+            // ตั้งค่าเริ่มต้นของ slider เป็น 2.0
+            document.getElementById("lineHeightSlider").value = 2.0;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 2.0";
         });
     </script>
 </head>
@@ -312,8 +312,8 @@
             </div>
             <div style="flex: 1; margin-left: 10px;">
                 <select id="personSelect">
-                   <option value="Team">Team</option>
                     <option value="@">@</option>
+                    <option value="Team">Team</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
                     <option value="เจ้าที่">เจ้าที่</option>
@@ -334,8 +334,8 @@
     <!-- Slider ปรับความสูงของบรรทัด -->
     <div style="text-align: center; margin: 10px auto; max-width: 600px;">
         <label for="lineHeightSlider">ปรับความสูงของบรรทัด:</label>
-        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.0" />
-        <p id="lineHeightValue">ความสูงของบรรทัด: 1.0</p>
+        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="2.0" />
+        <p id="lineHeightValue">ความสูงของบรรทัด: 2.0</p>
     </div>
 
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
