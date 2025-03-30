@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
     <style>
+        /* Base Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #fffde7;
@@ -12,6 +13,7 @@
             padding: 0;
             line-height: 1.4;
         }
+        
         h1 {
             text-align: center;
             font-size: 32px;
@@ -20,45 +22,22 @@
             line-height: 2;
         }
         
-        /* ปรับสไตล์ข้อความในผลลัพธ์ใหม่ */
-        #resultContent h2 {
-            font-size: 22px;
-            margin: 6px 0;
+        label {
+            font-size: 18px;
+            margin-left: 5%;
+            color: #2c3e50;
             line-height: 2;
-        }
-        #resultContent h3 {
-            font-size: 20px;
-            margin: 6px 0;
-            line-height: 2;
-        }
-        #resultContent .number-pairs {
-            font-size: 20px;
-            margin: 8px 0;
-            font-weight: bold;
-        }
-        #resultContent .note {
-            font-size: 20px;
-            margin: 8px 0;
-        }
-        #resultContent .translation {
-            font-size: 16px;
-            margin: 6px 0;
         }
         
-        .container {
-            max-width: 600px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
+        footer {
+            text-align: center;
             padding: 20px;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-            line-height: 1.4;
+            font-size: 14px;
+            color: #95a5a6;
+            line-height: 2;
         }
-
+        
+        /* Form Elements */
         input, select, button {
             font-size: 18px;
             padding: 10px;
@@ -71,62 +50,69 @@
             margin-right: auto;
             line-height: 2;
         }
+        
         button {
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            line-height: 2;
         }
+        
         button:hover {
             background-color: #45a049;
         }
-        label {
-            font-size: 18px;
-            margin-left: 5%;
+        
+        #lineHeightSlider {
+            width: 80%;
+            margin: 10px auto;
+        }
+        
+        #lineHeightValue {
+            font-size: 16px;
             color: #2c3e50;
             line-height: 2;
         }
-        footer {
-            text-align: center;
+        
+        /* Containers */
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffcc;
+            border: 2px solid #4CAF50;
             padding: 20px;
-            font-size: 14px;
-            color: #95a5a6;
-            line-height: 2;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         }
         
-        /* ปรับกรอบฟอร์มให้ตรงกับกรอบผลลัพธ์ */
-     .form-container {
-    border: 2px solid orange;
-    background-color: #ffffff;
-    margin: 10px auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    width: 90%; /* กรอบฟอร์มขนาด 90% */
-    max-width: 600px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-    line-height: 0.5;
-}
-
-#resultContainer {
-    display: none;
-    margin: 20px auto; /* จัดกลางแนวตั้งและแนวนอน */
-    max-width: 600px;
-    background-color: #FEFEF0;
-    border: 2px solid #4CAF50;
-    padding: 10px; /* ระยะห่างทุกด้านเท่ากัน 10px */
-    border-radius: 10px;
-    width: fit-content; /* ปรับความกว้างให้พอดีกับเนื้อหา */
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-    position: relative;
-    min-height: 300px;
-    box-sizing: border-box; /* รวม padding และ border ในความกว้าง */
-}
-
+        .form-container {
+            border: 2px solid orange;
+            background-color: #ffffff;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        }
+        
+        /* Result Container */
+        #resultContainer {
+            display: none;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #FEFEF0;
+            border: 2px solid #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            position: relative;
+            min-height: 300px;
+            box-sizing: border-box;
+        }
+        
         #resultContainer::before {
             content: "";
             background-image: url('logo.png');
@@ -142,21 +128,52 @@
             z-index: 0;
             margin: auto;
         }
-
+        
+        /* Result Content */
+        #resultContent h2 {
+            font-size: 22px;
+            margin: 6px 0;
+            line-height: 2;
+        }
+        
+        #resultContent h3 {
+            font-size: 20px;
+            margin: 6px 0;
+            line-height: 2;
+        }
+        
+        #resultContent .number-pairs {
+            font-size: 20px;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+        
+        #resultContent .note {
+            font-size: 20px;
+            margin: 8px 0;
+        }
+        
+        #resultContent .translation {
+            font-size: 16px;
+            margin: 6px 0;
+        }
+        
         #resultContainer p {
             line-height: 0.2;
         }
-
-        #lineHeightSlider {
-            width: 80%;
-            margin: 10px auto;
+        
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .form-container, #resultContainer {
+                width: calc(100% - 20px) !important;
+                margin-left: 10px !important;
+                margin-right: 10px !important;
+            }
+            
+            input, select, button {
+                width: calc(100% - 20px) !important;
+            }
         }
-        #lineHeightValue {
-            font-size: 16px;
-            color: #2c3e50;
-            line-height: 2;
-        }
-
     </style>
 
     <script>
@@ -755,8 +772,8 @@ resultContainer.style.display = 'block';
             <!-- Person Selection on the Right -->
             <div style="display: inline-block;">
                 <select id="personSelect" style="font-size: 18px; padding: 15px;">
-		    <option value="Team">Team</option>
-	            <option value="@">@</option>
+		    <option value="@">@</option>
+                    <option value="Team">Team</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
                     <option value="เจ้าที่">เจ้าที่</option>
@@ -793,7 +810,7 @@ resultContainer.style.display = 'block';
 <p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
 
     <!-- Back Button -->
-          <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+         <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
