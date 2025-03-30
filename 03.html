@@ -73,17 +73,7 @@
             line-height: 2;
         }
         
-        /* Containers */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        }
-        
+        /* Form Container */
         .form-container {
             border: 2px solid orange;
             background-color: #ffffff;
@@ -105,7 +95,7 @@
             border: 2px solid #4CAF50;
             padding: 10px;
             border-radius: 10px;
-            width: fit-content;
+            width: 90%;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
             position: relative;
@@ -158,20 +148,16 @@
             margin: 6px 0;
         }
         
-        #resultContainer p {
-            line-height: 0.2;
-        }
-        
         /* Responsive Styles */
         @media only screen and (max-width: 600px) {
             .form-container, #resultContainer {
-                width: calc(100% - 20px) !important;
-                margin-left: 10px !important;
-                margin-right: 10px !important;
+                width: calc(100% - 20px);
+                margin-left: 10px;
+                margin-right: 10px;
             }
             
             input, select, button {
-                width: calc(100% - 20px) !important;
+                width: calc(100% - 20px);
             }
         }
     </style>
@@ -199,14 +185,14 @@
             document.getElementById("lineHeightValue").textContent = `ความสูงของบรรทัด: ${lineHeight}`;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("convertButton").addEventListener("click", convertNumber);
-            document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("convertButton").addEventListener("click", convertNumber);
+        document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
-            // ตั้งค่าเริ่มต้นของ slider ที่ 1.00
-            document.getElementById("lineHeightSlider").value = 1.0;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
-        });
+            // ตั้งค่าเริ่มต้นของ slider ที่ 1.2
+        document.getElementById("lineHeightSlider").value = 1.2;
+        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
+    });
 
         function sortPair(pair) {
             const digits = pair.split('');
@@ -728,10 +714,10 @@ resultContainer.style.display = 'block';
 
 
             // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 1.00
-            document.getElementById("lineHeightSlider").value = 1.0;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.0";
-            updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
-        }
+        document.getElementById("lineHeightSlider").value = 1.2;
+        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
+        updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
+    }
     </script>
 </head>
 <div class="form-container">
@@ -810,7 +796,7 @@ resultContainer.style.display = 'block';
 <p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
 
     <!-- Back Button -->
-         <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+          <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
