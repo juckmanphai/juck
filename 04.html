@@ -67,18 +67,18 @@
             color: #95a5a6;
             line-height: 1.2;
         }
-        .form-container {
-            border: 2px solid orange;
-            background-color: #ffffff;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-            line-height: 1.4;
-        }
+    .form-container {
+        border: 2px solid orange;
+        background-color: #ffffff;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: calc(100% - 40px); /* ปรับให้เท่ากับ resultContainer */
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+        line-height: 1.4;
+    }
     #resultContainer {
         display: none;
         margin: 20px auto;
@@ -87,7 +87,7 @@
         border: 2px solid #4CAF50;
         padding: 10px;
         border-radius: 10px;
-        width: calc(100% - 10px); /* เปลี่ยนจาก fit-content เป็น calc(100% - 10px) */
+        width: calc(100% - 40px);
         text-align: center;
         box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
         position: relative;
@@ -96,10 +96,15 @@
         line-height: 1.2;
     }
     @media only screen and (max-width: 600px) {
+        .form-container, 
         #resultContainer {
+            width: calc(100% - 20px); /* ห่างจากขอบด้านละ 10px */
             margin-left: 10px;
             margin-right: 10px;
-            width: calc(100% - 10px); /* ห่างจากขอบด้านละ 10px */
+        }
+        
+        input, select, button {
+            width: calc(100% - 20px);
         }
     }
         #resultContainer::before {
