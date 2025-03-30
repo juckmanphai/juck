@@ -19,19 +19,6 @@
             margin-top: 20px;
             line-height: 1.2;
         }
-        .container {
-            display: none;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            background-color: #ffffcc;
-            border: 2px solid #4CAF50;
-            padding: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);   
-            line-height: 1;
-        }
         input, select, button {
             font-size: 18px;
             padding: 10px;
@@ -67,46 +54,27 @@
             color: #95a5a6;
             line-height: 1.2;
         }
-    .form-container {
-        border: 2px solid orange;
-        background-color: #ffffff;
-        margin: 20px auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: calc(100% - 40px); /* ปรับให้เท่ากับ resultContainer */
-        max-width: 600px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        line-height: 1.4;
-    }
-    #resultContainer {
-        display: none;
-        margin: 20px auto;
-        max-width: 600px;
-        background-color: #FEFEF0;
-        border: 2px solid #4CAF50;
-        padding: 10px;
-        border-radius: 10px;
-        width: calc(100% - 40px);
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        position: relative;
-        min-height: 300px;
-        box-sizing: border-box;
-        line-height: 1.2;
-    }
-    @media only screen and (max-width: 600px) {
         .form-container, 
         #resultContainer {
-            width: calc(100% - 20px); /* ห่างจากขอบด้านละ 10px */
-            margin-left: 10px;
-            margin-right: 10px;
+            border: 2px solid orange;
+            background-color: #ffffff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(100% - 40px);
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            line-height: 1.4;
         }
-        
-        input, select, button {
-            width: calc(100% - 20px);
+        #resultContainer {
+            display: none;
+            background-color: #FEFEF0;
+            border: 2px solid #4CAF50;
+            position: relative;
+            min-height: 300px;
+            box-sizing: border-box;
         }
-    }
         #resultContainer::before {
             content: "";
             background-image: url('logo.png');
@@ -168,6 +136,20 @@
         }
         #convertButton {
             margin-top: 10px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .form-container, 
+            #resultContainer {
+                width: calc(100% - 20px);
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 15px;
+            }
+            
+            input, select, button {
+                width: calc(100% - 20px);
+            }
         }
     </style>
     <script>
@@ -363,7 +345,7 @@
         <p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
     </div>
 
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+       <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
 </body>
 </html>
