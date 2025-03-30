@@ -187,9 +187,9 @@
         document.getElementById("convertButton").addEventListener("click", convertNumber);
         document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
-            // ตั้งค่าเริ่มต้นของ slider ที่ 1.2
-        document.getElementById("lineHeightSlider").value = 1.2;
-        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
+            // ตั้งค่าเริ่มต้นของ slider ที่ 1
+        document.getElementById("lineHeightSlider").value = 1;
+        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1";
     });
 
         function sortPair(pair) {
@@ -675,45 +675,45 @@ const resultContainer = document.getElementById("resultContainer");
 resultContainer.innerHTML = `
               <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 1.0; margin-top: 10px; color: blue;">
     <!-- หัวข้อ -->
-    <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 1.2;">
+    <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 1;">
         ${selectedTopic}
     </p>
     <!-- วันที่ -->
-    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">
+    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">
         ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
     </p>
     <!-- ตัวเลข 3 ตัว -->
-    <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 1.2;">
+    <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 1;">
         ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
     </h2>
     
-    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุดเด่น 2 ตัว</h3>
-    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">${uniqueFirstSet.join(' - ')}</p>
+    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุดเด่น 2 ตัว</h3>
+    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">${uniqueFirstSet.join(' - ')}</p>
     
-    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุดรอง 2 ตัว</h3>
-    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">${filteredSecondSet.join(' - ')}</p>
+    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุดรอง 2 ตัว</h3>
+    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">${filteredSecondSet.join(' - ')}</p>
     
-    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">${transformedPairsText}</p>
+    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุด 2 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">${transformedPairsText}</p>
     
-    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุด 3 ตัว (ปกติ)</h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.2;">${filteredFinalThirdSet.join(' - ')}</p>
+    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุด 3 ตัว (ปกติ)</h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1;">${filteredFinalThirdSet.join(' - ')}</p>
     
-    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
-    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1.2;">${additionalNumbersForThirdSetText}</p>
+    <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุด 3 ตัว <span style="color: red;">(แปลเพิ่ม)</span></h3>
+    <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1;">${additionalNumbersForThirdSetText}</p>
     
     <!-- ข้อความท้าย -->
-    <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1.2;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 14px; margin: 0 0 10px 0; line-height: 1.2;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-    <p style="font-size: 18px; margin: 0; line-height: 1.2;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+    <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1;">แนวทางเท่านั้น</h2>
+    <p style="font-size: 14px; margin: 0 0 10px 0; line-height: 1;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+    <p style="font-size: 18px; margin: 0; line-height: 1;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
 resultContainer.style.display = 'block';
 
 
             // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 1.00
-        document.getElementById("lineHeightSlider").value = 1.2;
-        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
+        document.getElementById("lineHeightSlider").value = 1;
+        document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1";
         updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
     }
     </script>
@@ -790,8 +790,8 @@ resultContainer.style.display = 'block';
        min="0.5" 
        max="2" 
        step="0.1" 
-       value="1.2">
-<p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
+       value="1">
+<p id="lineHeightValue">ความสูงของบรรทัด: 1</p>
 
     <!-- Back Button -->
           <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
