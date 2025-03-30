@@ -138,19 +138,19 @@
             margin-top: 10px;
         }
         
-        @media only screen and (max-width: 600px) {
-            .form-container, 
-            #resultContainer {
-                width: calc(100% - 20px);
-                margin-left: 10px;
-                margin-right: 10px;
-                padding: 15px;
-            }
-            
-            input, select, button {
-                width: calc(100% - 20px);
-            }
-        }
+@media only screen and (max-width: 600px) {
+    .form-container, 
+    #resultContainer {
+        width: calc(100% - 20px); /* ทำให้ขอบทั้งสองข้างห่างจากขอบหน้าจอ 10px */
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 15px;
+    }
+    
+    input, select, button {
+        width: calc(100% - 20px);
+    }
+}
     </style>
     <script>
         document.addEventListener('contextmenu', function(e) {
