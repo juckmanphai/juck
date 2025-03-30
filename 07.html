@@ -17,7 +17,7 @@
             text-align: center;
             color: #e65100;
             margin-top: 10px;
-            font-size: 28px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 28px;
         }
         .result {
             position: relative;
@@ -50,32 +50,31 @@
         }
         .blue { 
             color: blue; 
-            font-size: 24px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 24px;
         }
         .red { color: red; }
         .circle, .circle-green {
             display: inline-block;
             border: 3px solid red;
             border-radius: 50%;
-            font-size: 28px; /* ปรับขนาดใหญ่ขึ้น */
-            width: 50px; /* ปรับขนาดใหญ่ขึ้น */
-            height: 50px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 28px;
+            width: 50px;
+            height: 50px;
             text-align: center;
-            line-height: 52px; /* ปรับตามขนาดใหม่ */
+            line-height: 52px;
             margin: 0 5px;
         }
         .square {
             display: inline-block;
             border: 3px solid red;
-            font-size: 28px; /* ปรับขนาดใหญ่ขึ้น */
-            width: 80px; /* ปรับขนาดใหญ่ขึ้น */
-            height: 50px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 28px;
+            width: 80px;
+            height: 50px;
             text-align: center;
-            line-height: 52px; /* ปรับตามขนาดใหม่ */
+            line-height: 52px;
             margin: 0 8px;
             box-sizing: border-box;
         }
-        /* เพิ่มสไตล์สำหรับสี่เหลี่ยมสองตัวบน */
         .square-two {
             display: inline-block;
             border: 3px solid red;
@@ -91,11 +90,11 @@
             display: inline-block;
             background-color: white;
             color: red;
-            font-size: 28px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 28px;
             font-weight: bold;
-            width: 36px; /* ปรับขนาดใหญ่ขึ้น */
-            height: 36px; /* ปรับขนาดใหญ่ขึ้น */
-            line-height: 38px; /* ปรับตามขนาดใหม่ */
+            width: 36px;
+            height: 36px;
+            line-height: 38px;
             text-align: center;
             border: 2px solid blue;
             border-radius: 50px;
@@ -111,7 +110,7 @@
             border-radius: 5px;
             cursor: pointer;
             padding: 10px 20px;
-            font-size: 18px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 18px;
             transition: background-color 0.3s;
         }
         .back-button:hover, .action-button:hover {
@@ -132,7 +131,7 @@
             background-color: #e3f2fd;
             color: #1a237e;
             font-weight: bold;
-            font-size: 22px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 22px;
             padding: 12px;
             border: 2px solid #1a237e;
             border-radius: 10px;
@@ -146,7 +145,7 @@
             outline: none;
         }
         input, select, button {
-            font-size: 18px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 18px;
             padding: 10px;
             margin: 8px 0;
             border: 2px solid #ddd;
@@ -161,14 +160,13 @@
         }
         input[type="text"]::placeholder { 
             text-align: center;
-            font-size: 18px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 18px;
         }
         .select-container label {
-            font-size: 20px; /* ปรับขนาดใหญ่ขึ้น */
+            font-size: 20px;
         }
     </style>
     <script>
-        // Disable right-click
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -202,7 +200,7 @@
     <div class="button-container">
         <button id="circleButton" style="font-size: 18px;">วงกลมล่าง</button>
         <button id="squareButton" style="font-size: 18px;">สี่เหลี่ยมสามตัวบน</button>
-        <button id="circleTopButton" style="font-size: 18px;">สี่เหลี่ยมสองตัวบน</button> <!-- เปลี่ยนชื่อปุ่ม -->
+        <button id="circleTopButton" style="font-size: 18px;">สี่เหลี่ยมสองตัวบน</button>
     </div>
 
     <footer>
@@ -210,16 +208,17 @@
     </footer>
     
     <script>
-        // Set the default date in the date input field
         function setDefaultDate() {
             const dateInput = document.getElementById("dateInput");
             if (dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.value = today;
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                dateInput.value = `${year}-${month}-${day}`;
             }
         }
 
-        // Convert the input number and display the result
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const selectedTopic = document.getElementById("topicSelect").value;
@@ -237,7 +236,6 @@
             const date = dateInput ? new Date(dateInput) : new Date();
             const thaiDate = getThaiDate(date);
 
-            let resultHtml = `
             let resultHtml = `
                 <div style="position: relative; text-align: center; line-height: 2;">
                     <h3 class="blue" style="font-size: 24px; margin: 10px 0;">
@@ -264,7 +262,6 @@
             }
         }
 
-        // เปลี่ยนจากวงกลมเป็นสี่เหลี่ยมสองตัวบน
         function createSquareTop() {
             const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
             if (threeDigitsDisplay) {
@@ -276,7 +273,6 @@
             }
         }
 
-        // วงกลมสองตัวล่าง (คงเดิม)
         function createCircle() {
             const twoDigitsDisplay = document.getElementById("twoDigitsDisplay");
             if (twoDigitsDisplay) {
@@ -286,7 +282,6 @@
             }
         }
 
-        // สี่เหลี่ยมสามตัวบน (คงเดิม)
         function createSquare() {
             const threeDigitsDisplay = document.getElementById("threeDigitsDisplay");
             if (threeDigitsDisplay) {
@@ -305,7 +300,6 @@
             setDefaultDate();
         });
 
-        // Convert a Date object to a formatted Thai date
         function getThaiDate(date = new Date()) {
             const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
             const day = String(date.getDate()).padStart(2, '0');
