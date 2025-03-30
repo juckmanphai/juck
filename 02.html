@@ -44,6 +44,11 @@
             margin: 8px 0;
             line-height: inherit;
         }
+#resultContent .date-time {
+    font-size: 14px; /* ลดจาก 16px */
+    margin: 6px 0;
+    line-height: inherit;
+}
         .container {
             max-width: 600px;
             margin-top: 20px;
@@ -234,32 +239,32 @@
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
-            const resultHtml = `
-            <div id="resultContent" style="position: relative; text-align: center; line-height: 2.0;">
-                <h2 style="color: blue; margin-bottom: 5px;">${selectedTopic}</h2>
-                <h3 style="color: blue; font-weight: normal; margin-bottom: 10px;">${dateDisplay}</h3>
-                
-                <h2 style="color: blue; margin-bottom: 8px;">
-                    ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-                </h2>
-                
-                <h2 style="color: blue; margin-bottom: 8px;">จัดชุด 2 ตัวดังนี้</h2>
-                
-                <div class="number-pairs" style="color: blue; font-weight: bold; margin-bottom: 12px;">
-                    ${sortedPairs.join(' - ')}
-                </div>
-                
-                <h2 style="color: red; font-size: 14px; margin-bottom: 10px;">แนวทางเท่านั้น</h2>
-                
-                <p class="translation" style="color: blue; margin-bottom: 8px;">
-                    <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-                </p>
-                
-                <p class="note" style="color: blue;">
-                    หมายเหตุ : <span style="color: red;">${noteInput}</span>
-                </p>
-            </div>
-            `;
+ const resultHtml = `
+<div id="resultContent" style="position: relative; text-align: center; line-height: 2.0;">
+    <h2 style="color: blue; margin-bottom: 5px;">${selectedTopic}</h2>
+    <h3 style="color: blue; font-weight: normal; margin-bottom: 10px;">${dateDisplay}</h3>
+    
+    <h2 style="color: blue; margin-bottom: 8px;">
+        ตัวเลข 2 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+    </h2>
+    
+    <h2 style="color: blue; margin-bottom: 8px;">จัดชุด 2 ตัวดังนี้</h2>
+    
+    <div class="number-pairs" style="color: blue; font-weight: bold; margin-bottom: 12px;">
+        ${sortedPairs.join(' - ')}
+    </div>
+    
+    <h2 style="color: red; font-size: 14px; margin-bottom: 10px;">แนวทางเท่านั้น</h2>
+    
+    <p class="date-time" style="color: blue; margin-bottom: 8px;">
+        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+    </p>
+    
+    <p class="note" style="color: blue;">
+        หมายเหตุ : <span style="color: red;">${noteInput}</span>
+    </p>
+</div>
+`;
 
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
