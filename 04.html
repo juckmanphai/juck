@@ -5,69 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ฟอร์มแปลตัวเลข 4 ตัว</title>
     <style>
-        /* Base Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fffde7;
-            margin: 0;
-            padding: 0;
-            line-height: 1.4;
+        /* Reset และปรับพื้นฐานให้คมชัด */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
         
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff9e6; /* ปรับพื้นหลังให้อ่อนลงเล็กน้อย */
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            color: #333; /* สีหลักเข้มขึ้น */
+        }
+        
+        /* ปรับสีให้คมชัดมากขึ้น */
         .blue {
-            color: #1e88e5;
+            color: #004080; /* น้ำเงินเข้ม */
+            font-weight: 600;
         }
         
         #resultContent h2, 
         #resultContent h3,
         #resultContent p {
-            color: #1e88e5;
+            color: #003366; /* น้ำเงินเข้มมาก */
+            font-weight: 600;
+            text-shadow: none; /* ลบเงาที่อาจทำให้มัว */
         }
         
         h1 {
             text-align: center;
             font-size: 32px;
-            color: #2c3e50;
+            color: #000033; /* ใกล้สีดำ */
             margin-top: 20px;
             line-height: 2;
+            font-weight: 700; /* หนาเต็มพิกัด */
+            letter-spacing: 0.5px; /* ระยะห่างตัวอักษร */
         }
         
         label {
             font-size: 18px;
             margin-left: 5%;
-            color: #2c3e50;
+            color: #000033; /* ใกล้สีดำ */
             line-height: 2;
+            font-weight: 600;
         }
         
         footer {
             text-align: center;
             padding: 20px;
             font-size: 14px;
-            color: #95a5a6;
+            color: #666666; /* เทาเข้ม */
             line-height: 2;
+            font-weight: 500;
         }
         
-        /* Form Elements */
+        /* ปรับ Form Elements ให้คมชัด */
         input, select, button {
             font-size: 18px;
-            padding: 10px;
+            padding: 12px; /* เพิ่ม padding */
             width: 90%;
             margin: 10px auto;
             border-radius: 6px;
-            border: 1px solid #ddd;
+            border: 1px solid #999; /* เส้นขอบเข้มขึ้น */
             display: block;
-            line-height: 2;
+            line-height: 1.5;
+            font-weight: 500;
+            background-color: #fff; /* พื้นหลังขาว */
         }
         
         button {
-            background-color: #4CAF50;
+            background-color: #2a6f2f; /* เขียวเข้ม */
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-weight: 600;
+            border: none;
         }
         
         button:hover {
-            background-color: #45a049;
+            background-color: #1e5a23; /* เขียวเข้มกว่า */
         }
         
         #lineHeightSlider {
@@ -77,36 +96,37 @@
         
         #lineHeightValue {
             font-size: 16px;
-            color: #2c3e50;
+            color: #000033; /* ใกล้สีดำ */
             line-height: 2;
+            font-weight: 600;
         }
 
-        /* Container Styles */
+        /* ปรับ Container Styles */
         .form-container {
-            border: 2px solid #4CAF50;
-            background-color: #FEFEF0;
+            border: 2px solid orange;
+            background-color: #ffffff;
             margin: 20px auto;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             width: 90%;
             max-width: 600px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
             position: relative;
             box-sizing: border-box;
         }
 
         #resultContainer {
             display: none;
-            border: 2px solid #4CAF50;
+            border: 2px solid #2a6f2f; /* เขียวเข้ม */
             background-color: #FEFEF0;
             margin: 20px auto;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             width: 90%;
             max-width: 600px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 80, 0, 0.15); /* เงาเข้มขึ้น */
             position: relative;
             min-height: 300px;
             box-sizing: border-box;
@@ -127,113 +147,68 @@
             z-index: 0;
             margin: auto;
         }
-        
-        /* Result Content Styles */
-        #resultContent {
-            position: relative;
-            z-index: 1;
+        #resultContainer h2.blue, 
+        #resultContainer p.blue, 
+        #resultContainer h3.blue {
+            color: #0000ff;
         }
-        
-        #resultContent h2 {
-            font-size: 22px;
-            margin: 6px 0;
-            line-height: 2;
+        #resultContainer h3.red {
+            color: red;
         }
-        
-        #resultContent h3 {
-            font-size: 20px;
-            margin: 6px 0;
-            line-height: 2;
+        #resultContainer p.note {
+            font-size: 14px;
+            color: blue;
         }
-        
-        #resultContent .number-pairs {
-            font-size: 20px;
-            margin: 8px 0;
-            font-weight: bold;
+        #resultContainer img {
+            width: 40px;
+            margin-right: 2px;
         }
-        
-        #resultContent .note {
-            font-size: 20px;
-            margin: 8px 0;
+        #resultContainer img.left {
+            margin-right: 2px;
         }
-        
-        #resultContent .translation {
+        #resultContainer img.right {
+            right: 0;
+        }
+        #lineHeightSlider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        #lineHeightValue {
             font-size: 16px;
-            margin: 6px 0;
+            color: #2c3e50;
+            line-height: 1.5;
         }
-
-        /* Responsive Styles */
-        @media only screen and (max-width: 600px) {
-            .form-container, #resultContainer {
-                width: calc(100% - 20px);
-                margin-left: 10px;
-                margin-right: 10px;
-            }
+        .form-container {
+            text-align: center;
+            margin-top: 10px;
         }
-    </style>
-</head>
-<body>
-    <div class="form-container">  
-        <h1>ฟอร์มแปลตัวเลข 4 ตัว</h1>
-        <div class="input-group form-group">
-            <input type="text" id="numberInput" placeholder="กรอกตัวเลข 4 หลัก">
-            <select id="personSelect">
-                <option value="@">@</option>
-                <option value="Team">Team</option>
-                <option value="โรงงาน">โรงงาน</option>
-                <option value="Udon Don">Udon Don</option>
-                <option value="เจ้าที่">เจ้าที่</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <select id="topicSelect">
-                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-                <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-                <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-                <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-                <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-                <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-                <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-                <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-                <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-                <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-                <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-                <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-                <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-                <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-                <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-                <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-                <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-                <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-                <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <input type="date" id="dateInput">
-        </div>
-
-        <div class="form-group">
-            <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)">
-        </div>
-
-        <button id="convertButton">แปลตัวเลข</button>
-    </div>
-
-    <!-- Result Container -->
-    <div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        #convertButton {
+            margin-top: 10px;
+        }
+        
+@media only screen and (max-width: 600px) {
+    .form-container, 
+    #resultContainer {
+        width: calc(100% - 20px); /* ทำให้ความกว้างเท่ากัน */
+        margin: 10px; /* กำหนด margin ทั้งสี่ด้านให้เท่ากัน */
+        padding: 15px;
+        box-sizing: border-box; /* เพิ่มเพื่อให้ padding ไม่เพิ่มความกว้างรวม */
+    }
     
-    <div style="text-align: center; margin: 10px auto; max-width: 600px;">
-        <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
-        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.5">
-        <p id="lineHeightValue">ความสูงของบรรทัด: 1.5</p>
-    </div>
-
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
-    <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
-
+    input, select, button {
+        width: calc(100% - 20px);
+    }
+}
+    </style>
     <script>
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -258,6 +233,7 @@
             document.getElementById("convertButton").addEventListener("click", convertNumber);
             document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
+            // ตั้งค่าเริ่มต้นของ slider เป็น 1.5
             document.getElementById("lineHeightSlider").value = 1.5;
             document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.5";
         });
@@ -339,31 +315,94 @@
             const fontSizeTranslation = "14px";
 
             let resultHtml = `
-<div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
-    <h2 style="font-size: ${fontSizeTopic}; margin: 0; color: #1e88e5;">${selectedTopic}</h2>
-    <p style="font-size: ${fontSizeDate}; margin: 5px 0; color: #1e88e5;">${displayDate}</p>
-    <h2 style="font-size: ${fontSizeNumber}; color: #1e88e5;">
-        ตัวเลข 4 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
-    </h2>
-    <h3 style="font-size: ${fontSizeTwoDigit}; color: #1e88e5;">จัดชุด 2 ตัว</h3>
-    <p style="font-size: ${fontSizeTwoDigit}; color: #1e88e5;">${twoDigitPairs.join(' - ')}</p>
-    <h3 style="font-size: ${fontSizeThreeDigit}; color: #1e88e5;">จัดชุด 3 ตัว</h3>
-    <p style="font-size: ${fontSizeThreeDigit}; color: #1e88e5;">${threeDigitCombinations.join(' - ')}</p>
-    <p style="font-size: ${fontSizeGuide}; color: red;">แนวทางเท่านั้น</p>
-    <p class="note" style="font-size: ${fontSizeTranslation}; color: #1e88e5;">
-        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-    </p>
-    <p style="font-size: ${fontSizeNote}; color: #1e88e5;">หมายเหตุ: ${noteInput}</p>
-</div>
-`;
+            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
+                <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
+                <p class="blue" style="font-size: ${fontSizeDate}; margin: 5px 0;">${displayDate}</p>
+                <h2 class="blue" style="font-size: ${fontSizeNumber};">
+                    ตัวเลข 4 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
+                </h2>
+                <h3 class="blue" style="font-size: ${fontSizeTwoDigit};">จัดชุด 2 ตัว</h3>
+                <p class="blue" style="font-size: ${fontSizeTwoDigit};">${twoDigitPairs.join(' - ')}</p>
+                <h3 class="blue" style="font-size: ${fontSizeThreeDigit};">จัดชุด 3 ตัว</h3>
+                <p class="blue" style="font-size: ${fontSizeThreeDigit};">${threeDigitCombinations.join(' - ')}</p>
+                <p class="blue" style="font-size: ${fontSizeGuide}; color: red;">แนวทางเท่านั้น</p>
+                <p class="note" style="font-size: ${fontSizeTranslation};">
+                    <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+                </p>
+                <p class="blue" style="font-size: ${fontSizeNote};">หมายเหตุ: ${noteInput}</p>
+            </div>
+            `;
 
             const resultContainer = document.getElementById("resultContainer");
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
             
+            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.5
             document.getElementById("lineHeightSlider").value = 1.5;
             updateLineHeight();
         }
     </script>
+</head>
+<body>
+    <div class="form-container">  
+        <h1>ฟอร์มแปลตัวเลข 4 ตัว</h1>
+        <div class="input-group form-group">
+            <input type="text" id="numberInput" placeholder="กรอกตัวเลข 4 หลัก">
+            <select id="personSelect">
+                <option value="@">@</option>
+                <option value="Team">Team</option>
+                <option value="โรงงาน">โรงงาน</option>
+                <option value="Udon Don">Udon Don</option>
+                <option value="เจ้าที่">เจ้าที่</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select id="topicSelect">
+                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+                <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+                <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+                <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+                <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+                <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+                <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+                <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+                <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+                <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+                <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+                <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+                <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+                <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+                <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+                <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+                <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+                <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="date" id="dateInput">
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)">
+        </div>
+
+        <button id="convertButton">แปลตัวเลข</button>
+    </div>
+
+    <!-- Result Container -->
+    <div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
+    
+    <div style="text-align: center; margin: 10px auto; max-width: 600px;">
+        <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
+        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.5">
+        <p id="lineHeightValue">ความสูงของบรรทัด: 1.5</p>
+    </div>
+
+       <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <footer>&copy; 2024 Juckmanphai. All Rights Reserved.</footer>
 </body>
 </html>
