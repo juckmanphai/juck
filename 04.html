@@ -17,7 +17,7 @@
             font-size: 32px;
             color: #2c3e50;
             margin-top: 20px;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         input, select, button {
             font-size: 18px;
@@ -29,14 +29,14 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         button {
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         button:hover {
             background-color: #45a049;
@@ -45,14 +45,14 @@
             font-size: 18px;
             margin-left: 5%;
             color: #2c3e50;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         footer {
             text-align: center;
             padding: 20px;
             font-size: 14px;
             color: #95a5a6;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         .form-container, 
         #resultContainer {
@@ -119,7 +119,7 @@
         #lineHeightValue {
             font-size: 16px;
             color: #2c3e50;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         .form-container {
             text-align: center;
@@ -176,9 +176,9 @@
             document.getElementById("convertButton").addEventListener("click", convertNumber);
             document.getElementById("lineHeightSlider").addEventListener("input", updateLineHeight);
             
-            // ตั้งค่าเริ่มต้นของ slider เป็น 1.2
-            document.getElementById("lineHeightSlider").value = 1.2;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
+            // ตั้งค่าเริ่มต้นของ slider เป็น 1.5
+            document.getElementById("lineHeightSlider").value = 1.5;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.5";
         });
 
         function sortDigits(str) {
@@ -258,7 +258,7 @@
             const fontSizeTranslation = "14px";
 
             let resultHtml = `
-            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.2;">
+            <div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
                 <h2 class="blue" style="font-size: ${fontSizeTopic}; margin: 0;">${selectedTopic}</h2>
                 <p class="blue" style="font-size: ${fontSizeDate}; margin: 5px 0;">${displayDate}</p>
                 <h2 class="blue" style="font-size: ${fontSizeNumber};">
@@ -280,8 +280,8 @@
             resultContainer.innerHTML = resultHtml;
             resultContainer.style.display = "block";
             
-            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.2
-            document.getElementById("lineHeightSlider").value = 1.2;
+            // ตั้งค่า lineHeight เริ่มต้นเป็น 1.5
+            document.getElementById("lineHeightSlider").value = 1.5;
             updateLineHeight();
         }
     </script>
@@ -341,8 +341,8 @@
     
     <div style="text-align: center; margin: 10px auto; max-width: 600px;">
         <label for="lineHeightSlider">ปรับขนาดบรรทัด:</label>
-        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.2">
-        <p id="lineHeightValue">ความสูงของบรรทัด: 1.2</p>
+        <input type="range" id="lineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.5">
+        <p id="lineHeightValue">ความสูงของบรรทัด: 1.5</p>
     </div>
 
        <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
