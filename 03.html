@@ -11,22 +11,23 @@
             background-color: #fffde7;
             margin: 0;
             padding: 0;
-            line-height: 1.4;
+            line-height: 1;
         }
         
         h1 {
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             color: #2c3e50;
-            margin-top: 20px;
-            line-height: 2;
+            margin-top: 10px;
+		margin-bottom: 10px;
+            line-height: 1;
         }
         
         label {
             font-size: 18px;
             margin-left: 5%;
             color: #2c3e50;
-            line-height: 2;
+            line-height: 1;
         }
         
         footer {
@@ -34,19 +35,19 @@
             padding: 20px;
             font-size: 14px;
             color: #95a5a6;
-            line-height: 2;
+            line-height: 1;
         }
         
         /* Form Elements */
         input, select, button {
             font-size: 18px;
             padding: 10px;
-            width: 80%;
+            width: 70%;
             margin: 10px auto;
             border-radius: 6px;
             border: 1px solid #ddd;
             display: block;
-            line-height: 1.5;
+            line-height: 1;
         }
         
         button {
@@ -68,7 +69,7 @@
         #lineHeightValue {
             font-size: 16px;
             color: #2c3e50;
-            line-height: 2;
+            line-height: 1;
         }
 
         /* Container Styles */
@@ -125,13 +126,13 @@
         #resultContent h2 {
             font-size: 22px;
             margin: 6px 0;
-            line-height: 2;
+            line-height: 1;
         }
         
         #resultContent h3 {
             font-size: 20px;
             margin: 6px 0;
-            line-height: 2;
+            line-height: 1;
         }
         
         #resultContent .number-pairs {
@@ -704,7 +705,7 @@ resultContainer.innerHTML = `
     
     <!-- ข้อความท้าย -->
     <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1;">แนวทางเท่านั้น</h2>
-    <p style="font-size: 14px; margin: 0 0 10px 0; line-height: 1;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
     <p style="font-size: 18px; margin: 0; line-height: 1;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
 </div>
 `;
@@ -756,7 +757,7 @@ resultContainer.style.display = 'block';
             <!-- Person Selection on the Right -->
             <div style="display: inline-block;">
                 <select id="personSelect" style="font-size: 18px; padding: 15px;">
-		    <option value="Team">Team</option>
+                    <option value="Team">Team</option>		    
 		    <option value="@">@</option>
                     <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
@@ -788,7 +789,7 @@ resultContainer.style.display = 'block';
 <input type="range" 
        id="lineHeightSlider" 
        min="0.5" 
-       max="2" 
+       max="2.5" 
        step="0.1" 
        value="1">
 <p id="lineHeightValue">ความสูงของบรรทัด: 1</p>
