@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มแปลตัวเลข 2 ตัว</title>
 <style>
     /* ===== Base Styles ===== */
     body {
@@ -75,7 +69,7 @@
     .form-container {
         border: 2px solid orange;
         background-color: #FEFEF0;
-        margin: 40px auto 30px auto;
+        margin: 40px auto 20px auto; /* ปรับ margin-bottom จาก 30px เป็น 20px */
         padding: 15px;
         border-radius: 10px;
         width: 90%;
@@ -88,8 +82,8 @@
         display: none;
         border: 2px solid #4CAF50;
         background-color: #FAFAD2;
-        margin: 30px auto 40px auto;
-        padding: 15px;
+        margin: 30px auto 40px auto; /* ปรับ margin-top จาก 30px เป็น 20px */
+        padding: 25px 15px 15px 15px; /* ปรับ padding-top จาก 15px เป็น 25px */
         border-radius: 10px;
         width: fit-content;
         max-width: 100%;
@@ -119,32 +113,33 @@
     #resultContent {
         position: relative;
         z-index: 1;
+        line-height: 1.5; /* เพิ่ม line-height เพื่อให้ตัวหนังสือมีระยะห่างมากขึ้น */
     }
     
     #resultContent h2 {
         font-size: 22px;
-        margin: 6px 0;
+        margin: 12px 0; /* ปรับ margin จาก 6px 0 เป็น 12px 0 */
     }
     
     #resultContent h3 {
         font-size: 20px;
-        margin: 6px 0;
+        margin: 10px 0; /* ปรับ margin จาก 6px 0 เป็น 10px 0 */
     }
     
     #resultContent .number-pairs {
         font-size: 20px;
-        margin: 8px 0;
+        margin: 12px 0; /* ปรับ margin จาก 8px 0 เป็น 12px 0 */
         font-weight: bold;
     }
     
     #resultContent .note {
         font-size: 20px;
-        margin: 8px 0;
+        margin: 12px 0; /* ปรับ margin จาก 8px 0 เป็น 12px 0 */
     }
     
     #resultContent .translation {
         font-size: 16px;
-        margin: 6px 0;
+        margin: 10px 0; /* ปรับ margin จาก 6px 0 เป็น 10px 0 */
     }
 
     /* ===== Slider Styles ===== */
