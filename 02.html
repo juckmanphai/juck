@@ -60,16 +60,25 @@
         width: 100%;
     }
     
-    button {
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    
-    button:hover {
-        background-color: #45a049;
-    }
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* ปุ่มกลับสู่หน้าหลักเฉพาะ */
+#homeButton {
+    background-color: orange !important;
+}
+
+#homeButton:hover {
+    background-color: darkorange !important;
+}
     
     /* ===== Container Styles ===== */
     .form-container {
@@ -375,7 +384,7 @@
         <p id="lineHeightValue">ความสูงของบรรทัด: 2.0</p>
     </div>
 
-     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+     <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <footer>
         <div style="text-align: center; margin-bottom: 20px;">
             &copy; 2024 Juckmanphai. All Rights Reserved.
