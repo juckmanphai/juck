@@ -53,16 +53,25 @@
         text-align: center;
     }
     
-    button {
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    
-    button:hover {
-        background-color: #45a049;
-    }
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* ปุ่มกลับสู่หน้าหลักเฉพาะ */
+#homeButton {
+    background-color: orange !important;
+}
+
+#homeButton:hover {
+    background-color: darkorange !important;
+}
     
     #lineHeightSlider {
         width: 80%;
@@ -807,7 +816,7 @@ resultContainer.style.display = 'block';
 <p id="lineHeightValue">ความสูงของบรรทัด: 1</p>
 
     <!-- Back Button -->
-          <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+          <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
 
