@@ -833,6 +833,7 @@
         color: blue; /* สีพื้นฐานของตัวอักษร */
     }
 
+    /* กล่องผลลัพธ์ */
     .result-container {
         border: 2px solid #4CAF50;
         background-color: #FAFAD2;
@@ -863,47 +864,77 @@
         z-index: 0;
     }
 
-    /* Result Content Styles */
+    /* เนื้อหาผลลัพธ์ */
     #resultContent {
         position: relative;
         z-index: 1;
-        color: blue; /* สีของข้อความทั้งหมด */
-    }
-
-    #resultContent h2,
-    #resultContent h3,
-    #resultContent .number-pairs,
-    #resultContent .note,
-    #resultContent .translation {
-        color: blue; /* สีข้อความทั้งหมดใน #resultContent */
+        color: blue;
     }
 
     #resultContent h2 {
         font-size: 22px;
         margin: 6px 0;
         line-height: 1;
+        color: blue;
     }
 
     #resultContent h3 {
         font-size: 20px;
         margin: 6px 0;
         line-height: 1;
+        color: blue;
     }
 
     #resultContent .number-pairs {
         font-size: 20px;
         margin: 8px 0;
         font-weight: bold;
+        color: blue;
     }
 
     #resultContent .note {
         font-size: 20px;
         margin: 8px 0;
+        color: blue;
     }
 
     #resultContent .translation {
         font-size: 16px;
         margin: 6px 0;
+        color: blue;
+    }
+
+    /* ส่วนควบคุมการตั้งค่า */
+    .controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .line-height-control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .line-height-control label {
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: blue;
+    }
+
+    .line-height-control input[type="range"] {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .line-height-control span {
+        font-size: 16px;
+        color: blue;
     }
 
     /* ปุ่มปิด */
@@ -926,19 +957,20 @@
         background-color: #d32f2f;
     }
 
-    /* Responsive Styles */
+    /* Responsive */
     @media only screen and (max-width: 600px) {
         .result-container {
             width: calc(100% - 20px);
             margin-left: 10px;
             margin-right: 10px;
         }
-        
+
         input, select, button {
             width: 90%;
         }
     }
 </style>
+
         </head>
                  <body>
                     <div class="result-container">
@@ -948,7 +980,7 @@
                     <div class="controls">
                         <div class="line-height-control">
                             <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                            <input type="range" id="popupLineHeightSlider" min="0.5" max="3.5" step="0.1" value="2.0" />
+                            <input type="range" id="popupLineHeightSlider" min="0.5" max="3" step="0.1" value="2.0" />
                             <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.0</span>
                         </div>
                         
