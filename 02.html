@@ -70,14 +70,14 @@
         button:hover {
             background-color: #45a049;
         }
-        
-        /* ===== ปุ่มกลับสู่หน้าหลัก ===== */
-        .back-button {
+
+        /* ปุ่มกลับหน้าหลักสีส้ม */
+        .homeButton {
             background-color: orange;
             color: white;
         }
-        
-        .back-button:hover {
+
+        .homeButton:hover {
             background-color: darkorange;
         }
         
@@ -172,13 +172,14 @@
         <button id="convertButton">แปลตัวเลข</button>
     </div>
     
-    <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <!-- ปุ่มกลับสู่หน้าหลัก (แก้ไขแล้ว ใส่ class="homeButton") -->
+    <button id="homeButton" class="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 
     <footer>
         <div style="text-align: center; margin-bottom: 20px;">
             &copy; 2024 Juckmanphai. All Rights Reserved.
         </div>
-    </footer>
+    </footer> 
 
     <script>
         function getThaiDate(date = new Date()) {
@@ -401,7 +402,7 @@
                         .line-height-control label {
                             font-size: 16px;
                             margin-bottom: 5px;
-                            color: #2c3e50;
+                            color: blue;
                         }
 
                         .line-height-control input[type="range"] {
@@ -411,7 +412,7 @@
 
                         .line-height-control span {
                             font-size: 16px;
-                            color: #2c3e50;
+                            color: blue;
                         }
 
                         .close-btn {
@@ -456,37 +457,46 @@
                         <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
                     </div>
                     
-                    <script>
-                        function updateLineHeight() {
-                            const lineHeight = document.getElementById("popupLineHeightSlider").value;
-                            const resultContent = document.getElementById("resultContent");
-                            
-                            if (resultContent) {
-                                const elements = resultContent.querySelectorAll('*');
-                                elements.forEach(element => {
-                                    element.style.lineHeight = lineHeight;
-                                });
-                                
-                                resultContent.style.lineHeight = lineHeight;
-                                document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: " + lineHeight;
-                            }
-                        }
-                        
-                        document.addEventListener("DOMContentLoaded", function() {
-                            document.getElementById("popupLineHeightSlider").addEventListener("input", updateLineHeight);
-                            document.getElementById("popupLineHeightSlider").value = 2.0;
-                            document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: 2.0";
-                        });
-                    <\/script>
-                </body>
-                </html>
-            `);
-            newWindow.document.close();
-        }
+<script>
+    function updateLineHeight() {
+        const lineHeight = document.getElementById("popupLineHeightSlider").value;
+        const resultContent = document.getElementById("resultContent");
+        
+        if (resultContent) {
+            const elements = resultContent.querySelectorAll('*');
+            elements.forEach(element => {
+                element.style.lineHeight = lineHeight;
+            });
 
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
-        });
-    </script>
+            resultContent.style.lineHeight = lineHeight;
+            document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: " + lineHeight;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const slider = document.getElementById("popupLineHeightSlider");
+        const lineHeightValue = document.getElementById("popupLineHeightValue");
+
+        if (slider && lineHeightValue) {
+            slider.addEventListener("input", updateLineHeight);
+            slider.value = 2.0;
+            lineHeightValue.textContent = "ความสูงของบรรทัด: 2.0";
+        }
+    });
+<\/script>
+</body>
+</html>
+`);
+newWindow.document.close();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const convertButton = document.getElementById("convertButton");
+    if (convertButton) {
+        convertButton.addEventListener("click", openResultInNewWindow);
+    }
+});
+</script>
+
 </body>
 </html>
