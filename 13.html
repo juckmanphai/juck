@@ -386,29 +386,29 @@
         const additionalNumbersForThirdSetText = uniqueThreeDigitPairs.join(' - ');
 
         return `
-            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 1.0; margin-top: 10px; color: blue;">
+            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 2.0; margin-top: 10px; color: blue;">
                 <!-- หัวข้อ -->
-                <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 1;">
+                <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 2.0;">
                     ${selectedTopic}
                 </p>
                 <!-- วันที่ -->
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">
                     ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
                 </p>
                 <!-- ตัวเลข 3 ตัว -->
-                <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 1;">
+                <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 2.0;">
                     ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
                 </h2>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุดเด่น 2 ตัว</h3>
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">${uniqueDominantTwoDigitPairs.join(' - ')}</p>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุดรอง 2 ตัว</h3>
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;">${filteredTwoDigitPairs.join(' - ')}</p>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;">จัดชุด 3 ตัว (ปกติ)</h3>
-                <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1;">${uniqueThreeDigitPairs.join(' - ')}</p> 
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุดเด่น 2 ตัว</h3>
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">${uniqueDominantTwoDigitPairs.join(' - ')}</p>
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุดรอง 2 ตัว</h3>
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">${filteredTwoDigitPairs.join(' - ')}</p>
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุด 3 ตัว (ปกติ)</h3>
+                <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2.0;">${uniqueThreeDigitPairs.join(' - ')}</p> 
                 <!-- ข้อความท้าย -->
                 <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1;">แนวทางเท่านั้น</h2>
-                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-                <p style="font-size: 18px; margin: 0; line-height: 1;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 2.0;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+                <p style="font-size: 18px; margin: 0; line-height: 2.0;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
             </div>
         `;
     }
@@ -421,10 +421,10 @@
         resultContainer.innerHTML = resultHtml;
         resultContainer.style.display = 'block';
 
-        // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 1.00
+        // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 2.0
         if (document.getElementById("lineHeightSlider")) {
-            document.getElementById("lineHeightSlider").value = 1;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1";
+            document.getElementById("lineHeightSlider").value = 2.0;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 2.0";
             updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
         }
     }
