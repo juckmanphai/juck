@@ -207,7 +207,7 @@
                 <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
                 <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
                 <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                <option value="ลาวสตาร์ VIP เวลา 21.20 น">ลาวสตาร์ VIP เวลา 21.20 น</option>
                 <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
                 <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
                 <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
@@ -386,29 +386,29 @@
         const additionalNumbersForThirdSetText = uniqueThreeDigitPairs.join(' - ');
 
         return `
-            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 2.0; margin-top: 10px; color: blue;">
+            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 1.2; margin-top: 10px; color: blue;">
                 <!-- หัวข้อ -->
-                <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 2.0;">
+                <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 1.2;">
                     ${selectedTopic}
                 </p>
                 <!-- วันที่ -->
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">
                     ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
                 </p>
                 <!-- ตัวเลข 3 ตัว -->
-                <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 2.0;">
+                <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 1.2;">
                     ตัวเลข 3 ตัว <span style="color: red;">${num}</span> By : ${selectedPerson}
                 </h2>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุดเด่น 2 ตัว</h3>
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">${uniqueDominantTwoDigitPairs.join(' - ')}</p>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุดรอง 2 ตัว</h3>
-                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 2.0;">${filteredTwoDigitPairs.join(' - ')}</p>
-                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 2.0;">จัดชุด 3 ตัว (ปกติ)</h3>
-                <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 2.0;">${uniqueThreeDigitPairs.join(' - ')}</p> 
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุดเด่น 2 ตัว</h3>
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">${uniqueDominantTwoDigitPairs.join(' - ')}</p>
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุดรอง 2 ตัว</h3>
+                <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1.2;">${filteredTwoDigitPairs.join(' - ')}</p>
+                <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1.2;">จัดชุด 3 ตัว</h3>
+                <p style="font-size: 15px; margin: 0 0 15px 0; line-height: 1.2;">${uniqueThreeDigitPairs.join(' - ')}</p> 
                 <!-- ข้อความท้าย -->
                 <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1;">แนวทางเท่านั้น</h2>
-                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 2.0;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-                <p style="font-size: 18px; margin: 0; line-height: 2.0;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
+                <p style="font-size: 12px; margin: 0 0 10px 0; line-height: 1.2;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+                <p style="font-size: 18px; margin: 0; line-height: 1.2;">หมายเหตุ : <span style="color: red;">${noteInput}</span></p>
             </div>
         `;
     }
@@ -421,10 +421,10 @@
         resultContainer.innerHTML = resultHtml;
         resultContainer.style.display = 'block';
 
-        // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 2.0
+        // ตั้งค่าความสูงของบรรทัดเริ่มต้นที่ 1.2
         if (document.getElementById("lineHeightSlider")) {
-            document.getElementById("lineHeightSlider").value = 2.0;
-            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 2.0";
+            document.getElementById("lineHeightSlider").value = 1.2;
+            document.getElementById("lineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
             updateLineHeight(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตทันที
         }
     }
@@ -607,8 +607,8 @@
                 <div class="controls">
                     <div class="line-height-control">
                         <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                        <input type="range" id="popupLineHeightSlider" min="0.5" max="3" step="0.1" value="2.0" />
-                        <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.0</span>
+                        <input type="range" id="popupLineHeightSlider" min="0.5" max="3" step="0.1" value="1.2" />
+                        <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.2</span>
                     </div>
                     
                     <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
@@ -632,8 +632,8 @@
                     
                     document.addEventListener("DOMContentLoaded", function() {
                         document.getElementById("popupLineHeightSlider").addEventListener("input", updateLineHeight);
-                        document.getElementById("popupLineHeightSlider").value = 2.0;
-                        document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: 2.0";
+                        document.getElementById("popupLineHeightSlider").value = 1.2;
+                        document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: 1.2";
                     });
                 <\/script>
             </body>
