@@ -317,69 +317,437 @@
             noteInput = '<span style="color: red;">No remarks</span>';
         }
 
-              if (num.length !== 3 || isNaN(num)) {
-                alert("กรุณาป้อนตัวเลข 3 หลัก");
-                return;
+        if (num.length !== 3 || isNaN(num)) {
+            alert("กรุณาป้อนตัวเลข 3 หลัก");
+            return null;
+        }
+
+        const transformRules = {
+            '0': '1', '1': '7', '2': '5', '3': '8',
+            '4': '9', '5': '2', '6': '9', '7': '1',
+            '8': '3', '9': '6'
+        };
+
+        const transformed = num.split('').map(digit => transformRules[digit]).join('');
+
+        const firstSet = [
+            sortPair(`${num[0]}${num[1]}`),
+            sortPair(`${num[0]}${num[2]}`),
+            sortPair(`${num[1]}${num[2]}`)
+        ];
+
+        let secondSet = [];
+
+        for (let i = 0; i < 3; i++) {
+            if (i === 0) {
+                secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+            } else if (i === 1) {
+                secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[2]}`));
+            } else if (i === 2) {
+                secondSet.push(sortPair(`${num[i]}${transformed[0]}`));
+                secondSet.push(sortPair(`${num[i]}${transformed[1]}`));
             }
+        }
 
-            // ฟังก์ชันสำหรับแปลงตัวเลข (บวกลบ 1 และตัวมันเอง)
-            const transformRules = (digit) => {
-                const numDigit = parseInt(digit);
-                // ถ้า digit เป็น 0 ให้แปลงเป็น 9 เมื่อลบ 1
-                const prevDigit = numDigit === 0 ? 9 : numDigit - 1;
-                // ถ้า digit เป็น 9 ให้แปลงเป็น 0 เมื่อบวก 1
-                const nextDigit = numDigit === 9 ? 0 : numDigit + 1;
-                return [String(prevDigit), String(numDigit), String(nextDigit)];
-            };
+        const uniqueFirstSet = [...new Set(firstSet)].sort();
+        secondSet = [...new Set(secondSet)].sort();
 
-            // ฟังก์ชันสำหรับจัดเรียงตัวเลข 2 หลัก (น้อยเป็นหลักสิบ)
-            const sortTwoDigits = (pair) => {
-                const digits = pair.split('');
-                digits.sort((a, b) => a - b); // เรียงจากน้อยไปมาก
-                return digits.join('');
-            };
+        const transformedPairs = [
+            sortPair(`${transformed[0]}${transformed[1]}`),
+            sortPair(`${transformed[0]}${transformed[2]}`),
+            sortPair(`${transformed[1]}${transformed[2]}`)
+        ];
 
-            // ฟังก์ชันสำหรับจัดเรียงตัวเลข 3 หลัก (น้อยไปมาก)
-            const sortThreeDigits = (triplet) => {
-                const digits = triplet.split('');
-                digits.sort((a, b) => a - b); // เรียงจากน้อยไปมาก
-                return digits.join('');
-            };
+        // Remove duplicates within transformedPairs itself
+        const uniqueTransformedPairs = [...new Set(transformedPairs)];
 
-            const firstDigit = num[0]; // หลักร้อย
-            const secondDigit = num[1]; // หลักสิบ
-            const thirdDigit = num[2]; // หลักหน่วย
+        // Sort transformed pairs
+        const sortedTransformedPairs = uniqueTransformedPairs.sort();
 
-            // จัดชุดเด่นสองตัว (จับคู่ตัวเลข 3 หลักโดยไม่บวกลบ)
-            const dominantTwoDigitPairs = [
-                firstDigit + secondDigit, // 12
-                firstDigit + thirdDigit,  // 13
-                secondDigit + thirdDigit  // 23
-            ].map(pair => sortTwoDigits(pair)); // จัดเรียงตัวเลข 2 หลัก
-            const uniqueDominantTwoDigitPairs = [...new Set(dominantTwoDigitPairs)].sort();
+        // Filter out duplicates from uniqueFirstSet, secondSet, and self
+        const uniquePairs = sortedTransformedPairs.filter(pair => 
+            !uniqueFirstSet.includes(pair) && 
+            !secondSet.includes(pair)
+        );
 
-            // จัดชุดสองตัวทั้งหมด (ใช้เงื่อนไขบวกลบ 1)
-            const twoDigitPairs = [
-                ...transformRules(secondDigit).map(d => firstDigit + d), // หลักร้อยคงที่
-                ...transformRules(firstDigit).map(d => d + secondDigit), // หลักสิบคงที่
-                ...transformRules(thirdDigit).map(d => secondDigit + d), // หลักสิบคงที่
-                ...transformRules(secondDigit).map(d => d + thirdDigit)  // หลักหน่วยคงที่
-            ].map(pair => sortTwoDigits(pair)); // จัดเรียงตัวเลข 2 หลัก
-            const uniqueTwoDigitPairs = [...new Set(twoDigitPairs)].sort();
+        // Check if uniquePairs is empty
+        let transformedPairsText = '';
+        if (uniquePairs.length === 0) {
+            transformedPairsText = '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+        } else {
+            transformedPairsText = uniquePairs.join(' - ');
+        }
 
-            // ตัดชุดเด่นออกจากชุดสองตัวทั้งหมด
-            const filteredTwoDigitPairs = uniqueTwoDigitPairs.filter(pair => 
-                !uniqueDominantTwoDigitPairs.includes(pair)
-            );
+        const additionalNumbers = [];
+        if (uniqueFirstSet.includes('00') || secondSet.includes('00')) {
+            additionalNumbers.push('02');
+        }
+        if (uniqueFirstSet.includes('11') || secondSet.includes('11')) {
+            additionalNumbers.push('12');
+        }
+        if (uniqueFirstSet.includes('22') || secondSet.includes('22')) {
+            // ไม่ต้องเพิ่ม
+        }
+        if (uniqueFirstSet.includes('33') || secondSet.includes('33')) {
+            additionalNumbers.push('23');
+        }
+        if (uniqueFirstSet.includes('44') || secondSet.includes('44')) {
+            additionalNumbers.push('24');
+        }
+        if (uniqueFirstSet.includes('55') || secondSet.includes('55')) {
+            additionalNumbers.push('25');
+        }
+        if (uniqueFirstSet.includes('66') || secondSet.includes('66')) {
+            additionalNumbers.push('26');
+        }
+        if (uniqueFirstSet.includes('77') || secondSet.includes('77')) {
+            additionalNumbers.push('27');
+        }
+        if (uniqueFirstSet.includes('88') || secondSet.includes('88')) {
+            additionalNumbers.push('28');
+        }
+        if (uniqueFirstSet.includes('99') || secondSet.includes('99')) {
+            additionalNumbers.push('29');
+        }
 
-            // จัดชุดสามตัว
-            const threeDigitPairs = [
-                ...transformRules(thirdDigit).map(d => firstDigit + secondDigit + d), // หลักร้อยและหลักสิบคงที่
-                ...transformRules(firstDigit).map(d => d + secondDigit + thirdDigit), // หลักสิบและหลักหน่วยคงที่
-                ...transformRules(secondDigit).map(d => firstDigit + d + thirdDigit) // หลักร้อยและหลักหน่วยคงที่
-            ].map(triplet => sortThreeDigits(triplet)); // จัดเรียงตัวเลข 3 หลัก
-            const uniqueThreeDigitPairs = [...new Set(threeDigitPairs)].sort();
+        const finalSecondSet = [...new Set([...secondSet, ...additionalNumbers])].sort();
+        const filteredSecondSet = finalSecondSet.filter(pair => !uniqueFirstSet.includes(pair));
 
+        const thirdSet = [
+            `${num[0]}${num[1]}${num[2]}`,
+            `${num[0]}${num[1]}${transformed[2]}`,
+            `${num[0]}${transformed[1]}${num[2]}`,
+            `${num[0]}${transformed[1]}${transformed[2]}`,
+            `${transformed[0]}${num[1]}${num[2]}`,
+            `${transformed[0]}${num[1]}${transformed[2]}`,
+            `${transformed[0]}${transformed[1]}${num[2]}`,
+            `${transformed[0]}${transformed[1]}${transformed[2]}`
+        ];
+
+        const sortedThirdSet = [...new Set(thirdSet.map(triplet => triplet.split('').sort().join('')))].sort();
+
+        const additionalNumbersForThirdSet = [];
+        if (sortedThirdSet.includes('000')) {
+            additionalNumbersForThirdSet.push('002');
+        }
+        if (sortedThirdSet.includes('011')) {
+            additionalNumbersForThirdSet.push('012');
+        }
+        if (sortedThirdSet.includes('022')) {
+            additionalNumbersForThirdSet.push('022');
+        }
+        if (sortedThirdSet.includes('033')) {
+            additionalNumbersForThirdSet.push('023');
+        }
+        if (sortedThirdSet.includes('044')) {
+            additionalNumbersForThirdSet.push('024');
+        }
+        if (sortedThirdSet.includes('055')) {
+            additionalNumbersForThirdSet.push('025');
+        }
+        if (sortedThirdSet.includes('066')) {
+            additionalNumbersForThirdSet.push('026');
+        }
+        if (sortedThirdSet.includes('077')) {
+            additionalNumbersForThirdSet.push('027');
+        }
+        if (sortedThirdSet.includes('088')) {
+            additionalNumbersForThirdSet.push('028');
+        }
+        if (sortedThirdSet.includes('099')) {
+            additionalNumbersForThirdSet.push('029');
+        }
+        if (sortedThirdSet.includes('111')) {
+            additionalNumbersForThirdSet.push('112');
+        }
+        if (sortedThirdSet.includes('122')) {
+            additionalNumbersForThirdSet.push('122');
+        }
+        if (sortedThirdSet.includes('133')) {
+            additionalNumbersForThirdSet.push('123');
+        }
+        if (sortedThirdSet.includes('144')) {
+            additionalNumbersForThirdSet.push('124');
+        }
+        if (sortedThirdSet.includes('155')) {
+            additionalNumbersForThirdSet.push('125');
+        }
+        if (sortedThirdSet.includes('166')) {
+            additionalNumbersForThirdSet.push('126');
+        }
+        if (sortedThirdSet.includes('177')) {
+            additionalNumbersForThirdSet.push('127');
+        }
+        if (sortedThirdSet.includes('188')) {
+            additionalNumbersForThirdSet.push('128');
+        }
+        if (sortedThirdSet.includes('199')) {
+            additionalNumbersForThirdSet.push('129');
+        }
+        if (sortedThirdSet.includes('222')) {
+            additionalNumbersForThirdSet.push('222');
+        }
+        if (sortedThirdSet.includes('233')) {
+            additionalNumbersForThirdSet.push('223');
+        }
+        if (sortedThirdSet.includes('244')) {
+            additionalNumbersForThirdSet.push('224');
+        }
+        if (sortedThirdSet.includes('255')) {
+            additionalNumbersForThirdSet.push('225');
+        }
+        if (sortedThirdSet.includes('266')) {
+            additionalNumbersForThirdSet.push('226');
+        }
+        if (sortedThirdSet.includes('277')) {
+            additionalNumbersForThirdSet.push('227');
+        }
+        if (sortedThirdSet.includes('288')) {
+            additionalNumbersForThirdSet.push('228');
+        }
+        if (sortedThirdSet.includes('299')) {
+            additionalNumbersForThirdSet.push('229');
+        }
+        if (sortedThirdSet.includes('333')) {
+            additionalNumbersForThirdSet.push('233');
+        }
+        if (sortedThirdSet.includes('344')) {
+            additionalNumbersForThirdSet.push('234');
+        }
+        if (sortedThirdSet.includes('355')) {
+            additionalNumbersForThirdSet.push('235');
+        }
+        if (sortedThirdSet.includes('366')) {
+            additionalNumbersForThirdSet.push('236');
+        }
+        if (sortedThirdSet.includes('377')) {
+            additionalNumbersForThirdSet.push('237');
+        }
+        if (sortedThirdSet.includes('388')) {
+            additionalNumbersForThirdSet.push('238');
+        }
+        if (sortedThirdSet.includes('399')) {
+            additionalNumbersForThirdSet.push('239');
+        }
+        if (sortedThirdSet.includes('444')) {
+            additionalNumbersForThirdSet.push('244');
+        }
+        if (sortedThirdSet.includes('455')) {
+            additionalNumbersForThirdSet.push('245');
+        }
+        if (sortedThirdSet.includes('466')) {
+            additionalNumbersForThirdSet.push('246');
+        }
+        if (sortedThirdSet.includes('477')) {
+            additionalNumbersForThirdSet.push('247');
+        }
+        if (sortedThirdSet.includes('488')) {
+            additionalNumbersForThirdSet.push('248');
+        }
+        if (sortedThirdSet.includes('499')) {
+            additionalNumbersForThirdSet.push('249');
+        }
+        if (sortedThirdSet.includes('555')) {
+            additionalNumbersForThirdSet.push('255');
+        }
+        if (sortedThirdSet.includes('566')) {
+            additionalNumbersForThirdSet.push('256');
+        }
+        if (sortedThirdSet.includes('577')) {
+            additionalNumbersForThirdSet.push('257');
+        }
+        if (sortedThirdSet.includes('588')) {
+            additionalNumbersForThirdSet.push('258');
+        }
+        if (sortedThirdSet.includes('599')) {
+            additionalNumbersForThirdSet.push('259');
+        }
+        if (sortedThirdSet.includes('666')) {
+            additionalNumbersForThirdSet.push('266');
+        }
+        if (sortedThirdSet.includes('677')) {
+            additionalNumbersForThirdSet.push('267');
+        }
+        if (sortedThirdSet.includes('688')) {
+            additionalNumbersForThirdSet.push('268');
+        }
+        if (sortedThirdSet.includes('699')) {
+            additionalNumbersForThirdSet.push('269');
+        }
+        if (sortedThirdSet.includes('777')) {
+            additionalNumbersForThirdSet.push('277');
+        }
+        if (sortedThirdSet.includes('788')) {
+            additionalNumbersForThirdSet.push('278');
+        }
+        if (sortedThirdSet.includes('799')) {
+            additionalNumbersForThirdSet.push('279');
+        }
+        if (sortedThirdSet.includes('888')) {
+            additionalNumbersForThirdSet.push('288');
+        }
+        if (sortedThirdSet.includes('899')) {
+            additionalNumbersForThirdSet.push('289');
+        }
+        if (sortedThirdSet.includes('999')) {
+            additionalNumbersForThirdSet.push('299');
+        }
+        if (sortedThirdSet.includes('001')) {
+            additionalNumbersForThirdSet.push('012');
+        }
+        if (sortedThirdSet.includes('002')) {
+            additionalNumbersForThirdSet.push('022');
+        }
+        if (sortedThirdSet.includes('003')) {
+            additionalNumbersForThirdSet.push('023');
+        }
+        if (sortedThirdSet.includes('004')) {
+            additionalNumbersForThirdSet.push('024');
+        }
+        if (sortedThirdSet.includes('005')) {
+            additionalNumbersForThirdSet.push('025');
+        }
+        if (sortedThirdSet.includes('006')) {
+            additionalNumbersForThirdSet.push('026');
+        }
+        if (sortedThirdSet.includes('007')) {
+            additionalNumbersForThirdSet.push('027');
+        }
+        if (sortedThirdSet.includes('008')) {
+            additionalNumbersForThirdSet.push('028');
+        }
+        if (sortedThirdSet.includes('009')) {
+            additionalNumbersForThirdSet.push('029');
+        }
+        if (sortedThirdSet.includes('112')) {
+            additionalNumbersForThirdSet.push('122');
+        }
+        if (sortedThirdSet.includes('113')) {
+            additionalNumbersForThirdSet.push('123');
+        }
+        if (sortedThirdSet.includes('114')) {
+            additionalNumbersForThirdSet.push('124');
+        }
+        if (sortedThirdSet.includes('115')) {
+            additionalNumbersForThirdSet.push('125');
+        }
+        if (sortedThirdSet.includes('116')) {
+            additionalNumbersForThirdSet.push('126');
+        }
+        if (sortedThirdSet.includes('117')) {
+            additionalNumbersForThirdSet.push('127');
+        }
+        if (sortedThirdSet.includes('118')) {
+            additionalNumbersForThirdSet.push('128');
+        }
+        if (sortedThirdSet.includes('119')) {
+            additionalNumbersForThirdSet.push('129');
+        }
+        if (sortedThirdSet.includes('223')) {
+            additionalNumbersForThirdSet.push('223');
+        }
+        if (sortedThirdSet.includes('224')) {
+            additionalNumbersForThirdSet.push('224');
+        }
+        if (sortedThirdSet.includes('225')) {
+            additionalNumbersForThirdSet.push('225');
+        }
+        if (sortedThirdSet.includes('226')) {
+            additionalNumbersForThirdSet.push('226');
+        }
+        if (sortedThirdSet.includes('227')) {
+            additionalNumbersForThirdSet.push('227');
+        }
+        if (sortedThirdSet.includes('228')) {
+            additionalNumbersForThirdSet.push('228');
+        }
+        if (sortedThirdSet.includes('229')) {
+            additionalNumbersForThirdSet.push('229');
+        }
+        if (sortedThirdSet.includes('334')) {
+            additionalNumbersForThirdSet.push('234');
+        }
+        if (sortedThirdSet.includes('335')) {
+            additionalNumbersForThirdSet.push('235');
+        }
+        if (sortedThirdSet.includes('336')) {
+            additionalNumbersForThirdSet.push('236');
+        }
+        if (sortedThirdSet.includes('337')) {
+            additionalNumbersForThirdSet.push('237');
+        }
+        if (sortedThirdSet.includes('338')) {
+            additionalNumbersForThirdSet.push('238');
+        }
+        if (sortedThirdSet.includes('339')) {
+            additionalNumbersForThirdSet.push('239');
+        }
+        if (sortedThirdSet.includes('445')) {
+            additionalNumbersForThirdSet.push('245');
+        }
+        if (sortedThirdSet.includes('446')) {
+            additionalNumbersForThirdSet.push('246');
+        }
+        if (sortedThirdSet.includes('447')) {
+            additionalNumbersForThirdSet.push('247');
+        }
+        if (sortedThirdSet.includes('448')) {
+            additionalNumbersForThirdSet.push('248');
+        }
+        if (sortedThirdSet.includes('449')) {
+            additionalNumbersForThirdSet.push('249');
+        }
+        if (sortedThirdSet.includes('556')) {
+            additionalNumbersForThirdSet.push('256');
+        }
+        if (sortedThirdSet.includes('557')) {
+            additionalNumbersForThirdSet.push('257');
+        }
+        if (sortedThirdSet.includes('558')) {
+            additionalNumbersForThirdSet.push('258');
+        }
+        if (sortedThirdSet.includes('559')) {
+            additionalNumbersForThirdSet.push('259');
+        }
+        if (sortedThirdSet.includes('667')) {
+            additionalNumbersForThirdSet.push('267');
+        }
+        if (sortedThirdSet.includes('668')) {
+            additionalNumbersForThirdSet.push('268');
+        }
+        if (sortedThirdSet.includes('669')) {
+            additionalNumbersForThirdSet.push('269');
+        }
+        if (sortedThirdSet.includes('778')) {
+            additionalNumbersForThirdSet.push('278');
+        }
+        if (sortedThirdSet.includes('779')) {
+            additionalNumbersForThirdSet.push('279');
+        }
+        if (sortedThirdSet.includes('889')) {
+            additionalNumbersForThirdSet.push('289');
+        }
+
+        // สร้างชุดตัวเลข 3 ตัว (ปกติ)
+        const filteredFinalThirdSet = [...new Set(sortedThirdSet)].sort((a, b) => a - b);
+
+        // สร้างชุดตัวเลข 3 ตัว (แปลเพิ่ม) และทำให้เป็นเอกลักษณ์
+        const uniqueAdditionalNumbersSet = new Set(additionalNumbersForThirdSet);
+        const uniqueAdditionalNumbers = [...uniqueAdditionalNumbersSet];
+
+        // ตัดตัวเลขที่ซ้ำกับชุด 3 ตัว (ปกติ)
+        const finalAdditionalNumbers = uniqueAdditionalNumbers.filter(num => 
+            !filteredFinalThirdSet.includes(num)
+        );
+
+        // จัดเรียงชุด 3 ตัว (แปลเพิ่ม) จากน้อยไปหามาก
+        finalAdditionalNumbers.sort((a, b) => a - b);
+
+        const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
+            ? finalAdditionalNumbers.join(' - ')
+            : '<span style="color: red;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
         return `
             <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 1.0; margin-top: 10px; color: blue;">
