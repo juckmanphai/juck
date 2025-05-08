@@ -2,56 +2,64 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ผลฉลากกินแบ่งรัฐบาล</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             background-color: white;
             margin: 0;
-            padding: 0 20px;
-            max-width: 600px;
-            margin: 0 auto;
+            padding: 10px;
+            max-width: 100%;
+            min-height: 100vh;
         }
 
         h1 {
             text-align: center;
             color: #e65100;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            margin: 10px 0;
+            font-size: 1.5rem;
         }
 
         .form-container {
             background-color: lightyellow;
-            margin: 20px auto;
+            margin: 10px auto;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
             padding: 10px;
-            line-height: 0.6;
-            max-width: 500px;
-            text-align: center;
+            max-width: 100%;
         }
 
         label {
-            font-size: 18px;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            font-size: 1rem;
+            margin: 5px 0;
+            display: block;
         }
 
-        input, select {
-            font-size: 18px;
+        input, select, button {
+            font-size: 1rem;
             padding: 8px;
             margin: 5px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
             width: 100%;
-            max-width: 150px;
-            transition: border-color 0.3s;
+            max-width: 100%;
         }
 
         .input-pair {
             display: flex;
+            gap: 10px;
             justify-content: center;
+        }
+
+        .input-pair input {
+            flex: 1;
+            min-width: 0;
         }
 
         /* Modal Styles */
@@ -64,129 +72,110 @@
             height: 100%;
             background-color: rgba(0,0,0,0.5);
             z-index: 999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            overflow-y: auto;
+            padding: 10px;
         }
 
         .modal-content {
             background-color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             border: 3px solid green;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 20px;
             position: relative;
-            animation-name: zoom;
-            animation-duration: 0.3s;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-
-        @keyframes zoom {
-            from {transform: scale(0);}
-            to {transform: scale(1);}
         }
 
         .close-btn {
             display: block;
-            margin: 0 auto;
-            padding: 12px 25px;
-            font-size: 18px;
+            margin: 10px auto 0;
+            padding: 10px 20px;
+            font-size: 1rem;
             background-color: #d32f2f;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
             width: auto;
-        }
-
-        .close-btn:hover {
-            background-color: #b71c1c;
+            max-width: 100%;
         }
 
         /* Content inside modal */
         .header-title {
             background-color: white;
             color: rgba(0, 100, 255, 0.8);
-            font-size: 26px;
+            font-size: 1.3rem;
             font-weight: bold;
             border: 2px solid red;
             border-radius: 20px;
             display: inline-block;
-            padding: 20px;
-            margin-top: 4px;
-            margin-bottom: 7px;
+            padding: 10px 15px;
+            margin: 5px 0;
         }
 
         .draw-date {
             color: blue;
-            padding: 15px;
-            font-size: 18px;
+            padding: 10px;
+            font-size: 1rem;
             border: 1px solid blue;
             background-color: white;
-            color: blue;
             border-radius: 15px;
             display: inline-block;
-            margin-top: 5px;
-            margin-bottom: 15px;
+            margin: 5px 0 15px;
         }
 
         .number-box {
             display: inline-block;
             background-color: white;
             color: red;
-            font-size: 38px;
+            font-size: 1.5rem;
             font-weight: bold;
-            width: 40px;
-            height: 40px;
-            line-height: 42px;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
             text-align: center;
-            border: 3px solid blue;
-            border-radius: 50px;
-            margin: 0.5px;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            border: 2px solid blue;
+            border-radius: 50%;
+            margin: 2px;
         }
 
         .three-digit-box {
             display: inline-block;
             background-color: white;
             color: blue;
-            font-size: 30px;
+            font-size: 1.3rem;
             font-weight: bold;
-            width: 55px;
-            height: 40px;
-            line-height: 42px;
+            width: 45px;
+            height: 35px;
+            line-height: 35px;
             text-align: center;
-            border: 3px solid orange;
+            border: 2px solid orange;
             border-radius: 5px;
-            margin: 5px;
+            margin: 3px;
         }
 
         .two-digit-box {
             display: inline-block;
             background-color: white;
             color: #ff9800;
-            font-size: 40px;
+            font-size: 1.8rem;
             font-weight: bold;
-            width: 80px;
-            height: 50px;
-            line-height: 52px;
+            width: 60px;
+            height: 45px;
+            line-height: 45px;
             text-align: center;
             border-radius: 30px;
-            border: 3px solid red;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            border: 2px solid red;
+            margin: 10px 0;
         }
 
         .result-title {
             font-weight: bold;
             color: green;
-            margin-bottom: 5px;
-            margin-top: 5px;
+            margin: 5px 0;
+            font-size: 1.1rem;
         }
 
         .flex-row {
@@ -198,50 +187,58 @@
         }
 
         .back-button {
-            font-size: 20px;
+            font-size: 1rem;
             text-align: center;
-            position: relative;
-            margin: 20px auto;
-            border: 3px solid blue;
-            padding: 5px 40px;
+            margin: 15px auto;
+            border: 2px solid blue;
+            padding: 8px 30px;
             border-radius: 20px;
             background-color: lightyellow;
             color: red;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, transform 0.2s;
-            white-space: nowrap;
             display: block;
-        }
-
-        .back-button:hover {
-            background-color: #E64A19;
-            transform: translateY(-2px);
-        }
-
-        .back-button:active {
-            background-color: #D84315;
-            transform: translateY(0);
-        }
-
-        .close-container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            margin-top: 10px;
+            max-width: 100%;
         }
 
         .three-digits-container {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
             width: 100%;
             margin: 10px 0;
+        }
+
+        @media (min-width: 400px) {
+            .three-digits-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
         }
 
         .three-digits-group {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 5px 0;
+        }
+
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -291,13 +288,13 @@
 
             <!-- ส่วนรางวัลที่ 1 -->
             <div class="flex-row">
-                <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+                <img src="logo.png" alt="Logo Left" style="width: 50px; margin-right: 5px;">
                 <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
-                <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
+                <img src="logo.png" alt="Logo Right" style="width: 50px; margin-left: 5px;">
             </div>
-            <div id="first-prize-display" style="margin-top: 5px;"></div>
+            <div id="first-prize-display" style="margin: 5px 0;"></div>
 
-            <!-- ส่วนเลขหน้าและเลขท้าย 3 ตัว (อยู่ในระดับเดียวกัน) -->
+            <!-- ส่วนเลขหน้าและเลขท้าย 3 ตัว -->
             <div class="three-digits-container">
                 <div class="three-digits-group">
                     <h3 class="result-title">เลขหน้า 3 ตัว</h3>
@@ -323,9 +320,7 @@
             <h3 class="result-title">เลขท้าย 2 ตัว</h3>
         </div>
         
-        <div class="close-container">
-            <button class="close-btn" onclick="closeModal()">ปิด</button>
-        </div>
+        <button class="close-btn" onclick="closeModal()">ปิด</button>
     </div>
 
     <footer>
