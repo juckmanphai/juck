@@ -2,58 +2,56 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลฉลากกินแบ่งรัฐบาล</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: white;
             margin: 0;
-            padding: 0 20px;
-            max-width: 600px;
-            margin: 0 auto;
+            padding: 0 15px;
+            font-size: 16px;
         }
-
         h1 {
             text-align: center;
             color: #e65100;
             margin-top: 5px;
             margin-bottom: 5px;
         }
-
         .form-container {
             background-color: lightyellow;
-            margin: 20px auto;
+            margin: 15px auto;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
             padding: 10px;
             line-height: 0.6;
+            width: 100%;
             max-width: 500px;
             text-align: center;
         }
-
         label {
-            font-size: 18px;
+            font-size: 16px;
             margin-top: 5px;
             margin-bottom: 5px;
+            display: block;
         }
-
         input, select {
-            font-size: 18px;
+            font-size: 16px;
             padding: 8px;
             margin: 5px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
-            width: 100%;
-            max-width: 150px;
+            width: 90%;
+            max-width: 100%;
             transition: border-color 0.3s;
         }
-
         .input-pair {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
-
         /* Modal Styles */
         .modal-overlay {
             display: none;
@@ -64,18 +62,16 @@
             height: 100%;
             background-color: rgba(0,0,0,0.5);
             z-index: 999;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
-
         .modal-content {
             background-color: white;
-            padding: 20px;
+            padding: 15px 10px;
             border-radius: 10px;
             border: 3px solid green;
-            width: 90%;
-            max-width: 600px;
+            width: 95%;
+            max-width: 500px;
             text-align: center;
             position: relative;
             animation-name: zoom;
@@ -83,17 +79,15 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
-
         @keyframes zoom {
             from {transform: scale(0);}
             to {transform: scale(1);}
         }
-
         .close-btn {
             display: block;
             margin: 0 auto;
-            padding: 12px 25px;
-            font-size: 18px;
+            padding: 10px 20px;
+            font-size: 16px;
             background-color: #d32f2f;
             color: white;
             border: none;
@@ -102,29 +96,26 @@
             transition: background-color 0.3s ease;
             width: auto;
         }
-
         .close-btn:hover {
             background-color: #b71c1c;
         }
-
         /* Content inside modal */
         .header-title {
             background-color: white;
             color: rgba(0, 100, 255, 0.8);
-            font-size: 26px;
+            font-size: 20px;
             font-weight: bold;
             border: 2px solid red;
             border-radius: 20px;
             display: inline-block;
-            padding: 20px;
+            padding: 10px 15px;
             margin-top: 4px;
             margin-bottom: 7px;
         }
-
         .draw-date {
             color: blue;
-            padding: 15px;
-            font-size: 18px;
+            padding: 10px;
+            font-size: 16px;
             border: 1px solid blue;
             background-color: white;
             color: blue;
@@ -133,62 +124,56 @@
             margin-top: 5px;
             margin-bottom: 15px;
         }
-
         .number-box {
             display: inline-block;
             background-color: white;
             color: red;
-            font-size: 38px;
+            font-size: 24px;
             font-weight: bold;
-            width: 40px;
-            height: 40px;
-            line-height: 42px;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
             text-align: center;
-            border: 3px solid blue;
+            border: 2px solid blue;
             border-radius: 50px;
-            margin: 0.5px;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            margin: 1px;
         }
-
         .three-digit-box {
             display: inline-block;
             background-color: white;
             color: blue;
-            font-size: 30px;
+            font-size: 22px;
             font-weight: bold;
-            width: 55px;
-            height: 40px;
-            line-height: 42px;
+            width: 45px;
+            height: 30px;
+            line-height: 30px;
             text-align: center;
-            border: 3px solid orange;
+            border: 2px solid orange;
             border-radius: 5px;
-            margin: 5px;
+            margin: 3px;
         }
-
         .two-digit-box {
             display: inline-block;
             background-color: white;
             color: #ff9800;
-            font-size: 40px;
+            font-size: 28px;
             font-weight: bold;
-            width: 80px;
-            height: 50px;
-            line-height: 52px;
+            width: 60px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
             border-radius: 30px;
-            border: 3px solid red;
+            border: 2px solid red;
             margin-top: 10px;
             margin-bottom: 10px;
         }
-
         .result-title {
             font-weight: bold;
             color: green;
             margin-bottom: 5px;
             margin-top: 5px;
+            font-size: 16px;
         }
-
         .flex-row {
             display: flex;
             justify-content: center;
@@ -196,14 +181,13 @@
             flex-wrap: wrap;
             margin: 10px 0;
         }
-
         .back-button {
-            font-size: 20px;
+            font-size: 16px;
             text-align: center;
             position: relative;
-            margin: 20px auto;
-            border: 3px solid blue;
-            padding: 5px 40px;
+            margin: 15px auto;
+            border: 2px solid blue;
+            padding: 5px 20px;
             border-radius: 20px;
             background-color: lightyellow;
             color: red;
@@ -213,43 +197,38 @@
             white-space: nowrap;
             display: block;
         }
-
         .back-button:hover {
             background-color: #E64A19;
             transform: translateY(-2px);
         }
-
         .back-button:active {
             background-color: #D84315;
             transform: translateY(0);
         }
-
         .close-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             text-align: center;
             margin-top: 10px;
         }
-
         .three-digits-container {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             margin: 10px 0;
         }
-
         .three-digits-group {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html '">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
-
     <div class="form-container">
         <div class="form-group">
             <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
@@ -285,19 +264,16 @@
     <!-- Modal -->
     <div id="resultModal" class="modal-overlay">
         <div class="modal-content">
-            <!-- ส่วนหัวข้อและวันที่ (อยู่ด้านบนสุด) -->
             <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
             <div class="draw-date" id="display-draw-date"></div>
 
-            <!-- ส่วนรางวัลที่ 1 -->
             <div class="flex-row">
-                <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+                <img src="logo.png" alt="Logo Left" style="width: 50px; margin-right: 10px;">
                 <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
-                <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
+                <img src="logo.png" alt="Logo Right" style="width: 50px; margin-left: 10px;">
             </div>
             <div id="first-prize-display" style="margin-top: 5px;"></div>
 
-            <!-- ส่วนเลขหน้าและเลขท้าย 3 ตัว (อยู่ในระดับเดียวกัน) -->
             <div class="three-digits-container">
                 <div class="three-digits-group">
                     <h3 class="result-title">เลขหน้า 3 ตัว</h3>
@@ -306,7 +282,6 @@
                         <div class="three-digit-box" id="display-front-three-2"></div>
                     </div>
                 </div>
-
                 <div class="three-digits-group">
                     <h3 class="result-title">เลขท้าย 3 ตัว</h3>
                     <div>
@@ -316,13 +291,11 @@
                 </div>
             </div>
 
-            <!-- ส่วนเลขท้าย 2 ตัว -->
             <div class="flex-row">
                 <div class="two-digit-box" id="display-back-two"></div>
             </div>
             <h3 class="result-title">เลขท้าย 2 ตัว</h3>
         </div>
-        
         <div class="close-container">
             <button class="close-btn" onclick="closeModal()">ปิด</button>
         </div>
@@ -386,7 +359,7 @@
         }
 
         // เพิ่ม event listener สำหรับปุ่มแสดงผล
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const showButton = document.querySelector(".button-container button");
             if (showButton) {
                 showButton.addEventListener("click", displayResults);
