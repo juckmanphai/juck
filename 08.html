@@ -2,7 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลฉลากกินแบ่งรัฐบาล</title>
     <style>
         body {
@@ -13,12 +12,14 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
         h1 {
             text-align: center;
             color: #e65100;
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
         .form-container {
             background-color: lightyellow;
             margin: 20px auto;
@@ -30,11 +31,13 @@
             max-width: 500px;
             text-align: center;
         }
+
         label {
             font-size: 18px;
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
         input, select {
             font-size: 18px;
             padding: 8px;
@@ -45,10 +48,66 @@
             max-width: 150px;
             transition: border-color 0.3s;
         }
+
         .input-pair {
             display: flex;
             justify-content: center;
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid green;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            animation-name: zoom;
+            animation-duration: 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0);}
+            to {transform: scale(1);}
+        }
+
+        .close-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 12px 25px;
+            font-size: 18px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: auto;
+        }
+
+        .close-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Content inside modal */
         .header-title {
             background-color: white;
             color: rgba(0, 100, 255, 0.8);
@@ -61,6 +120,7 @@
             margin-top: 4px;
             margin-bottom: 7px;
         }
+
         .draw-date {
             color: blue;
             padding: 15px;
@@ -71,8 +131,9 @@
             border-radius: 15px;
             display: inline-block;
             margin-top: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
         }
+
         .number-box {
             display: inline-block;
             background-color: white;
@@ -89,6 +150,7 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
         .three-digit-box {
             display: inline-block;
             background-color: white;
@@ -103,6 +165,7 @@
             border-radius: 5px;
             margin: 5px;
         }
+
         .two-digit-box {
             display: inline-block;
             background-color: white;
@@ -118,26 +181,22 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         .result-title {
             font-weight: bold;
             color: green;
             margin-bottom: 5px;
             margin-top: 5px;
         }
+
         .flex-row {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin: 10px 0;
         }
-        .button-container button {
-            font-size: 22px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-        }
+
         .back-button {
             font-size: 20px;
             text-align: center;
@@ -146,7 +205,7 @@
             border: 3px solid blue;
             padding: 5px 40px;
             border-radius: 20px;
-            background-color: lightyellow; 
+            background-color: lightyellow;
             color: red;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -154,56 +213,40 @@
             white-space: nowrap;
             display: block;
         }
+
         .back-button:hover {
             background-color: #E64A19;
             transform: translateY(-2px);
         }
+
         .back-button:active {
             background-color: #D84315;
             transform: translateY(0);
         }
 
-        /* Modal Styles */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        .close-container {
             width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            border: 3px solid green;
-            width: 90%;
             max-width: 600px;
             text-align: center;
-            position: relative;
-            animation-name: zoom;
-            animation-duration: 0.3s;
+            margin-top: 10px;
         }
-        @keyframes zoom {
-            from {transform: scale(0);}
-            to {transform: scale(1);}
+
+        .three-digits-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 10px 0;
         }
-        .close-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        .three-digits-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
+
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
@@ -242,8 +285,45 @@
     <!-- Modal -->
     <div id="resultModal" class="modal-overlay">
         <div class="modal-content">
-            <span style="float:right; cursor:pointer; font-size:24px;" onclick="closeModal()">&times;</span>
-            <div id="modalResultContent"></div>
+            <!-- ส่วนหัวข้อและวันที่ (อยู่ด้านบนสุด) -->
+            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+            <div class="draw-date" id="display-draw-date"></div>
+
+            <!-- ส่วนรางวัลที่ 1 -->
+            <div class="flex-row">
+                <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+                <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
+                <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
+            </div>
+            <div id="first-prize-display" style="margin-top: 5px;"></div>
+
+            <!-- ส่วนเลขหน้าและเลขท้าย 3 ตัว (อยู่ในระดับเดียวกัน) -->
+            <div class="three-digits-container">
+                <div class="three-digits-group">
+                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                    <div>
+                        <div class="three-digit-box" id="display-front-three-1"></div>
+                        <div class="three-digit-box" id="display-front-three-2"></div>
+                    </div>
+                </div>
+
+                <div class="three-digits-group">
+                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                    <div>
+                        <div class="three-digit-box" id="display-back-three-1"></div>
+                        <div class="three-digit-box" id="display-back-three-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ส่วนเลขท้าย 2 ตัว -->
+            <div class="flex-row">
+                <div class="two-digit-box" id="display-back-two"></div>
+            </div>
+            <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+        </div>
+        
+        <div class="close-container">
             <button class="close-btn" onclick="closeModal()">ปิด</button>
         </div>
     </div>
@@ -278,67 +358,40 @@
         }
 
         function displayResults() {
-            const resultContainer = document.getElementById("modalResultContent");
-            resultContainer.innerHTML = ""; // Clear previous content
-
             const rawDate = document.getElementById("draw-date").value;
             const formattedDate = formatThaiDate(rawDate);
+            document.getElementById("display-draw-date").innerText = formattedDate;
 
             const firstPrize = document.getElementById("first-prize").value;
-            const frontThree1 = document.getElementById("front-three-1").value;
-            const frontThree2 = document.getElementById("front-three-2").value;
-            const backThree1 = document.getElementById("back-three-1").value;
-            const backThree2 = document.getElementById("back-three-2").value;
-            const backTwo = document.getElementById("back-two").value;
-
-            let html = `
-                <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-                <div class="draw-date"><span>${formattedDate}</span></div>
-                <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center;">
-                    <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
-                    <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
-                    <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
-                </div>
-                <div id="first-prize-display" style="margin-top: 5px;"></div>
-            `;
-
-            const firstPrizeDisplay = document.createElement("div");
-            firstPrizeDisplay.style.textAlign = "center";
+            const firstPrizeDisplay = document.getElementById("first-prize-display");
+            firstPrizeDisplay.innerHTML = "";
             for (let i = 0; i < firstPrize.length; i++) {
                 const box = document.createElement("div");
                 box.className = "number-box";
                 box.innerText = firstPrize[i];
                 firstPrizeDisplay.appendChild(box);
             }
-            html += firstPrizeDisplay.outerHTML;
 
-            html += `
-                <div class="result-section flex-row">
-                    <div>
-                        <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                        <div class="three-digit-box">${frontThree1}</div>
-                        <div class="three-digit-box">${frontThree2}</div>
-                    </div>
-                    <div style="margin: 0 15px;"></div>
-                    <div>
-                        <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                        <div class="three-digit-box">${backThree1}</div>
-                        <div class="three-digit-box">${backThree2}</div>
-                    </div>
-                </div>
-                <div class="result-section">
-                    <div class="two-digit-box">${backTwo}</div>
-                    <h3 class="result-title">เลขท้าย 2 ตัว</h3>
-                </div>
-            `;
+            document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
+            document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
+            document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
+            document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
+            document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
 
-            resultContainer.innerHTML = html;
-            document.getElementById("resultModal").style.display = "block";
+            document.getElementById("resultModal").style.display = "flex";
         }
 
         function closeModal() {
             document.getElementById("resultModal").style.display = "none";
         }
+
+        // เพิ่ม event listener สำหรับปุ่มแสดงผล
+        document.addEventListener("DOMContentLoaded", function() {
+            const showButton = document.querySelector(".button-container button");
+            if (showButton) {
+                showButton.addEventListener("click", displayResults);
+            }
+        });
     </script>
 </body>
 </html>
