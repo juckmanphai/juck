@@ -13,24 +13,12 @@
             max-width: 600px;
             margin: 0 auto;
         }
-
         h1 {
             text-align: center;
             color: #e65100;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
-
-        h2 {
-            margin-top: 5px;
-	    margin-bottom: 5px;
-        }
-
-        h3 {
-            margin-top: 5px;
-	    margin-bottom: 5px;
-        }
-
         .form-container {
             background-color: lightyellow;
             margin: 20px auto;
@@ -38,17 +26,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
             padding: 10px;
-	    line-height: 0.6;
+            line-height: 0.6;
             max-width: 500px;
             text-align: center;
         }
-
         label {
             font-size: 18px;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
-
         input, select {
             font-size: 18px;
             padding: 8px;
@@ -59,179 +45,162 @@
             max-width: 150px;
             transition: border-color 0.3s;
         }
-
         .input-pair {
             display: flex;
             justify-content: center;
         }
-
-        .result-display {
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid green;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-	    margin-top: 20px;
-	    margin-bottom: 20px;
-        }
-
-	.result-section {
-            margin-top: 5px; /* Add spacing between each result section */
-        }
-
         .header-title {
-	    background-color: lightyellow;
+            background-color: white;
             color: rgba(0, 100, 255, 0.8);
             font-size: 26px;
-	    font-weight: bold;
-	    border: 2px solid red;
+            font-weight: bold;
+            border: 2px solid red;
             border-radius: 20px;
             display: inline-block;
             padding: 20px;
             margin-top: 4px;
             margin-bottom: 7px;
         }
-
         .draw-date {
             color: blue;
             padding: 15px;
             font-size: 18px;
-	    border: 1px solid blue;
-            background-color: lightyellow;
+            border: 1px solid blue;
+            background-color: white;
             color: blue;
             border-radius: 15px;
             display: inline-block;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
-
         .number-box {
             display: inline-block;
-            background-color: lightyellow;
+            background-color: white;
             color: red;
-            font-size: 30px;
+            font-size: 38px;
             font-weight: bold;
-            width: 35px;
-            height: 35px;
-            line-height: 37px;
-            text-align: center;
-	    border: 2px solid red;
-            border-radius: 1px;
-            margin: 0.5px;
-	    margin-top: 5px;
-	    margin-bottom: 5px;
-        }
-
-        .three-digit-box {
-            display: inline-block;
-            background-color: lightyellow;
-            color: blue;
-            font-size: 20px;
-            font-weight: bold;
-            width: 50px;
+            width: 40px;
             height: 40px;
             line-height: 42px;
             text-align: center;
-	    border: 1px solid red;
-            border-radius: 30px;
+            border: 3px solid blue;
+            border-radius: 50px;
+            margin: 0.5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .three-digit-box {
+            display: inline-block;
+            background-color: white;
+            color: blue;
+            font-size: 30px;
+            font-weight: bold;
+            width: 55px;
+            height: 40px;
+            line-height: 42px;
+            text-align: center;
+            border: 3px solid orange;
+            border-radius: 5px;
             margin: 5px;
         }
-
         .two-digit-box {
             display: inline-block;
-            background-color: lightyellow;
+            background-color: white;
             color: #ff9800;
-            font-size: 36px;
+            font-size: 40px;
             font-weight: bold;
-            width: 90px;
+            width: 80px;
             height: 50px;
             line-height: 52px;
             text-align: center;
-            border-radius: 40px;
-	    border: 1px solid red;
+            border-radius: 30px;
+            border: 3px solid red;
             margin-top: 10px;
-	    margin-bottom: 10px;
+            margin-bottom: 10px;
         }
-
         .result-title {
             font-weight: bold;
             color: green;
             margin-bottom: 5px;
-	    margin-top: 5px;
+            margin-top: 5px;
         }
-	        .flex-row {
+        .flex-row {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
-
-	.button-container button {
-        font-size: 22px; /* Increase font size for better visibility */
-        padding: 12px 20px; /* Adjust padding for larger button appearance */
-        border-radius: 8px; /* Optional: increase border radius for a softer look */
-        cursor: pointer;
-        background-color: #4CAF50; /* Button color */
-        color: white;
-    }
-
-.back-button {
-    font-size: 20px;
-    text-align: center;
-    position: relative;
-    margin: 20px auto; /* Center horizontally */
-    border: 3px solid blue;
-    padding: 5px 40px; /* Adjust padding to fit content */
-    border-radius: 20px;
-    background-color: lightyellow; 
-    color: red;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-    transition: background-color 0.3s, transform 0.2s;
-    white-space: nowrap; /* Prevent text wrapping */
-    display: block; /* Ensures the margin auto works */
-}
-
-.back-button:hover {
-    background-color: #E64A19; /* Darker orange on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-}
-
-.back-button:active {
-    background-color: #D84315; /* Even darker on active click */
-    transform: translateY(0); /* Remove lift effect */
-}
-
-
-
-        .logo-container {
+        .button-container button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .back-button {
+            font-size: 20px;
             text-align: center;
-            margin-bottom: 15px;
+            position: relative;
+            margin: 20px auto;
+            border: 3px solid blue;
+            padding: 5px 40px;
+            border-radius: 20px;
+            background-color: lightyellow; 
+            color: red;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+            white-space: nowrap;
+            display: block;
         }
-.result-section {
-        margin-top: 5px; /* ลดระยะห่างระหว่างส่วนต่าง ๆ */
-    }
-.result-section .result-title      
-   .result-title {
-            font-weight: bold;
-            color: green;
-            margin-bottom: 5px;
-	    margin-top: 5px;
+        .back-button:hover {
+            background-color: #E64A19;
+            transform: translateY(-2px);
         }
-	        .flex-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
+        .back-button:active {
+            background-color: #D84315;
+            transform: translateY(0);
         }
 
-
-#first-prize-display {
-    margin-top: 5px; /* เพิ่มระยะห่างด้านบนของตัวเลข */
-}
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid green;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+        @keyframes zoom {
+            from {transform: scale(0);}
+            to {transform: scale(1);}
+        }
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -243,12 +212,10 @@
             <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
             <input type="text" id="draw-date" placeholder="กรอกวันที่ (ตัวอย่าง: 1 มกราคม 2567)">
         </div>
-
         <div class="form-group">
             <input type="text" id="first-prize" maxlength="6" placeholder="กรอกเลขรางวัลที่ 1">
-	   <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
+            <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
         </div>
-
         <div class="form-group">
             <label>เลขหน้า 3 ตัว</label>
             <div class="input-pair">
@@ -256,7 +223,6 @@
                 <input type="text" id="front-three-2" maxlength="3" placeholder="ชุดที่ 2">
             </div>
         </div>
-
         <div class="form-group">
             <label>เลขท้าย 3 ตัว</label>
             <div class="input-pair">
@@ -264,145 +230,115 @@
                 <input type="text" id="back-three-2" maxlength="3" placeholder="ชุดที่ 2">
             </div>
         </div>
-
         <div class="form-group">
             <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
-	    <label for="back-two">เลขท้าย 2 ตัว</label>
+            <label for="back-two">เลขท้าย 2 ตัว</label>
         </div>
-
         <div class="button-container">
             <button onclick="displayResults()">แสดงผล</button>
         </div>
     </div>
 
-<div id="resultContainer" class="result-display" style="display: none;">
-    <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-        <!-- หัวข้อหลัก -->
-        <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-        <div class="draw-date">
-            <span id="display-draw-date"></span>
-        </div>
-
-        <!-- ผลรางวัลที่ 1 -->
-<div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
-    <!-- โลโก้ด้านซ้าย -->
-    <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
-
-    <!-- หัวข้อรางวัล -->
-    <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
-
-    <!-- โลโก้ด้านขวา -->
-    <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
-</div>
-
-        <div id="first-prize-display" style="margin-top: 5px;"></div>
-
-        <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
-        <div class="result-section flex-row">
-            <div>
-                <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                <div class="three-digit-box" id="display-front-three-1"></div>
-                <div class="three-digit-box" id="display-front-three-2"></div>
-            </div>
-            <div style="margin: 0 15px;"></div>
-            <div>
-                <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                <div class="three-digit-box" id="display-back-three-1"></div>
-                <div class="three-digit-box" id="display-back-three-2"></div>
-            </div>
-        </div>
-
-        <!-- เลขท้าย 2 ตัว -->
-        <div class="result-section">
-            <div class="two-digit-box" id="display-back-two"></div>
-            <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+    <!-- Modal -->
+    <div id="resultModal" class="modal-overlay">
+        <div class="modal-content">
+            <span style="float:right; cursor:pointer; font-size:24px;" onclick="closeModal()">&times;</span>
+            <div id="modalResultContent"></div>
+            <button class="close-btn" onclick="closeModal()">ปิด</button>
         </div>
     </div>
-</div>
 
-<footer>
+    <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
-           <script>
+
+    <script>
+        function formatThaiDate(dateString) {
+            const days = [
+                "วันอาทิตย์", "วันจันทร์", "วันอังคาร", 
+                "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"
+            ];
+            const months = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", 
+                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", 
+                "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+            const parts = dateString.split("/");
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                const date = new Date(year, month, day);
+                const dayOfWeek = days[date.getDay()];
+                const thaiYear = year + 543;
+                const monthName = months[month];
+                return `${dayOfWeek}ที่ ${day} ${monthName} พ.ศ. ${thaiYear}`;
+            }
+            return dateString;
+        }
+
         function displayResults() {
-            document.getElementById("resultContainer").style.display = "block";
-            document.getElementById("display-draw-date").innerText = document.getElementById("draw-date").value;
+            const resultContainer = document.getElementById("modalResultContent");
+            resultContainer.innerHTML = ""; // Clear previous content
+
+            const rawDate = document.getElementById("draw-date").value;
+            const formattedDate = formatThaiDate(rawDate);
 
             const firstPrize = document.getElementById("first-prize").value;
-            const firstPrizeDisplay = document.getElementById("first-prize-display");
-            firstPrizeDisplay.innerHTML = "";
+            const frontThree1 = document.getElementById("front-three-1").value;
+            const frontThree2 = document.getElementById("front-three-2").value;
+            const backThree1 = document.getElementById("back-three-1").value;
+            const backThree2 = document.getElementById("back-three-2").value;
+            const backTwo = document.getElementById("back-two").value;
+
+            let html = `
+                <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+                <div class="draw-date"><span>${formattedDate}</span></div>
+                <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center;">
+                    <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+                    <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
+                    <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
+                </div>
+                <div id="first-prize-display" style="margin-top: 5px;"></div>
+            `;
+
+            const firstPrizeDisplay = document.createElement("div");
+            firstPrizeDisplay.style.textAlign = "center";
             for (let i = 0; i < firstPrize.length; i++) {
                 const box = document.createElement("div");
                 box.className = "number-box";
                 box.innerText = firstPrize[i];
                 firstPrizeDisplay.appendChild(box);
             }
+            html += firstPrizeDisplay.outerHTML;
 
-            document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
-            document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
-            document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
-            document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
-            document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
-        }
-function formatThaiDate(dateString) {
-    const days = [
-        "วันอาทิตย์", "วันจันทร์", "วันอังคาร", 
-        "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"
-    ];
+            html += `
+                <div class="result-section flex-row">
+                    <div>
+                        <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                        <div class="three-digit-box">${frontThree1}</div>
+                        <div class="three-digit-box">${frontThree2}</div>
+                    </div>
+                    <div style="margin: 0 15px;"></div>
+                    <div>
+                        <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                        <div class="three-digit-box">${backThree1}</div>
+                        <div class="three-digit-box">${backThree2}</div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <div class="two-digit-box">${backTwo}</div>
+                    <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+                </div>
+            `;
 
-    const months = [
-        "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", 
-        "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", 
-        "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-
-    const parts = dateString.split("/");
-    if (parts.length === 3) {
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1;
-        const year = parseInt(parts[2], 10);
-
-        // สร้างวันที่ใหม่สำหรับการคำนวณวันในสัปดาห์
-        const date = new Date(year, month, day);
-
-        const dayOfWeek = days[date.getDay()]; // หาวันในสัปดาห์
-        const thaiYear = year + 543; // เพิ่ม 543 เพื่อแปลงเป็นปีไทย
-        const monthName = months[month];
-
-        return `${dayOfWeek}ที่ ${day} ${monthName} พ.ศ. ${thaiYear}`;
-    }
-    return dateString; // คืนค่าดั้งเดิมถ้าไม่ถูกต้อง
-}
-
-// ตัวอย่างการใช้งาน
-console.log(formatThaiDate("24/11/2024")); 
-// ผลลัพธ์: วันอาทิตย์ที่ 24 พฤศจิกายน พ.ศ. 2567
-
-    function displayResults() {
-        document.getElementById("resultContainer").style.display = "block";
-        
-        const rawDate = document.getElementById("draw-date").value;
-        const formattedDate = formatThaiDate(rawDate);
-        document.getElementById("display-draw-date").innerText = formattedDate;
-
-        const firstPrize = document.getElementById("first-prize").value;
-        const firstPrizeDisplay = document.getElementById("first-prize-display");
-        firstPrizeDisplay.innerHTML = "";
-        for (let i = 0; i < firstPrize.length; i++) {
-            const box = document.createElement("div");
-            box.className = "number-box";
-            box.innerText = firstPrize[i];
-            firstPrizeDisplay.appendChild(box);
+            resultContainer.innerHTML = html;
+            document.getElementById("resultModal").style.display = "block";
         }
 
-        document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
-        document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
-        document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
-        document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
-        document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
-    }
-
+        function closeModal() {
+            document.getElementById("resultModal").style.display = "none";
+        }
     </script>
 </body>
 </html>
-
