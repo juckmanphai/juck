@@ -199,54 +199,133 @@
             background-color: #d32f2f;
         }
         
-        /* สไตล์ตัวเลขผลลัพธ์ */
-        .circle {
-            display: inline-block;
+        /* สไตล์ลูกปิงปอง */
+        .pingpong-ball {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 3px;
+            box-shadow: 
+                0 3px 10px rgba(0, 0, 0, 0.2),
+                inset -3px -3px 8px rgba(0, 0, 0, 0.15),
+                inset 3px 3px 8px rgba(255, 255, 255, 0.15);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* ลูกปิงปองสีแดง (สำหรับเลข 5 ตัว) */
+        .pingpong-ball-red {
+            background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
+        }
+        
+        /* ลูกปิงปองสีน้ำเงิน (สำหรับเลข 3 ตัวบน) */
+        .pingpong-ball-blue {
+            background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
+        }
+        
+        /* ลูกปิงปองสีส้ม (สำหรับเลข 2 ตัวล่าง) */
+        .pingpong-ball-orange {
+            background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+        }
+        
+        /* สีตัวหนังสือ */
+        .prize-label-red {
+            color: #cc0000;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .prize-label-blue {
+            color: #0066cc;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .prize-label-orange {
+            color: #cc6600;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        /* จัดกลุ่มลูกปิงปอง */
+        .ball-group {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* ความสูงคงที่เพื่อจัดแนว */
+        }
+        
+        /* สไตล์วงกลมและสี่เหลี่ยม */
+        .circle-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             border: 3px solid orange;
             border-radius: 50%;
-            font-size: 36px;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 52px;
-            margin: 0 5px;
-        }
-        .square {
-            display: inline-block;
-            border: 3px solid red;
-            font-size: 36px;
-            width: 75px;
-            height: 50px;
-            text-align: center;
-            line-height: 52px;
-            margin: 0 8px;
-            box-sizing: border-box;
-        }
-        .square-two {
-            display: inline-block;
-            border: 3px solid red;
-            font-size: 36px;
-            width: 60px;
-            height: 50px;
-            text-align: center;
-            line-height: 52px;
-            margin: 0 5px;
-            box-sizing: border-box;
-        }
-        .square-orange {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            color: red;
-            font-size: 40px;
-            font-weight: bold;
             width: 60px;
             height: 60px;
-            border: 3px solid green;
-            border-radius: 50%;
-            margin: 1px;
-            box-sizing: border-box;
+            margin: 0 5px;
+            padding: 5px;
+        }
+        
+        .square-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid red;
+            width: 100px;
+            height: 50px;
+            margin: 0 8px;
+            padding: 5px;
+        }
+        
+        .square-two-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid red;
+            width: 70px;
+            height: 50px;
+            margin: 0 5px;
+            padding: 5px;
+        }
+        
+        /* จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน */
+        .numbers-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 5px 0; /* ลดระยะห่างจากด้านบน */
+        }
+        
+        .number-group {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        @media (max-width: 480px) {
+            .numbers-display {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+            }
+            
+            .number-group {
+                flex: 0 0 auto;
+                margin-bottom: 0;
+            }
         }
     </style>
 </head>
@@ -290,12 +369,20 @@
                 <div style="position: relative; z-index: 1;">
                     <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 8px 0;"></h3>
                     <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 8px 0;"></p>
-                    <h2 class="blue" style="font-size: 26px; margin: 8px 0;">รางวัลเลข 5 ตัว</h2>
-                    <div id="popupFiveDigitsDisplay" style="margin: 12px 0;"></div>
-                    <p class="blue" style="font-size: 32px; font-weight: bold; letter-spacing: 2px; margin: 12px 0;">
-                        บน <span id="popupThreeDigitsDisplay" style="font-size: 36px; font-weight: bold; color: green;"></span> 
-                        ล่าง <span id="popupTwoDigitsDisplay" style="font-size: 36px; font-weight: bold; color: blue;"></span>
-                    </p>
+                    <h2 class="prize-label-red" style="font-size: 26px; margin: 8px 0;">รางวัลเลข 5 ตัว</h2>
+                    <div id="popupFiveDigitsDisplay" class="ball-group" style="margin: 12px 0;"></div>
+                    
+                    <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
+                    <div class="numbers-display">
+                        <div class="number-group">
+                            <p class="prize-label-blue">เลข 3 ตัวบน</p>
+                            <div id="popupThreeDigitsDisplay" class="ball-group"></div>
+                        </div>
+                        <div class="number-group">
+                            <p class="prize-label-orange">เลข 2 ตัวล่าง</p>
+                            <div id="popupTwoDigitsDisplay" class="ball-group"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -324,6 +411,16 @@
             }
         }
 
+        // สร้างลูกปิงปอง
+        function createPingPongBall(number, type = 'red') {
+            return `<span class="pingpong-ball pingpong-ball-${type}">${number}</span>`;
+        }
+
+        // สร้างกลุ่มลูกปิงปองจากตัวเลข
+        function createPingPongNumbers(numbers, type = 'red') {
+            return numbers.split('').map(digit => createPingPongBall(digit, type)).join('');
+        }
+
         // แสดง Popup
         function showPopup() {
             const popup = document.getElementById("popupOverlay");
@@ -347,8 +444,8 @@
                 return;
             }
 
-            const threeDigits = num.slice(2);
-            const twoDigits = num.slice(0, 2);
+            const threeDigits = num.slice(2); // 3 ตัวหลัง
+            const twoDigits = num.slice(0, 2); // 2 ตัวแรก
             const fiveDigits = num;
 
             const date = dateInput ? new Date(dateInput) : new Date();
@@ -358,15 +455,14 @@
             document.getElementById("popupTopicDisplay").textContent = `ผล${selectedTopic}`;
             document.getElementById("popupDateDisplay").textContent = thaiDate;
             
-            // แสดงเลข 5 ตัว
-            const fiveDigitsDisplay = document.getElementById("popupFiveDigitsDisplay");
-            fiveDigitsDisplay.innerHTML = fiveDigits.split('').map(digit => 
-                `<span class="square-orange">${digit}</span>`
-            ).join('');
+            // แสดงเลข 5 ตัวเป็นลูกปิงปองสีแดง
+            document.getElementById("popupFiveDigitsDisplay").innerHTML = createPingPongNumbers(fiveDigits, 'red');
             
-            // แสดงเลข 3 ตัวและ 2 ตัว
-            document.getElementById("popupThreeDigitsDisplay").textContent = threeDigits;
-            document.getElementById("popupTwoDigitsDisplay").textContent = twoDigits;
+            // แสดงเลข 3 ตัวบนเป็นลูกปิงปองสีน้ำเงิน
+            document.getElementById("popupThreeDigitsDisplay").innerHTML = createPingPongNumbers(threeDigits, 'blue');
+            
+            // แสดงเลข 2 ตัวล่างเป็นลูกปิงปองสีส้ม
+            document.getElementById("popupTwoDigitsDisplay").innerHTML = createPingPongNumbers(twoDigits, 'orange');
             
             // รีเซ็ตสถานะปุ่ม
             document.getElementById("popupCircleButton").classList.remove("active");
@@ -385,10 +481,13 @@
             if (!twoDigitsDisplay) return;
             
             if (button.classList.contains("active")) {
-                twoDigitsDisplay.innerHTML = twoDigitsDisplay.textContent;
+                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีส้ม)
+                twoDigitsDisplay.innerHTML = createPingPongNumbers(twoDigitsDisplay.textContent.replace(/\D/g, ''), 'orange');
                 button.classList.remove("active");
             } else {
-                twoDigitsDisplay.innerHTML = `<span class="circle">${twoDigitsDisplay.textContent}</span>`;
+                // แสดงในวงกลม (ลูกปิงปองสีส้ม)
+                const numbers = twoDigitsDisplay.textContent.replace(/\D/g, '');
+                twoDigitsDisplay.innerHTML = `<div class="circle-container">${createPingPongNumbers(numbers, 'orange')}</div>`;
                 button.classList.add("active");
             }
         }
@@ -401,10 +500,13 @@
             if (!threeDigitsDisplay) return;
             
             if (button.classList.contains("active")) {
-                threeDigitsDisplay.innerHTML = threeDigitsDisplay.textContent;
+                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีน้ำเงิน)
+                threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigitsDisplay.textContent.replace(/\D/g, ''), 'blue');
                 button.classList.remove("active");
             } else {
-                threeDigitsDisplay.innerHTML = `<span class="square">${threeDigitsDisplay.textContent}</span>`;
+                // แสดงในสี่เหลี่ยม (ลูกปิงปองสีน้ำเงิน)
+                const numbers = threeDigitsDisplay.textContent.replace(/\D/g, '');
+                threeDigitsDisplay.innerHTML = `<div class="square-container">${createPingPongNumbers(numbers, 'blue')}</div>`;
                 button.classList.add("active");
             }
         }
@@ -417,12 +519,16 @@
             if (!threeDigitsDisplay) return;
             
             if (button.classList.contains("active")) {
-                threeDigitsDisplay.innerHTML = threeDigitsDisplay.textContent;
+                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีน้ำเงิน)
+                threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigitsDisplay.textContent.replace(/\D/g, ''), 'blue');
                 button.classList.remove("active");
             } else {
-                const digits = threeDigitsDisplay.textContent.slice(-2);
-                const hundredsDigit = threeDigitsDisplay.textContent.slice(0, 1);
-                threeDigitsDisplay.innerHTML = `${hundredsDigit}<span class="square-two">${digits}</span>`;
+                // แสดงแบบสี่เหลี่ยมสองตัวบน (ลูกปิงปองสีน้ำเงิน)
+                const numbers = threeDigitsDisplay.textContent.replace(/\D/g, '');
+                const firstDigit = numbers[0];
+                const lastTwoDigits = numbers.slice(1);
+                threeDigitsDisplay.innerHTML = 
+                    `${createPingPongBall(firstDigit, 'blue')}<div class="square-two-container">${createPingPongNumbers(lastTwoDigits, 'blue')}</div>`;
                 button.classList.add("active");
             }
         }
