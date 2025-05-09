@@ -127,9 +127,13 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        /* รางวัลที่ 1 - สีแดง */
+        /* รางวัลที่ 1 - สีแดง (ขนาดใหญ่ขึ้น) */
         .circle-number-red {
             background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
+            width: 48px;  /* ขยายความกว้าง */
+            height: 48px; /* ขยายความสูง */
+            font-size: 42px; /* ขยายขนาดฟอนต์ */
+            line-height: 48px; /* ปรับ line-height ให้ตรงกับความสูง */
         }
 
         /* เลขหน้า 3 ตัว - สีน้ำเงิน */
@@ -218,7 +222,7 @@
         }
 
         #first-prize-display {
-            margin-top: 5px;
+            margin-top: 15px;
         }
 
         /* เพิ่มระยะห่างระหว่างข้อความและตัวเลข */
