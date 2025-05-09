@@ -113,15 +113,15 @@
             display: inline-block;
             background-color: white;
             color: #ff5252;
-            font-size: 32px;
+            font-size: 38px;
             font-weight: bold;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
+            width: 40px;
+            height: 40px;
+            line-height: 42px;
             text-align: center;
             border: 2px solid #ff5252;
             border-radius: 50%;
-            margin: 0.5px;
+            margin: 4px;
             box-shadow: 
                 0 0 0 2px white,
                 0 0 0 4px #ff5252,
@@ -195,33 +195,32 @@
             color: white;
         }
 
-        .back-button {
-            font-size: 20px;
-            text-align: center;
-            position: relative;
-            margin: 20px auto;
-            border: 3px solid blue;
-            padding: 5px 40px;
-            border-radius: 20px;
-            background-color: lightyellow; 
-            color: red;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, transform 0.2s;
-            white-space: nowrap;
-            display: block;
-        }
+.back-button {
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    margin: 20px auto; /* Center horizontally */
+    border: 3px solid blue;
+    padding: 5px 40px; /* Adjust padding to fit content */
+    border-radius: 20px;
+    background-color: lightyellow; 
+    color: red;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    transition: background-color 0.3s, transform 0.2s;
+    white-space: nowrap; /* Prevent text wrapping */
+    display: block; /* Ensures the margin auto works */
+}
 
-        .back-button:hover {
-            background-color: #E64A19;
-            transform: translateY(-2px);
-        }
+.back-button:hover {
+    background-color: #E64A19; /* Darker orange on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
 
-        .back-button:active {
-            background-color: #D84315;
-            transform: translateY(0);
-        }
-
+.back-button:active {
+    background-color: #D84315; /* Even darker on active click */
+    transform: translateY(0); /* Remove lift effect */
+}
         .logo-container {
             text-align: center;
             margin-bottom: 15px;
