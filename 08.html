@@ -156,9 +156,25 @@
 
         .result-title {
             font-weight: bold;
-            color: green;
             margin-bottom: 5px;
             margin-top: 5px;
+        }
+
+        /* ปรับสีข้อความตามที่ระบุ */
+        .first-prize-title {
+            color: #cc0000; /* สีแดงเหมือนลูกปิงปอง */
+        }
+        
+        .front-three-title {
+            color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
+        }
+        
+        .back-three-title {
+            color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
+        }
+        
+        .back-two-title {
+            color: #cc6600; /* สีส้มเหมือนลูกปิงปอง */
         }
 
         .flex-row {
@@ -203,6 +219,21 @@
 
         #first-prize-display {
             margin-top: 5px;
+        }
+
+        /* เพิ่มระยะห่างระหว่างข้อความและตัวเลข */
+        .result-title-with-margin {
+            margin-bottom: 15px;
+        }
+        
+        /* ปรับเฉพาะส่วนเลขท้าย 2 ตัวให้มีระยะห่างมากขึ้น */
+        .back-two-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .back-two-number-group {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -261,7 +292,7 @@
                 <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
 
                 <!-- หัวข้อรางวัล -->
-                <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
+                <h3 class="result-title first-prize-title result-title-with-margin">รางวัลที่ 1</h3>
 
                 <!-- โลโก้ด้านขวา -->
                 <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
@@ -272,22 +303,22 @@
             <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
             <div class="result-section flex-row">
                 <div>
-                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                    <h3 class="result-title front-three-title result-title-with-margin">เลขหน้า 3 ตัว</h3>
                     <div id="display-front-three-1" class="number-group"></div>
                     <div id="display-front-three-2" class="number-group"></div>
                 </div>
                 <div style="margin: 0 15px;"></div>
                 <div>
-                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                    <h3 class="result-title back-three-title result-title-with-margin">เลขท้าย 3 ตัว</h3>
                     <div id="display-back-three-1" class="number-group"></div>
                     <div id="display-back-three-2" class="number-group"></div>
                 </div>
             </div>
 
             <!-- เลขท้าย 2 ตัว -->
-            <div class="result-section">
-                <div id="display-back-two" class="number-group"></div>
-                <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+            <div class="result-section back-two-section">
+                <div id="display-back-two" class="number-group back-two-number-group"></div>
+                <h3 class="result-title back-two-title">เลขท้าย 2 ตัว</h3>
             </div>
         </div>
     </div>
