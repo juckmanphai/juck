@@ -65,50 +65,6 @@
             justify-content: center;
         }
 
-        .result-display {
-            background-color: #FAFAD2;
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid green;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .result-section {
-            margin-top: 5px;
-        }
-
-        .header-title {
-            background-color: white;
-            color: rgba(0, 100, 255, 0.8);
-            font-size: 26px;
-            font-weight: bold;
-            border: 2px solid red;
-            border-radius: 20px;
-            display: inline-block;
-            padding: 20px;
-            margin-top: 4px;
-            margin-bottom: 7px;
-        }
-
-        .draw-date {
-            color: blue;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            border: 2px solid orange;
-            background-color: white;
-            color: blue;
-            border-radius: 15px;
-            display: inline-block;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
         /* สไตล์ตัวเลขปิงปอง */
         .circle-number-base {
             display: inline-block;
@@ -131,10 +87,10 @@
         /* รางวัลที่ 1 - สีแดง (ขนาดใหญ่ขึ้น) */
         .circle-number-red {
             background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
-            width: 48px;  /* ขยายความกว้าง */
-            height: 48px; /* ขยายความสูง */
-            font-size: 42px; /* ขยายขนาดฟอนต์ */
-            line-height: 48px; /* ปรับ line-height ให้ตรงกับความสูง */
+            width: 42px;
+            height: 42px;
+            font-size: 36px;
+            line-height: 42px;
         }
 
         /* เลขหน้า 3 ตัว - สีน้ำเงิน */
@@ -167,19 +123,19 @@
 
         /* ปรับสีข้อความตามที่ระบุ */
         .first-prize-title {
-            color: #cc0000; /* สีแดงเหมือนลูกปิงปอง */
+            color: #cc0000;
         }
         
         .front-three-title {
-            color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
+            color: #0066cc;
         }
         
         .back-three-title {
-            color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
+            color: #009900;
         }
         
         .back-two-title {
-            color: #cc6600; /* สีส้มเหมือนลูกปิงปอง */
+            color: #cc6600;
         }
 
         .flex-row {
@@ -196,6 +152,7 @@
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
+            border: none;
         }
 
         .back-button {
@@ -217,15 +174,6 @@
             background-color: #45a049;
         }
 
-        .logo-container {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        #first-prize-display {
-            margin-top: 15px;
-        }
-
         /* เพิ่มระยะห่างระหว่างข้อความและตัวเลข */
         .result-title-with-margin {
             margin-bottom: 15px;
@@ -239,6 +187,99 @@
         
         .back-two-number-group {
             margin-bottom: 15px;
+        }
+
+        /* สไตล์ Popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: #FAFAD2;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid green;
+            width: auto;
+            max-width: 600px;
+            margin: 20px;
+            position: relative;
+        }
+
+        .popup-result-display {
+            background-color: #FAFAD2;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid green;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            background-color: white;
+            color: rgba(0, 100, 255, 0.8);
+            font-size: 26px;
+            font-weight: bold;
+            border: 2px solid red;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 20px;
+            margin-top: 4px;
+            margin-bottom: 7px;
+        }
+
+        .prize-title {
+            background-color: white;
+            color: #cc0000;
+            font-size: 22px;
+            font-weight: bold;
+            border: 2px solid red;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 15px;
+            margin-top: 4px;
+            margin-bottom: 7px;
+        }
+
+        .draw-date {
+            color: blue;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid blue;
+            background-color: white;
+            color: blue;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .close-popup {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-popup:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -283,48 +324,54 @@
         </div>
     </div>
 
-    <div id="resultContainer" class="result-display" style="display: none;">
-        <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-            <!-- หัวข้อหลัก -->
-            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-            <div class="draw-date">
-                <span id="display-draw-date"></span>
-            </div>
+    <!-- Popup สำหรับแสดงผล -->
+    <div id="popupOverlay" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-result-display">
+                <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+                    <!-- หัวข้อหลัก -->
+                    <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+                    <div class="draw-date">
+                        <span id="display-draw-date"></span>
+                    </div>
 
-            <!-- ผลรางวัลที่ 1 -->
-            <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
-                <!-- โลโก้ด้านซ้าย -->
-                <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+                    <!-- ผลรางวัลที่ 1 -->
+                    <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <!-- โลโก้ด้านซ้าย -->
+                        <img src="logo.png" alt="Logo Left" style="width: 50px; margin-right: 10px;">
 
-                <!-- หัวข้อรางวัล -->
-                <h3 class="result-title first-prize-title result-title-with-margin">รางวัลที่ 1</h3>
+                        <!-- หัวข้อรางวัล -->
+                        <div class="prize-title">รางวัลที่ 1</div>
 
-                <!-- โลโก้ด้านขวา -->
-                <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
-            </div>
+                        <!-- โลโก้ด้านขวา -->
+                        <img src="logo.png" alt="Logo Right" style="width: 50px; margin-left: 10px;">
+                    </div>
 
-            <div id="first-prize-display" class="number-group" style="margin-top: 5px;"></div>
+                    <div id="first-prize-display" class="number-group" style="margin-top: 5px;"></div>
 
-            <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
-            <div class="result-section flex-row">
-                <div>
-                    <h3 class="result-title front-three-title result-title-with-margin">เลขหน้า 3 ตัว</h3>
-                    <div id="display-front-three-1" class="number-group"></div>
-                    <div id="display-front-three-2" class="number-group"></div>
+                    <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
+                    <div class="result-section flex-row">
+                        <div>
+                            <h3 class="result-title front-three-title result-title-with-margin">เลขหน้า 3 ตัว</h3>
+                            <div id="display-front-three-1" class="number-group"></div>
+                            <div id="display-front-three-2" class="number-group"></div>
+                        </div>
+                        <div style="margin: 0 15px;"></div>
+                        <div>
+                            <h3 class="result-title back-three-title result-title-with-margin">เลขท้าย 3 ตัว</h3>
+                            <div id="display-back-three-1" class="number-group"></div>
+                            <div id="display-back-three-2" class="number-group"></div>
+                        </div>
+                    </div>
+
+                    <!-- เลขท้าย 2 ตัว -->
+                    <div class="result-section back-two-section">
+                        <div id="display-back-two" class="number-group back-two-number-group"></div>
+                        <h3 class="result-title back-two-title">เลขท้าย 2 ตัว</h3>
+                    </div>
                 </div>
-                <div style="margin: 0 15px;"></div>
-                <div>
-                    <h3 class="result-title back-three-title result-title-with-margin">เลขท้าย 3 ตัว</h3>
-                    <div id="display-back-three-1" class="number-group"></div>
-                    <div id="display-back-three-2" class="number-group"></div>
-                </div>
             </div>
-
-            <!-- เลขท้าย 2 ตัว -->
-            <div class="result-section back-two-section">
-                <div id="display-back-two" class="number-group back-two-number-group"></div>
-                <h3 class="result-title back-two-title">เลขท้าย 2 ตัว</h3>
-            </div>
+            <button class="close-popup" onclick="closePopup()">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -378,7 +425,8 @@
         }
 
         function displayResults() {
-            document.getElementById("resultContainer").style.display = "block";
+            const popup = document.getElementById("popupOverlay");
+            popup.style.display = "flex";
             
             const rawDate = document.getElementById("draw-date").value;
             const formattedDate = formatThaiDate(rawDate);
@@ -422,6 +470,18 @@
                 "circle-number-orange"
             );
         }
+
+        function closePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+        }
+
+        // ปิด Popup เมื่อคลิกนอกพื้นที่เนื้อหา
+        window.addEventListener('click', function(event) {
+            const popup = document.getElementById("popupOverlay");
+            if (event.target === popup) {
+                closePopup();
+            }
+        });
     </script>
 </body>
 </html>
