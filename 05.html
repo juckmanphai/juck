@@ -49,27 +49,35 @@
       z-index: 1;
     }
 
-    /* === Text & Color Styles === */
-    .blue { color: blue; font-size: 22px; }
-    .red { color: red; }
-    .prize-label {
-      color: #1a237e;
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
+/* === Text & Color Styles === */
+.blue { color: blue; font-size: 22px; }
+.red { color: red; }
+.prize-label {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.prize-label.six-digit {
+  color: red;
+}
+.prize-label.three-digit {
+  color: blue;
+}
+.prize-label.two-digit {
+  color: #FF9800; /* Orange color */
+}
 
     /* === Shape Styles === */
     .circle {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      border: 3px solid orange;
+      border: 3px solid red;
       border-radius: 50%;
       font-weight: bold;
       width: 60px;
       height: 60px;
-      margin: 0 2px;
+      margin: 0 1px;
       padding: 0;
       overflow: hidden;
     }
@@ -81,7 +89,7 @@
       font-weight: bold;
       width: 100px;
       height: 50px;
-      margin: 0 2px;
+      margin: 0 1px;
       padding: 0;
       overflow: hidden;
     }
@@ -93,7 +101,7 @@
       font-weight: bold;
       width: 70px;
       height: 50px;
-      margin: 0 2px;
+      margin: 0 1px;
       padding: 0;
       overflow: hidden;
     }
@@ -388,7 +396,7 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      gap: 2px;
+      gap: 0.5px;
     }
 
     /* === Horizontal Layout for Top 3 and Bottom 2 Numbers === */
@@ -425,7 +433,7 @@
       justify-content: center;
       min-height: 60px;
     }
-    
+
     @media (max-width: 480px) {
       .number-display-horizontal {
         flex-direction: row;
@@ -567,32 +575,32 @@
       const threeDigits = num.slice(3);
       const twoDigits = num.slice(2, 4);
 
-      const resultHtml = `
-        <div style="position: relative; text-align: center; line-height: 1;">
-          <h3 class="blue" style="display: inline-block; vertical-align: middle; margin: 0; font-size: 34px;">ผลลาวพัฒนา</h3>
-          <p class="blue" style="margin-top: 20px;">${thaiDate}</p>
-          <div class="number-display">
-            <div class="prize-label">รางวัลเลข 6 ตัว</div>
-            <div class="number-container">
-              ${createPingPongNumbers(num)}
-            </div>
-          </div>
-          <div class="number-row">
-            <div class="number-item">
-              <div class="prize-label">เลข 3 ตัวบน</div>
-              <div class="number-container">
-                ${createPingPongNumbers(threeDigits, 'top')}
-              </div>
-            </div>
-            <div class="number-item">
-              <div class="prize-label">เลข 2 ตัวล่าง</div>
-              <div class="number-container">
-                ${createPingPongNumbers(twoDigits, 'bottom')}
-              </div>
-            </div>
-          </div>
+const resultHtml = `
+  <div style="position: relative; text-align: center; line-height: 1;">
+    <h3 class="blue" style="display: inline-block; vertical-align: middle; margin: 0; font-size: 34px;">ผลลาวพัฒนา</h3>
+    <p class="blue" style="margin-top: 20px;">${thaiDate}</p>
+    <div class="number-display">
+      <div class="prize-label six-digit">รางวัลเลข 6 ตัว</div>
+      <div class="number-container">
+        ${createPingPongNumbers(num)}
+      </div>
+    </div>
+    <div class="number-row">
+      <div class="number-item">
+        <div class="prize-label three-digit">เลข 3 ตัวบน</div>
+        <div class="number-container">
+          ${createPingPongNumbers(threeDigits, 'top')}
         </div>
-      `;
+      </div>
+      <div class="number-item">
+        <div class="prize-label two-digit">เลข 2 ตัวล่าง</div>
+        <div class="number-container">
+          ${createPingPongNumbers(twoDigits, 'bottom')}
+        </div>
+      </div>
+    </div>
+  </div>
+`;
 
       // Show in popup
       const popupResult = document.getElementById("popupResult");
