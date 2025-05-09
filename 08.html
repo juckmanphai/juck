@@ -108,68 +108,50 @@
             margin-bottom: 5px;
         }
 
-        /* ปรับแต่ง CSS สำหรับตัวเลขลูกปิงปอง */
-        .number-box {
+        /* สไตล์ตัวเลขปิงปอง */
+        .circle-number-base {
             display: inline-block;
-            background-color: white;
-            color: #ff5252;
-            font-size: 38px;
-            font-weight: bold;
-            width: 40px;
-            height: 40px;
-            line-height: 42px;
-            text-align: center;
-            border: 2px solid #ff5252;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            margin: 4px;
-            box-shadow: 
-                0 0 0 2px white,
-                0 0 0 4px #ff5252,
-                0 4px 8px rgba(0,0,0,0.2);
-            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 36px;
+            margin: 0 0.5px;
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.2),
+                inset -3px -3px 8px rgba(0, 0, 0, 0.15),
+                inset 3px 3px 8px rgba(255, 255, 255, 0.15);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        .three-digit-box {
-            display: inline-block;
-            background-color: white;
-            color: #2196F3;
-            font-size: 30px;
-            font-weight: bold;
-            width: 55px;
-            height: 55px;
-            line-height: 55px;
-            text-align: center;
-            border: 2px solid #2196F3;
-            border-radius: 50%;
-            margin: 2px;
-            box-shadow: 
-                0 0 0 2px white,
-                0 0 0 4px #2196F3,
-                0 4px 8px rgba(0,0,0,0.2);
-            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        /* รางวัลที่ 1 - สีแดง */
+        .circle-number-red {
+            background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
         }
 
-        .two-digit-box {
-            display: inline-block;
-            background-color: white;
-            color: #FF9800;
-            font-size: 40px;
-            font-weight: bold;
-            width: 70px;
-            height: 70px;
-            line-height: 70px;
-            text-align: center;
-            border: 2px solid #FF9800;
-            border-radius: 50%;
-            margin: 10px;
-            box-shadow: 
-                0 0 0 2px white,
-                0 0 0 4px #FF9800,
-                0 4px 8px rgba(0,0,0,0.2);
-            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        /* เลขหน้า 3 ตัว - สีน้ำเงิน */
+        .circle-number-blue {
+            background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
+        }
+
+        /* เลขท้าย 3 ตัว - สีเขียว */
+        .circle-number-green {
+            background: radial-gradient(circle at 30% 30%, #33cc33, #009900);
+        }
+
+        /* เลขท้าย 2 ตัว - สีส้ม */
+        .circle-number-orange {
+            background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+        }
+
+        .number-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0;
         }
 
         .result-title {
@@ -228,7 +210,6 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
-    <!-- ส่วนที่เหลือของโค้ด HTML ไม่เปลี่ยนแปลง -->
     <div class="form-container">
         <div class="form-group">
             <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
@@ -286,26 +267,26 @@
                 <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
             </div>
 
-            <div id="first-prize-display" style="margin-top: 5px;"></div>
+            <div id="first-prize-display" class="number-group" style="margin-top: 5px;"></div>
 
             <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
             <div class="result-section flex-row">
                 <div>
                     <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                    <div class="three-digit-box" id="display-front-three-1"></div>
-                    <div class="three-digit-box" id="display-front-three-2"></div>
+                    <div id="display-front-three-1" class="number-group"></div>
+                    <div id="display-front-three-2" class="number-group"></div>
                 </div>
                 <div style="margin: 0 15px;"></div>
                 <div>
                     <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                    <div class="three-digit-box" id="display-back-three-1"></div>
-                    <div class="three-digit-box" id="display-back-three-2"></div>
+                    <div id="display-back-three-1" class="number-group"></div>
+                    <div id="display-back-three-2" class="number-group"></div>
                 </div>
             </div>
 
             <!-- เลขท้าย 2 ตัว -->
             <div class="result-section">
-                <div class="two-digit-box" id="display-back-two"></div>
+                <div id="display-back-two" class="number-group"></div>
                 <h3 class="result-title">เลขท้าย 2 ตัว</h3>
             </div>
         </div>
@@ -344,6 +325,22 @@
             return dateString;
         }
 
+        function createNumberBall(number, colorClass) {
+            const ball = document.createElement("div");
+            ball.className = `circle-number-base ${colorClass}`;
+            ball.innerText = number;
+            return ball;
+        }
+
+        function displayNumberGroup(elementId, numberString, colorClass) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = "";
+            
+            for (let i = 0; i < numberString.length; i++) {
+                container.appendChild(createNumberBall(numberString[i], colorClass));
+            }
+        }
+
         function displayResults() {
             document.getElementById("resultContainer").style.display = "block";
             
@@ -351,21 +348,43 @@
             const formattedDate = formatThaiDate(rawDate);
             document.getElementById("display-draw-date").innerText = formattedDate;
 
-            const firstPrize = document.getElementById("first-prize").value;
-            const firstPrizeDisplay = document.getElementById("first-prize-display");
-            firstPrizeDisplay.innerHTML = "";
-            for (let i = 0; i < firstPrize.length; i++) {
-                const box = document.createElement("div");
-                box.className = "number-box";
-                box.innerText = firstPrize[i];
-                firstPrizeDisplay.appendChild(box);
-            }
+            // รางวัลที่ 1 (สีแดง)
+            displayNumberGroup(
+                "first-prize-display", 
+                document.getElementById("first-prize").value, 
+                "circle-number-red"
+            );
 
-            document.getElementById("display-front-three-1").innerText = document.getElementById("front-three-1").value;
-            document.getElementById("display-front-three-2").innerText = document.getElementById("front-three-2").value;
-            document.getElementById("display-back-three-1").innerText = document.getElementById("back-three-1").value;
-            document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
-            document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
+            // เลขหน้า 3 ตัว (สีน้ำเงิน)
+            displayNumberGroup(
+                "display-front-three-1", 
+                document.getElementById("front-three-1").value, 
+                "circle-number-blue"
+            );
+            displayNumberGroup(
+                "display-front-three-2", 
+                document.getElementById("front-three-2").value, 
+                "circle-number-blue"
+            );
+
+            // เลขท้าย 3 ตัว (สีเขียว)
+            displayNumberGroup(
+                "display-back-three-1", 
+                document.getElementById("back-three-1").value, 
+                "circle-number-green"
+            );
+            displayNumberGroup(
+                "display-back-three-2", 
+                document.getElementById("back-three-2").value, 
+                "circle-number-green"
+            );
+
+            // เลขท้าย 2 ตัว (สีส้ม)
+            displayNumberGroup(
+                "display-back-two", 
+                document.getElementById("back-two").value, 
+                "circle-number-orange"
+            );
         }
     </script>
 </body>
