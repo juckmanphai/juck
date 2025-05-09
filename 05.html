@@ -441,12 +441,14 @@
         gap: 10px;
         overflow-x: auto;
         padding-bottom: 10px;
-        justify-content: flex-start;
+        justify-content: center; /* เปลี่ยนจาก flex-start เป็น center */
+        -webkit-overflow-scrolling: touch; /* สำหรับการ scroll ที่ลื่นบน iOS */
       }
       .number-display-horizontal > div {
         flex: 0 0 auto;
         margin-bottom: 0;
         min-width: 120px;
+        text-align: center; /* จัดข้อความกึ่งกลาง */
       }
     }
   </style>
