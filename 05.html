@@ -395,7 +395,7 @@
     .number-display-horizontal {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       gap: 20px;
       margin: 10px 0;
       flex-wrap: wrap;
@@ -404,14 +404,35 @@
       font-size: 16px;
       min-width: 80px;
       text-align: center;
+      color: #1a237e;
+      font-weight: bold;
     }
+    
+    /* === New styles for aligned numbers === */
+    .number-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5px 0;
+    }
+    .number-item {
+      margin: 0 10px;
+      text-align: center;
+    }
+    .number-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60px;
+    }
+    
     @media (max-width: 480px) {
       .number-display-horizontal {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
       }
       .number-display-horizontal > div {
-        margin-bottom: 15px;
+        margin-bottom: 0;
       }
     }
   </style>
@@ -552,16 +573,22 @@
           <p class="blue" style="margin-top: 20px;">${thaiDate}</p>
           <div class="number-display">
             <div class="prize-label">รางวัลเลข 6 ตัว</div>
-            ${createPingPongNumbers(num)}
-          </div>
-          <div class="number-display-horizontal">
-            <div>
-              <div class="prize-label">เลข 3 ตัวบน</div>
-              ${createPingPongNumbers(threeDigits, 'top')}
+            <div class="number-container">
+              ${createPingPongNumbers(num)}
             </div>
-            <div>
+          </div>
+          <div class="number-row">
+            <div class="number-item">
+              <div class="prize-label">เลข 3 ตัวบน</div>
+              <div class="number-container">
+                ${createPingPongNumbers(threeDigits, 'top')}
+              </div>
+            </div>
+            <div class="number-item">
               <div class="prize-label">เลข 2 ตัวล่าง</div>
-              ${createPingPongNumbers(twoDigits, 'bottom')}
+              <div class="number-container">
+                ${createPingPongNumbers(twoDigits, 'bottom')}
+              </div>
             </div>
           </div>
         </div>
@@ -596,70 +623,52 @@
 
     // Popup functions
     function toggleCirclePopup() {
-      const twoDigitsDisplay = document.querySelector("#popupResult .number-display-horizontal > div:nth-child(2)");
+      const twoDigitsDisplay = document.querySelector("#popupResult .number-item:nth-child(2) .number-container");
       const button = document.getElementById("popupCircleButton");
       if (!twoDigitsDisplay) return;
       
       const twoDigits = document.getElementById("numberInput").value.slice(2, 4);
       
       if (button.classList.contains("active")) {
-        twoDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 2 ตัวล่าง</div>
-          ${createPingPongNumbers(twoDigits, 'bottom')}
-        `;
+        twoDigitsDisplay.innerHTML = createPingPongNumbers(twoDigits, 'bottom');
         button.classList.remove("active");
       } else {
-        twoDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 2 ตัวล่าง</div>
-          ${createCircleWithBalls(twoDigits, 'bottom')}
-        `;
+        twoDigitsDisplay.innerHTML = createCircleWithBalls(twoDigits, 'bottom');
         button.classList.add("active");
       }
     }
 
     function toggleSquarePopup() {
-      const threeDigitsDisplay = document.querySelector("#popupResult .number-display-horizontal > div:nth-child(1)");
+      const threeDigitsDisplay = document.querySelector("#popupResult .number-item:nth-child(1) .number-container");
       const button = document.getElementById("popupSquareButton");
       if (!threeDigitsDisplay) return;
       
       const threeDigits = document.getElementById("numberInput").value.slice(3);
       
       if (button.classList.contains("active")) {
-        threeDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 3 ตัวบน</div>
-          ${createPingPongNumbers(threeDigits, 'top')}
-        `;
+        threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigits, 'top');
         button.classList.remove("active");
       } else {
-        threeDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 3 ตัวบน</div>
-          ${createSquareWithBalls(threeDigits, 'top')}
-        `;
+        threeDigitsDisplay.innerHTML = createSquareWithBalls(threeDigits, 'top');
         button.classList.add("active");
       }
     }
 
     function toggleSquareTopPopup() {
-      const threeDigitsDisplay = document.querySelector("#popupResult .number-display-horizontal > div:nth-child(1)");
+      const threeDigitsDisplay = document.querySelector("#popupResult .number-item:nth-child(1) .number-container");
       const button = document.getElementById("popupCircleTopButton");
       if (!threeDigitsDisplay) return;
       
       const threeDigits = document.getElementById("numberInput").value.slice(3);
       
       if (button.classList.contains("active")) {
-        threeDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 3 ตัวบน</div>
-          ${createPingPongNumbers(threeDigits, 'top')}
-        `;
+        threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigits, 'top');
         button.classList.remove("active");
       } else {
         const hundredsDigit = threeDigits[0];
         const lastTwoDigits = threeDigits.slice(1);
         threeDigitsDisplay.innerHTML = `
-          <div class="prize-label">เลข 3 ตัวบน</div>
-          <div class="ball-group">
-            ${createPingPongNumbers(hundredsDigit, 'top')}${createSquareTwoWithBalls(lastTwoDigits, 'top')}
-          </div>
+          ${createPingPongNumbers(hundredsDigit, 'top')}${createSquareTwoWithBalls(lastTwoDigits, 'top')}
         `;
         button.classList.add("active");
       }
