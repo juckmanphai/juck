@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลฉลากกินแบ่งรัฐบาล</title>
     <style>
-        /* สไตล์เดิมทั้งหมดคงไว้เหมือนเดิม */
         body {
             font-family: Arial, sans-serif;
             background-color: white;
@@ -19,17 +18,17 @@
             text-align: center;
             color: #e65100;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
 
         h2 {
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
 
         h3 {
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
 
         .form-container {
@@ -39,7 +38,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
             padding: 10px;
-	    line-height: 0.6;
+            line-height: 0.6;
             max-width: 500px;
             text-align: center;
         }
@@ -47,7 +46,7 @@
         label {
             font-size: 18px;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
 
         input, select {
@@ -69,26 +68,26 @@
         .result-display {
             background-color: #FAFAD2;
             padding: 10px;
-            border-radius: 15px;
-            border: 3px solid green;
+            border-radius: 10px;
+            border: 2px solid green;
             margin-top: 20px;
             margin-bottom: 30px;
             text-align: center;
             position: relative;
-	    margin-top: 20px;
-	    margin-bottom: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-	.result-section {
-            margin-top: 5px; /* Add spacing between each result section */
+        .result-section {
+            margin-top: 5px;
         }
 
         .header-title {
-	    background-color: white;
+            background-color: white;
             color: rgba(0, 100, 255, 0.8);
             font-size: 26px;
-	    font-weight: bold;
-	    border: 2px solid red;
+            font-weight: bold;
+            border: 2px solid red;
             border-radius: 20px;
             display: inline-block;
             padding: 20px;
@@ -100,188 +99,141 @@
             color: blue;
             padding: 15px;
             font-size: 18px;
-	    border: 2px solid orange;
+            border: 1px solid blue;
             background-color: white;
             color: blue;
             border-radius: 15px;
             display: inline-block;
             margin-top: 5px;
-	    margin-bottom: 5px;
+            margin-bottom: 5px;
         }
 
+        /* ปรับแต่ง CSS สำหรับตัวเลขลูกปิงปอง */
         .number-box {
             display: inline-block;
             background-color: white;
-            color: red;
+            color: #ff5252;
             font-size: 38px;
             font-weight: bold;
-            width: 40px;
-            height: 40px;
-            line-height: 42px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
             text-align: center;
-	    border: 3px solid blue;
-            border-radius: 50px;
-            margin: 0.5px;
-	    margin-top: 5px;
-	    margin-bottom: 5px;
+            border: 2px solid #ff5252;
+            border-radius: 50%;
+            margin: 5px;
+            box-shadow: 
+                0 0 0 2px white,
+                0 0 0 4px #ff5252,
+                0 4px 8px rgba(0,0,0,0.2);
+            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .three-digit-box {
             display: inline-block;
             background-color: white;
-            color: blue;
+            color: #2196F3;
             font-size: 30px;
             font-weight: bold;
             width: 55px;
-            height: 40px;
-            line-height: 42px;
+            height: 55px;
+            line-height: 55px;
             text-align: center;
-	    border: 3px solid orange;
-            border-radius: 5px;
+            border: 2px solid #2196F3;
+            border-radius: 50%;
             margin: 5px;
+            box-shadow: 
+                0 0 0 2px white,
+                0 0 0 4px #2196F3,
+                0 4px 8px rgba(0,0,0,0.2);
+            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .two-digit-box {
             display: inline-block;
             background-color: white;
-            color: #ff9800;
+            color: #FF9800;
             font-size: 40px;
             font-weight: bold;
-            width: 80px;
-            height: 50px;
-            line-height: 52px;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
             text-align: center;
-            border-radius: 30px;
-	    border: 3px solid red;
-            margin-top: 10px;
-	    margin-bottom: 10px;
+            border: 2px solid #FF9800;
+            border-radius: 50%;
+            margin: 10px;
+            box-shadow: 
+                0 0 0 2px white,
+                0 0 0 4px #FF9800,
+                0 4px 8px rgba(0,0,0,0.2);
+            background-image: radial-gradient(circle at 30% 30%, white 0%, #f5f5f5 50%, #e0e0e0 100%);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .result-title {
             font-weight: bold;
             color: green;
             margin-bottom: 5px;
-	    margin-top: 5px;
+            margin-top: 5px;
         }
-	        .flex-row {
+
+        .flex-row {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
 
-	.button-container button {
-        font-size: 22px; /* Increase font size for better visibility */
-        padding: 12px 20px; /* Adjust padding for larger button appearance */
-        border-radius: 8px; /* Optional: increase border radius for a softer look */
-        cursor: pointer;
-        background-color: #4CAF50; /* Button color */
-        color: white;
-        border: none;
-    }
+        .button-container button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
 
-.back-button {
-    font-size: 20px;
-    text-align: center;
-    position: relative;
-    margin: 20px auto; /* Center horizontally */
-    border: 3px solid blue;
-    padding: 5px 40px; /* Adjust padding to fit content */
-    border-radius: 20px;
-    background-color: lightyellow; 
-    color: red;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-    transition: background-color 0.3s, transform 0.2s;
-    white-space: nowrap; /* Prevent text wrapping */
-    display: block; /* Ensures the margin auto works */
-}
+        .back-button {
+            font-size: 20px;
+            text-align: center;
+            position: relative;
+            margin: 20px auto;
+            border: 3px solid blue;
+            padding: 5px 40px;
+            border-radius: 20px;
+            background-color: lightyellow; 
+            color: red;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+            white-space: nowrap;
+            display: block;
+        }
 
-.back-button:hover {
-    background-color: #E64A19; /* Darker orange on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-}
+        .back-button:hover {
+            background-color: #E64A19;
+            transform: translateY(-2px);
+        }
 
-.back-button:active {
-    background-color: #D84315; /* Even darker on active click */
-    transform: translateY(0); /* Remove lift effect */
-}
+        .back-button:active {
+            background-color: #D84315;
+            transform: translateY(0);
+        }
 
         .logo-container {
             text-align: center;
             margin-bottom: 15px;
         }
-.result-section {
-        margin-top: 5px; /* ลดระยะห่างระหว่างส่วนต่าง ๆ */
-    }
-.result-section .result-title      
-   .result-title {
-            font-weight: bold;
-            color: green;
-            margin-bottom: 5px;
-	    margin-top: 5px;
+
+        #first-prize-display {
+            margin-top: 5px;
         }
-	        .flex-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-#first-prize-display {
-    margin-top: 5px; /* เพิ่มระยะห่างด้านบนของตัวเลข */
-}
-
-/* Popup Styles */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: white;
-    padding: 15px;
-    border-radius: 2px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างสำหรับปุ่มปิด */
-}
-
-.close-popup {
-    font-size: 22px; /* ขนาดเท่ากับปุ่มแสดงผล */
-    padding: 12px 20px; /* ขนาดเท่ากับปุ่มแสดงผล */
-    border-radius: 8px; /* ขนาดเท่ากับปุ่มแสดงผล */
-    cursor: pointer;
-    background-color: #f44336; /* สีแดง */
-    color: white;
-    border: none;
-    width: auto;
-    margin: 10px auto 0; /* จัดกลางและเพิ่มระยะห่างด้านบน */
-    display: block; /* ให้ปุ่มอยู่คนละบรรทัด */
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-.close-popup:hover {
-    background-color: #d32f2f; /* สีแดงเข้มเมื่อ hover */
-}
-
     </style>
-
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
     <div class="form-container">
@@ -292,7 +244,7 @@
 
         <div class="form-group">
             <input type="text" id="first-prize" maxlength="6" placeholder="กรอกเลขรางวัลที่ 1">
-	   <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
+            <label for="first-prize">รางวัลที่ 1 (6 ตัว)</label>
         </div>
 
         <div class="form-group">
@@ -313,70 +265,63 @@
 
         <div class="form-group">
             <input type="text" id="back-two" maxlength="2" placeholder="กรอกเลขท้าย 2 ตัว">
-	    <label for="back-two">เลขท้าย 2 ตัว</label>
+            <label for="back-two">เลขท้าย 2 ตัว</label>
         </div>
 
         <div class="button-container">
             <button onclick="displayResults()">แสดงผล</button>
         </div>
     </div>
-     
-     <!-- Popup Container -->
-     <div id="popupOverlay" class="popup-overlay">
-         <div class="popup-content">
-             <div id="resultContainer" class="result-display">
-                 <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-                     <!-- หัวข้อหลัก -->
-                     <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-                     <div class="draw-date">
-                         <span id="display-draw-date"></span>
-                     </div>
 
-                     <!-- ผลรางวัลที่ 1 -->
-                     <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
-                         <!-- โลโก้ด้านซ้าย -->
-                         <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
+    <div id="resultContainer" class="result-display" style="display: none;">
+        <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+            <!-- หัวข้อหลัก -->
+            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+            <div class="draw-date">
+                <span id="display-draw-date"></span>
+            </div>
 
-                         <!-- หัวข้อรางวัล -->
-                         <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
+            <!-- ผลรางวัลที่ 1 -->
+            <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+                <!-- โลโก้ด้านซ้าย -->
+                <img src="logo.png" alt="Logo Left" style="width: 70px; margin-right: 10px;">
 
-                         <!-- โลโก้ด้านขวา -->
-                         <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
-                     </div>
+                <!-- หัวข้อรางวัล -->
+                <h3 class="result-title" style="margin: 0;">รางวัลที่ 1</h3>
 
-                     <div id="first-prize-display" style="margin-top: 5px;"></div>
+                <!-- โลโก้ด้านขวา -->
+                <img src="logo.png" alt="Logo Right" style="width: 70px; margin-left: 10px;">
+            </div>
 
-                     <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
-                     <div class="result-section flex-row">
-                         <div>
-                             <h3 class="result-title">เลขหน้า 3 ตัว</h3>
-                             <div class="three-digit-box" id="display-front-three-1"></div>
-                             <div class="three-digit-box" id="display-front-three-2"></div>
-                         </div>
-                         <div style="margin: 0 15px;"></div>
-                         <div>
-                             <h3 class="result-title">เลขท้าย 3 ตัว</h3>
-                             <div class="three-digit-box" id="display-back-three-1"></div>
-                             <div class="three-digit-box" id="display-back-three-2"></div>
-                         </div>
-                     </div>
+            <div id="first-prize-display" style="margin-top: 5px;"></div>
 
-                     <!-- เลขท้าย 2 ตัว -->
-                     <div class="result-section">
-                         <div class="two-digit-box" id="display-back-two"></div>
-                         <h3 class="result-title">เลขท้าย 2 ตัว</h3>
-                     </div>
-                 </div>
-             </div>
-             <!-- ปุ่มปิดที่อยู่ด้านล่างนอกกรอบสีเขียว -->
-             <button class="close-popup" onclick="closePopup()">ปิดหน้าต่าง</button>
-         </div>
-     </div>
+            <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
+            <div class="result-section flex-row">
+                <div>
+                    <h3 class="result-title">เลขหน้า 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-front-three-1"></div>
+                    <div class="three-digit-box" id="display-front-three-2"></div>
+                </div>
+                <div style="margin: 0 15px;"></div>
+                <div>
+                    <h3 class="result-title">เลขท้าย 3 ตัว</h3>
+                    <div class="three-digit-box" id="display-back-three-1"></div>
+                    <div class="three-digit-box" id="display-back-three-2"></div>
+                </div>
+            </div>
 
-<footer>
+            <!-- เลขท้าย 2 ตัว -->
+            <div class="result-section">
+                <div class="two-digit-box" id="display-back-two"></div>
+                <h3 class="result-title">เลขท้าย 2 ตัว</h3>
+            </div>
+        </div>
+    </div>
+
+    <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
-           
+
     <script>
         function formatThaiDate(dateString) {
             const days = [
@@ -396,21 +341,18 @@
                 const month = parseInt(parts[1], 10) - 1;
                 const year = parseInt(parts[2], 10);
 
-                // สร้างวันที่ใหม่สำหรับการคำนวณวันในสัปดาห์
                 const date = new Date(year, month, day);
-
-                const dayOfWeek = days[date.getDay()]; // หาวันในสัปดาห์
-                const thaiYear = year + 543; // เพิ่ม 543 เพื่อแปลงเป็นปีไทย
+                const dayOfWeek = days[date.getDay()];
+                const thaiYear = year + 543;
                 const monthName = months[month];
 
                 return `${dayOfWeek}ที่ ${day} ${monthName} พ.ศ. ${thaiYear}`;
             }
-            return dateString; // คืนค่าดั้งเดิมถ้าไม่ถูกต้อง
+            return dateString;
         }
 
         function displayResults() {
-            const popup = document.getElementById("popupOverlay");
-            popup.style.display = "flex";
+            document.getElementById("resultContainer").style.display = "block";
             
             const rawDate = document.getElementById("draw-date").value;
             const formattedDate = formatThaiDate(rawDate);
@@ -432,17 +374,6 @@
             document.getElementById("display-back-three-2").innerText = document.getElementById("back-three-2").value;
             document.getElementById("display-back-two").innerText = document.getElementById("back-two").value;
         }
-
-        function closePopup() {
-            document.getElementById("popupOverlay").style.display = "none";
-        }
-
-        // ปิด popup เมื่อคลิกนอกพื้นที่เนื้อหา
-        document.getElementById("popupOverlay").addEventListener("click", function(e) {
-            if (e.target === this) {
-                closePopup();
-            }
-        });
     </script>
 </body>
 </html>
