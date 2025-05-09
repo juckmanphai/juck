@@ -195,32 +195,25 @@
             color: white;
         }
 
-.back-button {
-    font-size: 20px;
-    text-align: center;
-    position: relative;
-    margin: 20px auto; /* Center horizontally */
-    border: 3px solid blue;
-    padding: 5px 40px; /* Adjust padding to fit content */
-    border-radius: 20px;
-    background-color: lightyellow; 
-    color: red;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-    transition: background-color 0.3s, transform 0.2s;
-    white-space: nowrap; /* Prevent text wrapping */
-    display: block; /* Ensures the margin auto works */
-}
+        .back-button {
+            font-size: 22px;
+            padding: 12px 30px;
+            margin: 20px auto;
+            display: block;
+            border: 3px solid blue;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+            width: fit-content;
+        }
 
-.back-button:hover {
-    background-color: #E64A19; /* Darker orange on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-}
+        .back-button:hover {
+            background-color: #45a049;
+        }
 
-.back-button:active {
-    background-color: #D84315; /* Even darker on active click */
-    transform: translateY(0); /* Remove lift effect */
-}
         .logo-container {
             text-align: center;
             margin-bottom: 15px;
@@ -232,9 +225,10 @@
     </style>
 </head>
 <body>
-    <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลฉลากกินแบ่งรัฐบาล</h1>
 
+    <!-- ส่วนที่เหลือของโค้ด HTML ไม่เปลี่ยนแปลง -->
     <div class="form-container">
         <div class="form-group">
             <label for="draw-date">งวดวันที่ (วัน เดือน พ.ศ.)</label>
