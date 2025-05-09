@@ -54,82 +54,102 @@
     .red { color: red; }
 
     /* === Shape Styles === */
-    .circle, .circle-green {
-      display: inline-block;
+    .circle {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       border: 3px solid orange;
       border-radius: 50%;
       font-weight: bold;
-      font-size: 36px;
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      line-height: 52px;
-      margin: 0 5px;
+      width: 60px;
+      height: 60px;
+      margin: 0 2px;
+      padding: 0;
+      overflow: hidden;
     }
     .square {
-      display: inline-block;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       border: 3px solid red;
-      font-size: 36px;
       font-weight: bold;
-      width: 70px;
-      height: 50px;
-      text-align: center;
-      line-height: 52px;
-      margin: 0 8px;
-      box-sizing: border-box;
+      width: 80px;
+      height: 60px;
+      margin: 0 2px;
+      padding: 0;
+      overflow: hidden;
     }
     .square-two {
-      display: inline-block;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       border: 3px solid red;
-      font-size: 36px;
       font-weight: bold;
-      width: 60px;
-      height: 50px;
-      text-align: center;
-      line-height: 52px;
-      margin: 0 5px;
-      box-sizing: border-box;
-    }
-    .square-orange,
-    .six-digit-frame {
-      display: inline-block;
-      background-color: white;
-      color: red;
-      font-size: 36px;
-      font-weight: bold;
-      line-height: 40px;
-      text-align: center;
-      border: 2px solid blue;
-      border-radius: 50px;
-      margin: 0.5px;
-    }
-    .square-orange {
-      width: 38px;
-      height: 38px;
-    }
-    .six-digit-frame {
-      width: 40px;
-      height: 40px;
-      line-height: 42px;
+      width: 70px;
+      height: 60px;
+      margin: 0 2px;
+      padding: 0;
+      overflow: hidden;
     }
 
-    /* === Circle Number Style (เพิ่มเงาและเอฟเฟกต์ 3D) === */
+    /* === Circle Number Styles === */
+    /* ลูกบอล 6 ตัว (สีแดง) */
     .circle-number {
       display: inline-block;
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
       color: white;
-      font-size: 32px;
+      font-size: 24px;
       font-weight: bold;
       text-align: center;
-      line-height: 36px;
-      margin: 0 5px;
+      line-height: 28px;
+      margin: 0 1px;
       box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.3),
-        inset -5px -5px 10px rgba(0, 0, 0, 0.2),
-        inset 5px 5px 10px rgba(255, 255, 255, 0.2);
+        0 3px 10px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 8px rgba(0, 0, 0, 0.15),
+        inset 3px 3px 8px rgba(255, 255, 255, 0.15);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* ลูกบอล 3 ตัวบน (สีฟ้า) */
+    .circle-number-top {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 28px;
+      margin: 0 1px;
+      box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 8px rgba(0, 0, 0, 0.15),
+        inset 3px 3px 8px rgba(255, 255, 255, 0.15);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* ลูกบอล 2 ตัวล่าง (สีส้ม) */
+    .circle-number-bottom {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 28px;
+      margin: 0 1px;
+      box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 8px rgba(0, 0, 0, 0.15),
+        inset 3px 3px 8px rgba(255, 255, 255, 0.15);
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
@@ -354,14 +374,22 @@
       background-color: #d32f2f;
     }
 
-    /* === New Styles for Ping Pong Ball Effect === */
-    .ping-pong-container {
-      display: inline-block;
-      background-color: #0099FF;
-      padding: 15px 10px;
-      border-radius: 10px;
+    /* === New Styles for Number Display === */
+    .number-display {
       margin: 10px 0;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .number-label {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    /* สไตล์สำหรับกลุ่มลูกบอล */
+    .ball-group {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
     }
   </style>
 </head>
@@ -427,6 +455,60 @@
       popup.style.display = "none";
     }
 
+    // Function to create ping pong ball numbers
+    function createPingPongNumbers(numbers, type = 'default') {
+      let html = '';
+      for (let i = 0; i < numbers.length; i++) {
+        if (type === 'top') {
+          html += `<div class="circle-number-top">${numbers[i]}</div>`;
+        } else if (type === 'bottom') {
+          html += `<div class="circle-number-bottom">${numbers[i]}</div>`;
+        } else {
+          html += `<div class="circle-number">${numbers[i]}</div>`;
+        }
+      }
+      return `<div class="ball-group">${html}</div>`;
+    }
+
+    // Function to create ping pong balls inside a circle
+    function createCircleWithBalls(numbers, type = 'bottom') {
+      let html = '';
+      for (let i = 0; i < numbers.length; i++) {
+        if (type === 'bottom') {
+          html += `<div class="circle-number-bottom">${numbers[i]}</div>`;
+        } else {
+          html += `<div class="circle-number-top">${numbers[i]}</div>`;
+        }
+      }
+      return `<div class="circle"><div class="ball-group">${html}</div></div>`;
+    }
+
+    // Function to create ping pong balls inside a square
+    function createSquareWithBalls(numbers, type = 'top') {
+      let html = '';
+      for (let i = 0; i < numbers.length; i++) {
+        if (type === 'top') {
+          html += `<div class="circle-number-top">${numbers[i]}</div>`;
+        } else {
+          html += `<div class="circle-number">${numbers[i]}</div>`;
+        }
+      }
+      return `<div class="square"><div class="ball-group">${html}</div></div>`;
+    }
+
+    // Function to create ping pong balls inside a square-two
+    function createSquareTwoWithBalls(numbers, type = 'top') {
+      let html = '';
+      for (let i = 0; i < numbers.length; i++) {
+        if (type === 'top') {
+          html += `<div class="circle-number-top">${numbers[i]}</div>`;
+        } else {
+          html += `<div class="circle-number">${numbers[i]}</div>`;
+        }
+      }
+      return `<div class="square-two"><div class="ball-group">${html}</div></div>`;
+    }
+
     // Function to convert the entered number and display the result
     function convertNumber() {
       const num = document.getElementById("numberInput").value;
@@ -437,28 +519,34 @@
       }
       const date = dateInput ? new Date(dateInput) : new Date();
       const thaiDate = getThaiDate(date);
-      let sixDigitHtml = '';
-      for (let i = 0; i < num.length; i++) {
-        sixDigitHtml += `<div class="circle-number">${num[i]}</div>`;
-      }
+      
       const threeDigits = num.slice(3);
       const twoDigits = num.slice(2, 4);
+      
       const resultHtml = `
         <div style="position: relative; text-align: center; line-height: 1;">
           <h3 class="blue" style="display: inline-block; vertical-align: middle; margin: 0; font-size: 30px;">
             ผลลาวพัฒนา
           </h3>
           <p class="blue" style="margin-top: 20px;">${thaiDate}</p>
-          <h2 class="blue" style="display: inline-block; vertical-align: middle; margin: 0; font-size: 28px;">รางวัลเลข 6 ตัว</h2>
-          <div class="ping-pong-container">
-            ${sixDigitHtml}
+          
+          <div class="number-display">
+            <div class="number-label">รางวัลเลข 6 ตัว</div>
+            ${createPingPongNumbers(num)}
           </div>
-          <p class="blue" style="letter-spacing: 2px; font-size: 36px; font-weight: bold; margin-top: 20px;">
-            บน <span style="color: green;" id="popupThreeDigits">${threeDigits}</span> 
-            ล่าง <span style="color: blue;" id="popupTwoDigits">${twoDigits}</span>
-          </p>
+          
+          <div class="number-display">
+            <div class="number-label">เลข 3 ตัวบน</div>
+            ${createPingPongNumbers(threeDigits, 'top')}
+          </div>
+          
+          <div class="number-display">
+            <div class="number-label">เลข 2 ตัวล่าง</div>
+            ${createPingPongNumbers(twoDigits, 'bottom')}
+          </div>
         </div>
       `;
+      
       // Show in popup
       const popupResult = document.getElementById("popupResult");
       popupResult.innerHTML = resultHtml;
@@ -488,51 +576,71 @@
 
     // Popup functions
     function toggleCirclePopup() {
-      const twoDigits = document.getElementById("popupResult").querySelector("#popupTwoDigits");
+      const twoDigitsDisplay = document.getElementById("popupResult").querySelectorAll(".number-display")[2];
       const button = document.getElementById("popupCircleButton");
-      if (!twoDigits) {
-        alert("กรุณากรอกตัวเลข 6 หลักก่อน");
-        return;
-      }
+      if (!twoDigitsDisplay) return;
+      
       if (button.classList.contains("active")) {
-        twoDigits.innerHTML = twoDigits.textContent;
+        const twoDigits = twoDigitsDisplay.textContent.trim().slice(-2);
+        twoDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 2 ตัวล่าง</div>
+          ${createPingPongNumbers(twoDigits, 'bottom')}
+        `;
         button.classList.remove("active");
       } else {
-        twoDigits.innerHTML = `<span class="circle">${twoDigits.textContent}</span>`;
+        const twoDigits = twoDigitsDisplay.textContent.trim().slice(-2);
+        twoDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 2 ตัวล่าง</div>
+          ${createCircleWithBalls(twoDigits, 'bottom')}
+        `;
         button.classList.add("active");
       }
     }
 
     function toggleSquarePopup() {
-      const threeDigits = document.getElementById("popupResult").querySelector("#popupThreeDigits");
+      const threeDigitsDisplay = document.getElementById("popupResult").querySelectorAll(".number-display")[1];
       const button = document.getElementById("popupSquareButton");
-      if (!threeDigits) {
-        alert("กรุณากรอกตัวเลข 6 หลักก่อน");
-        return;
-      }
+      if (!threeDigitsDisplay) return;
+      
       if (button.classList.contains("active")) {
-        threeDigits.innerHTML = threeDigits.textContent;
+        const threeDigits = threeDigitsDisplay.textContent.trim().slice(-3);
+        threeDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 3 ตัวบน</div>
+          ${createPingPongNumbers(threeDigits, 'top')}
+        `;
         button.classList.remove("active");
       } else {
-        threeDigits.innerHTML = `<span class="square">${threeDigits.textContent}</span>`;
+        const threeDigits = threeDigitsDisplay.textContent.trim().slice(-3);
+        threeDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 3 ตัวบน</div>
+          ${createSquareWithBalls(threeDigits, 'top')}
+        `;
         button.classList.add("active");
       }
     }
 
     function toggleSquareTopPopup() {
-      const threeDigits = document.getElementById("popupResult").querySelector("#popupThreeDigits");
+      const threeDigitsDisplay = document.getElementById("popupResult").querySelectorAll(".number-display")[1];
       const button = document.getElementById("popupCircleTopButton");
-      if (!threeDigits) {
-        alert("กรุณากรอกตัวเลข 6 หลักก่อน");
-        return;
-      }
+      if (!threeDigitsDisplay) return;
+      
       if (button.classList.contains("active")) {
-        threeDigits.innerHTML = threeDigits.textContent;
+        const threeDigits = threeDigitsDisplay.textContent.trim().slice(-3);
+        threeDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 3 ตัวบน</div>
+          ${createPingPongNumbers(threeDigits, 'top')}
+        `;
         button.classList.remove("active");
       } else {
-        const digits = threeDigits.textContent.slice(-2);
-        const hundredsDigit = threeDigits.textContent.slice(0, 1);
-        threeDigits.innerHTML = `${hundredsDigit}<span class="square-two">${digits}</span>`;
+        const threeDigits = threeDigitsDisplay.textContent.trim().slice(-3);
+        const hundredsDigit = threeDigits[0];
+        const lastTwoDigits = threeDigits.slice(1);
+        threeDigitsDisplay.innerHTML = `
+          <div class="number-label">เลข 3 ตัวบน</div>
+          <div class="ball-group">
+            ${createPingPongNumbers(hundredsDigit, 'top')}${createSquareTwoWithBalls(lastTwoDigits, 'top')}
+          </div>
+        `;
         button.classList.add("active");
       }
     }
