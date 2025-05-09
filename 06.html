@@ -304,7 +304,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 2px; /* ลดระยะห่างจาก 20px เป็น 10px */
+            gap: 2px;
             margin: 5px 0;
         }
         
@@ -315,15 +315,17 @@
         
         @media (max-width: 480px) {
             .numbers-display {
-                flex-direction: column; /* เปลี่ยนเป็น column สำหรับมือถือ */
-                gap: 2px; /* ลดระยะห่างลงอีกในมือถือ */
-                align-items: center; /* จัดกึ่งกลางในมือถือ */
+                flex-direction: row; /* เปลี่ยนเป็น row สำหรับมือถือ */
+                flex-wrap: wrap; /* อนุญาตให้ขึ้นบรรทัดใหม่ถ้าไม่พอ */
+                gap: 10px; /* ปรับระยะห่างใหม่ */
+                justify-content: center; /* จัดกึ่งกลาง */
+                align-items: center; /* จัดแนวตรงกลางแนวตั้ง */
             }
             
             .number-group {
                 flex: 0 0 auto;
                 margin-bottom: 0;
-                width: 100%; /* ให้เต็มความกว้าง */
+                width: auto; /* เปลี่ยนจาก 100% เป็น auto */
             }
         }
     </style>
@@ -411,9 +413,9 @@
         }
 
         // สร้างลูกปิงปอง
-function createPingPongBall(number, type = 'red') {
-    return `<span class="pingpong-ball pingpong-ball-${type} pingpong-ball-tight">${number}</span>`;
-}
+        function createPingPongBall(number, type = 'red') {
+            return `<span class="pingpong-ball pingpong-ball-${type}">${number}</span>`;
+        }
 
         // สร้างกลุ่มลูกปิงปองจากตัวเลข
         function createPingPongNumbers(numbers, type = 'red') {
