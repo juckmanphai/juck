@@ -142,7 +142,7 @@
 
         /* รางวัลที่ 1 - สีแดง (ขนาดใหญ่ขึ้น) */
         .circle-number-red {
-            background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
+            background: radial-gradient(circle at 30% 30%, #FF9B9B, #FF00FF);
             width: 42px;
             height: 42px;
             font-size: 36px;
@@ -156,12 +156,16 @@
 
         /* เลขท้าย 3 ตัว - สีเขียว */
         .circle-number-green {
-            background: radial-gradient(circle at 30% 30%, #33cc33, #009900);
+            background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
         }
 
         /* เลขท้าย 2 ตัว - สีส้ม */
         .circle-number-orange {
             background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+            width: 48px;
+            height: 48px;
+            font-size: 38px;
+            line-height: 48px;
         }
 
         .number-group {
@@ -177,23 +181,39 @@
             margin-top: 5px;
         }
 
-        /* ปรับสีข้อความตามที่ระบุ */
-        .first-prize-title {
-            color: #cc0000; /* สีแดงเหมือนลูกปิงปอง */
-        }
-        
-        .front-three-title {
-            color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
-        }
-        
-        .back-three-title {
-            color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
-        }
-        
-        .back-two-title {
-            color: #cc6600; /* สีส้มเหมือนลูกปิงปอง */
-        }
+/* ปรับสีข้อความตามที่ระบุ พร้อมขนาด 28px ตัวหนา และ margin บน-ล่าง 5px */
+.first-prize-title {
+  color: blue; 
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
+.front-three-title {
+  color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.back-three-title {
+  color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+        
+.back-two-title {
+  color: blue;
+  font-size: 28px;
+  font-weight: bold; /* ตัวหนา */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
         .flex-row {
             display: flex;
             justify-content: center;
@@ -210,24 +230,22 @@
             color: white;
         }
 
-        .back-button {
-            font-size: 22px;
-            padding: 12px 30px;
-            margin: 20px auto;
-            display: block;
-            border: 3px solid blue;
-            border-radius: 8px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s;
-            width: fit-content;
-        }
-
-        .back-button:hover {
-            background-color: #45a049;
-        }
+    .back-button {
+      display: block;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto 10px;
+      padding: 10px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background-color: darkorange;
+    }
 
         .logo-container {
             text-align: center;
