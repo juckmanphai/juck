@@ -330,29 +330,34 @@
             min-width: 120px;
         }
         
-        @media (max-width: 480px) {
-            .numbers-display {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-                align-items: center;
-            }
-            
-            .number-group {
-                flex: 0 0 auto;
-                margin-bottom: 0;
-                width: auto;
-            }
-            
-            .popup-content {
-                padding: 10px;
-            }
-            
-            .popup-main-content {
-                padding: 10px 5px;
-            }
-        }
+@media (max-width: 480px) {
+    .numbers-display {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .number-group {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        width: auto;
+    }
+
+    .popup-content {
+        padding: 0; /* ปรับให้ไม่มีขอบด้านข้าง */
+        width: 100%; /* ให้เนื้อหากินพื้นที่เต็มหน้าจอ */
+        box-sizing: border-box; /* รวม padding ภายใน width */
+    }
+
+    .popup-main-content {
+        padding: 0; /* ปรับให้ไม่มี padding ซ้าย-ขวา */
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
         
         /* ปรับระยะห่างของ footer */
         footer {
