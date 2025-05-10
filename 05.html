@@ -365,44 +365,55 @@
       bottom: 0;
       z-index: 0;
     }
-    .popup-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-    .popup-button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #FF9800;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .popup-button:hover {
-      background-color: #F57C00;
-    }
-    .popup-button.active {
-      background-color: #4CAF50;
-    }
-    .close-popup {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #f44336;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin: 15px auto 0;
-      display: block;
-    }
-    .close-popup:hover {
-      background-color: #d32f2f;
-    }
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* เพิ่มระยะห่างจากปุ่มด้านล่าง */
+}
+
+.popup-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF9800;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-button:hover {
+    background-color: #F57C00;
+}
+
+.popup-button.active {
+    background-color: #4CAF50;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.close-popup {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+.close-popup:hover {
+    background-color: #d32f2f;
+}
+
+
 
     /* === New Styles for Number Display === */
     .number-display {
@@ -494,13 +505,16 @@
   <div id="popupOverlay" class="popup-overlay">
     <div class="popup-content">
       <div id="popupResult" class="popup-result"></div>
-      <div class="popup-buttons">
-        <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">วงกลมล่าง</button>
-        <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">สี่เหลี่ยมสามตัวบน</button>
-        <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">สี่เหลี่ยมสองตัวบน</button>
-      </div>
-      <button class="close-popup" onclick="closePopup()">ปิดหน้าต่างนี้</button>
-    </div>
+<div class="popup-buttons">
+    <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">วงกลมล่าง</button>
+    <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">สี่เหลี่ยมสามตัวบน</button>
+    <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">สี่เหลี่ยมสองตัวบน</button>
+</div>
+
+<div class="popup-footer">
+    <button class="close-popup" onclick="closePopup()">ปิดหน้าต่างนี้</button>
+</div>
+
   </div>
 
   <footer>
