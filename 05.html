@@ -50,33 +50,54 @@
     }
 
 /* === Text & Color Styles === */
-.blue { color: blue; font-size: 22px; }
-.red { color: red; }
+.blue {
+  color: blue;
+  font-size: 22px;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+               -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.red {
+  color: red;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+               -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
 .prize-label {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 5px;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+               -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
+
 .prize-label.six-digit {
-  color: red;
+  color: #FF00FF; /* สีตัวอักษร */
+  font-size: 28px; /* ขนาดตัวอักษรที่ใหญ่ขึ้น */
+  font-weight: bold; /* ตัวหนา */
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+               -1px 1px 0 #fff, 1px 1px 0 #fff; /* ขอบสีขาว */
 }
+
 .prize-label.three-digit {
   color: blue;
 }
+
 .prize-label.two-digit {
-  color: #00B050; /* สีเขียว */
+  color: green; /* สีเขียว */
 }
+
 
     /* === Shape Styles === */
     .circle {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      border: 3px solid red;
-      border-radius: 50%;
+      border: 3px solid yellow;
+      border-radius: 5%;
       font-weight: bold;
       width: 80px;
-      height: 60px;
+      height: 50px;
       margin: 0 1px;
       padding: 0;
       overflow: hidden;
@@ -97,7 +118,7 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      border: 3px solid red;
+      border: 3px solid orange;
       font-weight: bold;
       width: 80px;
       height: 50px;
@@ -112,7 +133,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
+      background: radial-gradient(circle at 30% 30%, #FF9B9B, #FF00FF);
       color: white;
       font-size: 32px;
       font-weight: bold;
@@ -130,7 +151,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
+      background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
       color: white;
       font-size: 32px;
       font-weight: bold;
@@ -415,6 +436,12 @@
       color: #1a237e;
       font-weight: bold;
     }
+.date-highlight {
+  font-size: 18px;
+  color: blue;
+  font-weight: bold;
+  margin-top: 20px;
+}
     
     /* === New styles for aligned numbers === */
     .number-row {
@@ -577,7 +604,7 @@
 const resultHtml = `
   <div style="position: relative; text-align: center; line-height: 1;">
     <h3 class="blue" style="display: inline-block; vertical-align: middle; margin: 0; font-size: 34px;">ผลลาวพัฒนา</h3>
-    <p class="blue" style="margin-top: 20px;">${thaiDate}</p>
+<p class="date-highlight">${thaiDate}</p>
     <div class="number-display">
       <div class="prize-label six-digit">รางวัลเลข 6 ตัว</div>
       <div class="number-container">
