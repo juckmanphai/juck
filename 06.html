@@ -346,13 +346,15 @@
     }
 
     .popup-content {
-        padding: 0; /* ปรับให้ไม่มีขอบด้านข้าง */
-        width: 100%; /* ให้เนื้อหากินพื้นที่เต็มหน้าจอ */
-        box-sizing: border-box; /* รวม padding ภายใน width */
+        margin: 5px; /* ห่างจากขอบหน้าจอทุกด้าน 5px */
+        padding: 0;
+        width: calc(100% - 10px); /* ลบระยะห่างซ้ายขวารวม 10px */
+        box-sizing: border-box;
     }
 
     .popup-main-content {
-        padding: 0; /* ปรับให้ไม่มี padding ซ้าย-ขวา */
+        margin: 0;
+        padding: 10px 5px;
         width: 100%;
         box-sizing: border-box;
     }
