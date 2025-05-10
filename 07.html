@@ -16,7 +16,7 @@
         h1 {
             text-align: center;
             color: #e65100;
-            margin-top: 10px;
+            margin: 10px 0 15px;
             font-size: 24px;
         }
         .blue { color: blue; font-size: 22px; }
@@ -27,7 +27,7 @@
             display: block;
             width: 90%;
             max-width: 600px;
-            margin: 20px auto 10px;
+            margin: 20px auto 15px;
             padding: 10px 20px;
             background-color: orange;
             color: white;
@@ -49,6 +49,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
         .convert-button:hover {
             background-color: #F57C00;
@@ -59,17 +60,17 @@
             background-color: #f9f9f9;
             border-radius: 15px;
             padding: 20px;
-            margin: 15px 0;
+            margin: 10px 0 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border: 2px solid orange;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 18px;
             color: #333;
             font-weight: bold;
@@ -94,7 +95,7 @@
         input, select {
             font-size: 16px;
             padding: 8px;
-            margin: 6px 0;
+            margin: 5px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
             width: 100%;
@@ -105,7 +106,7 @@
         .form-footer {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         /* สไตล์ผลลัพธ์ใน Popup */
@@ -127,17 +128,17 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 600px;
-            padding: 20px;
+            padding: 15px;
             position: relative;
         }
         .popup-main-content {
             position: relative;
             background-color: #FAFAD2;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 3px solid green;
-            padding: 20px 5px;
+            padding: 15px 5px;
             max-width: 600px;
             text-align: center;
         }
@@ -238,45 +239,45 @@
             color: #FF00FF;
             font-weight: bold;
             font-size: 22px;
-            margin-bottom: 5px;
-    text-shadow:
-        -1px -1px 0 #fff,
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff;
+            margin: 5px 0;
+            text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
         }
         
         .prize-label-blue {
             color: #0066cc;
             font-weight: bold;
             font-size: 22px;
-            margin-bottom: 5px;
-   text-shadow:
-        -1px -1px 0 #fff,
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff;
+            margin: 5px 0;
+            text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
         }
         
-.prize-label-orange {
-    color: blue;
-    font-weight: bold;
-    font-size: 22px;
-    margin-bottom: 5px;
-    text-shadow:
-        -1px -1px 0 #fff,
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff;
-}
-
+        .prize-label-orange {
+            color: blue;
+            font-weight: bold;
+            font-size: 22px;
+            margin: 5px 0;
+            text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
+        }
         
         /* จัดกลุ่มลูกปิงปอง */
         .ball-group {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            height: 60px; /* ความสูงคงที่เพื่อจัดแนว */
+            height: 50px;
+            margin: 3px 0;
         }
         
         /* สไตล์วงกลมและสี่เหลี่ยม */
@@ -320,8 +321,8 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1px;
-            margin: 5px 0;
+            gap: 10px;
+            margin: 8px 0;
         }
         
         .number-group {
@@ -331,18 +332,34 @@
         
         @media (max-width: 480px) {
             .numbers-display {
-                flex-direction: row; /* เปลี่ยนเป็น row สำหรับมือถือ */
-                flex-wrap: wrap; /* อนุญาตให้ขึ้นบรรทัดใหม่ถ้าไม่พอ */
-                gap: 10px; /* ปรับระยะห่างใหม่ */
-                justify-content: center; /* จัดกึ่งกลาง */
-                align-items: center; /* จัดแนวตรงกลางแนวตั้ง */
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                align-items: center;
             }
             
             .number-group {
                 flex: 0 0 auto;
                 margin-bottom: 0;
-                width: auto; /* เปลี่ยนจาก 100% เป็น auto */
+                width: auto;
             }
+            
+            .popup-content {
+                padding: 10px;
+            }
+            
+            .popup-main-content {
+                padding: 10px 5px;
+            }
+        }
+        
+        /* ปรับระยะห่างของ footer */
+        footer {
+            text-align: center;
+            margin: 15px 0;
+            color: #666;
+            padding: 10px 0;
         }
     </style>
 </head>
@@ -377,13 +394,10 @@
         <div class="popup-content">
             <div class="popup-main-content">
                 <div style="position: relative; z-index: 1;">
-                    <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 8px 0; text-shadow: 
-  -1px -1px 0 #fff, 1px -1px 0 #fff, 
-  -1px 1px 0 #fff, 1px 1px 0 #fff,
-  0 0 2px #fff;"></h3>
-                    <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 5px 0;"></p>
-                    <h2 class="prize-label-red" style="font-size: 22px; margin: 5px 0;">รางวัลเลข 5 ตัว</h2>
-                    <div id="popupFiveDigitsDisplay" class="ball-group" style="margin: 5px 0;"></div> 
+                    <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 5px 0;"></h3>
+                    <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 3px 0;"></p>
+                    <h2 class="prize-label-red">รางวัลเลข 5 ตัว</h2>
+                    <div id="popupFiveDigitsDisplay" class="ball-group"></div> 
                     <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
                     <div class="numbers-display">
                         <div class="number-group">
@@ -409,7 +423,7 @@
         </div>
     </div>
 
-    <footer style="text-align: center; margin: 20px 0; color: #666;">
+    <footer>
         &copy; 2024 Juckmanphai. All Rights Reserved.
     </footer>
     
