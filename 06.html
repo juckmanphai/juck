@@ -330,47 +330,15 @@
             min-width: 120px;
         }
         
-@media (max-width: 480px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        box-sizing: border-box;
-    }
-
-    *, *::before, *::after {
-        box-sizing: inherit;
-    }
-
-    .popup-content {
-        border: 2px solid green; /* เส้นขอบสีเขียว */
-        margin: 20px 10px; /* ห่างจากขอบจอ: บนล่าง 20px, ซ้ายขวา 10px */
-        padding: 10px;
-        width: auto;
-    }
-
-    .popup-main-content {
-        padding: 10px 5px;
-    }
-
-    .numbers-display {
+    @media (max-width: 480px) {
+      .number-display-horizontal {
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
         align-items: center;
-    }
-
-    .number-group {
-        flex: 0 0 auto;
+      }
+      .number-display-horizontal > div {
         margin-bottom: 0;
-        width: auto;
-        max-width: 100%;
+      }
     }
-}
-
-
-        
         /* ปรับระยะห่างของ footer */
         footer {
             text-align: center;
