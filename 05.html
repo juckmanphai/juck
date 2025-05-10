@@ -332,88 +332,77 @@
       align-items: center;
     }
     .popup-content {
-            background-color: #fffde7;
-            border-radius: 2px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 600px;
-            padding: 15px;
-            position: relative;
-        }
+      background-color: #fffde7;
+      border-radius: 1px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      position: relative;
+    }
     .popup-result {
-            position: relative;
-            background-color: #FAFAD2;
-            margin: 0 auto 10px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 3px solid green;
-            padding: 15px 5px;
-            max-width: 600px;
-            text-align: center;
-        }
+      position: relative;
+      background-color: #FAFAD2;
+      margin: 15px auto;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: 3px solid green;
+      padding: 20px 5px;
+      max-width: 600px;
+      text-align: center;
+    }
     .popup-result::before {
-            content: "";
-            background-image: url('logo.png');
-            background-size: 80% auto;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.3;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-        }
-.popup-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px; /* เพิ่มระยะห่างจากปุ่มด้านล่าง */
-}
-
-.popup-button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #FF9800;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.popup-button:hover {
-    background-color: #F57C00;
-}
-
-.popup-button.active {
-    background-color: #4CAF50;
-}
-
-.popup-footer {
-    display: flex;
-    justify-content: center;
-}
-
-.close-popup {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #f44336;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    max-width: 200px;
-    width: 100%;
-    text-align: center;
-}
-
-.close-popup:hover {
-    background-color: #d32f2f;
-}
-
-
+      content: "";
+      background-image: url('logo.png');
+      background-size: 80% auto;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.3;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+    .popup-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .popup-button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #FF9800;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .popup-button:hover {
+      background-color: #F57C00;
+    }
+    .popup-button.active {
+      background-color: #4CAF50;
+    }
+    .close-popup {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #f44336;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 15px auto 0;
+      display: block;
+    }
+    .close-popup:hover {
+      background-color: #d32f2f;
+    }
 
     /* === New Styles for Number Display === */
     .number-display {
@@ -505,16 +494,13 @@
   <div id="popupOverlay" class="popup-overlay">
     <div class="popup-content">
       <div id="popupResult" class="popup-result"></div>
-<div class="popup-buttons">
-    <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">วงกลมล่าง</button>
-    <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">สี่เหลี่ยมสามตัวบน</button>
-    <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">สี่เหลี่ยมสองตัวบน</button>
-</div>
-
-<div class="popup-footer">
-    <button class="close-popup" onclick="closePopup()">ปิดหน้าต่างนี้</button>
-</div>
-
+      <div class="popup-buttons">
+        <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">วงกลมล่าง</button>
+        <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">สี่เหลี่ยมสามตัวบน</button>
+        <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">สี่เหลี่ยมสองตัวบน</button>
+      </div>
+      <button class="close-popup" onclick="closePopup()">ปิดหน้าต่างนี้</button>
+    </div>
   </div>
 
   <footer>
