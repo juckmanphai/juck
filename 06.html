@@ -204,8 +204,8 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             color: white;
             font-size: 32px;
@@ -220,7 +220,7 @@
         
         /* ลูกปิงปองสีแดง (สำหรับเลข 5 ตัว) */
         .pingpong-ball-red {
-            background: radial-gradient(circle at 30% 30%, #ff3333, #cc0000);
+            background: radial-gradient(circle at 30% 30%, #ff3333, #FF00FF);
         }
         
         /* ลูกปิงปองสีน้ำเงิน (สำหรับเลข 3 ตัวบน) */
@@ -235,32 +235,48 @@
         
         /* สีตัวหนังสือ */
         .prize-label-red {
-            color: #cc0000;
+            color: #FF00FF;
             font-weight: bold;
-            font-size: 20px;
-            margin-bottom: 7px;
+            font-size: 22px;
+            margin-bottom: 5px;
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
         }
         
         .prize-label-blue {
             color: #0066cc;
             font-weight: bold;
-            font-size: 20px;
-            margin-bottom: 7px;
+            font-size: 22px;
+            margin-bottom: 5px;
+   text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
         }
         
-        .prize-label-orange {
-            color: #00B050;
-            font-weight: bold;
-            font-size: 20px;
-            margin-bottom: 7px;
-        }
+.prize-label-orange {
+    color: blue;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
+
         
         /* จัดกลุ่มลูกปิงปอง */
         .ball-group {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            height: 50px; /* ความสูงคงที่เพื่อจัดแนว */
+            height: 60px; /* ความสูงคงที่เพื่อจัดแนว */
         }
         
         /* สไตล์วงกลมและสี่เหลี่ยม */
@@ -268,10 +284,10 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            border: 3px solid red;
-            border-radius: 50%;
-            width: 90px;
-            height: 50px;
+            border: 3px solid yellow;
+            border-radius: 2%;
+            width: 82px;
+            height: 52px;
             margin: 0 0.5px;
             padding: 5px;
         }
@@ -281,8 +297,8 @@
             justify-content: center;
             align-items: center;
             border: 3px solid red;
-            width: 130px;
-            height: 50px;
+            width: 125px;
+            height: 52px;
             margin: 0 0.5px;
             padding: 5px;
         }
@@ -291,9 +307,9 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            border: 3px solid red;
-            width: 90px;
-            height: 50px;
+            border: 3px solid blue;
+            width: 82px;
+            height: 52px;
             margin: 0 0.5px;
             padding: 5px;
         }
@@ -368,19 +384,21 @@
         <div class="popup-content">
             <div class="popup-main-content">
                 <div style="position: relative; z-index: 1;">
-                    <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 8px 0;"></h3>
-                    <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 8px 0;"></p>
-                    <h2 class="prize-label-red" style="font-size: 26px; margin: 8px 0;">รางวัลเลข 5 ตัว</h2>
-                    <div id="popupFiveDigitsDisplay" class="ball-group" style="margin: 12px 0;"></div>
-                    
+                    <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 8px 0; text-shadow: 
+  -1px -1px 0 #fff, 1px -1px 0 #fff, 
+  -1px 1px 0 #fff, 1px 1px 0 #fff,
+  0 0 2px #fff;"></h3>
+                    <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 5px 0;"></p>
+                    <h2 class="prize-label-red" style="font-size: 22px; margin: 5px 0;">รางวัลเลข 5 ตัว</h2>
+                    <div id="popupFiveDigitsDisplay" class="ball-group" style="margin: 5px 0;"></div> 
                     <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
                     <div class="numbers-display">
                         <div class="number-group">
-                            <p class="prize-label-blue">เลข 3 ตัวบน</p>
+                            <p class="prize-label-blue">3 ตัวบน</p>
                             <div id="popupThreeDigitsDisplay" class="ball-group"></div>
                         </div>
                         <div class="number-group">
-                            <p class="prize-label-orange">เลข 2 ตัวล่าง</p>
+                            <p class="prize-label-orange">2 ตัวล่าง</p>
                             <div id="popupTwoDigitsDisplay" class="ball-group"></div>
                         </div>
                     </div>
