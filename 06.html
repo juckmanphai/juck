@@ -345,22 +345,16 @@
         width: auto;
     }
 
-    .popup-content {
-        padding: 10px;
-        margin-left: 0;
-        margin-right: 0;
-        width: 100vw;
-        box-sizing: border-box;
-    }
-
+    .popup-content,
     .popup-main-content {
-        padding: 10px 5px;
-        margin-left: 0;
-        margin-right: 0;
+        padding: 10px 0; /* ลด padding ซ้ายขวา */
+        margin: 0;
         width: 100vw;
         box-sizing: border-box;
+        overflow-x: hidden;
     }
 }
+
         
         /* ปรับระยะห่างของ footer */
         footer {
