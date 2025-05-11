@@ -264,36 +264,39 @@
 
             const resultHtml = `
                 <div id="resultContent" style="position: relative; text-align: center; line-height: 2.0;">
-                    <h2 style="
+<h2 style="
   color: blue;
   margin-bottom: 5px;
   text-shadow:
-    -1px -1px 0 #ffffff,
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
+    -2px -2px 1px #fff8dc,       /* แสงทองอ่อนด้านบนซ้าย */
+     2px  2px 2px rgba(0, 0, 0, 0.3);  /* เงาด้านล่างขวา */
 ">
   ${selectedTopic}
 </h2>
 
-                    <h3 style="color: blue; font-weight: normal; margin-bottom: 10px;">${dateDisplay}</h3>
-                    
-     <h2 style="
+<h3 style="
+  color: blue;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-shadow:
+    -1px -1px 1px #fff8dc,
+     1px  1px 2px rgba(0, 0, 0, 0.25);
+">
+  ${dateDisplay}
+</h3>
+
+<h2 style="
   color: blue;
   margin-bottom: 8px;
   text-shadow:
-    -1px -1px 0 #ffffff,
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
+    -2px -2px 1px #fff8dc,
+     2px  2px 2px rgba(0, 0, 0, 0.3);
 ">
   ตัวเลข 2 ตัว <span style="
     color: red;
     text-shadow:
-      -1px -1px 0 #ffffff,
-       1px -1px 0 #ffffff,
-      -1px  1px 0 #ffffff,
-       1px  1px 0 #ffffff;
+      -2px -2px 1px #fff8dc,
+       2px  2px 2px rgba(0, 0, 0, 0.3);
   ">${num}</span> By : ${selectedPerson}
 </h2>
 
@@ -301,10 +304,8 @@
   color: blue;
   margin-bottom: 8px;
   text-shadow:
-    -1px -1px 0 #ffffff,
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
+    -2px -2px 1px #fff8dc,
+     2px  2px 2px rgba(0, 0, 0, 0.3);
 ">
   จัดชุด 2 ตัวดังนี้
 </h2>
@@ -314,29 +315,22 @@
   font-weight: bold;
   margin-bottom: 12px;
   text-shadow:
-    -1px -1px 0 #ffffff,
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
+    -2px -2px 1px #fff8dc,
+     2px  2px 2px rgba(0, 0, 0, 0.3);
 ">
   ${sortedPairs.join(' - ')}
 </div>
 
-                    
-                    <h2 style="
+<h2 style="
   color: red;
   font-size: 22px;
   margin-bottom: 10px;
   text-shadow:
-    -1px -1px 0 #ffffff,
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
+    -2px -2px 1px #fff8dc,
+     2px  2px 2px rgba(0, 0, 0, 0.3);
 ">
   แนวทางเท่านั้น
-</h2>
-
-                    
+</h2>          
                     <p style="color: blue; font-size: 13px; margin: 0 0 10px 0; line-height: 1;">
                         แปล: ${getThaiDate()} ${getThaiTime()}
                     </p>
