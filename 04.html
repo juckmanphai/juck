@@ -353,22 +353,52 @@
 
             return `
                 <div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
-                    <h2 style="font-size: ${fontSizeTopic}; margin: 0; color: #0000FF; text-shadow: 
-    -1px -1px 0 #FFFFFF, 
-     1px -1px 0 #FFFFFF, 
-    -1px  1px 0 #FFFFFF, 
-     1px  1px 0 #FFFFFF;">
+ <h2 style="font-size: ${fontSizeTopic}; margin: 0; color: #0000FF; text-shadow: 
+    -2px -2px 1px #fff8dc, 
+     2px  2px 2px rgba(0, 0, 0, 0.3);">
   ${selectedTopic}
 </h2>
-                    <p style="font-size: ${fontSizeDate}; margin: 5px 0; color: #0000FF;">${displayDate}</p>
-<h2 style="font-size: ${fontSizeNumber}; color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">
-    ตัวเลข 4 ตัว <span style="color: red; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">${num}</span> By : <span style="color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">${selectedPerson}</span>
+
+<p style="font-size: ${fontSizeDate}; margin: 5px 0; color: #0000FF; 
+    text-shadow: -1px -1px 1px #fff8dc, 1px 1px 2px rgba(0, 0, 0, 0.25);">
+    ${displayDate}
+</p>
+
+<h2 style="font-size: ${fontSizeNumber}; color: #0000FF; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+    ตัวเลข 4 ตัว 
+    <span style="color: red; text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.4);">
+        ${num}
+    </span> 
+    By : 
+    <span style="color: #0000FF; text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+        ${selectedPerson}
+    </span>
 </h2>
-<h3 style="font-size: ${fontSizeTwoDigit}; color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">จัดชุด 2 ตัว</h3>
-<p style="font-size: ${fontSizeTwoDigit}; color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">${twoDigitPairs.join(' - ')}</p>
-<h3 style="font-size: ${fontSizeThreeDigit}; color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">จัดชุด 3 ตัว</h3>
-<p style="font-size: ${fontSizeThreeDigit}; color: #0000FF; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">${threeDigitCombinations.join(' - ')}</p>
-<p style="font-size: ${fontSizeGuide}; color: red; text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;">แนวทางเท่านั้น</p>
+
+<h3 style="font-size: ${fontSizeTwoDigit}; color: #0000FF; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+    จัดชุด 2 ตัว
+</h3>
+<p style="font-size: ${fontSizeTwoDigit}; color: #0000FF; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+    ${twoDigitPairs.join(' - ')}
+</p>
+
+<h3 style="font-size: ${fontSizeThreeDigit}; color: #0000FF; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+    จัดชุด 3 ตัว
+</h3>
+<p style="font-size: ${fontSizeThreeDigit}; color: #0000FF; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.3);">
+    ${threeDigitCombinations.join(' - ')}
+</p>
+
+<p style="font-size: ${fontSizeGuide}; color: red; 
+    text-shadow: -2px -2px 1px #fff8dc, 2px 2px 2px rgba(0, 0, 0, 0.4);">
+    แนวทางเท่านั้น
+</p>
+
 
                     <p style="font-size: ${fontSizeTranslation}; color: #0000FF;">
                         <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
