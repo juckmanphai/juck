@@ -82,9 +82,8 @@
             margin-top: 5px;
         }
 
-        .header-title {
-            background-color: white;
-            color: rgba(0, 100, 255, 0.8);
+.header-title {
+  display: inline-block;
             font-size: 26px;
             font-weight: bold;
             border: 2px solid red;
@@ -93,11 +92,21 @@
             padding: 20px;
             margin-top: 4px;
             margin-bottom: 7px;
-        }
+  color: #fff; /* ตัวหนังสือสีขาว */
+  background: linear-gradient(to bottom right, #ffb6c1, #ff69b4); /* สีชมพูมีมิติ */
+  box-shadow:
+    inset -4px -4px 10px rgba(0, 0, 0, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.2),
+    0 3px 6px rgba(0, 0, 0, 0.2);
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.5),
+     1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
 
         .prize-title {
-            background-color: white;
             font-size: 22px;
+display: inline-block;
             font-weight: bold;
             border: 2px solid red;
             border-radius: 20px;
@@ -105,68 +114,95 @@
             padding: 15px;
             margin-top: 4px;
             margin-bottom: 7px;
+  background: linear-gradient(to bottom right, #ffb6c1, #FFFF00); /* สีชมพูมีมิติ */
+  box-shadow:
+    inset -4px -4px 10px rgba(0, 0, 0, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.2),
+    0 3px 6px rgba(0, 0, 0, 0.2);
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.5),
+     1px 1px 2px rgba(255, 255, 255, 0.15);
         }
 
-        .draw-date {
-            color: blue;
-            padding: 15px;
-            font-size: 15px;
-            font-weight: bold;
-            border: 2px solid orange;
-            background-color: white;
-            color: blue;
-            border-radius: 15px;
-            display: inline-block;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
+.draw-date {
+    color: #fff; /* ตัวหนังสือสีขาว */
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid #FFA500; /* กรอบสีส้ม */
+    background-color: #FFB84D; /* พื้นหลังสีส้มอ่อน */
+    border-radius: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
 
-        /* สไตล์ตัวเลขปิงปอง */
-        .circle-number-base {
-            display: inline-block;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 36px;
-            margin: 0 0.5px;
-            box-shadow:
-                0 3px 10px rgba(0, 0, 0, 0.2),
-                inset -3px -3px 8px rgba(0, 0, 0, 0.15),
-                inset 3px 3px 8px rgba(255, 255, 255, 0.15);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
+    /* สร้างเอฟเฟกต์ 3D สำหรับพื้นผิว */
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.35), /* เงาด้านนอก */
+        0 0 6px rgba(204, 153, 0, 0.4), /* เงาขอบสีส้ม */
+        inset -4px -4px 10px rgba(0, 0, 0, 0.25), /* เงาภายใน */
+        inset 4px 4px 8px rgba(255, 255, 255, 0.2); /* เงาภายในขาว */
 
-        /* รางวัลที่ 1 - สีแดง (ขนาดใหญ่ขึ้น) */
-        .circle-number-red {
-            background: radial-gradient(circle at 30% 30%, #FF9B9B, #FF00FF);
-            width: 42px;
-            height: 42px;
-            font-size: 36px;
-            line-height: 42px;
-        }
+    /* เอฟเฟกต์เงาตัวหนังสือ */
+    text-shadow:
+        -1px -1px 1px rgba(0, 0, 0, 0.6), /* เงาดำที่ตัวหนังสือ */
+         1px 1px 2px rgba(255, 255, 255, 0.2); /* เงาขาวที่ตัวหนังสือ */
+}
 
-        /* เลขหน้า 3 ตัว - สีน้ำเงิน */
-        .circle-number-blue {
-            background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
-        }
 
-        /* เลขท้าย 3 ตัว - สีเขียว */
-        .circle-number-green {
-            background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
-        }
+/* พื้นฐานลูกปิงปองแบบฝังตัวเลข */
+.circle-number-base {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 0.5px;
+  background: #ccc;
 
-        /* เลขท้าย 2 ตัว - สีส้ม */
-        .circle-number-orange {
-            background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
-            width: 48px;
-            height: 48px;
-            font-size: 38px;
-            line-height: 48px;
-        }
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 0 6px rgba(204, 153, 0, 0.4),
+    inset -4px -4px 10px rgba(0, 0, 0, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.2);
+
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.6),
+     1px 1px 2px rgba(255, 255, 255, 0.2);
+
+  transition: box-shadow 0.3s ease;
+}
+
+/* ลูกปิงปองรางวัลที่ 1 - สีชมพู */
+.circle-number-red {
+  background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
+  width: 42px;
+  height: 42px;
+  font-size: 36px;
+}
+
+/* เลขหน้า 3 ตัว - สีน้ำเงิน */
+.circle-number-blue {
+  background: radial-gradient(circle at 30% 30%, #3399ff, #0066cc);
+}
+
+/* เลขท้าย 3 ตัว - สีเขียว */
+.circle-number-green {
+  background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
+}
+
+/* เลขท้าย 2 ตัว - สีส้ม (ขนาดใหญ่สุด) */
+.circle-number-orange {
+  background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+  width: 48px;
+  height: 48px;
+  font-size: 38px;
+}
+
 
         .number-group {
             display: flex;
@@ -183,37 +219,47 @@
 
 /* ปรับสีข้อความตามที่ระบุ พร้อมขนาด 28px ตัวหนา และ margin บน-ล่าง 5px */
 .first-prize-title {
-  color: blue; 
-  font-size: 28px;
+  color: white; 
+  font-size: 22px;
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.front-three-title, .back-three-title, .back-two-title {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    /* เพิ่มเงาและมิติ 3D */
+    text-shadow:
+        -1px -1px 2px rgba(0, 0, 0, 0.6), /* เงาดำเบาๆ ที่ขอบ */
+         1px 1px 2px rgba(255, 255, 255, 0.3); /* เงาขาวที่ขอบเพิ่มมิติ */
 }
 
 .front-three-title {
-  color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 5px;
+    color: #0066cc; /* สีน้ำเงินเหมือนลูกปิงปอง */
+    font-size: 20px;
 }
 
 .back-three-title {
-  color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 5px;
+    color: #009900; /* สีเขียวเหมือนลูกปิงปอง */
+    font-size: 20px;
 }
 
-        
 .back-two-title {
-  color: blue;
-  font-size: 28px;
-  font-weight: bold; /* ตัวหนา */
-  margin-top: 10px;
-  margin-bottom: 10px;
+    color: blue;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    /* เงาเพิ่มเติมให้ดูมีมิติ */
+    text-shadow:
+        -1px -1px 2px rgba(0, 0, 0, 0.6), /* เงาดำเบาๆ ที่ขอบ */
+         1px 1px 2px rgba(255, 255, 255, 0.3); /* เงาขาวที่ขอบเพิ่มมิติ */
 }
+
+
         .flex-row {
             display: flex;
             justify-content: center;
@@ -270,6 +316,19 @@
         .back-two-number-group {
             margin-bottom: 15px;
         }
+
+.result-title,
+.header-title,
+.prize-title,
+.draw-date span,
+.back-two-title {
+  text-shadow:
+    1px 1px 2px rgba(255, 255, 255, 0.6),   /* ไฮไลต์แสงด้านบน */
+   -1px -1px 1px rgba(0, 0, 0, 0.4),         /* เงาด้านล่าง */
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4), /* เอฟเฟกต์ฝังตัว */
+    inset -1px -1px 2px rgba(0, 0, 0, 0.5);     /* เงาลึกภายใน */
+  font-weight: bold;
+}
     </style>
 </head>
 <body>
