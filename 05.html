@@ -199,29 +199,37 @@
             background-color: #d32f2f;
         }
         
-        /* สไตล์ลูกปิงปอง */
-        .pingpong-ball {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-            margin: 0 0.5px;
-            box-shadow: 
-                0 3px 10px rgba(0, 0, 0, 0.2),
-                inset -3px -3px 8px rgba(0, 0, 0, 0.15),
-                inset 3px 3px 8px rgba(255, 255, 255, 0.15);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* ลูกปิงปองสีแดง (สำหรับเลข 5 ตัว) */
-        .pingpong-ball-red {
-            background: radial-gradient(circle at 30% 30%, #FF9B9B, #FF00FF);
-        }
+/* สไตล์ลูกปิงปอง */
+.pingpong-ball {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff; /* ตัวเลขสีขาว */
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0.5px;
+    background: #ccc; /* fallback */
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.35),              /* เงาหลักรอบนอก */
+        0 0 6px rgba(204, 153, 0, 0.4),              /* เงาเหลืองทองบางรอบนอก */
+        inset -4px -4px 10px rgba(0, 0, 0, 0.25),    /* เงาด้านในเข้มขึ้น */
+        inset 4px 4px 8px rgba(255, 255, 255, 0.2);  /* ไฮไลต์ใน */
+    text-shadow: 
+        -0.5px -0.5px 0.5px rgba(0, 0, 0, 0.35),  /* เงาเบาๆ ด้านบนซ้าย */
+         0.5px 0.5px 0.5px rgba(255, 255, 255, 0.1); /* ไฮไลต์เบาๆ ด้านล่างขวา */
+    transition: box-shadow 0.3s ease;
+}
+
+/* ลูกปิงปองสีชมพู */
+.pingpong-ball-red {
+    background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
+}
+
+
+
         
         /* ลูกปิงปองสีน้ำเงิน (สำหรับเลข 3 ตัวบน) */
         .pingpong-ball-blue {
