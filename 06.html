@@ -231,7 +231,7 @@ input, select {
   background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
 }
 
-/* ป้ายรางวัล */
+/* ป้ายรางวัลแบบนูน */
 .prize-label-red,
 .prize-label-blue,
 .prize-label-orange {
@@ -239,10 +239,11 @@ input, select {
   font-size: 22px;
   margin: 5px 0;
   text-shadow:
-    -1px -1px 0 #fff,
-     1px -1px 0 #fff,
-    -1px  1px 0 #fff,
-     1px  1px 0 #fff;
+    -2px -2px 1px #fff8dc,     /* แสงสีทองอ่อนจากบนซ้าย */
+    -1px -1px 1px #fff8dc,
+     1px 1px 0 #cc9900,        /* เงาทองจากล่างขวา */
+     2px 2px 2px #996600,      /* เงาทองเข้มลึก */
+     3px 3px 4px rgba(0,0,0,0.3); /* เงาดำลึกช่วยยกตัวอักษร */
 }
 
 .prize-label-red { color: #FF00FF; }
@@ -320,7 +321,6 @@ footer {
   padding: 10px 0;
 }
 </style>
-
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
@@ -360,10 +360,32 @@ footer {
         <div class="popup-content">
             <div class="popup-main-content">
                 <div style="position: relative; z-index: 1;">
-                    <h3 id="popupTopicDisplay" class="blue" style="font-size: 22px; margin: 5px 0; font-weight: bold; color: blue; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;">
+<h3 id="popupTopicDisplay" class="blue" style="
+  font-size: 22px;
+  margin: 5px 0;
+  font-weight: bold;
+  color: blue;
+  text-shadow:
+    -2px -2px 1px #fff8dc,     /* แสงจากมุมบนซ้าย สีทองอ่อน */
+    -1px -1px 1px #fff8dc,
+     1px 1px 0 #cc9900,        /* เงาทองล่างขวา */
+     2px 2px 2px #996600,      /* เงาทองเข้ม */
+     3px 3px 3px rgba(0, 0, 0, 0.25);  /* เงาดำบางช่วยยกตัวอักษร */
+">
 </h3>
 
-                    <p id="popupDateDisplay" class="blue" style="font-size: 18px; margin: 3px 0;"></p>
+                    <p id="popupDateDisplay" class="blue" style="
+  font-size: 18px;
+  margin: 3px 0;
+  text-shadow:
+    -2px -2px 1px #fff8dc,     /* แสงสีทองอ่อนจากบนซ้าย */
+    -1px -1px 1px #fff8dc,
+     1px 1px 0 #cc9900,        /* เงาทองจากล่างขวา */
+     2px 2px 2px #996600,      /* เงาทองเข้มลึก */
+     3px 3px 3px rgba(0, 0, 0, 0.25); /* เงาดำบางช่วยยกตัวอักษร */
+">
+</p>
+
                     <h2 class="prize-label-red">รางวัลเลข 5 ตัว</h2>
                     <div id="popupFiveDigitsDisplay" class="ball-group"></div> 
                     <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
