@@ -765,111 +765,77 @@
                 <!-- หัวข้อ -->
 <!-- หัวเรื่อง -->
 <p style="font-size: 18px; margin: 0 0 15px 0; font-weight: bold; line-height: 1; color: blue;
-    text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+    text-shadow: -2px -2px 1px #fff8dc;">
     ${selectedTopic}
 </p>
 
 <!-- วันที่ -->
 <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -1px -1px 1px #fff8dc,
-         1px  1px 2px rgba(0, 0, 0, 0.25);">
+   text-shadow: -1px -1px 1px #fff8dc;">
     ${dateInputValue ? getThaiDate(dateInput) : getThaiDate(new Date())}
 </p>
 
 <!-- ตัวเลข 3 ตัว -->
 <h2 style="font-size: 18px; margin: 0 0 20px 0; line-height: 1;
-   text-shadow: 
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ตัวเลข 3 ตัว <span style="color: red;
-        text-shadow:
-          -2px -2px 1px #fff8dc,
-           2px  2px 2px rgba(0, 0, 0, 0.3);">${num}</span> By : ${selectedPerson}
+        text-shadow: -2px -2px 1px #fff8dc;">${num}</span> By : ${selectedPerson}
 </h2>
 
 <!-- จัดชุดเด่น -->
 <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;
-   text-shadow: 
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">จัดชุดเด่น 2 ตัว</h3>
+   text-shadow: -2px -2px 1px #fff8dc;">จัดชุดเด่น 2 ตัว</h3>
 
 <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ${uniqueFirstSet.join(' - ')}
 </p>
 
 <!-- จัดชุดรอง -->
 <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;
-   text-shadow: 
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">จัดชุดรอง 2 ตัว</h3>
+   text-shadow: -2px -2px 1px #fff8dc;">จัดชุดรอง 2 ตัว</h3>
 
 <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ${filteredSecondSet.join(' - ')}
 </p>
 
 <!-- แปลเพิ่ม 2 ตัว -->
 <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     จัดชุด 2 ตัว <span style="color: red;
-        text-shadow:
-          -2px -2px 1px #fff8dc,
-           2px  2px 2px rgba(0, 0, 0, 0.3);">(แปลเพิ่ม)</span>
+        text-shadow: -2px -2px 1px #fff8dc;">(แปลเพิ่ม)</span>
 </h3>
 
 <p style="font-size: 18px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ${transformedPairsText}
 </p>
 
 <!-- 3 ตัวปกติ -->
 <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">จัดชุด 3 ตัว (ปกติ)</h3>
+   text-shadow: -2px -2px 1px #fff8dc;">จัดชุด 3 ตัว (ปกติ)</h3>
 
 <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ${filteredFinalThirdSet.join(' - ')}
 </p>
 
 <!-- 3 ตัวแปลเพิ่ม -->
 <h3 style="font-size: 18px; margin: 10px 0 5px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     จัดชุด 3 ตัว <span style="color: red;
-        text-shadow:
-          -2px -2px 1px #fff8dc,
-           2px  2px 2px rgba(0, 0, 0, 0.3);">(แปลเพิ่ม)</span>
+        text-shadow: -2px -2px 1px #fff8dc;">(แปลเพิ่ม)</span>
 </h3>
 
 <p style="font-size: 16px; margin: 0 0 15px 0; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     ${additionalNumbersForThirdSetText}
 </p>
 
 <!-- แนวทาง -->
 <h2 style="font-size: 18px; margin: 20px 0 10px 0; color: red; line-height: 1;
-   text-shadow:
-        -2px -2px 1px #fff8dc,
-         2px  2px 2px rgba(0, 0, 0, 0.3);">
+   text-shadow: -2px -2px 1px #fff8dc;">
     แนวทางเท่านั้น
 </h2>
 
