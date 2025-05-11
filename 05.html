@@ -231,7 +231,7 @@ input, select {
   background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
 }
 
-/* ป้ายรางวัล */
+/* ป้ายรางวัลแบบนูน */
 .prize-label-red,
 .prize-label-blue,
 .prize-label-orange {
@@ -239,10 +239,11 @@ input, select {
   font-size: 22px;
   margin: 5px 0;
   text-shadow:
-    -1px -1px 0 #fff,
-     1px -1px 0 #fff,
-    -1px  1px 0 #fff,
-     1px  1px 0 #fff;
+    -2px -2px 1px #fff8dc,     /* แสงสีทองอ่อนจากบนซ้าย */
+    -1px -1px 1px #fff8dc,
+     1px 1px 0 #cc9900,        /* เงาทองจากล่างขวา */
+     2px 2px 2px #996600,      /* เงาทองเข้มลึก */
+     3px 3px 4px rgba(0,0,0,0.3); /* เงาดำลึกช่วยยกตัวอักษร */
 }
 
 .prize-label-red { color: #FF00FF; }
@@ -349,13 +350,13 @@ footer {
   margin: 8px 0;
   font-weight: bold;
   color: #FF00FF;
+  background: none;
   text-shadow:
-    -1px -1px 0 #fff,
-     1px -1px 0 #fff,
-    -1px  1px 0 #fff,
-     1px  1px 0 #fff,
-     0    0   4px rgba(204, 153, 0, 0.8),  /* เงาสีทองเข้ม */
-     2px  2px 6px rgba(153, 102, 0, 0.7);  /* เงาหนาและลึกขึ้น */
+    -2px -2px 2px #fff8dc,    /* แสงบนซ้ายสีทองอ่อน */
+    -1px -1px 1px #fff8dc,
+     1px 1px 0 #cc9900,       /* เงาทองด้านล่างขวา */
+     2px 2px 2px #996600,     /* เงาทองเข้มลึก */
+     3px 3px 3px rgba(0, 0, 0, 0.3); /* เงาดำโปร่งลึกยิ่งขึ้น */
 ">
 ผลลาวพัฒนา
 </h3>
