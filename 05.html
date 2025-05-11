@@ -4,352 +4,322 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลลาวพัฒนา</title>
-    <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fffde7;
-      margin: 0 auto;
-      padding: 0 20px;
-      max-width: 600px;
-    }
-        h1 {
-            text-align: center;
-            color: #e65100;
-            margin: 10px 0 15px;
-            font-size: 24px;
-        }
-        .blue { color: blue; font-size: 22px; }
-        .red { color: red; }
-        
-        /* สไตล์ปุ่มต่างๆ */
-        .back-button {
-            display: block;
-            width: 90%;
-            max-width: 600px;
-            margin: 20px auto 15px;
-            padding: 10px 20px;
-            background-color: orange;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color: darkorange;
-        }
-        .convert-button {
-            background-color: #FF9800;
-            color: white;
-            font-weight: bold;
-            padding: 12px 24px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-        .convert-button:hover {
-            background-color: #F57C00;
-        }
-        
-        /* สไตล์ฟอร์มกรอกข้อมูล */
-        .form-container {
-            background-color: #f9f9f9;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 10px 0 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid orange;
-        }
-        .form-group {
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 18px;
-            color: #333;
-            font-weight: bold;
-        }
-        #numberInput {
-            background-color: #e3f2fd;
-            color: #1a237e;
-            font-weight: bold;
-            font-size: 20px;
-            padding: 10px;
-            border: 2px solid #1a237e;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 300px;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        #numberInput:focus {
-            background-color: #bbdefb;
-            border-color: #3f51b5;
-            outline: none;
-        }
-        input, select {
-            font-size: 16px;
-            padding: 8px;
-            margin: 5px 0;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 250px;
-        }
-        
-        /* ปรับส่วนนี้ให้ปุ่มอยู่กึ่งกลาง */
-        .form-footer {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        /* สไตล์ผลลัพธ์ใน Popup */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .popup-content {
-      background-color: #fffde7;
-      border-radius: 1px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      width: 90%;
-      max-width: 600px;
-      padding: 20px;
-      position: relative;
-    }
-        .popup-main-content {
+<style>
+/* พื้นหลังและฟอนต์ของหน้า */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fffde7;
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 600px;
+}
+
+h1 {
+  text-align: center;
+  color: #e65100;
+  margin: 10px 0 15px;
+  font-size: 24px;
+}
+
+.blue { color: blue; font-size: 22px; }
+.red { color: red; }
+
+/* ปุ่มทั่วไป */
+.convert-button,
+.back-button,
+.popup-button,
+.close-popup {
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* ปุ่มกลับ */
+.back-button {
+  display: block;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto 15px;
+  padding: 10px 20px;
+  background-color: orange;
+  font-size: 16px;
+}
+.back-button:hover { background-color: darkorange; }
+
+/* ปุ่มแปลง */
+.convert-button {
+  background-color: #FF9800;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.convert-button:hover { background-color: #F57C00; }
+
+/* ฟอร์ม */
+.form-container {
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px 0 15px;
+  border: 2px solid orange;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+input, select {
+  font-size: 16px;
+  padding: 8px;
+  margin: 5px 0;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 250px;
+}
+
+/* กล่องกรอกตัวเลข */
+#numberInput {
+  background-color: #e3f2fd;
+  color: #1a237e;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  border: 2px solid #1a237e;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 300px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+#numberInput:focus {
+  background-color: #bbdefb;
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* ส่วนท้ายของฟอร์ม */
+.form-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup Content */
+.popup-content {
+  background-color: #fffde7;
+  border-radius: 1px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+  position: relative;
+}
+
+.popup-main-content {
   position: relative;
   background-color: #FAFAD2;
-  margin: 20px 2px; /* บน-ล่าง 20px, ซ้าย-ขวา 5px */
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 3px solid green;
+  margin: 20px 2px;
   padding: 20px 2px;
+  border-radius: 15px;
+  border: 3px solid green;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   text-align: center;
 }
-        .popup-main-content::before {
-            content: "";
-            background-image: url('logo.png');
-            background-size: 80% auto;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.3;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-        }
-        
-        /* สไตล์ปุ่มใน Popup */
-        .popup-buttons-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .popup-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .popup-button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #FF9800;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .popup-button:hover {
-            background-color: #F57C00;
-        }
-        .popup-button.active {
-            background-color: #4CAF50;
-        }
-        .close-popup {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f44336;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            max-width: 200px;
-        }
-        .close-popup:hover {
-            background-color: #d32f2f;
-        }
-        
-/* สไตล์ลูกปิงปอง */
-.pingpong-ball {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: #fff; /* ตัวเลขสีขาว */
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0 0.5px;
-    background: #ccc; /* fallback */
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.35),              /* เงาหลักรอบนอก */
-        0 0 6px rgba(204, 153, 0, 0.4),              /* เงาเหลืองทองบางรอบนอก */
-        inset -4px -4px 10px rgba(0, 0, 0, 0.25),    /* เงาด้านในเข้มขึ้น */
-        inset 4px 4px 8px rgba(255, 255, 255, 0.2);  /* ไฮไลต์ใน */
-    text-shadow: 
-        -1px -1px 1px rgba(0, 0, 0, 0.6),    /* เงาด้านบนซ้ายเพื่อฝังตัวอักษร */
-         1px 1px 2px rgba(255, 255, 255, 0.2); /* ไฮไลต์เบาๆ ด้านล่างขวา */
-    transition: box-shadow 0.3s ease;
+
+.popup-main-content::before {
+  content: "";
+  background-image: url('logo.png');
+  background-size: 80% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
 }
 
-/* ลูกปิงปองสีชมพู */
+/* ปุ่มใน Popup */
+.popup-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.popup-button {
+  padding: 8px 15px;
+  background-color: #FF9800;
+}
+.popup-button:hover { background-color: #F57C00; }
+.popup-button.active { background-color: #4CAF50; }
+
+.close-popup {
+  padding: 8px 15px;
+  background-color: #f44336;
+  width: 100%;
+  max-width: 200px;
+}
+.close-popup:hover { background-color: #d32f2f; }
+
+/* ลูกปิงปอง */
+.pingpong-ball {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 0.5px;
+  background: #ccc;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 0 6px rgba(204, 153, 0, 0.4),
+    inset -4px -4px 10px rgba(0, 0, 0, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.2);
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.6),
+     1px 1px 2px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
 .pingpong-ball-red {
-    background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
-}    
-        /* ลูกปิงปองสีน้ำเงิน (สำหรับเลข 3 ตัวบน) */
-        .pingpong-ball-blue {
-            background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
-        }
-        
-        /* ลูกปิงปองสีส้ม (สำหรับเลข 2 ตัวล่าง) */
-        .pingpong-ball-orange {
-            background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
-        }
-        
-        /* สีตัวหนังสือ */
-        .prize-label-red {
-            color: #FF00FF;
-            font-weight: bold;
-            font-size: 22px;
-            margin: 5px 0;
-            text-shadow:
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
-        }
-        
-        .prize-label-blue {
-            color: #0066cc;
-            font-weight: bold;
-            font-size: 22px;
-            margin: 5px 0;
-            text-shadow:
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
-        }
-        
-        .prize-label-orange {
-            color: blue;
-            font-weight: bold;
-            font-size: 22px;
-            margin: 5px 0;
-            text-shadow:
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
-        }
-        
-        /* จัดกลุ่มลูกปิงปอง */
-        .ball-group {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-            margin: 3px 0;
-        }
-        
-        /* สไตล์วงกลมและสี่เหลี่ยม */
-        .circle-container {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border: 3px solid #FF00FF;
-            border-radius: 2%;
-            width: 82px;
-            height: 38px;
-            margin: 0 0.5px;
-            padding: 5px;
-        }
-        
-        .square-container {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border: 3px solid red;
-            width: 125px;
-            height: 38px;
-            margin: 0 0.5px;
-            padding: 5px;
-        }
-        
-        .square-two-container {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border: 3px solid blue;
-            width: 82px;
-            height: 38px;
-            margin: 0 0.5px;
-            padding: 5px;
-        }
-        
-        /* จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน */
-        .numbers-display {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 8px 0;
-        }
-        
-        .number-group {
-            text-align: center;
-            min-width: 120px;
-        }
-        
-    @media (max-width: 480px) {
-      .number-display-horizontal {
-        flex-direction: row;
-        align-items: center;
-      }
-      .number-display-horizontal > div {
-        margin-bottom: 0;
-      }
-    }
-        /* ปรับระยะห่างของ footer */
-        footer {
-            text-align: center;
-            margin: 15px 0;
-            color: #666;
-            padding: 10px 0;
-        }
-    </style>
+  background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
+}
+
+.pingpong-ball-blue {
+  background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
+}
+
+.pingpong-ball-orange {
+  background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
+}
+
+/* ป้ายรางวัล */
+.prize-label-red,
+.prize-label-blue,
+.prize-label-orange {
+  font-weight: bold;
+  font-size: 22px;
+  margin: 5px 0;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}
+
+.prize-label-red { color: #FF00FF; }
+.prize-label-blue { color: #0066cc; }
+.prize-label-orange { color: blue; }
+
+/* จัดกลุ่มลูกปิงปอง */
+.ball-group {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin: 3px 0;
+}
+
+/* กรอบแสดงเลข */
+.circle-container,
+.square-container,
+.square-two-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  margin: 0 0.5px;
+  padding: 5px;
+}
+
+.circle-container {
+  width: 82px;
+  border: 3px solid #FF00FF;
+  border-radius: 2%;
+}
+
+.square-container {
+  width: 125px;
+  border: 3px solid red;
+}
+
+.square-two-container {
+  width: 82px;
+  border: 3px solid blue;
+}
+
+/* กลุ่มแสดงตัวเลข */
+.numbers-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.number-group {
+  text-align: center;
+  min-width: 120px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .number-display-horizontal {
+    flex-direction: row;
+    align-items: center;
+  }
+  .number-display-horizontal > div {
+    margin-bottom: 0;
+  }
+}
+
+/* ส่วนท้าย */
+footer {
+  text-align: center;
+  margin: 15px 0;
+  color: #666;
+  padding: 10px 0;
+}
+</style>
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
