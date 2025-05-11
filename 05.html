@@ -259,7 +259,7 @@ input, select {
   margin: 3px 0;
 }
 
-/* กรอบแสดงเลข */
+/* กรอบแสดงเลขแบบขอบฝัง */
 .circle-container,
 .square-container,
 .square-two-container {
@@ -269,19 +269,39 @@ input, select {
   height: 38px;
   margin: 0 0.5px;
   padding: 5px;
+  background: transparent;
 }
 
+/* กรอบแสดงเลขแบบขอบฝังลึก */
+.circle-container,
+.square-container,
+.square-two-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  margin: 0 0.5px;
+  padding: 5px;
+  background: transparent;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.3),       /* เงาด้านล่าง-ขวา */
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4); /* ไฮไลต์ด้านบน-ซ้าย */
+}
+
+/* กรอบวงกลม */
 .circle-container {
   width: 82px;
-  border: 3px solid #FF00FF;
+  border: 3px solid #FF00FF; /* ชมพู */
   border-radius: 2%;
 }
 
+/* กรอบสี่เหลี่ยม */
 .square-container {
   width: 125px;
   border: 3px solid red;
 }
 
+/* กรอบสี่เหลี่ยมขนาดเล็ก */
 .square-two-container {
   width: 82px;
   border: 3px solid blue;
