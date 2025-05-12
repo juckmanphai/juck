@@ -165,6 +165,23 @@ input, select {
   z-index: 0;
 }
 
+/* Container หลักของปุ่มทั้งหมด */
+.popup-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* จัดกึ่งกลางแนวนอน */
+  gap: 15px;
+  padding: 20px; /* เพิ่ม padding รอบข้างให้ดูสวยงาม */
+}
+
+/* กลุ่มปุ่มแถวบน */
+.popup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
 /* ปุ่มทั่วไป */
 .popup-button {
   padding: 8px 15px;
@@ -189,6 +206,7 @@ input, select {
 .close-popup:hover {
   background-color: #d32f2f;
 }
+
 
 /* ลูกปิงปอง */
 .pingpong-ball {
