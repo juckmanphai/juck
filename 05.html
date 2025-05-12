@@ -169,6 +169,23 @@ input, select {
 .popup-buttons-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* กลุ่มปุ่ม (ยืดหยุ่นสำหรับหลายปุ่ม) */
+.popup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Container หลักของปุ่มทั้งหมด */
+.popup-buttons-container {
+  display: flex;
+  flex-direction: column;
   align-items: center; /* จัดกึ่งกลางแนวนอน */
   gap: 15px;
   padding: 20px; /* เพิ่ม padding รอบข้างให้ดูสวยงาม */
@@ -206,6 +223,7 @@ input, select {
 .close-popup:hover {
   background-color: #d32f2f;
 }
+
 
 
 /* ลูกปิงปอง */
