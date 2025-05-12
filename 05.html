@@ -165,66 +165,35 @@ input, select {
   z-index: 0;
 }
 
-/* Container หลักของปุ่มทั้งหมด */
+/* ปุ่มใน Popup */
 .popup-buttons-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-/* กลุ่มปุ่ม (ยืดหยุ่นสำหรับหลายปุ่ม) */
-.popup-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
 }
 
-/* Container หลักของปุ่มทั้งหมด */
-.popup-buttons-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* จัดกึ่งกลางแนวนอน */
-  gap: 15px;
-  padding: 20px; /* เพิ่ม padding รอบข้างให้ดูสวยงาม */
-}
-
-/* กลุ่มปุ่มแถวบน */
 .popup-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-/* ปุ่มทั่วไป */
 .popup-button {
   padding: 8px 15px;
   background-color: #FF9800;
-  white-space: nowrap;
-  width: auto;
 }
-.popup-button:hover {
-  background-color: #F57C00;
-}
-.popup-button.active {
-  background-color: #4CAF50;
-}
+.popup-button:hover { background-color: #F57C00; }
+.popup-button.active { background-color: #4CAF50; }
 
-/* ปุ่มปิด Popup */
 .close-popup {
   padding: 8px 15px;
   background-color: #f44336;
-  white-space: nowrap;
-  width: auto;
+  width: 100%;
+  max-width: 200px;
 }
-.close-popup:hover {
-  background-color: #d32f2f;
-}
-
-
+.close-popup:hover { background-color: #d32f2f; }
 
 /* ลูกปิงปอง */
 .pingpong-ball {
