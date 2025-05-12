@@ -165,35 +165,30 @@ input, select {
   z-index: 0;
 }
 
-/* ปุ่มใน Popup */
-.popup-buttons-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
+/* ปุ่มทั่วไป */
 .popup-button {
   padding: 8px 15px;
   background-color: #FF9800;
+  white-space: nowrap;
+  width: auto;
 }
-.popup-button:hover { background-color: #F57C00; }
-.popup-button.active { background-color: #4CAF50; }
+.popup-button:hover {
+  background-color: #F57C00;
+}
+.popup-button.active {
+  background-color: #4CAF50;
+}
 
+/* ปุ่มปิด Popup */
 .close-popup {
   padding: 8px 15px;
   background-color: #f44336;
-  width: 100%;
-  max-width: 200px;
+  white-space: nowrap;
+  width: auto;
 }
-.close-popup:hover { background-color: #d32f2f; }
+.close-popup:hover {
+  background-color: #d32f2f;
+}
 
 /* ลูกปิงปอง */
 .pingpong-ball {
