@@ -323,17 +323,15 @@ input, select {
 }
 
 /* Responsive */
-    @media only screen and (max-width: 720px) {
-        .form-container, #resultContainer {
-            width: calc(100% - 20px);
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        
-        input, select, button {
-            width: 90%;
-        }
-    }
+@media (max-width: 480px) {
+  .number-display-horizontal {
+    flex-direction: row;
+    align-items: center;
+  }
+  .number-display-horizontal > div {
+    margin-bottom: 0;
+  }
+}
 
 /* ส่วนท้าย */
 footer {
