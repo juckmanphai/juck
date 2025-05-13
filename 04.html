@@ -351,60 +351,90 @@
             const fontSizeTranslation = "13px";
             const fontSizeNote = "18px";
 
-            return `
-                <div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
-<h2 style="font-size: ${fontSizeTopic}; margin: 0; color: #0000FF; text-shadow: 
-    -2px -2px 1px #fff8dc;">
-  ${selectedTopic}
-</h2>
+return `
+    <div id="resultContent" style="position: relative; text-align: center; line-height: 1.5;">
+        <h2 style="font-size: ${fontSizeTopic}; margin: 0; color: #0000FF; text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            ${selectedTopic}
+        </h2>
 
-<p style="font-size: ${fontSizeDate}; margin: 5px 0; color: #0000FF; 
-    text-shadow: -1px -1px 1px #fff8dc;">
-    ${displayDate}
-</p>
+        <p style="font-size: ${fontSizeDate}; margin: 5px 0; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            ${displayDate}
+        </p>
 
-<h2 style="font-size: ${fontSizeNumber}; color: #0000FF; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    ตัวเลข 4 ตัว 
-    <span style="color: red; text-shadow: -2px -2px 1px #fff8dc;">
-        ${num}
-    </span> 
-    By : 
-    <span style="color: #0000FF; text-shadow: -2px -2px 1px #fff8dc;">
-        ${selectedPerson}
-    </span>
-</h2>
+        <h2 style="font-size: ${fontSizeNumber}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            ตัวเลข 4 ตัว 
+            <span style="color: red; text-shadow: 
+                -1px -1px 0 white, 1px -1px 0 white,
+                -1px 1px 0 white, 1px 1px 0 white;">
+                ${num}
+            </span> 
+            By : 
+            <span style="color: #0000FF; text-shadow: 
+                -1px -1px 0 white, 1px -1px 0 white,
+                -1px 1px 0 white, 1px 1px 0 white;">
+                ${selectedPerson}
+            </span>
+        </h2>
 
-<h3 style="font-size: ${fontSizeTwoDigit}; color: #0000FF; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    จัดชุด 2 ตัว
-</h3>
-<p style="font-size: ${fontSizeTwoDigit}; color: #0000FF; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    ${twoDigitPairs.join(' - ')}
-</p>
+        <h3 style="font-size: ${fontSizeTwoDigit}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            จัดชุด 2 ตัว
+        </h3>
+        <p style="font-size: ${fontSizeTwoDigit}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            ${twoDigitPairs.join(' - ')}
+        </p>
 
-<h3 style="font-size: ${fontSizeThreeDigit}; color: #0000FF; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    จัดชุด 3 ตัว
-</h3>
-<p style="font-size: ${fontSizeThreeDigit}; color: #0000FF; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    ${threeDigitCombinations.join(' - ')}
-</p>
+        <h3 style="font-size: ${fontSizeThreeDigit}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            จัดชุด 3 ตัว
+        </h3>
+        <p style="font-size: ${fontSizeThreeDigit}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            ${threeDigitCombinations.join(' - ')}
+        </p>
 
-<p style="font-size: ${fontSizeGuide}; color: red; 
-    text-shadow: -2px -2px 1px #fff8dc;">
-    แนวทางเท่านั้น
-</p>
+        <p style="font-size: ${fontSizeGuide}; color: red;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            แนวทางเท่านั้น
+        </p>
 
+        <p style="font-size: ${fontSizeTranslation}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
+        </p>
 
-                    <p style="font-size: ${fontSizeTranslation}; color: #0000FF;">
-                        <strong>แปล:</strong> ${getThaiDate()} ${getThaiTime()}
-                    </p>
-                    <p style="font-size: ${fontSizeNote}; color: #0000FF;">หมายเหตุ: ${noteInput}</p>
-                </div>
-            `;
+        <p style="font-size: ${fontSizeNote}; color: #0000FF;
+            text-shadow: 
+            -1px -1px 0 white, 1px -1px 0 white,
+            -1px 1px 0 white, 1px 1px 0 white;">
+            หมายเหตุ: <span style="color: red;
+                text-shadow: 
+                -1px -1px 0 white, 1px -1px 0 white,
+                -1px 1px 0 white, 1px 1px 0 white;">${noteInput}</span>
+        </p>
+    </div>
+`;
         }
 
         function openResultInNewWindow() {
