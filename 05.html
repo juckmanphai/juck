@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>ผลลาวพัฒนา</title>
 <style>
-/* พื้นหลังและฟอนต์ของหน้า */
+/* ---------- พื้นหลังและฟอนต์ของหน้า ---------- */
 body {
   font-family: Arial, sans-serif;
   background-color: #fffde7;
   margin: 0 auto;
   padding: 0 20px;
   max-width: 600px;
-}
-
-body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+/* ---------- หัวเรื่อง ---------- */
 h1 {
   text-align: center;
   color: #e65100;
@@ -30,7 +28,7 @@ h1 {
 .blue { color: blue; font-size: 22px; }
 .red { color: red; }
 
-/* ปุ่มทั่วไป */
+/* ---------- ปุ่มทั่วไป ---------- */
 .convert-button,
 .back-button,
 .popup-button,
@@ -53,7 +51,9 @@ h1 {
   background-color: orange;
   font-size: 16px;
 }
-.back-button:hover { background-color: darkorange; }
+.back-button:hover {
+  background-color: darkorange;
+}
 
 /* ปุ่มแปลง */
 .convert-button {
@@ -63,9 +63,11 @@ h1 {
   border-radius: 8px;
   margin-top: 10px;
 }
-.convert-button:hover { background-color: #F57C00; }
+.convert-button:hover {
+  background-color: #F57C00;
+}
 
-/* ฟอร์ม */
+/* ---------- ฟอร์ม ---------- */
 .form-container {
   background-color: #f9f9f9;
   border-radius: 15px;
@@ -88,7 +90,8 @@ h1 {
   font-weight: bold;
 }
 
-input, select {
+input,
+select {
   font-size: 16px;
   padding: 8px;
   margin: 5px 0;
@@ -108,9 +111,12 @@ input, select {
   border: 2px solid #1a237e;
   border-radius: 10px;
   text-align: center;
-  max-width: 300px;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
   transition: background-color 0.3s, border-color 0.3s;
 }
+
 #numberInput:focus {
   background-color: #bbdefb;
   border-color: #3f51b5;
@@ -124,7 +130,7 @@ input, select {
   margin-top: 15px;
 }
 
-/* Popup Overlay */
+/* ---------- Popup Overlay ---------- */
 .popup-overlay {
   display: none;
   position: fixed;
@@ -136,7 +142,7 @@ input, select {
   align-items: center;
 }
 
-/* Popup Content */
+/* ---------- Popup Content ---------- */
 .popup-content {
   background-color: #fffde7;
   border-radius: 1px;
@@ -190,8 +196,12 @@ input, select {
   padding: 8px 15px;
   background-color: #FF9800;
 }
-.popup-button:hover { background-color: #F57C00; }
-.popup-button.active { background-color: #4CAF50; }
+.popup-button:hover {
+  background-color: #F57C00;
+}
+.popup-button.active {
+  background-color: #4CAF50;
+}
 
 .close-popup {
   padding: 8px 15px;
@@ -199,9 +209,11 @@ input, select {
   width: 100%;
   max-width: 200px;
 }
-.close-popup:hover { background-color: #d32f2f; }
+.close-popup:hover {
+  background-color: #d32f2f;
+}
 
-/* ลูกปิงปอง */
+/* ---------- ลูกปิงปอง ---------- */
 .pingpong-ball {
   display: inline-flex;
   justify-content: center;
@@ -237,6 +249,7 @@ input, select {
   background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
 }
 
+/* ป้ายรางวัล */
 .prize-label-red,
 .prize-label-blue,
 .prize-label-orange {
@@ -249,7 +262,7 @@ input, select {
    -1px -1px 1px rgba(255, 255, 255, 0.5);
 }
 
-/* จัดกลุ่มลูกปิงปอง */
+/* กลุ่มลูกปิงปอง */
 .ball-group {
   display: inline-flex;
   justify-content: center;
@@ -258,20 +271,7 @@ input, select {
   margin: 3px 0;
 }
 
-/* กรอบแสดงเลขแบบขอบฝัง */
-.circle-container,
-.square-container,
-.square-two-container {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
-  margin: 0 0.5px;
-  padding: 5px;
-  background: transparent;
-}
-
-/* กรอบแสดงเลขแบบขอบฝังลึก */
+/* ---------- กรอบแสดงเลข ---------- */
 .circle-container,
 .square-container,
 .square-two-container {
@@ -283,24 +283,21 @@ input, select {
   padding: 5px;
   background: transparent;
   box-shadow:
-    inset 2px 2px 4px rgba(0, 0, 0, 0.3),       /* เงาด้านล่าง-ขวา */
-    inset -2px -2px 4px rgba(255, 255, 255, 0.4); /* ไฮไลต์ด้านบน-ซ้าย */
+    inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4);
 }
 
-/* กรอบวงกลม */
 .circle-container {
   width: 82px;
-  border: 3px solid #FF00FF; /* ชมพู */
+  border: 3px solid #FF00FF;
   border-radius: 2%;
 }
 
-/* กรอบสี่เหลี่ยม */
 .square-container {
   width: 125px;
   border: 3px solid red;
 }
 
-/* กรอบสี่เหลี่ยมขนาดเล็ก */
 .square-two-container {
   width: 82px;
   border: 3px solid blue;
@@ -321,18 +318,15 @@ input, select {
   min-width: 120px;
 }
 
-/* Responsive */
+/* ---------- Responsive ---------- */
 @media (max-width: 480px) {
-  .number-display-horizontal {
-    flex-direction: row;
-    align-items: center;
-  }
-  .number-display-horizontal > div {
-    margin-bottom: 0;
+  #numberInput {
+    font-size: 18px;
+    padding: 8px;
   }
 }
 
-/* ส่วนท้าย */
+/* ---------- ส่วนท้าย ---------- */
 footer {
   text-align: center;
   margin: 15px 0;
@@ -340,6 +334,7 @@ footer {
   padding: 10px 0;
 }
 </style>
+
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
