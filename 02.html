@@ -530,8 +530,8 @@ const resultHtml = `
                     <div class="controls">
                         <div class="line-height-control">
                             <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                            <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.0" />
-                            <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.0</span>
+                            <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="2.0" />
+                            <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.0</span>
                         </div>
                         
                         <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
@@ -559,8 +559,8 @@ const resultHtml = `
 
         if (slider && lineHeightValue) {
             slider.addEventListener("input", updateLineHeight);
-            slider.value = 1.0;
-            lineHeightValue.textContent = "ความสูงของบรรทัด: 1.0";
+            slider.value = 2.0;
+            lineHeightValue.textContent = "ความสูงของบรรทัด: 2.0";
         }
     });
 <\/script>
