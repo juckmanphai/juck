@@ -262,11 +262,11 @@
             const dateInput = document.getElementById("dateInput").value;
             const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
 
- const resultHtml = `
+const resultHtml = `
   <div id="resultContent" style="position: relative; text-align: center; line-height: 2.0;">
     <h2 style="
       color: blue;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -277,7 +277,7 @@
     <h3 style="
       color: blue;
       font-weight: normal;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -287,7 +287,7 @@
 
     <h2 style="
       color: blue;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -302,7 +302,7 @@
 
     <h2 style="
       color: blue;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -313,7 +313,7 @@
     <div class="number-pairs" style="
       color: blue;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -324,7 +324,7 @@
     <h2 style="
       color: red;
       font-size: 22px;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -335,7 +335,7 @@
     <p style="
       color: blue;
       font-size: 13px;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       line-height: 1;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
@@ -346,7 +346,7 @@
 
     <p class="note" style="
       color: blue;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
         -1px 1px 0 white, 1px 1px 0 white;
@@ -530,8 +530,8 @@
                     <div class="controls">
                         <div class="line-height-control">
                             <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                            <input type="range" id="popupLineHeightSlider" min="0.5" max="3.5" step="0.1" value="2.0" />
-                            <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.0</span>
+                            <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.0" />
+                            <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.0</span>
                         </div>
                         
                         <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
@@ -559,8 +559,8 @@
 
         if (slider && lineHeightValue) {
             slider.addEventListener("input", updateLineHeight);
-            slider.value = 2.0;
-            lineHeightValue.textContent = "ความสูงของบรรทัด: 2.0";
+            slider.value = 1.0;
+            lineHeightValue.textContent = "ความสูงของบรรทัด: 1.0";
         }
     });
 <\/script>
