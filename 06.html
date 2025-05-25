@@ -313,7 +313,7 @@ select {
   border: 3px solid blue;
 }
 
-/* ກຸ່ມສະແດງຕົວເລກ */
+/* ກຸ່ມສະແດງໂຕເລກ */
 .numbers-display {
   display: flex;
   justify-content: center;
@@ -393,7 +393,7 @@ footer {
     -1px -1px 1px #fff8dc,
      1px 1px 0 #cc9900,        /* ເງົາທອງລຸ່ມຂວາ */
      2px 2px 2px #996600,      /* ເງົາທອງເຂັ້ມ */
-     3px 3px 3px rgba(0, 0, 0, 0.25);  /* ເງົາດຳບາງຊ່ວຍຍົກຕົວອັກສອນ */
+     3px 3px 3px rgba(0, 0, 0, 0.25);  /* ເງົາດຳບາງຊ່ວຍຍົກໂຕອັກສອນ */
 ">
 </h3>
 
@@ -405,20 +405,20 @@ footer {
     -1px -1px 1px #fff8dc,
      1px 1px 0 #cc9900,        /* ເງົາທອງຈາກລຸ່ມຂວາ */
      2px 2px 2px #996600,      /* ເງົາທອງເຂັ້ມລຶກ */
-     3px 3px 3px rgba(0, 0, 0, 0.25); /* ເງົາດຳບາງຊ່ວຍຍົກຕົວອັກສອນ */
+     3px 3px 3px rgba(0, 0, 0, 0.25); /* ເງົາດຳບາງຊ່ວຍຍົກໂຕອັກສອນ */
 ">
 </p>
 
-                    <h2 class="prize-label-red">ລາງວັນເລກ 5 ຕົວ</h2>
+                    <h2 class="prize-label-red">ລາງວັນເລກ 5 ໂຕ</h2>
                     <div id="popupFiveDigitsDisplay" class="ball-group"></div> 
-                    <!-- ຈັດກຸ່ມເລກ 3 ຕົວເທິງແລະ 2 ຕົວລຸ່ມໃຫ້ຢູ່ແນວດຽວກັນ -->
+                    <!-- ຈັດກຸ່ມເລກ 3 ໂຕເທິງແລະ 2 ໂຕລຸ່ມໃຫ້ຢູ່ແນວດຽວກັນ -->
                     <div class="numbers-display">
                         <div class="number-group">
-                            <p class="prize-label-blue">3 ຕົວເທິງ</p>
+                            <p class="prize-label-blue">3 ໂຕເທິງ</p>
                             <div id="popupThreeDigitsDisplay" class="ball-group"></div>
                         </div>
                         <div class="number-group">
-                            <p class="prize-label-orange">2 ຕົວລຸ່ມ</p>
+                            <p class="prize-label-orange">2 ໂຕລຸ່ມ</p>
                             <div id="popupTwoDigitsDisplay" class="ball-group"></div>
                         </div>
                     </div>
@@ -428,8 +428,8 @@ footer {
             <div class="popup-buttons-container">
                 <div class="popup-buttons">
                     <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">ສີ່ແຈລຸ່ມ</button>
-                    <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">ສີ່ແຈສາມຕົວເທິງ</button>
-                    <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">ສີ່ແຈສອງຕົວເທິງ</button>
+                    <button id="popupSquareButton" class="popup-button" onclick="toggleSquarePopup()">ສີ່ແຈສາມໂຕເທິງ</button>
+                    <button id="popupCircleTopButton" class="popup-button" onclick="toggleSquareTopPopup()">ສີ່ແຈສອງໂຕເທິງ</button>
                 </div>
                 <button class="close-popup" onclick="closePopup()">ປິດຫນ້າຕ່າງນີ້</button>
             </div>
@@ -455,7 +455,7 @@ footer {
             return `<span class="pingpong-ball pingpong-ball-${type}">${number}</span>`;
         }
 
-        // ສ້າງກຸ່ມລູກປິງປອງຈາກຕົວເລກ
+        // ສ້າງກຸ່ມລູກປິງປອງຈາກໂຕເລກ
         function createPingPongNumbers(numbers, type = 'red') {
             return numbers.split('').map(digit => createPingPongBall(digit, type)).join('');
         }
@@ -472,7 +472,7 @@ footer {
             popup.style.display = "none";
         }
 
-        // ປ່ຽນຕົວເລກແລະສະແດງຜົນ
+        // ປ່ຽນໂຕເລກແລະສະແດງຜົນ
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const selectedTopic = document.getElementById("topicSelect").value;
@@ -483,8 +483,8 @@ footer {
                 return;
             }
 
-            const threeDigits = num.slice(2); // 3 ຕົວຫຼັງ
-            const twoDigits = num.slice(0, 2); // 2 ຕົວໜ້າ
+            const threeDigits = num.slice(2); // 3 ໂຕຫຼັງ
+            const twoDigits = num.slice(0, 2); // 2 ໂຕໜ້າ
             const fiveDigits = num;
 
             const date = dateInput ? new Date(dateInput) : new Date();
@@ -494,13 +494,13 @@ footer {
             document.getElementById("popupTopicDisplay").textContent = `ຜົນ${selectedTopic}`;
             document.getElementById("popupDateDisplay").textContent = laoDate;
             
-            // ສະແດງເລກ 5 ຕົວເປັນລູກປິງປອງສີແດງ
+            // ສະແດງເລກ 5 ໂຕເປັນລູກປິງປອງສີແດງ
             document.getElementById("popupFiveDigitsDisplay").innerHTML = createPingPongNumbers(fiveDigits, 'red');
             
-            // ສະແດງເລກ 3 ຕົວເທິງເປັນລູກປິງປອງສີນ້ຳເງິນ
+            // ສະແດງເລກ 3 ໂຕເທິງເປັນລູກປິງປອງສີນ້ຳເງິນ
             document.getElementById("popupThreeDigitsDisplay").innerHTML = createPingPongNumbers(threeDigits, 'blue');
             
-            // ສະແດງເລກ 2 ຕົວລຸ່ມເປັນລູກປິງປອງສີສົ້ມ
+            // ສະແດງເລກ 2 ໂຕລຸ່ມເປັນລູກປິງປອງສີສົ້ມ
             document.getElementById("popupTwoDigitsDisplay").innerHTML = createPingPongNumbers(twoDigits, 'orange');
             
             // ຣີເຊັດສະຖານະປຸ່ມ
@@ -512,7 +512,7 @@ footer {
             showPopup();
         }
 
-        // ວົງກົມສອງຕົວລຸ່ມ
+        // ວົງກົມສອງໂຕລຸ່ມ
         function toggleCirclePopup() {
             const twoDigitsDisplay = document.getElementById("popupTwoDigitsDisplay");
             const button = document.getElementById("popupCircleButton");
@@ -531,7 +531,7 @@ footer {
             }
         }
 
-        // ສີ່ແຈສາມຕົວເທິງ
+        // ສີ່ແຈສາມໂຕເທິງ
         function toggleSquarePopup() {
             const threeDigitsDisplay = document.getElementById("popupThreeDigitsDisplay");
             const button = document.getElementById("popupSquareButton");
@@ -550,7 +550,7 @@ footer {
             }
         }
 
-        // ສີ່ແຈສອງຕົວເທິງ
+        // ສີ່ແຈສອງໂຕເທິງ
         function toggleSquareTopPopup() {
             const threeDigitsDisplay = document.getElementById("popupThreeDigitsDisplay");
             const button = document.getElementById("popupCircleTopButton");
@@ -562,7 +562,7 @@ footer {
                 threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigitsDisplay.textContent.replace(/\D/g, ''), 'blue');
                 button.classList.remove("active");
             } else {
-                // ສະແດງແບບສີ່ແຈສອງຕົວເທິງ (ລູກປິງປອງສີນ້ຳເງິນ)
+                // ສະແດງແບບສີ່ແຈສອງໂຕເທິງ (ລູກປິງປອງສີນ້ຳເງິນ)
                 const numbers = threeDigitsDisplay.textContent.replace(/\D/g, '');
                 const firstDigit = numbers[0];
                 const lastTwoDigits = numbers.slice(1);
