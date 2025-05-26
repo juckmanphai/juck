@@ -389,30 +389,30 @@ const resultHtml = `
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>ผลลัพธ์การแปลตัวเลข</title>
                     <style>
-    body {
-        margin: 0;
-        padding: 20px 5px; /* บน-ล่าง 20px, ซ้าย-ขวา 5px */
-        background-color: #fffde7;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        box-sizing: border-box;
-    }
+                        body {
+                            margin: 0;
+                            padding: 10px;
+                            background-color: #fffde7;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            min-height: 100vh;
+                            box-sizing: border-box;
+                        }
 
-    .result-container {
-        border: 2px solid #4CAF50;
-        background-color: #FAFAD2;
-        padding: 10px; /* ปรับ padding เป็น 10px ทั้งหมด */
-        border-radius: 8px;
-        width: calc(100% - 4px);
-        margin: 0 auto; /* ลบ margin บน-ล่าง */
-        max-width: 600px;
-        min-height: 300px;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        position: relative;
-        box-sizing: border-box;
-    }
+                        .result-container {
+                            border: 2px solid #4CAF50;
+                            background-color: #FAFAD2;
+                            padding: 15px;
+                            border-radius: 10px;
+                            width: calc(100% - 10px);
+                            margin: 10px auto;
+                            max-width: 600px;
+                            min-height: 300px;
+                            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+                            position: relative;
+                            box-sizing: border-box;
+                        }
 
                         .result-container::before {
                             content: "";
@@ -518,33 +518,13 @@ const resultHtml = `
                             background-color: #d32f2f;
                         }
 
-    @media only screen and (max-width: 600px) {
-        body {
-            padding: 20px 3px; /* บน-ล่าง 20px, ซ้าย-ขวา 3px */
-        }
-        
-        .result-container {
-            padding: 8px; /* ปรับ padding เป็น 8px สำหรับมือถือ */
-            width: calc(100% - 2px);
-            margin: 0 auto; /* ลบ margin บน-ล่าง */
-            border-radius: 5px;
-        }
-        
-        #resultContent h2 {
-            font-size: 20px;
-            margin: 8px 0;
-        }
-        
-        #resultContent h3 {
-            font-size: 18px;
-            margin: 6px 0;
-        }
-        
-        .number-pairs {
-            font-size: 22px;
-            margin: 8px 0;
-        }
-    }
+                        @media only screen and (max-width: 600px) {
+                            .form-container,
+                            #resultContainer {
+                                width: calc(100% - 20px);
+                                margin: 10px;
+                            }
+                        }
                     </style>
                 </head>
                 <body>
