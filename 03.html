@@ -112,84 +112,83 @@
         box-sizing: border-box;
     }
 
-    #resultContainer {
-        display: none;
-        border: 2px solid #4CAF50;
-        background-color: #FAFAD2;
-        margin: 20px auto;
-        padding: 15px;
-        border-radius: 10px;
-        width: fit-content;
-        max-width: 100%;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        position: relative;
-        min-height: 300px;
-        box-sizing: border-box;
-    }
-    
-    #resultContainer::before {
-        content: "";
-        background-image: url('logo.png');
-        background-size: 90% auto;
-        background-repeat: no-repeat;
-        background-position: center top 15px;
-        opacity: 0.4;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 0;
-        margin: auto;
-    }
-    
-    /* Result Content Styles */
-    #resultContent {
-        position: relative;
-        z-index: 1;
-    }
-    
-    #resultContent h2 {
-        font-size: 22px;
-        margin: 6px 0;
-        line-height: 1;
-    }
-    
-    #resultContent h3 {
-        font-size: 20px;
-        margin: 6px 0;
-        line-height: 1;
-    }
-    
-    #resultContent .number-pairs {
-        font-size: 20px;
-        margin: 8px 0;
-        font-weight: bold;
-    }
-    
-    #resultContent .note {
-        font-size: 20px;
-        margin: 8px 0;
-    }
-    
-    #resultContent .translation {
-        font-size: 16px;
-        margin: 6px 0;
+#resultContainer {
+    display: none;
+    border: 2px solid #4CAF50;
+    background-color: #FAFAD2;
+    margin: 20px 3px; /* บนล่าง 20px, ซ้ายขวา 3px */
+    padding: 15px;
+    border-radius: 10px;
+    width: auto;
+    max-width: calc(100% - 2px); /* เผื่อ margin ซ้าย+ขวา = 2px */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    position: relative;
+    min-height: 300px;
+    box-sizing: border-box;
+}
+
+#resultContainer::before {
+    content: "";
+    background-image: url('logo.png');
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center top 15px;
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    margin: auto;
+}
+
+/* Result Content Styles */
+#resultContent {
+    position: relative;
+    z-index: 1;
+}
+
+#resultContent h2 {
+    font-size: 22px;
+    margin: 6px 0;
+    line-height: 1;
+}
+
+#resultContent h3 {
+    font-size: 20px;
+    margin: 6px 0;
+    line-height: 1;
+}
+
+#resultContent .number-pairs {
+    font-size: 20px;
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+#resultContent .note {
+    font-size: 20px;
+    margin: 8px 0;
+}
+
+#resultContent .translation {
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    .form-container, #resultContainer {
+        margin: 20px 2px !important; /* บนล่าง 20px, ซ้ายขวา 3px */
+        width: calc(100% - 4px);
     }
 
-    /* Responsive Styles */
-    @media only screen and (max-width: 600px) {
-        .form-container, #resultContainer {
-            width: calc(100% - 20px);
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        
-        input, select, button {
-            width: 90%;
-        }
+    input, select, button {
+        width: 90%;
     }
+}
 </style>
 </head>
 <body>
