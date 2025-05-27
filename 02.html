@@ -389,7 +389,7 @@ const resultHtml = `
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>ผลลัพธ์การแปลตัวเลข</title>
                     <style>
-    body {
+body {
         margin: 0;
         padding: 20px 5px; /* บน-ล่าง 20px, ซ้าย-ขวา 5px */
         background-color: #fffde7;
@@ -400,7 +400,7 @@ const resultHtml = `
         box-sizing: border-box;
     }
 
-    .result-container {
+.result-container {
         border: 2px solid #4CAF50;
         background-color: #FAFAD2;
         padding: 10px; /* ปรับ padding เป็น 10px ทั้งหมด */
@@ -414,117 +414,115 @@ const resultHtml = `
         box-sizing: border-box;
     }
 
-                        .result-container::before {
-                            content: "";
-                            background-image: url('logo.png');
-                            background-size: 90% auto;
-                            background-repeat: no-repeat;
-                            background-position: center top 15px;
-                            opacity: 0.4;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            z-index: 0;
-                        }
+.result-container::before {
+    content: "";
+    background-image: url('logo.png');
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center top 15px;
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
 
-                        #resultContent {
-                            position: relative;
-                            z-index: 1;
-                            line-height: 2.0;
-                            text-align: center;
-                            width: 100%;
-                        }
+#resultContent {
+    position: relative;
+    z-index: 1;
+    line-height: 2.0;
+    text-align: center;
+    width: 100%;
+}
 
-                        #resultContent h2 {
-                            font-size: 22px;
-                            margin: 12px 0;
-                            color: blue;
-                        }
+#resultContent h2,
+#resultContent h3 {
+    color: blue;
+    margin: 12px 0;
+}
 
-                        #resultContent h3 {
-                            font-size: 20px;
-                            margin: 10px 0;
-                            color: blue;
-                        }
+#resultContent h2 {
+    font-size: 22px;
+}
 
-                        .number-pairs {
-                            font-size: 24px;
-                            margin: 12px 0;
-                            font-weight: bold;
-                            color: blue;
-                        }
+#resultContent h3 {
+    font-size: 20px;
+}
 
-                        .note {
-                            font-size: 20px;
-                            margin: 12px 0;
-                            color: blue;
-                        }
+.number-pairs,
+.note {
+    font-size: 24px;
+    margin: 12px 0;
+    font-weight: bold;
+    color: blue;
+}
 
-                        .translation {
-                            font-size: 16px;
-                            margin: 10px 0;
-                            color: blue;
-                        }
+.translation {
+    font-size: 16px;
+    margin: 10px 0;
+    color: blue;
+}
 
-                        .controls {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            width: 100%;
-                            margin-top: 20px;
-                        }
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
 
-                        .line-height-control {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            width: 100%;
-                            margin-bottom: 15px;
-                        }
+.line-height-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
 
-                        .line-height-control label {
-                            font-size: 16px;
-                            margin-bottom: 5px;
-                            color: blue;
-                        }
+.line-height-control label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: blue;
+}
 
-                        .line-height-control input[type="range"] {
-                            width: 80%;
-                            max-width: 300px;
-                        }
+.line-height-control input[type="range"] {
+    width: 80%;
+    max-width: 300px;
+}
 
-                        .line-height-control span {
-                            font-size: 16px;
-                            color: blue;
-                        }
+.line-height-control span {
+    font-size: 16px;
+    color: blue;
+}
 
-                        .close-btn {
-                            padding: 10px 20px;
-                            background-color: #f44336;
-                            color: white;
-                            border: none;
-                            border-radius: 5px;
-                            cursor: pointer;
-                            font-size: 16px;
-                            margin: 10px auto;
-                            display: block;
-                            width: ${isMobile ? 'calc(100% - 40px)' : '200px'};
-                            max-width: 200px;
-                        }
+.close-btn {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px auto;
+    display: block;
+    width: 200px;
+    max-width: 200px;
+}
 
-                        .close-btn:hover {
-                            background-color: #d32f2f;
-                        }
+.close-btn:hover {
+    background-color: #d32f2f;
+}
 
-                        @media only screen and (max-width: 600px) {
-                            .form-container,
-                            #resultContainer {
-                                width: calc(100% - 20px);
-                                margin: 10px;
-                            }
-                        }
+@media only screen and (max-width: 600px) {
+    .form-container,
+    #resultContainer {
+        width: calc(100% - 5px);
+        margin: 10px;
+    }
+}
+
                     </style>
                 </head>
                 <body>
