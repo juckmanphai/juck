@@ -116,11 +116,11 @@
     display: none;
     border: 2px solid #4CAF50;
     background-color: #FAFAD2;
-    margin: 20px 3px; /* บนล่าง 20px, ซ้ายขวา 3px */
+    margin: 20px 5px; /* บนล่าง 20px, ซ้ายขวา 3px */
     padding: 15px;
     border-radius: 10px;
     width: auto;
-    max-width: calc(100% - 2px); /* เผื่อ margin ซ้าย+ขวา = 2px */
+    max-width: calc(100% - 10px); /* เผื่อ margin ซ้าย+ขวา = 5px */
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
     position: relative;
@@ -181,8 +181,8 @@
 /* Responsive Styles */
 @media only screen and (max-width: 600px) {
     .form-container, #resultContainer {
-        margin: 20px 2px !important; /* บนล่าง 20px, ซ้ายขวา 3px */
-        width: calc(100% - 4px);
+        margin: 20px 5px !important; /* บนล่าง 20px, ซ้ายขวา 5px */
+        width: calc(100% - 10px);
     }
 
     input, select, button {
@@ -900,151 +900,148 @@ return `
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ผลลัพธ์การแปลตัวเลข</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #fffde7;
-        margin: 0;
-        padding: 0;
-        line-height: 1;
-        color: blue; /* สีพื้นฐานของตัวอักษร */
-    }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fffde7;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    color: blue;
+}
 
-    /* กล่องผลลัพธ์ */
+/* กล่องผลลัพธ์ */
+.result-container {
+    border: 2px solid #4CAF50;
+    background-color: #FAFAD2;
+    margin: 20px 2px; /* บนล่าง 20px, ซ้ายขวา 2px */
+    padding: 15px;
+    border-radius: 10px;
+    width: auto;
+    max-width: calc(100% - 6px); /* เผื่อ margin ซ้าย+ขวา รวมกัน = 6px */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    position: relative;
+    min-height: 300px;
+    box-sizing: border-box;
+}
+
+.result-container::before {
+    content: "";
+    background-image: url('logo.png');
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center top 15px;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+/* เนื้อหาผลลัพธ์ */
+#resultContent {
+    position: relative;
+    z-index: 1;
+    color: blue;
+}
+
+#resultContent h2,
+#resultContent h3,
+#resultContent .number-pairs,
+#resultContent .note,
+#resultContent .translation {
+    color: blue;
+}
+
+#resultContent h2 {
+    font-size: 22px;
+    margin: 6px 0;
+    line-height: 1;
+}
+
+#resultContent h3 {
+    font-size: 20px;
+    margin: 6px 0;
+    line-height: 1;
+}
+
+#resultContent .number-pairs {
+    font-size: 20px;
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+#resultContent .note {
+    font-size: 20px;
+    margin: 8px 0;
+}
+
+#resultContent .translation {
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+/* ส่วนควบคุมการตั้งค่า */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.line-height-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.line-height-control label,
+.line-height-control span {
+    font-size: 16px;
+    color: blue;
+}
+
+.line-height-control input[type="range"] {
+    width: 80%;
+    max-width: 300px;
+}
+
+/* ปุ่มปิด */
+.close-btn {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto;
+    display: block;
+    width: 90%;
+    max-width: 200px;
+    text-align: center;
+}
+
+.close-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsive */
+@media only screen and (max-width: 600px) {
     .result-container {
-        border: 2px solid #4CAF50;
-        background-color: #FAFAD2;
-        margin: 20px auto;
-        padding: 15px;
-        border-radius: 10px;
-        width: fit-content;
-        max-width: 100%;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        position: relative;
-        min-height: 300px;
-        box-sizing: border-box;
+        margin: 20px 3px; /* ยังคง 20px บนล่าง และ 3px ซ้ายขวา */
+        width: calc(100% - 6px); /* 100% ลบ margin ซ้าย+ขวา */
     }
 
-    .result-container::before {
-        content: "";
-        background-image: url('logo.png');
-        background-size: 90% auto;
-        background-repeat: no-repeat;
-        background-position: center top 15px;
-        opacity: 0.5;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 0;
-    }
-
-    /* เนื้อหาผลลัพธ์ */
-    #resultContent {
-        position: relative;
-        z-index: 1;
-        color: blue;
-    }
-
-    #resultContent h2 {
-        font-size: 22px;
-        margin: 6px 0;
-        line-height: 1;
-        color: blue;
-    }
-
-    #resultContent h3 {
-        font-size: 20px;
-        margin: 6px 0;
-        line-height: 1;
-        color: blue;
-    }
-
-    #resultContent .number-pairs {
-        font-size: 20px;
-        margin: 8px 0;
-        font-weight: bold;
-        color: blue;
-    }
-
-    #resultContent .note {
-        font-size: 20px;
-        margin: 8px 0;
-        color: blue;
-    }
-
-    #resultContent .translation {
-        font-size: 16px;
-        margin: 6px 0;
-        color: blue;
-    }
-
-    /* ส่วนควบคุมการตั้งค่า */
-    .controls {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    .line-height-control {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .line-height-control label {
-        font-size: 16px;
-        margin-bottom: 5px;
-        color: blue;
-    }
-
-    .line-height-control input[type="range"] {
-        width: 80%;
-        max-width: 300px;
-    }
-
-    .line-height-control span {
-        font-size: 16px;
-        color: blue;
-    }
-
-    /* ปุ่มปิด */
-    .close-btn {
-        padding: 10px 20px;
-        background-color: #f44336;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        margin: 20px auto;
-        display: block;
+    input, select, button {
         width: 90%;
-        max-width: 200px;
-        text-align: center;
     }
-
-    .close-btn:hover {
-        background-color: #d32f2f;
-    }
-
-    /* Responsive */
-    @media only screen and (max-width: 600px) {
-        .result-container {
-            width: calc(100% - 20px);
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-
-        input, select, button {
-            width: 90%;
-        }
-    }
+}
 </style>
 
         </head>
