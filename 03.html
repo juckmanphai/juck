@@ -6,14 +6,14 @@
     <title>ฟอร์มแปลตัวเลข 3 ตัว</title>
 <style>
     /* Base Styles */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #fffde7;
-        margin: 0;
-        padding: 0;
-        line-height: 1;
-    }
-    
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffde7;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+        
     h1 {
         text-align: center;
         font-size: 22px;
@@ -22,50 +22,59 @@
         margin-bottom: 10px;
         line-height: 1;
     }
-    
-    label {
-        font-size: 18px;
-        margin-left: 5%;
-        color: blue;
-        line-height: 1;
-        display: block;
-        text-align: center;
-    }
-    
-    footer {
-        text-align: center;
-        padding: 20px;
-        font-size: 14px;
-        color: #95a5a6;
-        line-height: 1;
-    }
-    
-    /* Form Elements */
-    input, select, button {
-        font-size: 18px;
-        padding: 10px;
-        width: 80%;
-        margin: 10px auto;
-        border-radius: 6px;
-        border: 1px solid #ddd;
-        display: block;
-        line-height: 1;
-        text-align: center;
-    }
-    
-    button {
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        
+        label {
+            font-size: 18px;
+            color: #2c3e50;
+            display: block;
+            text-align: center;
+            margin-left: 5%;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #95a5a6;
+        }
 
-    button:hover {
-        background-color: #45a049;
-    }
+        /* ===== Form Elements ===== */
+        input, select, button {
+            font-size: 18px;
+            padding: 10px;
+            width: 80%;
+            margin: 10px auto;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            display: block;
+            text-align: center;
+            box-sizing: border-box;
+        }
 
-        /* ปุ่มกลับสู่หน้าหลักเฉพาะ */
-        #homeButton {
+        input[type="date"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit {
+            text-align: center;
+            width: 100%;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* ปุ่มกลับหน้าหลักสีส้ม */
+        .homeButton {
       display: block;
       width: 90%;
       max-width: 600px;
@@ -79,38 +88,27 @@
       cursor: pointer;
     }
 
-        #homeButton:hover {
+        .homeButton:hover {
             background-color: darkorange;
         }
 
-    
-    #lineHeightSlider {
-        width: 80%;
-        margin: 10px auto;
-    }
-    
-    #lineHeightValue {
-        font-size: 16px;
-        color: blue;
-        line-height: 1;
-        text-align: center;
-        display: block;
-    }
+        
+        /* ===== Container Styles ===== */
+        .form-container {
+            border: 2px solid orange;
+            background-color: #FEFEF0;
+            margin: 30px auto;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+            box-sizing: border-box;
+        }
 
-    /* Container Styles */
-    .form-container {
-        border: 2px solid orange;
-        background-color: #FEFEF0;
-        margin: 20px auto;
-        padding: 15px;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 600px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-        position: relative;
-        box-sizing: border-box;
-    }
+        #resultContainer {
+            display: none;
+        }
 
 #resultContainer {
     display: none;
@@ -192,76 +190,68 @@
 </style>
 </head>
 <body>
-<div class="form-container">
-    <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
-    <div style="text-align: center; margin-top: 20px; width: 300px; margin-left: auto; margin-right: auto;">
-
-        <!-- Number Input -->
-        <div style="margin-top: 30px; width: 100%;">
-            <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" 
-                   style="font-size: 20px; padding: 12px; width: 100%; box-sizing: border-box;">
+      <h1>ฟอร์มแปลตัวเลข 3 ตัว</h1>
+    <div class="form-container">
+        <!-- แถวที่ 1: ช่องกรอกตัวเลขกับตัวเลือกชนิดของตัวเลข -->
+        <div class="form-row">
+            <div class="form-col" style="width: 100%;">
+                <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 3 หลัก" pattern="\d{3}" maxlength="3" inputmode="numeric" />
+            </div>
+            <div class="form-col" style="width: 100%;">
+                <select id="topicSelect">
+                    <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
+                    <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
+                    <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
+                    <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
+                    <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
+                    <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
+                    <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
+                    <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
+                    <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
+                    <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
+                    <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
+                    <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
+                    <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
+                    <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
+                    <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
+                    <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
+                    <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
+                    <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
+                    <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
+                    <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+                </select>
+            </div>
         </div>
 
-        <!-- Topic Selection Dropdown -->
-        <div style="margin-top: 10px; width: 100%;">
-            <select id="topicSelect" style="font-size: 18px; padding: 10px; width: 100%; box-sizing: border-box;">
-                <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
-                <option value="ลาวสันติภาพ เวลา 06.45 น">ลาวสันติภาพ เวลา 06.45 น</option>
-                <option value="ประชาชนลาว เวลา 07.45 น">ประชาชนลาว เวลา 07.45 น</option>
-                <option value="ลาว Extra เวลา 08.30 น">ลาว Extra เวลา 08.30 น</option>
-                <option value="ลาว TV เวลา 10.30 น">ลาว TV เวลา 10.30 น</option>
-                <option value="ลาว HD เวลา 13.45 น">ลาว HD เวลา 13.45 น</option>
-                <option value="ลาวสตาร์ เวลา 15.45 น">ลาวสตาร์ เวลา 15.45 น</option>
-                <option value="ลาวสามัคคี เวลา 20.30 น">ลาวสามัคคี เวลา 20.30 น</option>
-                <option value="ลาวพัฒนา เวลา 20.30 น">ลาวพัฒนา เวลา 20.30 น</option>
-                <option value="ลาว VIP เวลา 21.30 น">ลาว VIP เวลา 21.30 น</option>
-                <option value="ลาวอาเซียน เวลา 21.00 น">ลาวอาเซียน เวลา 21.00 น</option>
-                <option value="ลาวสามัคคี VIP เวลา 21.30 น">ลาวสามัคคี VIP เวลา 21.30 น</option>
-                <option value="ลาวสตาร์ VIP เวลา 22.00 น">ลาวสตาร์ VIP เวลา 22.00 น</option>
-                <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
-                <option value="รัฐบาล เวลา 15.45 น">รัฐบาล เวลา 15.45 น</option>
-                <option value="ฮานอยกาชาด เวลา 16.30 น">ฮานอยกาชาด เวลา 16.30 น</option>
-                <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
-                <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
-                <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-                <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
-            </select>
+        <!-- แถวที่ 2: ช่องเลือกผู้บอกกับวันเดือนปี -->
+        <div class="form-row">
+            <div class="form-col" style="width: 100%;">
+                <select id="personSelect">
+                    <option value="Team">Team</option>
+                    <option value="@">@</option>
+                    <option value="โรงงาน">โรงงาน</option>
+                    <option value="Udon Don">Udon Don</option>
+                    <option value="เจ้าที่">เจ้าที่</option>
+                </select>
+            </div>
+            <div class="form-col" style="width: 100%;">
+                <input type="date" id="dateInput" />
+            </div>
         </div>
 
-        <!-- Person Selection -->
-        <div style="margin-top: 10px; width: 100%;">
-            <select id="personSelect" style="font-size: 18px; padding: 10px; width: 100%; box-sizing: border-box;">
-                <option value="Team">Team</option>
-                <option value="@">@</option>
-                <option value="โรงงาน">โรงงาน</option>
-                <option value="Udon Don">Udon Don</option>
-                <option value="เจ้าที่">เจ้าที่</option>
-            </select>
+        <!-- แถวที่ 3: หมายเหตุ -->
+        <div class="form-row">
+            <div class="form-col" style="width: 100%;">
+                <input type="text" id="noteInput" placeholder="หมายเหตุ (ถ้ามี)" />
+            </div>
         </div>
 
-        <!-- Date Input -->
-        <div style="margin-top: 10px; width: 100%;">
-            <input type="date" id="dateInput" style="font-size: 18px; padding: 10px; width: 100%; box-sizing: border-box;">
-        </div>
-
-        <!-- Note Input -->
-        <div style="margin-top: 10px; width: 100%;">
-            <input type="text" id="noteInput" placeholder="กรุณาไส่ข้อความที่ต้องการ" 
-                   style="font-size: 18px; padding: 10px; width: 100%; box-sizing: border-box;">
-        </div>
-
-        <!-- Convert Button -->
-        <div style="margin-top: 10px; width: 100%;">
-            <button id="convertButton" style="font-size: 18px; padding: 10px; width: 100%;">แปลตัวเลข</button>
-        </div>
+        <!-- ปุ่มแปลตัวเลข -->
+        <button id="convertButton">แปลตัวเลข</button>
     </div>
-</div>
-
-    <!-- Result Container -->
-<div id="resultContainer" style="text-align: center; margin-top: 20px;"></div>
-
-    <!-- Back Button -->
-    <button id="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
+    
+    <!-- ปุ่มกลับสู่หน้าหลัก (แก้ไขแล้ว ใส่ class="homeButton") -->
+    <button id="homeButton" class="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
 </div>
 
     <footer>
