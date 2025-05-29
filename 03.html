@@ -1081,6 +1081,14 @@ body {
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
         });
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
+            
+            // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
+            const today = new Date();
+            const dateStr = today.toISOString().substr(0, 10);
+            document.getElementById("dateInput").value = dateStr;
+        });
     </script>
 </body>
 </html>
