@@ -410,37 +410,38 @@ return `
                 return;
             }
 
-            newWindow.document.write(`
-                <!DOCTYPE html>
-                <html lang="th">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>ผลลัพธ์การแปลตัวเลข</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            background-color: #fffde7;
-                            margin: 0;
-                            padding: 0;
-                            line-height: 1;
-                            color: blue;
-                        }
+    newWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="th">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>ผลลัพธ์การแปลตัวเลข</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fffde7;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    color: blue;
+}
 
-                        .result-container {
-                            border: 2px solid #4CAF50;
-                            background-color: #FAFAD2;
-                            margin: 20px auto;
-                            padding: 15px;
-                            border-radius: 10px;
-                            width: fit-content;
-                            max-width: 100%;
-                            text-align: center;
-                            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
-                            position: relative;
-                            min-height: 300px;
-                            box-sizing: border-box;
-                        }
+/* กล่องผลลัพธ์ */
+.result-container {
+    border: 2px solid #4CAF50;
+    background-color: #FAFAD2;
+    margin: 20px 2px; /* บนล่าง 20px, ซ้ายขวา 2px */
+    padding: 15px;
+    border-radius: 10px;
+    width: auto;
+    max-width: calc(100% - 6px); /* เผื่อ margin ซ้าย+ขวา รวมกัน = 6px */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+    position: relative;
+    min-height: 300px;
+    box-sizing: border-box;
+}
 
                         .result-container::before {
                             content: "";
