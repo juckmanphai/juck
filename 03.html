@@ -422,7 +422,7 @@
         );
 
         const transformedPairsText = uniquePairs.length === 0 
-            ? '<span style="color: orange; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>'
+            ? '<span style="color: green; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>'
             : uniquePairs.join(' - ');
 
         // Generate third set (3-digit combinations)
@@ -448,7 +448,7 @@
 
         const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0
             ? finalAdditionalNumbers.join(' - ')
-            : '<span style="color: orange; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>';
+            : '<span style="color: green; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
         // Generate HTML
         return `
