@@ -443,13 +443,17 @@ footer {
     
     <script>
         // ຕັ້ງຄ່າວັນເລີ່ມຕົ້ນ
-        function setDefaultDate() {
-            const dateInput = document.getElementById("dateInput");
-            if (dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.value = today;
-            }
-        }
+function setDefaultDate() {
+    const dateInput = document.getElementById("dateInput");
+    if (dateInput) {
+        const nowUTC = new Date();
+        const timezoneOffset = 7 * 60; // UTC+7 เป็นนาที
+        const localTimestamp = nowUTC.getTime() + (timezoneOffset * 60 * 1000);
+        const localDate = new Date(localTimestamp);
+        const today = localDate.toISOString().split('T')[0];
+        dateInput.value = today;
+    }
+}
 
         // ສ້າງລູກປິງປອງ
         function createPingPongBall(number, type = 'red') {
