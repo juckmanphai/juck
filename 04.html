@@ -651,10 +651,21 @@
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
             
-            // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
-            const today = new Date();
-            const dateStr = today.toISOString().substr(0, 10);
-            document.getElementById("dateInput").value = dateStr;
+// ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบันตามเวลาไทย (UTC+7)
+const nowUTC = new Date();
+
+// บวก 7 ชั่วโมงเพื่อให้เป็นเวลาไทย
+const timezoneOffset = 7 * 60; // 7 ชั่วโมง = 420 นาที
+const thailandTime = new Date(nowUTC.getTime() + timezoneOffset * 60 * 1000);
+
+// สร้างวันที่ในรูปแบบ YYYY-MM-DD
+const year = thailandTime.getFullYear();
+const month = String(thailandTime.getMonth() + 1).padStart(2, '0');
+const day = String(thailandTime.getDate()).padStart(2, '0');
+const dateStr = `${year}-${month}-${day}`;
+
+// ตั้งค่าวันใน input
+document.getElementById("dateInput").value = dateStr;
         });
     </script>
 </body>
