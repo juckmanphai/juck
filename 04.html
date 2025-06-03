@@ -187,6 +187,27 @@
         width: 90%;
     }
 }
+
+/* Custom styles for the new input fields */
+.custom-input-container {
+    display: flex;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.custom-input-container input {
+    flex: 1;
+    margin: 0 5px;
+    width: auto;
+}
+
+.custom-input-container input:first-child {
+    margin-left: 0;
+}
+
+.custom-input-container input:last-child {
+    margin-right: 0;
+}
 </style>
 </head>
 <body>
@@ -218,8 +239,16 @@
                     <option value="อานอยพิเศษ เวลา 17.30 น">อานอยพิเศษ เวลา 17.30 น</option>
                     <option value="ฮานอย เวลา 18.30 น">ฮานอย เวลา 18.30 น</option>
                     <option value="ฮานอย VIP เวลา 19.30 น">ฮานอย VIP เวลา 19.30 น</option>
-                    <option value="All laos ไม่ระบุ">All laos ไม่ระบุ</option>
+                    <option value="custom">พิมพ์เอง...</option>
                 </select>
+            </div>
+        </div>
+
+        <!-- แถวที่ 4: ช่องกรอกข้อมูลแบบกำหนดเอง (จะแสดงเมื่อเลือก "พิมพ์เอง...") -->
+        <div class="form-row" id="customTopicRow" style="display: none;">
+            <div class="custom-input-container">
+                <input type="text" id="customTopicName" placeholder="ชื่อหัวข้อ" />
+                <input type="text" id="customTopicTime" placeholder="เวลา (เช่น 08.30 น)" />
             </div>
         </div>
 
@@ -229,11 +258,16 @@
                 <select id="personSelect">
                     <option value="Team">Team</option>
                     <option value="@">@</option>
-                    <option value="โรงงาน">โรงงาน</option>
                     <option value="Udon Don">Udon Don</option>
-                    <option value="เจ้าที่">เจ้าที่</option>
+                    <option value="custom">พิมพ์เอง...</option>
                 </select>
             </div>
+
+        <div class="form-row" id="customPersonRow" style="display: none;">
+            <div class="form-col" style="width: 100%;">
+                <input type="text" id="customPersonName" placeholder="ชื่อผู้บอก" />
+            </div>
+        </div>
             <div class="form-col" style="width: 100%;">
                 <input type="date" id="dateInput" />
             </div>
@@ -327,11 +361,19 @@
     }
 
     function generateResultHTML() {
+        let selectedTopic = document.getElementById("topicSelect").value;
+        if (selectedTopic === "custom") {
+            const customName = document.getElementById("customTopicName").value.trim();
+            const customTime = document.getElementById("customTopicTime").value.trim();
+            selectedTopic = customName + (customTime ? " เวลา " + customTime : "");
+        }
+
+        let selectedPerson = document.getElementById("personSelect").value;
+        if (selectedPerson === "custom") {
+            selectedPerson = document.getElementById("customPersonName").value.trim();
+        }
+
         const num = document.getElementById("numberInput").value;
-        const topicSelect = document.getElementById("topicSelect");
-        const selectedTopic = topicSelect.value;
-        const personSelect = document.getElementById("personSelect");
-        const selectedPerson = personSelect.value;
         let noteInput = document.getElementById("noteInput").value;
         const dateInputValue = document.getElementById("dateInput").value;
         const dateInput = dateInputValue ? new Date(dateInputValue) : new Date();
@@ -649,23 +691,34 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            // ตั้งค่าวันที่เริ่มต้น
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            document.getElementById("dateInput").value = dateStr;
+
+            // จัดการการเปลี่ยนค่าใน dropdown topic
+            document.getElementById("topicSelect").addEventListener("change", function() {
+                if (this.value === "custom") {
+                    document.getElementById("customTopicRow").style.display = "block";
+                } else {
+                    document.getElementById("customTopicRow").style.display = "none";
+                }
+            });
+
+            // จัดการการเปลี่ยนค่าใน dropdown person
+            document.getElementById("personSelect").addEventListener("change", function() {
+                if (this.value === "custom") {
+                    document.getElementById("customPersonRow").style.display = "block";
+                } else {
+                    document.getElementById("customPersonRow").style.display = "none";
+                }
+            });
+
+            // ปุ่มแปลตัวเลข
             document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
-            
-// ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบันตามเวลาไทย (UTC+7)
-const nowUTC = new Date();
-
-// บวก 7 ชั่วโมงเพื่อให้เป็นเวลาไทย
-const timezoneOffset = 7 * 60; // 7 ชั่วโมง = 420 นาที
-const thailandTime = new Date(nowUTC.getTime() + timezoneOffset * 60 * 1000);
-
-// สร้างวันที่ในรูปแบบ YYYY-MM-DD
-const year = thailandTime.getFullYear();
-const month = String(thailandTime.getMonth() + 1).padStart(2, '0');
-const day = String(thailandTime.getDate()).padStart(2, '0');
-const dateStr = `${year}-${month}-${day}`;
-
-// ตั้งค่าวันใน input
-document.getElementById("dateInput").value = dateStr;
         });
     </script>
 </body>
