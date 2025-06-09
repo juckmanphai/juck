@@ -230,15 +230,15 @@
     <!-- กลุ่มสรุปช่วงเวลา -->
     <div class="entry-form">
       <div class="entry-group">
-        <label for="startDate">จากวันที่:</label>
-        <input type="date" id="startDate" />
+        <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
+        <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
       </div>
       <div class="entry-group">
-        <label for="endDate">ถึงวันที่:</label>
-        <input type="date" id="endDate" />
+        <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
+        <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
       </div>
       <div class="entry-group">
-        <label for="customDayMonth">กรอกวันที่ (วัน/เดือน/ปี):</label>
+        <label for="customDayMonth">สรุปวันที่เลือก (วัน/เดือน/ปี):</label>
         <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
       </div>
     </div>
@@ -448,6 +448,14 @@
       }
     }
 
+    function parseDateInput(dateStr) {
+      if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) {
+        return null;
+      }
+      const [day, month, year] = dateStr.split('/');
+      return new Date(year, month - 1, day);
+    }
+
     function summarizeByDayMonth() {
       const dayMonth = document.getElementById('customDayMonth').value.trim();
 
@@ -543,19 +551,26 @@
     }
 
     function summarize() {
-      const startDateInput = document.getElementById('startDate').value;
-      const endDateInput = document.getElementById('endDate').value;
+      const startDateInput = document.getElementById('startDate').value.trim();
+      const endDateInput = document.getElementById('endDate').value.trim();
 
       if (!startDateInput || !endDateInput) {
         alert("กรุณาเลือกวันที่ให้ครบถ้วน");
         return;
       }
 
-      const startDate = new Date(startDateInput);
-      const endDate = new Date(endDateInput);
+      // ตรวจสอบรูปแบบวันที่
+      if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(startDateInput) || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(endDateInput)) {
+        alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
+        return;
+      }
 
-      startDate.setHours(0, 0, 0, 0);
-      endDate.setHours(23, 59, 59, 999);
+      // แปลงวันที่
+      const [startDay, startMonth, startYear] = startDateInput.split('/');
+      const [endDay, endMonth, endYear] = endDateInput.split('/');
+      
+      const startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0);
+      const endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
 
       if (startDate > endDate) {
         alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
