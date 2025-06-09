@@ -201,9 +201,9 @@
     <!-- กลุ่มเพิ่มข้อมูล -->
     <div class="entry-form">
       <div class="entry-group">
-        <label for="entryDate">วันที่</label>
-        <input type="date" id="entryDate">
-      </div>
+  <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
+  <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
+</div>
       <div class="entry-group">
         <label for="amount">จำนวนเงิน</label>
         <input type="number" id="amount" required>
@@ -354,42 +354,57 @@
       }
     }
 
-    function addEntry() {
-      const entryDate = document.getElementById('entryDate').value;
-      const type = document.getElementById('type').value;
-      const description = document.getElementById('description').value;
-      const amount = parseFloat(document.getElementById('amount').value);
+  function addEntry() {
+    let entryDateInput = document.getElementById('entryDate').value.trim();
+    const type = document.getElementById('type').value;
+    const description = document.getElementById('description').value;
+    const amount = parseFloat(document.getElementById('amount').value);
 
-      const selectedDate = entryDate ? new Date(entryDate) : new Date();
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const timeString = `${hours}:${minutes}`;
-      const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
-      const dateTime = `${formattedDate} ${timeString}`;
-
-      if (!currentAccount) {
-        alert("กรุณาเลือกบัญชีก่อนเพิ่มข้อมูล");
+    // ตรวจสอบและกำหนดค่าวันที่ถ้าไม่ได้กรอก
+    let selectedDate;
+    if (!entryDateInput) {
+      // ถ้าไม่กรอกวันที่ ให้ใช้วันปัจจุบัน
+      selectedDate = new Date();
+    } else {
+      // ตรวจสอบรูปแบบวันที่
+      if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) {
+        alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
         return;
       }
-
-      if (!type || !description || isNaN(amount)) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-        return;
-      }
-
-      if (editingIndex !== null) {
-        records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
-        editingIndex = null;
-      } else {
-        records.push({ dateTime, type, description, amount, account: currentAccount });
-      }
-      
-      displayRecords();
-      document.getElementById('description').value = '';
-      document.getElementById('amount').value = '';
-      document.getElementById('entryDate').value = '';
+      const [day, month, year] = entryDateInput.split('/');
+      selectedDate = new Date(year, month - 1, day);
     }
+
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}`;
+    const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+    const dateTime = `${formattedDate} ${timeString}`;
+
+    if (!currentAccount) {
+      alert("กรุณาเลือกบัญชีก่อนเพิ่มข้อมูล");
+      return;
+    }
+
+    if (!type || !description || isNaN(amount)) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+
+    if (editingIndex !== null) {
+      records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
+      editingIndex = null;
+    } else {
+      records.push({ dateTime, type, description, amount, account: currentAccount });
+    }
+    
+    displayRecords();
+    document.getElementById('description').value = '';
+    document.getElementById('amount').value = '';
+    document.getElementById('entryDate').value = '';
+  }
+
 
     function displayRecords() {
       const recordBody = document.getElementById('recordBody');
@@ -428,18 +443,18 @@
       }
     }
 
-    function editRecord(index) {
-      const record = records[index];
-      document.getElementById('type').value = record.type;
-      document.getElementById('description').value = record.description;
-      document.getElementById('amount').value = record.amount;
-      
-      const [datePart, timePart] = record.dateTime.split(' ');
-      const [year, month, day] = datePart.split('-');
-      document.getElementById('entryDate').value = `${year}-${month}-${day}`;
-      
-      editingIndex = index;
-    }
+  function editRecord(index) {
+    const record = records[index];
+    document.getElementById('type').value = record.type;
+    document.getElementById('description').value = record.description;
+    document.getElementById('amount').value = record.amount;
+    
+    const [datePart, timePart] = record.dateTime.split(' ');
+    const [year, month, day] = datePart.split('-');
+    document.getElementById('entryDate').value = `${day}/${month}/${year}`;
+    
+    editingIndex = index;
+  }
 
     function deleteRecord(index) {
       if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) {
