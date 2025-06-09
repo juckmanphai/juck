@@ -763,37 +763,23 @@
     }
 
 function loadFromFile(event) {
-  const file = event.target.files[0];
-  if (!file) {
-    return;
-  }
-
-  // ตรวจสอบประเภทไฟล์
-  if (!file.name.endsWith('.json') && file.type !== 'application/json') {
-    alert("กรุณาเลือกไฟล์ JSON เท่านั้น");
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      accounts.length = 0;
-      accounts.push(...data.accounts);
-      currentAccount = data.currentAccount;
-      records.length = 0;
-      records.push(...data.records);
-      updateAccountSelect();
-      changeAccount();
-      alert("โหลดข้อมูลสำเร็จ");
-    } catch (error) {
-      alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message);
+    const file = event.target.files[0];
+    if (!file) {
+        return;
     }
-  };
-  reader.onerror = function() {
-    alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
-  };
-  reader.readAsText(file);
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const data = JSON.parse(e.target.result);
+        accounts.length = 0;
+        accounts.push(...data.accounts);
+        currentAccount = data.currentAccount;
+        records.length = 0;
+        records.push(...data.records);
+        updateAccountSelect();
+        changeAccount();
+    };
+    reader.readAsText(file);
 }
 
     window.onload = function() {
