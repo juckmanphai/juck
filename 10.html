@@ -206,6 +206,8 @@
   <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูล</button>
 </div>
     <!-- กลุ่มเลือกบัญชี -->
+    <div class="date-summary-section">
+      <div class="date-summary-title">เลือกบัญชี</div>
     <label for="accountSelect">เลือกบัญชี:</label>
     <select id="accountSelect" onchange="changeAccount()"></select>
     <div class="button-group">
@@ -213,9 +215,11 @@
       <button type="button" onclick="deleteAccount()">ลบบช.</button>
       <button type="button" onclick="editAccount()">แก้ไขชื่อบช.</button>
     </div>
+    </div>
 
     <!-- กลุ่มเพิ่มข้อมูล -->
-    <div class="entry-form">
+    <div class="date-summary-section">
+      <div class="date-summary-title">เพิ่มข้อมูล</div>
       <div class="entry-group">
   <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
   <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
@@ -237,11 +241,11 @@
         <label for="description">รายละเอียด</label>
         <input type="text" id="description" required>
       </div>
-    </div>
 
     <div class="button-container" style="text-align: center;">
       <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
     </div>
+   </div>
 
     <!-- กลุ่มสรุปช่วงเวลา -->
     <div class="date-summary-section">
@@ -276,6 +280,7 @@
     </div>
 
 <!-- แถวที่ 2 -->
+    <div class="date-summary-section">
 <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
   <button type="button" onclick="summarizeToday()" style="flex: 5;">สรุปวันนี้</button>
   <button type="button" onclick="toggleVisibility()" style="flex: 5;">แสดง/ซ่อน รายการ</button>
@@ -285,6 +290,7 @@
 <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
   <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึก</button>
   <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
+</div>
 </div>
 
 
