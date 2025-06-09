@@ -198,16 +198,17 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
   </div>
 <div class="container">
-<h1 style="text-align: center; color: blue; font-size: 16px;">
-  ชื่อบัญชี - <span id="accountName"></span>
-</h1>
-<div style="text-align: center;">
-  <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
-  <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูล</button>
-</div>
-    <!-- กลุ่มเลือกบัญชี -->
-    <div class="date-summary-section">
-      <div class="date-summary-title">เลือกบัญชี</div>
+  <h1 style="text-align: center; color: blue; font-size: 16px;">
+    ชื่อบัญชี - <span id="accountName"></span>
+  </h1>
+  <div style="text-align: center;">
+    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
+    <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูล</button>
+  </div>
+  
+  <!-- กลุ่มเลือกบัญชี -->
+  <div class="date-summary-section">
+    <div class="date-summary-title">เลือกบัญชี</div>
     <label for="accountSelect">เลือกบัญชี:</label>
     <select id="accountSelect" onchange="changeAccount()"></select>
     <div class="button-group">
@@ -215,103 +216,129 @@
       <button type="button" onclick="deleteAccount()">ลบบช.</button>
       <button type="button" onclick="editAccount()">แก้ไขชื่อบช.</button>
     </div>
-    </div>
+  </div>
 
-    <!-- กลุ่มเพิ่มข้อมูล -->
-    <div class="date-summary-section">
-      <div class="date-summary-title">เพิ่มข้อมูล</div>
-      <div class="entry-group">
-  <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
-  <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
-</div>
-      <div class="entry-group">
-        <label for="amount">จำนวนเงิน</label>
-        <input type="number" id="amount" required>
-      </div>
-      <div class="entry-group">
-        <label for="type">ประเภท</label>
-        <select id="type" required>
-          <option value="รายจ่าย">ชื้อหวย</option>
-          <option value="รายรับ">ถูกหวย</option>
-          <option value="เพิ่มทุน">เพิ่มทุน</option>
-          <option value="ถอนทุน">ถอนทุน</option>
-        </select>
-      </div>
-      <div class="entry-group">
-        <label for="description">รายละเอียด</label>
-        <input type="text" id="description" required>
-      </div>
+  <!-- กลุ่มเพิ่มข้อมูล -->
+  <div class="date-summary-section">
+    <div class="date-summary-title">เพิ่มข้อมูล</div>
+    <div class="entry-group">
+      <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
+      <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
+    </div>
+    <div class="entry-group">
+      <label for="amount">จำนวนเงิน</label>
+      <input type="number" id="amount" required>
+    </div>
+    <div class="entry-group">
+      <label for="type">ประเภท</label>
+      <select id="type" required>
+        <option value="รายจ่าย">ชื้อหวย</option>
+        <option value="รายรับ">ถูกหวย</option>
+        <option value="เพิ่มทุน">เพิ่มทุน</option>
+        <option value="ถอนทุน">ถอนทุน</option>
+      </select>
+    </div>
+    <div class="entry-group">
+      <label for="description">รายละเอียด</label>
+      <input type="text" id="description" required>
+    </div>
 
     <div class="button-container" style="text-align: center;">
       <button type="button" onclick="addEntry()">เพิ่มข้อมูล</button>
     </div>
-   </div>
+  </div>
 
-    <!-- กลุ่มสรุปช่วงเวลา -->
-    <div class="date-summary-section">
-      <div class="date-summary-title">สรุปวันที่ถึงวันที่</div>
-      <div class="entry-form">
-        <div class="entry-group">
-          <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
-        </div>
-        <div class="entry-group">
-          <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
-        </div>
+  <!-- กลุ่มสรุปช่วงเวลา -->
+  <div class="date-summary-section">
+    <div class="date-summary-title">สรุปวันที่ถึงวันที่</div>
+    <div class="entry-form">
+      <div class="entry-group">
+        <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
+        <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
       </div>
-      <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarize()">สรุปวันที่ถึงวันที่</button>
+      <div class="entry-group">
+        <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
+        <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
       </div>
     </div>
+    <div class="button-container" style="text-align: center; margin-top: 10px;">
+      <button type="button" onclick="summarize()">สรุปวันที่ถึงวันที่</button>
+    </div>
+  </div>
 
-    <!-- กลุ่มสรุปวันที่เลือก -->
-    <div class="date-summary-section">
-      <div class="date-summary-title">สรุปวันที่เลือก</div>
-      <div class="entry-form">
-        <div class="entry-group">
-          <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
-        </div>
-      </div>
-      <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarizeByDayMonth()">สรุปวันที่เลือก</button>
+  <!-- กลุ่มสรุปวันที่เลือก -->
+  <div class="date-summary-section">
+    <div class="date-summary-title">สรุปวันที่เลือก</div>
+    <div class="entry-form">
+      <div class="entry-group">
+        <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
+        <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
       </div>
     </div>
+    <div class="button-container" style="text-align: center; margin-top: 10px;">
+      <button type="button" onclick="summarizeByDayMonth()">สรุปวันที่เลือก</button>
+    </div>
+  </div>
 
-<!-- แถวที่ 2 -->
-    <div class="date-summary-section">
-<div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-  <button type="button" onclick="summarizeToday()" style="flex: 5;">สรุปวันนี้</button>
-  <button type="button" onclick="toggleVisibility()" style="flex: 5;">แสดง/ซ่อน รายการ</button>
-</div>
+  <!-- แถวที่ 2 -->
+  <div class="date-summary-section">
+    <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+      <button type="button" onclick="summarizeToday()" style="flex: 5;">สรุปวันนี้</button>
+      <button type="button" onclick="toggleVisibility()" style="flex: 5;">แสดง/ซ่อน รายการ</button>
+    </div>
 
-<!-- แถวที่ 3 -->
-<div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-  <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึก</button>
-  <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
-</div>
-</div>
-
-
-  <!-- กล่องรายการและสรุป -->
-  <div id="detailsSection" class="container" style="display: none;">
-    <table id="recordTable">
-      <thead>
-        <tr>
-          <th>วันเดือนปี</th>
-          <th>เวลา</th>
-          <th>ประเภท</th>
-          <th>รายละเอียด</th>
-          <th>จำนวนเงิน</th>
-          <th>การจัดการ</th>
-        </tr>
-      </thead>
-      <tbody id="recordBody"></tbody>
-    </table>
+    <!-- แถวที่ 3 -->
+    <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+      <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึก</button>
+      <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
+    </div>
   </div>
 </div>
-  <div id="summaryResult" class="summaryResult"></div>
+
+<!-- กล่องรายการและสรุป - Responsive Design -->
+<div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
+  <table id="recordTable" style="width: 98%; border-collapse: collapse; min-width: 600px;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">วันเดือนปี</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">เวลา</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">ประเภท</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">รายละเอียด</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">จำนวนเงิน</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
+      </tr>
+    </thead>
+    <tbody id="recordBody" style="font-size: 14px;">
+      <!-- Rows will be inserted here by JavaScript -->
+    </tbody>
+  </table>
+</div>
+
+<style>
+  @media screen and (max-width: 768px) {
+    #detailsSection {
+      margin: 10px 0;
+    }
+    #recordTable {
+      font-size: 13px;
+    }
+    #recordTable th, 
+    #recordTable td {
+      padding: 6px 4px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    #detailsSection {
+      margin: 5px 0;
+    }
+    #recordTable {
+      min-width: 100%;
+    }
+  }
+</style>
+
+<div id="summaryResult" class="summaryResult"></div>
 
   <script>
     const accounts = [];
