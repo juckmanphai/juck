@@ -252,6 +252,7 @@
       <button type="button" onclick="summarizeToday()">สรุปวันนี้</button>
       <button type="button" onclick="toggleVisibility()">แสดง/ซ่อน รายการ</button>
       <button type="button" onclick="saveToFile()">บันทึก</button>
+      <button type="button" onclick="saveToLocal()">บันทึกเพื่อเปิดครั้งต่อไป</button>
     </div>
   </div>
 
@@ -530,14 +531,11 @@
 
       document.getElementById('summaryResult').innerHTML = `
         <p>สรุป : ${currentAccount}</p>
-        <hr>
         <p>สรุปเมื่อ : ${summaryDateTime}</p>
         <p>สรุปยอดของวันที่ : ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <hr>
         <p>ถูกหวยวันสรุปยอด : ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
         <p>ชื้อหวยวันสรุปยอด : ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
         <p>ยอดสุทธิวันสรุปยอด : <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <hr>
         <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'red' : 'green'};">${netBalance.toLocaleString()}</span> บาท</p>
         <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
@@ -619,18 +617,15 @@
         <p>สรุปยอดบัญชี: ${currentAccount}</p>
         <p>สรุปเมื่อ: ${summaryTime}</p>
         <p>ช่วงวันที่: ${startDateStr} ถึง ${endDateStr} (${daysDiff} วัน)</p>
-        <hr>
         <p>สรุปยอดในช่วงวันที่เลือก</p>
         <p>ถูกหวย: ${totalIncome.toLocaleString()} บาท (${incomeCount} ครั้ง)</p>
         <p>ชื้อหวย: ${totalExpense.toLocaleString()} บาท (${expenseCount} ครั้ง)</p>
         <p>เพิ่มทุน: ${totalIncrease.toLocaleString()} บาท (${increaseCount} ครั้ง)</p>
         <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
-        <hr>
         <p>ยอดสุทธิในช่วงวันที่เลือก</p>
         <p style="font-size: 18px; color: ${netTotal >= 0 ? 'green' : 'red'};">
           ${netTotal >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(netTotal).toLocaleString()} บาท
         </p>
-        <hr>
         <p>ยอดเงินคงเหลือในบัญชี</p>
         <p style="font-size: 18px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
           ${accountBalance.toLocaleString()} บาท
@@ -711,7 +706,6 @@
       document.getElementById('summaryResult').innerHTML = `
         <p>สรุปวันนี้ : ${currentAccount}</p>
         <p>${summaryDateTime}</p>
-        <hr>
         <p>
           ถูกหวยวันนี้ : ${totalIncomeToday.toLocaleString()} บาท 
           <span style="margin-left: 20px;">ถูก : ${incomeCountToday} รอบ</span>
@@ -720,7 +714,6 @@
           ชื้อหวยวันนี้ : ${totalExpenseToday.toLocaleString()} บาท 
           <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
         </p>
-        <hr>
         <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
         <hr>
         <p>หมายเหตุ : ${
@@ -728,7 +721,6 @@
             return `<span style="color: red;">${num}</span>`;
           })
         }</p>
-        <hr>
         <p>
           <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
           <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
@@ -808,6 +800,39 @@ function loadFromFile(event) {
       document.getElementById('detailsSection').style.display = 'none';
       updateAccountSelect();
     };
+  function saveToLocal() {
+    const data = {
+      accounts,
+      currentAccount,
+      records
+    };
+    localStorage.setItem('accountData', JSON.stringify(data));
+    alert('บันทึกข้อมูลสำหรับเปิดใช้งานครั้งต่อไปเรียบร้อยแล้ว');
+  }
+
+  function loadFromLocal() {
+    const data = localStorage.getItem('accountData');
+    if (data) {
+      try {
+        const parsed = JSON.parse(data);
+        accounts.length = 0;
+        accounts.push(...parsed.accounts || []);
+        currentAccount = parsed.currentAccount || null;
+        records.length = 0;
+        records.push(...parsed.records || []);
+        updateAccountSelect();
+        changeAccount();
+      } catch (error) {
+        console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error);
+      }
+    }
+  }
+
+  // เรียกใช้เมื่อเปิดหน้าเว็บ
+  window.onload = function () {
+    document.getElementById('detailsSection').style.display = 'none';
+    loadFromLocal();
+  };
   </script>
 </body>
 </html>
