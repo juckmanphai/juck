@@ -243,18 +243,24 @@
       </div>
     </div>
 
-    <div class="button-container" style="display: flex; gap: 10px;">
-      <button type="button" onclick="summarize()" style="flex: 7;">สรุปวันที่ถึงวันที่</button>
-      <button type="button" onclick="summarizeByDayMonth()" style="flex: 3;">สรุปวันที่เลือก</button>
-    </div>
+<!-- แถวที่ 1 -->
+<div class="button-container" style="display: flex; gap: 10px;">
+  <button type="button" onclick="summarize()" style="flex: 7;">สรุปวันที่ถึงวันที่</button>
+  <button type="button" onclick="summarizeByDayMonth()" style="flex: 3;">สรุปวันที่เลือก</button>
+</div>
 
-    <div class="button-container">
-      <button type="button" onclick="summarizeToday()">สรุปวันนี้</button>
-      <button type="button" onclick="toggleVisibility()">แสดง/ซ่อน รายการ</button>
-      <button type="button" onclick="saveToFile()">บันทึก</button>
-      <button type="button" onclick="saveToLocal()">บันทึกเพื่อเปิดครั้งต่อไป</button>
-    </div>
-  </div>
+<!-- แถวที่ 2 -->
+<div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+  <button type="button" onclick="summarizeToday()" style="flex: 5;">สรุปวันนี้</button>
+  <button type="button" onclick="toggleVisibility()" style="flex: 5;">แสดง/ซ่อน รายการ</button>
+</div>
+
+<!-- แถวที่ 3 -->
+<div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+  <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึก</button>
+  <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
+</div>
+
 
   <!-- กล่องรายการและสรุป -->
   <div id="detailsSection" class="container" style="display: none;">
