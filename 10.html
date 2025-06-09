@@ -185,10 +185,10 @@
 <h1 style="text-align: center; color: blue; font-size: 16px;">
   ชื่อบัญชี - <span id="accountName"></span>
 </h1>
-  <div style="text-align: center;">
-    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;">
-    <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
-  </div>
+<div style="text-align: center;">
+  <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
+  <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลจากไฟล์</button>
+</div>
     <!-- กลุ่มเลือกบัญชี -->
     <label for="accountSelect">เลือกบัญชี:</label>
     <select id="accountSelect" onchange="changeAccount()"></select>
@@ -770,25 +770,39 @@
       URL.revokeObjectURL(url);
     }
 
-    function loadFromFile(event) {
-      const file = event.target.files[0];
-      if (!file) {
-        return;
-      }
+function loadFromFile(event) {
+  const file = event.target.files[0];
+  if (!file) {
+    return;
+  }
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const data = JSON.parse(e.target.result);
-        accounts.length = 0;
-        accounts.push(...data.accounts);
-        currentAccount = data.currentAccount;
-        records.length = 0;
-        records.push(...data.records);
-        updateAccountSelect();
-        changeAccount();
-      };
-      reader.readAsText(file);
+  // ตรวจสอบประเภทไฟล์
+  if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+    alert("กรุณาเลือกไฟล์ JSON เท่านั้น");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      accounts.length = 0;
+      accounts.push(...data.accounts);
+      currentAccount = data.currentAccount;
+      records.length = 0;
+      records.push(...data.records);
+      updateAccountSelect();
+      changeAccount();
+      alert("โหลดข้อมูลสำเร็จ");
+    } catch (error) {
+      alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message);
     }
+  };
+  reader.onerror = function() {
+    alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
+  };
+  reader.readAsText(file);
+}
 
     window.onload = function() {
       document.getElementById('detailsSection').style.display = 'none';
