@@ -919,7 +919,7 @@ function summarize() {
     
     // ตรวจสอบว่าทั้งรายการถูกหวยและชื้อหวยเป็น 0 หรือไม่
     if (totalIncomeToday === 0 && totalExpenseToday === 0) {
-        remark = ';วันนี้ไม่ได้ทำรายการ';
+        remark = 'วันนี้ไม่ได้ทำรายการ';
     } else {
         if (netTotal > 0) {
             remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotal.toLocaleString()} บาท`;
