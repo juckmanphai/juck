@@ -227,8 +227,8 @@
         <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
       </div>
       <div class="entry-group">
-        <label for="entryTime">เวลา (HH:MM)</label>
-        <input type="text" id="entryTime" placeholder="เช่น 14:30">
+        <label for="entryTime">เวลา (HH.MM)</label>
+        <input type="text" id="entryTime" placeholder="เช่น 14.30" pattern="\d{1,2}\.\d{2}">
       </div>
     </div>
     <div class="entry-group">
@@ -461,11 +461,11 @@
             minutes = String(now.getMinutes()).padStart(2, '0');
         } else {
             // ตรวจสอบรูปแบบเวลา
-            if (!/^\d{1,2}:\d{2}$/.test(entryTimeInput)) {
-                alert("กรุณากรอกเวลาในรูปแบบ HH:MM (เช่น 14:30)");
+            if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) {
+                alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)");
                 return;
             }
-            [hours, minutes] = entryTimeInput.split(':');
+            [hours, minutes] = entryTimeInput.split('.');
             hours = String(hours).padStart(2, '0');
             minutes = String(minutes).padStart(2, '0');
         }
@@ -508,7 +508,7 @@
                 if (record.account === currentAccount) {
                     const dateTime = new Date(record.dateTime);
                     const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
-                    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
+                    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -546,7 +546,7 @@
         document.getElementById('entryDate').value = `${day}/${month}/${year}`;
         
         const [hours, minutes] = timePart.split(':');
-        document.getElementById('entryTime').value = `${hours}:${minutes}`;
+        document.getElementById('entryTime').value = `${hours}.${minutes}`;
         
         editingIndex = index;
     }
