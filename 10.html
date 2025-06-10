@@ -782,10 +782,11 @@ function summarize() {
         <p style="font-size: 16px; color: ${netTotal >= 0 ? 'green' : 'red'};">
             ${netTotal >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(netTotal).toLocaleString()} บาท
         </p>
-        <p>ยอดเงินคงเหลือในบัญชี</p>
-        <p style="font-size: 16px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
-            ${accountBalance.toLocaleString()} บาท
-        </p>
+<p>ยอดเงินคงเหลือในบัญชี</p>
+<p style="font-size: 16px; color: red;">
+    ${accountBalance.toLocaleString()} บาท
+</p>
+
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remark}</span></p>
     `;
 
