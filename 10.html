@@ -675,16 +675,14 @@ function summarize() {
         return;
     }
 
-    // ตรวจสอบรูปแบบวันที่
     if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(startDateInput) || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(endDateInput)) {
         alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
         return;
     }
 
-    // แปลงวันที่
     const [startDay, startMonth, startYear] = startDateInput.split('/');
     const [endDay, endMonth, endYear] = endDateInput.split('/');
-    
+
     const startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0);
     const endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
 
@@ -700,15 +698,23 @@ function summarize() {
     let totalExpense = 0;
     let totalIncrease = 0;
     let totalWithdrawal = 0;
+
     let incomeCount = 0;
     let expenseCount = 0;
     let increaseCount = 0;
     let withdrawalCount = 0;
 
+    let allIncome = 0;
+    let allExpense = 0;
+    let allIncrease = 0;
+    let allWithdrawal = 0;
+
     records.forEach(record => {
         if (record.account !== currentAccount) return;
 
         const recordDate = new Date(record.dateTime);
+
+        // สรุปยอดเฉพาะในช่วงวันที่เลือก
         if (recordDate >= startDate && recordDate <= endDate) {
             switch (record.type) {
                 case "รายรับ":
@@ -729,10 +735,29 @@ function summarize() {
                     break;
             }
         }
+
+        // สำหรับคำนวณยอดเงินคงเหลือ – นับทั้งหมดตั้งแต่ต้นจนถึง endDate
+        if (recordDate <= endDate) {
+            switch (record.type) {
+                case "รายรับ":
+                    allIncome += record.amount;
+                    break;
+                case "รายจ่าย":
+                    allExpense += record.amount;
+                    break;
+                case "เพิ่มทุน":
+                    allIncrease += record.amount;
+                    break;
+                case "ถอนทุน":
+                    allWithdrawal += record.amount;
+                    break;
+            }
+        }
     });
 
-    const netTotal = totalIncome - totalExpense;
-    const accountBalance = totalIncrease + totalIncome - totalExpense - totalWithdrawal;
+    // ✅ ตามเงื่อนไขที่คุณกำหนด
+    const netTotal = (totalIncome + totalIncrease) - (totalExpense + totalWithdrawal);
+    const accountBalance = (allIncome + allIncrease) - (allExpense + allWithdrawal);
 
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const startDateStr = startDate.toLocaleDateString('th-TH', options);
@@ -742,7 +767,6 @@ function summarize() {
         hour: '2-digit', minute: '2-digit'
     }) + ' น.';
 
-    // แก้ไขส่วนนี้ - เปลี่ยนจาก remarkInput เป็น remark
     const remark = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
 
     let resultHTML = `
@@ -755,11 +779,11 @@ function summarize() {
         <p>เพิ่มทุน: ${totalIncrease.toLocaleString()} บาท (${increaseCount} ครั้ง)</p>
         <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
         <p>ยอดสุทธิในช่วงวันที่เลือก</p>
-        <p style="font-size: 18px; color: ${netTotal >= 0 ? 'green' : 'red'};">
+        <p style="font-size: 16px; color: ${netTotal >= 0 ? 'green' : 'red'};">
             ${netTotal >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(netTotal).toLocaleString()} บาท
         </p>
         <p>ยอดเงินคงเหลือในบัญชี</p>
-        <p style="font-size: 18px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
+        <p style="font-size: 16px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
             ${accountBalance.toLocaleString()} บาท
         </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remark}</span></p>
