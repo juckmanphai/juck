@@ -744,14 +744,15 @@ function summarizeByDayMonth() {
         <p>ถูกหวยวันสรุปยอด : ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
         <p>ชื้อหวยวันสรุปยอด : ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
         <p>ยอดสุทธิวันสรุปยอด : <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'red' : 'green'};">${netBalance.toLocaleString()}</span> บาท</p>
-        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
         <p>หมายเหตุ : ${
           remark.replace(/\d+(,\d{3})*/g, (num) => {
             return `<span style="color: red;">${num}</span>`;
           })
         }</p>
+  <hr>
+        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'red' : 'green'};">${netBalance.toLocaleString()}</span> บาท</p>
+        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${customMessage}</span></p>
     `;
 
@@ -874,6 +875,7 @@ function summarize() {
         <p style="font-size: 16px; color: ${netTotal >= 0 ? 'green' : 'red'};">
             ${netTotal >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(netTotal).toLocaleString()} บาท
         </p>
+  <hr>
 <p>ยอดเงินคงเหลือในบัญชี</p>
 <p style="font-size: 16px; color: red;">
     ${accountBalance.toLocaleString()} บาท
@@ -973,12 +975,12 @@ function summarize() {
             <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
         </p>
         <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-        <hr>
         <p>หมายเหตุ : ${
           remark.replace(/\d+(,\d{3})*/g, (num) => {
             return `<span style="color: red;">${num}</span>`;
           })
         }</p>
+        <hr>
         <p>
             <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
             <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
