@@ -866,103 +866,109 @@ function summarize() {
     document.getElementById('summaryResult').innerHTML = resultHTML;
 }
 
-        function summarizeToday() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+ function summarizeToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-            const endOfToday = new Date(today);
-            endOfToday.setHours(23, 59, 59, 999);
+    const endOfToday = new Date(today);
+    endOfToday.setHours(23, 59, 59, 999);
 
-            let totalIncomeToday = 0;
-            let totalExpenseToday = 0;
-            let totalIncomeAll = 0;
-            let totalExpenseAll = 0;
-            let totalIncrease = 0;
-            let totalWithdrawal = 0;
-            let incomeCountToday = 0;
-            let expenseCountToday = 0;
-            let increaseCount = 0;
-            let withdrawalCount = 0;
+    let totalIncomeToday = 0;
+    let totalExpenseToday = 0;
+    let totalIncomeAll = 0;
+    let totalExpenseAll = 0;
+    let totalIncrease = 0;
+    let totalWithdrawal = 0;
+    let incomeCountToday = 0;
+    let expenseCountToday = 0;
+    let increaseCount = 0;
+    let withdrawalCount = 0;
 
-            records.forEach(record => {
-                const [date, time] = record.dateTime.split(" ");
-                const [year, month, day] = date.split("-");
-                const recordDate = new Date(year, month - 1, day);
+    records.forEach(record => {
+        const [date, time] = record.dateTime.split(" ");
+        const [year, month, day] = date.split("-");
+        const recordDate = new Date(year, month - 1, day);
 
-                if (record.account === currentAccount) {
-                    if (recordDate >= today && recordDate <= endOfToday) {
-                        if (record.type === "รายรับ") {
-                            totalIncomeToday += record.amount;
-                            incomeCountToday++;
-                        }
-                        if (record.type === "รายจ่าย") {
-                            totalExpenseToday += record.amount;
-                            expenseCountToday++;
-                        }
-                    }
-
-                    if (record.type === "เพิ่มทุน") {
-                        totalIncrease += record.amount;
-                        increaseCount++;
-                    } else if (record.type === "ถอนทุน") {
-                        totalWithdrawal += record.amount;
-                        withdrawalCount++;
-                    }
-
-                    if (record.type === "รายรับ") totalIncomeAll += record.amount;
-                    if (record.type === "รายจ่าย") totalExpenseAll += record.amount;
+        if (record.account === currentAccount) {
+            if (recordDate >= today && recordDate <= endOfToday) {
+                if (record.type === "รายรับ") {
+                    totalIncomeToday += record.amount;
+                    incomeCountToday++;
                 }
-            });
-
-            const netTotal = totalIncomeToday - totalExpenseToday;
-            let remark = '';
-            if (netTotal > 0) {
-                remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotal.toLocaleString()} บาท`;
-            } else if (netTotal < 0) {
-                remark = `ชื้อหวยมากกว่าถูกหวย ${Math.abs(netTotal).toLocaleString()} บาท`;
-            } else {
-                remark = 'ชื้อหวยและถูกหวยเท่ากัน';
+                if (record.type === "รายจ่าย") {
+                    totalExpenseToday += record.amount;
+                    expenseCountToday++;
+                }
             }
 
-            const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
+            if (record.type === "เพิ่มทุน") {
+                totalIncrease += record.amount;
+                increaseCount++;
+            } else if (record.type === "ถอนทุน") {
+                totalWithdrawal += record.amount;
+                withdrawalCount++;
+            }
 
-            const summaryDateTime = new Date().toLocaleString("th-TH", {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            }) + ' น.';
+            if (record.type === "รายรับ") totalIncomeAll += record.amount;
+            if (record.type === "รายจ่าย") totalExpenseAll += record.amount;
+        }
+    });
 
-            const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
+    const netTotal = totalIncomeToday - totalExpenseToday;
+    let remark = '';
+    
+    // ตรวจสอบว่าทั้งรายการถูกหวยและชื้อหวยเป็น 0 หรือไม่
+    if (totalIncomeToday === 0 && totalExpenseToday === 0) {
+        remark = ';วันนี้ไม่ได้ทำรายการ';
+    } else {
+        if (netTotal > 0) {
+            remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotal.toLocaleString()} บาท`;
+        } else if (netTotal < 0) {
+            remark = `ชื้อหวยมากกว่าถูกหวย ${Math.abs(netTotal).toLocaleString()} บาท`;
+        } else {
+            remark = 'ชื้อหวยและถูกหวยเท่ากัน';
+        }
+    }
 
-            document.getElementById('summaryResult').innerHTML = `
-                <p>สรุปวันนี้ : ${currentAccount}</p>
-                <p>${summaryDateTime}</p>
-                <p>
-                    ถูกหวยวันนี้ : ${totalIncomeToday.toLocaleString()} บาท 
-                    <span style="margin-left: 20px;">ถูก : ${incomeCountToday} รอบ</span>
-                </p>
-                <p>
-                    ชื้อหวยวันนี้ : ${totalExpenseToday.toLocaleString()} บาท 
-                    <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
-                </p>
-                <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-                <hr>
+    const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
+
+    const summaryDateTime = new Date().toLocaleString("th-TH", {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    }) + ' น.';
+
+    const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
+
+    document.getElementById('summaryResult').innerHTML = `
+        <p>สรุปวันนี้ : ${currentAccount}</p>
+        <p>${summaryDateTime}</p>
+        <p>
+            ถูกหวยวันนี้ : ${totalIncomeToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ถูก : ${incomeCountToday} รอบ</span>
+        </p>
+        <p>
+            ชื้อหวยวันนี้ : ${totalExpenseToday.toLocaleString()} บาท 
+            <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
+        </p>
+        <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
+        <hr>
         <p>หมายเหตุ : ${
           remark.replace(/\d+(,\d{3})*/g, (num) => {
             return `<span style="color: red;">${num}</span>`;
           })
         }</p>
-                <p>
-                    <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
-                    <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
-                </p>
-                <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
-                <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
-                <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
-            `;
-        }
+        <p>
+            <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
+            <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
+        </p>
+        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
+    `;
+}
 
 function toggleRecordsVisibility() {
     const detailsSection = document.getElementById('detailsSection');
