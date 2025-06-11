@@ -503,73 +503,73 @@
             }
         }
 
-    function addEntry() {
-        let entryDateInput = document.getElementById('entryDate').value.trim();
-        let entryTimeInput = document.getElementById('entryTime').value.trim();
-        const type = document.getElementById('type').value;
-        const description = document.getElementById('description').value;
-        const amount = parseFloat(document.getElementById('amount').value);
+ function addEntry() {
+    let entryDateInput = document.getElementById('entryDate').value.trim();
+    let entryTimeInput = document.getElementById('entryTime').value.trim();
+    const type = document.getElementById('type').value;
+    const description = document.getElementById('description').value; // รับค่าตามปกติแต่ไม่บังคับตรวจสอบ
+    const amount = parseFloat(document.getElementById('amount').value);
 
-        // ตรวจสอบและกำหนดค่าวันที่ถ้าไม่ได้กรอก
-        let selectedDate;
-        if (!entryDateInput) {
-            // ถ้าไม่กรอกวันที่ ให้ใช้วันปัจจุบัน
-            selectedDate = new Date();
-        } else {
-            // ตรวจสอบรูปแบบวันที่
-            if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) {
-                alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
-                return;
-            }
-            const [day, month, year] = entryDateInput.split('/');
-            selectedDate = new Date(year, month - 1, day);
-        }
-
-        // ตรวจสอบและกำหนดค่าเวลาถ้าไม่ได้กรอก
-        let hours, minutes;
-        if (!entryTimeInput) {
-            // ถ้าไม่กรอกเวลา ให้ใช้เวลาปัจจุบัน
-            const now = new Date();
-            hours = String(now.getHours()).padStart(2, '0');
-            minutes = String(now.getMinutes()).padStart(2, '0');
-        } else {
-            // ตรวจสอบรูปแบบเวลา
-            if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) {
-                alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)");
-                return;
-            }
-            [hours, minutes] = entryTimeInput.split('.');
-            hours = String(hours).padStart(2, '0');
-            minutes = String(minutes).padStart(2, '0');
-        }
-
-        const timeString = `${hours}:${minutes}`;
-        const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
-        const dateTime = `${formattedDate} ${timeString}`;
-
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนเพิ่มข้อมูล");
+    // ตรวจสอบและกำหนดค่าวันที่ถ้าไม่ได้กรอก
+    let selectedDate;
+    if (!entryDateInput) {
+        // ถ้าไม่กรอกวันที่ ให้ใช้วันปัจจุบัน
+        selectedDate = new Date();
+    } else {
+        // ตรวจสอบรูปแบบวันที่
+        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) {
+            alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
             return;
         }
+        const [day, month, year] = entryDateInput.split('/');
+        selectedDate = new Date(year, month - 1, day);
+    }
+
+    // ตรวจสอบและกำหนดค่าเวลาถ้าไม่ได้กรอก
+    let hours, minutes;
+    if (!entryTimeInput) {
+        // ถ้าไม่กรอกเวลา ให้ใช้เวลาปัจจุบัน
+        const now = new Date();
+        hours = String(now.getHours()).padStart(2, '0');
+        minutes = String(now.getMinutes()).padStart(2, '0');
+    } else {
+        // ตรวจสอบรูปแบบเวลา
+        if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) {
+            alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)");
+            return;
+        }
+        [hours, minutes] = entryTimeInput.split('.');
+        hours = String(hours).padStart(2, '0');
+        minutes = String(minutes).padStart(2, '0');
+    }
+
+    const timeString = `${hours}:${minutes}`;
+    const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+    const dateTime = `${formattedDate} ${timeString}`;
+
+    if (!currentAccount) {
+        alert("กรุณาเลือกบัญชีก่อนเพิ่มข้อมูล");
+        return;
+    }
 
         if (!type || !description || isNaN(amount)) {
             alert("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
 
-        if (editingIndex !== null) {
-            records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
-            editingIndex = null;
-        } else {
-            records.push({ dateTime, type, description, amount, account: currentAccount });
-        }
-        
-        displayRecords();
-        document.getElementById('description').value = '';
-        document.getElementById('amount').value = '';
-        document.getElementById('entryDate').value = '';
-        document.getElementById('entryTime').value = '';
+    if (editingIndex !== null) {
+        records[editingIndex] = { dateTime, type, description, amount, account: currentAccount };
+        editingIndex = null;
+    } else {
+        records.push({ dateTime, type, description, amount, account: currentAccount });
     }
+    
+    displayRecords();
+    document.getElementById('description').value = '';
+    document.getElementById('amount').value = '';
+    document.getElementById('entryDate').value = '';
+    document.getElementById('entryTime').value = '';
+}
 
         function displayRecords() {
             const recordBody = document.getElementById('recordBody');
@@ -649,64 +649,67 @@ function summarizeByDayMonth() {
     }
 
     const [day, month, year] = dayMonth.split('/');
-    const christianYear = parseInt(year);
+    const dateYear = parseInt(year);
+    const startOfDay = new Date(dateYear, month - 1, day, 0, 0, 0, 0);
+    const endOfDay = new Date(dateYear, month - 1, day, 23, 59, 59, 999);
 
-    const startOfDay = new Date(christianYear, month - 1, day, 0, 0, 0, 0);
-    const endOfDay = new Date(christianYear, month - 1, day, 23, 59, 59, 999);
-
-    let totalIncomeToday = 0;
-    let totalExpenseToday = 0;
-    let totalIncrease = 0;
-    let totalWithdrawal = 0;
-    let totalExpense = 0;
-    let totalIncome = 0;
-    let increaseCount = 0;
-    let withdrawalCount = 0;
-    let incomeCountToday = 0;
-    let expenseCountToday = 0;
-    let incomeCount = 0;
-    let expenseCount = 0;
+    let summary = {
+        todayIncome: 0,
+        todayExpense: 0,
+        incomeCountToday: 0,
+        expenseCountToday: 0,
+        totalIncome: 0,
+        totalExpense: 0,
+        incomeCount: 0,
+        expenseCount: 0,
+        totalIncrease: 0,
+        totalWithdrawal: 0,
+        increaseCount: 0,
+        withdrawalCount: 0
+    };
 
     records.forEach(record => {
         const recordDate = new Date(record.dateTime);
+        const isCurrentAccount = record.account === currentAccount;
+        const isToday = recordDate >= startOfDay && recordDate <= endOfDay;
 
-        if (
-            recordDate >= startOfDay && 
-            recordDate <= endOfDay && 
-            record.account === currentAccount
-        ) {
+        if (isToday && isCurrentAccount) {
             if (record.type === "รายรับ") {
-                totalIncomeToday += record.amount;
-                incomeCountToday++;
+                summary.todayIncome += record.amount;
+                summary.incomeCountToday++;
             }
             if (record.type === "รายจ่าย") {
-                totalExpenseToday += record.amount;
-                expenseCountToday++;
+                summary.todayExpense += record.amount;
+                summary.expenseCountToday++;
             }
         }
 
-        if (recordDate <= endOfDay && record.account === currentAccount) {
-            if (record.type === "เพิ่มทุน") {
-                totalIncrease += record.amount;
-                increaseCount++;
-            }
-            if (record.type === "รายรับ") {
-                totalIncome += record.amount;
-                incomeCount++;
-            }
-            if (record.type === "ถอนทุน") {
-                totalWithdrawal += record.amount;
-                withdrawalCount++;
-            }
-            if (record.type === "รายจ่าย") {
-                totalExpense += record.amount;
-                expenseCount++;
+        if (recordDate <= endOfDay && isCurrentAccount) {
+            switch (record.type) {
+                case "เพิ่มทุน":
+                    summary.totalIncrease += record.amount;
+                    summary.increaseCount++;
+                    break;
+                case "ถอนทุน":
+                    summary.totalWithdrawal += record.amount;
+                    summary.withdrawalCount++;
+                    break;
+                case "รายรับ":
+                    summary.totalIncome += record.amount;
+                    summary.incomeCount++;
+                    break;
+                case "รายจ่าย":
+                    summary.totalExpense += record.amount;
+                    summary.expenseCount++;
+                    break;
             }
         }
     });
 
-    const netBalance = totalIncrease + totalIncome - totalExpense - totalWithdrawal;
-    const netTotalToday = totalIncomeToday - totalExpenseToday;
+    const netToday = summary.todayIncome - summary.todayExpense;
+    const netBalance = summary.totalIncrease + summary.totalIncome - summary.totalExpense - summary.totalWithdrawal;
+    const initialInvestment = summary.totalIncrease - summary.totalWithdrawal;
+    const profitFromInvestment = netBalance - initialInvestment;
 
     const thaiDate = new Date(startOfDay);
     const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
@@ -714,25 +717,32 @@ function summarizeByDayMonth() {
     const thaiYear = thaiDate.getFullYear() + 543;
 
     const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        hour: '2-digit', 
-        minute: '2-digit'
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
     }) + ' น.';
 
-    // Add remark logic from summarizeToday()
-    let remark = '';
-    if (totalIncomeToday === 0 && totalExpenseToday === 0) {
-        remark = 'ไม่ได้ทำรายการในวันนี้';
+    // สรุปผลประจำวัน
+    let dailySummary = '';
+    if (summary.todayIncome === 0 && summary.todayExpense === 0) {
+        dailySummary = 'ไม่มีรายการในวันนี้';
     } else {
-        if (netTotalToday > 0) {
-            remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotalToday.toLocaleString()} บาท`;
-        } else if (netTotalToday < 0) {
-            remark = `ชื้อหวยมากกว่าถูกหวย ${Math.abs(netTotalToday).toLocaleString()} บาท`;
+        if (netToday > 0) {
+            dailySummary = `กำไรสุทธิ ${netToday.toLocaleString()} บาท`;
+        } else if (netToday < 0) {
+            dailySummary = `ขาดทุนสุทธิ ${Math.abs(netToday).toLocaleString()} บาท`;
         } else {
-            remark = 'ชื้อหวยและถูกหวยเท่ากัน';
+            dailySummary = 'เสมอตัว';
         }
+    }
+
+    // สรุปผลรวมเทียบกับเงินลงทุน
+    let investmentRemark = '';
+    if (profitFromInvestment > 0) {
+        investmentRemark = `กำไรสุทธิ ${profitFromInvestment.toLocaleString()} บาท (จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
+    } else if (profitFromInvestment < 0) {
+        investmentRemark = `ขาดทุนสุทธิ ${Math.abs(profitFromInvestment).toLocaleString()} บาท (จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
+    } else {
+        investmentRemark = `เสมอตัว (ไม่กำไรไม่ขาดทุนจากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
     }
 
     const customMessage = prompt("กรุณากรอกข้อความเพิ่มเติม (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
@@ -741,18 +751,15 @@ function summarizeByDayMonth() {
         <p>สรุป : ${currentAccount}</p>
         <p>สรุปเมื่อ : ${summaryDateTime}</p>
         <p>สรุปยอดของวันที่ : ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <p>ถูกหวยวันสรุปยอด : ${totalIncomeToday.toLocaleString()} บาท (ถูก ${incomeCountToday} รอบ)</p>
-        <p>ชื้อหวยวันสรุปยอด : ${totalExpenseToday.toLocaleString()} บาท (รวมชื้อ ${expenseCountToday} รอบ)</p>
-        <p>ยอดสุทธิวันสรุปยอด : <span style="color: ${netTotalToday >= 0 ? 'red' : 'green'};">${netTotalToday.toLocaleString()}</span> บาท</p>
-        <p>หมายเหตุ : ${
-          remark.replace(/\d+(,\d{3})*/g, (num) => {
-            return `<span style="color: red;">${num}</span>`;
-          })
-        }</p>
-  <hr>
-        <p>เงินในบัญชีเหลืออยู่ถึงวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'red' : 'green'};">${netBalance.toLocaleString()}</span> บาท</p>
-        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
-        <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>ถูกหวยวันสรุปยอด : ${summary.todayIncome.toLocaleString()} บาท (ถูก ${summary.incomeCountToday} รอบ)</p>
+        <p>ชื้อหวยวันสรุปยอด : ${summary.todayExpense.toLocaleString()} บาท (รวมชื้อ ${summary.expenseCountToday} รอบ)</p>
+        <p>ผลงานวันนี้ : <span style="color: ${netToday >= 0 ? 'green' : 'red'}; font-weight: bold;">${dailySummary}</span></p>
+        <hr>
+        <p>เงินในบัญชีวันที่สรุป: <span style="color: ${netBalance >= 0 ? 'green' : 'red'};">${netBalance.toLocaleString()}</span> บาท</p>
+        <p>ลงทุนถึงวันนี้ : ${summary.increaseCount} ครั้ง รวม ${summary.totalIncrease.toLocaleString()} บาท</p>
+        <p>ถอนทุนถึงวันนี้ : ${summary.withdrawalCount} ครั้ง รวม ${summary.totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เงินลงทุนสุทธิ : ${initialInvestment.toLocaleString()} บาท</p>
+        <p>ผลการลงทุน : <span style="color: ${profitFromInvestment >= 0 ? 'green' : 'red'}; font-weight: bold;">${investmentRemark}</span></p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${customMessage}</span></p>
     `;
 
@@ -787,44 +794,81 @@ function summarize() {
     const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
 
-    let totalIncome = 0;
-    let totalExpense = 0;
-    let totalIncrease = 0;
-    let totalWithdrawal = 0;
-
-    let incomeCount = 0;
-    let expenseCount = 0;
-    let increaseCount = 0;
-    let withdrawalCount = 0;
-
-    let allIncome = 0;
-    let allExpense = 0;
-    let allIncrease = 0;
+    // ตัวแปรสำหรับคำนวณยอดสุทธิ
+    let totalLotteryWin = 0;    // รวมเงินที่ถูกหวย
+    let totalLotteryBuy = 0;    // รวมเงินที่ซื้อหวย
+    let totalProfitLoss = 0;    // กำไร/ขาดทุนรวม
+    
+    // ตัวแปรสำหรับนับจำนวนครั้ง
+    let winCount = 0;
+    let buyCount = 0;
+    
+    // ตัวแปรสำหรับยอดเงินทุน
+    let totalInvestment = 0;    // รวมเงินลงทุน
+    let investmentCount = 0;    // จำนวนครั้งที่ลงทุน
+    let totalWithdrawal = 0;    // รวมเงินถอนทุน
+    let withdrawalCount = 0;    // จำนวนครั้งที่ถอนทุน
+    
+    // ตัวแปรสำหรับยอดรวมทั้งหมด (ตั้งแต่เริ่มต้นจนถึง endDate)
+    let allLotteryWin = 0;
+    let allLotteryBuy = 0;
+    let allInvestment = 0;
     let allWithdrawal = 0;
+
+    // เก็บข้อมูลรายวัน
+    const dailyResults = {};
 
     records.forEach(record => {
         if (record.account !== currentAccount) return;
 
         const recordDate = new Date(record.dateTime);
+        const dateKey = recordDate.toLocaleDateString('th-TH');
 
         // สรุปยอดเฉพาะในช่วงวันที่เลือก
         if (recordDate >= startDate && recordDate <= endDate) {
             switch (record.type) {
-                case "รายรับ":
-                    totalIncome += record.amount;
-                    incomeCount++;
+                case "รายรับ": // เงินที่ถูกหวย
+                    totalLotteryWin += record.amount;
+                    winCount++;
+                    
+                    // บันทึกรายวัน
+                    if (!dailyResults[dateKey]) {
+                        dailyResults[dateKey] = { win: 0, buy: 0, investment: 0, withdrawal: 0 };
+                    }
+                    dailyResults[dateKey].win += record.amount;
                     break;
-                case "รายจ่าย":
-                    totalExpense += record.amount;
-                    expenseCount++;
+                    
+                case "รายจ่าย": // เงินที่ซื้อหวย
+                    totalLotteryBuy += record.amount;
+                    buyCount++;
+                    
+                    // บันทึกรายวัน
+                    if (!dailyResults[dateKey]) {
+                        dailyResults[dateKey] = { win: 0, buy: 0, investment: 0, withdrawal: 0 };
+                    }
+                    dailyResults[dateKey].buy += record.amount;
                     break;
+                    
                 case "เพิ่มทุน":
-                    totalIncrease += record.amount;
-                    increaseCount++;
+                    totalInvestment += record.amount;
+                    investmentCount++;
+                    
+                    // บันทึกรายวัน
+                    if (!dailyResults[dateKey]) {
+                        dailyResults[dateKey] = { win: 0, buy: 0, investment: 0, withdrawal: 0 };
+                    }
+                    dailyResults[dateKey].investment += record.amount;
                     break;
+                    
                 case "ถอนทุน":
                     totalWithdrawal += record.amount;
                     withdrawalCount++;
+                    
+                    // บันทึกรายวัน
+                    if (!dailyResults[dateKey]) {
+                        dailyResults[dateKey] = { win: 0, buy: 0, investment: 0, withdrawal: 0 };
+                    }
+                    dailyResults[dateKey].withdrawal += record.amount;
                     break;
             }
         }
@@ -833,13 +877,13 @@ function summarize() {
         if (recordDate <= endDate) {
             switch (record.type) {
                 case "รายรับ":
-                    allIncome += record.amount;
+                    allLotteryWin += record.amount;
                     break;
                 case "รายจ่าย":
-                    allExpense += record.amount;
+                    allLotteryBuy += record.amount;
                     break;
                 case "เพิ่มทุน":
-                    allIncrease += record.amount;
+                    allInvestment += record.amount;
                     break;
                 case "ถอนทุน":
                     allWithdrawal += record.amount;
@@ -848,9 +892,30 @@ function summarize() {
         }
     });
 
-    // ✅ ตามเงื่อนไขที่คุณกำหนด
-    const netTotal = (totalIncome + totalIncrease) - (totalExpense + totalWithdrawal);
-    const accountBalance = (allIncome + allIncrease) - (allExpense + allWithdrawal);
+    // คำนวณกำไร/ขาดทุนในช่วงวันที่เลือก (ไม่รวมเงินทุนเพิ่ม/ถอน)
+    totalProfitLoss = totalLotteryWin - totalLotteryBuy;
+    
+    // คำนวณยอดเงินคงเหลือทั้งหมด (รวมเงินทุนเพิ่ม/ถอน)
+    const accountBalance = (allInvestment + allLotteryWin) - (allWithdrawal + allLotteryBuy);
+
+    // สรุปผลรายวัน
+    let dailySummaryHTML = '<h4>สรุปรายวัน</h4><table border="1" style="width:100%; border-collapse: collapse;">';
+    dailySummaryHTML += '<tr><th>วันที่</th><th>ซื้อหวย</th><th>ถูกหวย</th><th>กำไร/ขาดทุน</th></tr>';
+    
+    for (const [date, data] of Object.entries(dailyResults)) {
+        const dailyProfitLoss = data.win - data.buy;
+        dailySummaryHTML += `
+            <tr>
+                <td>${date}</td>
+                <td>${data.buy.toLocaleString()} บาท</td>
+                <td>${data.win.toLocaleString()} บาท</td>
+                <td style="color: ${dailyProfitLoss >= 0 ? 'green' : 'red'}">
+                    ${dailyProfitLoss >= 0 ? 'กำไร' : 'ขาดทุน'} ${Math.abs(dailyProfitLoss).toLocaleString()} บาท
+                </td>
+            </tr>
+        `;
+    }
+    dailySummaryHTML += '</table>';
 
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const startDateStr = startDate.toLocaleDateString('th-TH', options);
@@ -866,28 +931,29 @@ function summarize() {
         <p>สรุปยอดบัญชี: ${currentAccount}</p>
         <p>สรุปเมื่อ: ${summaryTime}</p>
         <p>ช่วงวันที่: ${startDateStr} ถึง ${endDateStr} (${daysDiff} วัน)</p>
-        <p>สรุปยอดในช่วงวันที่เลือก</p>
-        <p>ถูกหวย: ${totalIncome.toLocaleString()} บาท (${incomeCount} ครั้ง)</p>
-        <p>ชื้อหวย: ${totalExpense.toLocaleString()} บาท (${expenseCount} ครั้ง)</p>
-        <p>เพิ่มทุน: ${totalIncrease.toLocaleString()} บาท (${increaseCount} ครั้ง)</p>
+        
+        <h4>สรุปยอดในช่วงวันที่เลือก</h4>
+        <p>ถูกหวย: ${totalLotteryWin.toLocaleString()} บาท (${winCount} ครั้ง)</p>
+        <p>ซื้อหวย: ${totalLotteryBuy.toLocaleString()} บาท (${buyCount} ครั้ง)</p>
+        <p>ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
         <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
-        <p>ยอดสุทธิในช่วงวันที่เลือก</p>
-        <p style="font-size: 16px; color: ${netTotal >= 0 ? 'green' : 'red'};">
-            ${netTotal >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(netTotal).toLocaleString()} บาท
+        
+        <h4>ยอดสุทธิในช่วงวันที่เลือก</h4>
+        <p style="font-size: 18px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">
+            ${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท
+        </p>  
+        <hr>
+        <h4>ยอดเงินคงเหลือในบัญชี</h4>
+        <p style="font-size: 16px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
+            ${accountBalance.toLocaleString()} บาท
         </p>
-  <hr>
-<p>ยอดเงินคงเหลือในบัญชี</p>
-<p style="font-size: 16px; color: red;">
-    ${accountBalance.toLocaleString()} บาท
-</p>
 
-        <p>ข้อความเพิ่ม : <span style="color: orange;">${remark}</span></p>
+        <p>หมายเหตุ: <span style="color: orange;">${remark}</span></p>
     `;
 
     document.getElementById('summaryResult').innerHTML = resultHTML;
 }
-
- function summarizeToday() {
+function summarizeToday() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -936,22 +1002,52 @@ function summarize() {
     });
 
     const netTotal = totalIncomeToday - totalExpenseToday;
-    let remark = '';
+    const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
     
-    // ตรวจสอบว่าทั้งรายการถูกหวยและชื้อหวยเป็น 0 หรือไม่
+    // ✅ ส่วนที่เพิ่มใหม่: คำนวณผลการลงทุน
+    const totalInvestment = totalIncrease - totalWithdrawal; // เงินลงทุนสุทธิ (เพิ่มทุน - ถอนทุน)
+    const totalProfit = accountBalance - totalInvestment; // กำไรหรือขาดทุนสุทธิ
+    const roiPercentage = totalInvestment > 0 ? ((totalProfit / totalInvestment) * 100).toFixed(2) : 0; // อัตราผลตอบแทน
+
+    // สรุปผลประจำวัน
+    let netStatus = '';
+    let remark = '';
+    let netColor = 'black';
+
     if (totalIncomeToday === 0 && totalExpenseToday === 0) {
+        netStatus = 'ไม่มีรายการ';
         remark = 'วันนี้ไม่ได้ทำรายการ';
+        netColor = 'gray';
     } else {
         if (netTotal > 0) {
+            netStatus = `กำไรวันนี้ ${netTotal.toLocaleString()} บาท`;
             remark = `ถูกหวยได้มากกว่าชื้อหวย ${netTotal.toLocaleString()} บาท`;
+            netColor = 'green';
         } else if (netTotal < 0) {
+            netStatus = `ขาดทุนวันนี้ ${Math.abs(netTotal).toLocaleString()} บาท`;
             remark = `ชื้อหวยมากกว่าถูกหวย ${Math.abs(netTotal).toLocaleString()} บาท`;
+            netColor = 'red';
         } else {
+            netStatus = 'เสมอตัว';
             remark = 'ชื้อหวยและถูกหวยเท่ากัน';
+            netColor = 'blue';
         }
     }
 
-    const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
+    // ✅ ส่วนที่เพิ่มใหม่: สรุปผลการลงทุน
+    let investmentStatus = '';
+    let investmentColor = 'black';
+    
+    if (totalProfit > 0) {
+        investmentStatus = `กำไรสุทธิ ${totalProfit.toLocaleString()} บาท (ROI: ${roiPercentage}%)`;
+        investmentColor = 'green';
+    } else if (totalProfit < 0) {
+        investmentStatus = `ขาดทุนสุทธิ ${Math.abs(totalProfit).toLocaleString()} บาท (ROI: ${roiPercentage}%)`;
+        investmentColor = 'red';
+    } else {
+        investmentStatus = 'เสมอตัว (ไม่กำไรไม่ขาดทุน)';
+        investmentColor = 'blue';
+    }
 
     const summaryDateTime = new Date().toLocaleString("th-TH", {
         year: 'numeric',
@@ -974,19 +1070,20 @@ function summarize() {
             ชื้อหวยวันนี้ : ${totalExpenseToday.toLocaleString()} บาท 
             <span style="margin-left: 20px;">ชื้อ : ${expenseCountToday} รอบ</span>
         </p>
-        <p>สรุปยอดสุทธิ : <span style="color: red;">${netTotal.toLocaleString()}</span> บาท</p>
-        <p>หมายเหตุ : ${
-          remark.replace(/\d+(,\d{3})*/g, (num) => {
-            return `<span style="color: red;">${num}</span>`;
-          })
-        }</p>
+        <p>สรุปยอดสุทธิวันนี้ : <span style="color: ${netColor}; font-weight: bold;">${netStatus}</span></p>
         <hr>
         <p>
             <span style="color: blue;">เงินในบัญชีถึงวันนี้เหลืออยู่ :</span> 
-            <span style="color: red;">${accountBalance.toLocaleString()}</span> บาท
+            <span style="color: ${accountBalance >= 0 ? 'green' : 'red'};">${accountBalance.toLocaleString()}</span> บาท
         </p>
-        <p>เพิ่มทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
+        <p>ลงทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
+        <p>เงินลงทุนสุทธิ : ${totalInvestment.toLocaleString()} บาท</p>
+        <!-- ✅ ส่วนที่เพิ่มใหม่: สรุปผลการลงทุน -->
+        <p style="margin-top: 10px;">
+            <span style="font-weight: bold; color: ${investmentColor};">สรุปลงทุนถึงวันนี้ :</span> 
+            <span style="color: ${investmentColor}; font-weight: bold;">${investmentStatus}</span>
+        </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
     `;
 }
