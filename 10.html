@@ -711,7 +711,6 @@ function summarizeByDayMonth() {
     const initialInvestment = summary.totalIncrease - summary.totalWithdrawal;
     const profitFromInvestment = netBalance - initialInvestment;
     
-    // ✅ ส่วนที่เพิ่มใหม่: คำนวณ ROI (ผลตอบแทนการลงทุน)
     const roiPercentage = initialInvestment > 0 
         ? ((profitFromInvestment / initialInvestment) * 100).toFixed(2)
         : "0.00";
@@ -741,16 +740,18 @@ function summarizeByDayMonth() {
     }
 
     // สรุปผลรวมเทียบกับเงินลงทุน
-    let investmentRemark = '';
+    let investmentMainText = '';
     let investmentColor = profitFromInvestment >= 0 ? 'green' : 'red';
     
     if (profitFromInvestment > 0) {
-        investmentRemark = `กำไรสุทธิ ${profitFromInvestment.toLocaleString()} บาท (จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
+        investmentMainText = `กำไรสุทธิ <span style="font-weight: bold;">${profitFromInvestment.toLocaleString()} บาท</span>`;
     } else if (profitFromInvestment < 0) {
-        investmentRemark = `ขาดทุนสุทธิ ${Math.abs(profitFromInvestment).toLocaleString()} บาท (จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
+        investmentMainText = `ขาดทุนสุทธิ <span style="font-weight: bold;">${Math.abs(profitFromInvestment).toLocaleString()} บาท</span>`;
     } else {
-        investmentRemark = `เสมอตัว (ไม่กำไรไม่ขาดทุนจากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
+        investmentMainText = `เสมอตัว`;
     }
+
+    const investmentSubText = `<small style="font-size: 0.7em;">(จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)</small>`;
 
     const customMessage = prompt("กรุณากรอกข้อความเพิ่มเติม (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
 
@@ -766,9 +767,7 @@ function summarizeByDayMonth() {
         <p>ลงทุนถึงวันนี้ : ${summary.increaseCount} ครั้ง รวม ${summary.totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${summary.withdrawalCount} ครั้ง รวม ${summary.totalWithdrawal.toLocaleString()} บาท</p>
         <p>เงินลงทุนสุทธิ : ${initialInvestment.toLocaleString()} บาท</p>
-        <p>ผลการลงทุน : <span style="color: ${investmentColor}; font-weight: bold;">${investmentRemark}</span></p>
-        
-        <!-- ✅ ส่วนที่เพิ่มใหม่ 2 บรรทัด -->
+        <p>ผลการลงทุน : <span style="color: ${investmentColor};">${investmentMainText} ${investmentSubText}</span></p>
         <p>ผลการลงทุนถึงวันนี้: 
             <span style="color: ${profitFromInvestment >= 0 ? 'green' : 'red'}; font-weight: bold;">
                 ${profitFromInvestment >= 0 ? 'กำไร' : 'ขาดทุน'} ${Math.abs(profitFromInvestment).toLocaleString()} บาท
@@ -779,7 +778,6 @@ function summarizeByDayMonth() {
                 ${roiPercentage}%
             </span>
         </p>
-        
         <p>ข้อความเพิ่ม : <span style="color: orange;">${customMessage}</span></p>
     `;
 
