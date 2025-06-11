@@ -710,6 +710,11 @@ function summarizeByDayMonth() {
     const netBalance = summary.totalIncrease + summary.totalIncome - summary.totalExpense - summary.totalWithdrawal;
     const initialInvestment = summary.totalIncrease - summary.totalWithdrawal;
     const profitFromInvestment = netBalance - initialInvestment;
+    
+    // ✅ ส่วนที่เพิ่มใหม่: คำนวณ ROI (ผลตอบแทนการลงทุน)
+    const roiPercentage = initialInvestment > 0 
+        ? ((profitFromInvestment / initialInvestment) * 100).toFixed(2)
+        : "0.00";
 
     const thaiDate = new Date(startOfDay);
     const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
@@ -737,6 +742,8 @@ function summarizeByDayMonth() {
 
     // สรุปผลรวมเทียบกับเงินลงทุน
     let investmentRemark = '';
+    let investmentColor = profitFromInvestment >= 0 ? 'green' : 'red';
+    
     if (profitFromInvestment > 0) {
         investmentRemark = `กำไรสุทธิ ${profitFromInvestment.toLocaleString()} บาท (จากเงินลงทุน ${initialInvestment.toLocaleString()} บาท)`;
     } else if (profitFromInvestment < 0) {
@@ -759,7 +766,20 @@ function summarizeByDayMonth() {
         <p>ลงทุนถึงวันนี้ : ${summary.increaseCount} ครั้ง รวม ${summary.totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${summary.withdrawalCount} ครั้ง รวม ${summary.totalWithdrawal.toLocaleString()} บาท</p>
         <p>เงินลงทุนสุทธิ : ${initialInvestment.toLocaleString()} บาท</p>
-        <p>ผลการลงทุน : <span style="color: ${profitFromInvestment >= 0 ? 'green' : 'red'}; font-weight: bold;">${investmentRemark}</span></p>
+        <p>ผลการลงทุน : <span style="color: ${investmentColor}; font-weight: bold;">${investmentRemark}</span></p>
+        
+        <!-- ✅ ส่วนที่เพิ่มใหม่ 2 บรรทัด -->
+        <p>ผลการลงทุนถึงวันนี้: 
+            <span style="color: ${profitFromInvestment >= 0 ? 'green' : 'red'}; font-weight: bold;">
+                ${profitFromInvestment >= 0 ? 'กำไร' : 'ขาดทุน'} ${Math.abs(profitFromInvestment).toLocaleString()} บาท
+            </span>
+        </p>
+        <p>ผลตอบแทนการลงทุน (ROI): 
+            <span style="color: ${profitFromInvestment >= 0 ? 'green' : 'red'}; font-weight: bold;">
+                ${roiPercentage}%
+            </span>
+        </p>
+        
         <p>ข้อความเพิ่ม : <span style="color: orange;">${customMessage}</span></p>
     `;
 
@@ -897,6 +917,13 @@ function summarize() {
     
     // คำนวณยอดเงินคงเหลือทั้งหมด (รวมเงินทุนเพิ่ม/ถอน)
     const accountBalance = (allInvestment + allLotteryWin) - (allWithdrawal + allLotteryBuy);
+    
+    // คำนวณเงินลงทุนสุทธิ
+    const netInvestment = allInvestment - allWithdrawal;
+    
+    // คำนวณ ROI (Return on Investment)
+    const netProfitLoss = accountBalance - netInvestment;
+    const roiPercentage = netInvestment !== 0 ? ((netProfitLoss / netInvestment) * 100).toFixed(2) : 0;
 
     // สรุปผลรายวัน
     let dailySummaryHTML = '<h4>สรุปรายวัน</h4><table border="1" style="width:100%; border-collapse: collapse;">';
@@ -943,17 +970,34 @@ function summarize() {
             ${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท
         </p>  
         <hr>
-        <h4>ยอดเงินคงเหลือในบัญชี</h4>
-        <p style="font-size: 16px; color: ${accountBalance >= 0 ? 'green' : 'red'};">
-            ${accountBalance.toLocaleString()} บาท
+        
+        <h4>สรุปผลการลงทุนทั้งหมดถึงวันนี้</h4>
+        <p>เงินในบัญชีถึงวันนี้เหลืออยู่: <span style="color: ${accountBalance >= 0 ? 'green' : 'red'}">${accountBalance.toLocaleString()} บาท</span></p>
+        <p>ลงทุนช่วงเวลานี้: ${investmentCount} ครั้ง รวมลงทุนถึงช่วงเวลานี้ ${allInvestment.toLocaleString()} บาท</p>
+        <p>ถอนทุนช่วงเวลานี้ : ${withdrawalCount} ครั้ง รวมถอนทุนช่วงเวลานี้ ${allWithdrawal.toLocaleString()} บาท</p>
+        <p>เงินลงทุนสุทธิช่วงเวลานี้ : ${netInvestment.toLocaleString()} บาท</p>
+        <p style="font-size: 18px; font-weight: bold; color: ${netProfitLoss >= 0 ? 'green' : 'red'}">
+            สรุปลงทุนถึงวันนี้: ${netProfitLoss >= 0 ? 'กำไรสุทธิ' : 'ขาดทุนสุทธิ'} ${Math.abs(netProfitLoss).toLocaleString()} บาท (ROI: ${roiPercentage}%)
         </p>
-
+        
+        <h4>ผลตอบแทนการลงทุน</h4>
+        <p>ผลตอบแทนการลงทุน: <span style="color: ${netProfitLoss >= 0 ? 'green' : 'red'}">${netProfitLoss.toLocaleString()} บาท</span></p>
+        <p>ผลตอบแทนคิดเป็น %: <span style="color: ${roiPercentage >= 0 ? 'green' : 'red'}">${roiPercentage}%</span></p>
+        
         <p>หมายเหตุ: <span style="color: orange;">${remark}</span></p>
+        
     `;
 
     document.getElementById('summaryResult').innerHTML = resultHTML;
 }
+
 function summarizeToday() {
+    // ตรวจสอบว่ามีข้อมูลที่จำเป็นหรือไม่
+    if (!records || !currentAccount) {
+        alert("ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบ records และ currentAccount");
+        return;
+    }
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -972,6 +1016,9 @@ function summarizeToday() {
     let withdrawalCount = 0;
 
     records.forEach(record => {
+        // ตรวจสอบว่า record มี dateTime และเป็น string
+        if (!record.dateTime || typeof record.dateTime !== 'string') return;
+
         const [date, time] = record.dateTime.split(" ");
         const [year, month, day] = date.split("-");
         const recordDate = new Date(year, month - 1, day);
@@ -1004,10 +1051,10 @@ function summarizeToday() {
     const netTotal = totalIncomeToday - totalExpenseToday;
     const accountBalance = totalIncrease + totalIncomeAll - totalExpenseAll - totalWithdrawal;
     
-    // ✅ ส่วนที่เพิ่มใหม่: คำนวณผลการลงทุน
-    const totalInvestment = totalIncrease - totalWithdrawal; // เงินลงทุนสุทธิ (เพิ่มทุน - ถอนทุน)
-    const totalProfit = accountBalance - totalInvestment; // กำไรหรือขาดทุนสุทธิ
-    const roiPercentage = totalInvestment > 0 ? ((totalProfit / totalInvestment) * 100).toFixed(2) : 0; // อัตราผลตอบแทน
+    // คำนวณผลการลงทุน
+    const totalInvestment = totalIncrease - totalWithdrawal;
+    const totalProfit = accountBalance - totalInvestment;
+    const roiPercentage = totalInvestment > 0 ? ((totalProfit / totalInvestment) * 100).toFixed(2) : 0;
 
     // สรุปผลประจำวัน
     let netStatus = '';
@@ -1034,7 +1081,7 @@ function summarizeToday() {
         }
     }
 
-    // ✅ ส่วนที่เพิ่มใหม่: สรุปผลการลงทุน
+    // สรุปผลการลงทุน
     let investmentStatus = '';
     let investmentColor = 'black';
     
@@ -1079,10 +1126,15 @@ function summarizeToday() {
         <p>ลงทุนถึงวันนี้ : ${increaseCount} ครั้ง รวม ${totalIncrease.toLocaleString()} บาท</p>
         <p>ถอนทุนถึงวันนี้ : ${withdrawalCount} ครั้ง รวม ${totalWithdrawal.toLocaleString()} บาท</p>
         <p>เงินลงทุนสุทธิ : ${totalInvestment.toLocaleString()} บาท</p>
-        <!-- ✅ ส่วนที่เพิ่มใหม่: สรุปผลการลงทุน -->
         <p style="margin-top: 10px;">
             <span style="font-weight: bold; color: ${investmentColor};">สรุปลงทุนถึงวันนี้ :</span> 
             <span style="color: ${investmentColor}; font-weight: bold;">${investmentStatus}</span>
+        </p>
+        <p style="margin-top: 10px;">
+            <span style="font-weight: bold; color: ${investmentColor};">ผลตอบแทนการลงทุน :</span> 
+            <span style="color: ${investmentColor}; font-weight: bold;">${totalProfit.toLocaleString()} บาท</span><br>
+            <span style="font-weight: bold; color: ${investmentColor};">ผลตอบแทนคิดเป็น % :</span> 
+            <span style="color: ${investmentColor}; font-weight: bold;">${roiPercentage}%</span>
         </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
     `;
