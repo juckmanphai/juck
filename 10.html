@@ -963,10 +963,7 @@ function summarize() {
         <p>ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
         <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
         
-        <h4>ยอดสุทธิในช่วงวันที่เลือก</h4>
-        <p style="font-size: 15px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">
-            ${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท
-        </p>  
+        <p><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 15px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
         <hr>
         
         <h4>สรุปผลการลงทุนทั้งหมดถึงวันนี้</h4>
