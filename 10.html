@@ -924,13 +924,13 @@ function summarize() {
     const roiPercentage = netInvestment !== 0 ? ((netProfitLoss / netInvestment) * 100).toFixed(2) : 0;
 
     // สรุปผลรายวัน
-    let dailySummaryHTML = '<h4>สรุปรายวัน</h4><table border="1" style="width:100%; border-collapse: collapse;">';
+    let dailySummaryHTML = '<h4 style="line-height: 0.7">สรุปรายวัน</h4><table border="1" style="width:100%; border-collapse: collapse; line-height: 0.7">';
     dailySummaryHTML += '<tr><th>วันที่</th><th>ซื้อหวย</th><th>ถูกหวย</th><th>กำไร/ขาดทุน</th></tr>';
     
     for (const [date, data] of Object.entries(dailyResults)) {
         const dailyProfitLoss = data.win - data.buy;
         dailySummaryHTML += `
-            <tr>
+            <tr style="line-height: 0.7">
                 <td>${date}</td>
                 <td>${data.buy.toLocaleString()} บาท</td>
                 <td>${data.win.toLocaleString()} บาท</td>
@@ -953,34 +953,29 @@ function summarize() {
     const remark = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
 
     let resultHTML = `
-        <p>สรุปยอดบัญชี: ${currentAccount}</p>
-        <p>สรุปเมื่อ: ${summaryTime}</p>
-        <p>ช่วงวันที่: ${startDateStr} ถึง ${endDateStr} (${daysDiff} วัน)</p>
-        
-        <h4>สรุปยอดในช่วงวันที่เลือก</h4>
-        <p>ถูกหวย: ${totalLotteryWin.toLocaleString()} บาท (${winCount} ครั้ง)</p>
-        <p>ซื้อหวย: ${totalLotteryBuy.toLocaleString()} บาท (${buyCount} ครั้ง)</p>
-        <p>ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
-        <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
-        
-        <p><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 14px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
-        <hr>
-        
-        <h4>สรุปผลการลงทุนทั้งหมดถึงวันนี้</h4>
-        <p>เงินในบัญชีถึงวันนี้เหลืออยู่: <span style="color: ${accountBalance >= 0 ? 'green' : 'red'}">${accountBalance.toLocaleString()} บาท</span></p>
-        <p>ลงทุนช่วงเวลานี้: ${investmentCount} ครั้ง รวมลงทุนถึงช่วงเวลานี้ ${allInvestment.toLocaleString()} บาท</p>
-        <p>ถอนทุนช่วงเวลานี้ : ${withdrawalCount} ครั้ง รวมถอนทุนช่วงเวลานี้ ${allWithdrawal.toLocaleString()} บาท</p>
-        <p>เงินลงทุนสุทธิช่วงเวลานี้ : ${netInvestment.toLocaleString()} บาท</p>
-        <p style="font-size: 14px; font-weight: bold; color: ${netProfitLoss >= 0 ? 'green' : 'red'}">
+        <div style="line-height: 0.7">
+        <p style="line-height: 0.7">สรุปยอดบัญชี: ${currentAccount}</p>
+        <p style="line-height: 0.7">สรุปเมื่อ: ${summaryTime}</p>
+        <p style="line-height: 0.7">ช่วงวันที่: ${startDateStr} ถึง ${endDateStr} (${daysDiff} วัน)</p>
+        <h4 style="line-height: 0.7">สรุปยอดในช่วงวันที่เลือก</h4>
+        <p style="line-height: 0.7">ถูกหวย: ${totalLotteryWin.toLocaleString()} บาท (${winCount} ครั้ง)</p>
+        <p style="line-height: 0.7">ซื้อหวย: ${totalLotteryBuy.toLocaleString()} บาท (${buyCount} ครั้ง)</p>
+        <p style="line-height: 0.7">ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
+        <p style="line-height: 0.7">ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
+        <p style="line-height: 0.7"><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 15px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
+        <hr style="line-height: 0.7">
+        <h4 style="line-height: 0.7">สรุปผลการลงทุนทั้งหมดถึงวันนี้</h4>
+        <p style="line-height: 0.7">เงินในบัญชีถึงวันนี้เหลืออยู่: <span style="color: ${accountBalance >= 0 ? 'green' : 'red'}">${accountBalance.toLocaleString()} บาท</span></p>
+        <p style="line-height: 0.7">ลงทุนช่วงเวลานี้: ${investmentCount} ครั้ง รวมลงทุนถึงช่วงเวลานี้ ${allInvestment.toLocaleString()} บาท</p>
+        <p style="line-height: 0.7">ถอนทุนช่วงเวลานี้ : ${withdrawalCount} ครั้ง รวมถอนทุนช่วงเวลานี้ ${allWithdrawal.toLocaleString()} บาท</p>
+        <p style="line-height: 0.7">เงินลงทุนสุทธิช่วงเวลานี้ : ${netInvestment.toLocaleString()} บาท</p>
+        <p style="line-height: 0.7; font-size: 14px; font-weight: bold; color: ${netProfitLoss >= 0 ? 'green' : 'red'}">
             ลงทุนถึงวันนี้: ${netProfitLoss >= 0 ? 'กำไรสุทธิ' : 'ขาดทุนสุทธิ'} ${Math.abs(netProfitLoss).toLocaleString()} บาท (ROI: ${roiPercentage}%)
-        </p>
-        
-        <h4>ผลตอบแทนการลงทุน</h4>
-        <p>ผลตอบแทนการลงทุน: <span style="color: ${netProfitLoss >= 0 ? 'green' : 'red'}">${netProfitLoss.toLocaleString()} บาท</span></p>
-        <p>ผลตอบแทนคิดเป็น %: <span style="color: ${roiPercentage >= 0 ? 'green' : 'red'}">${roiPercentage}%</span></p>
-        
-        <p>หมายเหตุ: <span style="color: orange;">${remark}</span></p>
-        
+        </p>   
+        <h4 style="line-height: 0.7">ผลตอบแทนการลงทุน</h4>
+        <p style="line-height: 0.7">ผลตอบแทนการลงทุน: <span style="color: ${netProfitLoss >= 0 ? 'green' : 'red'}">${netProfitLoss.toLocaleString()} บาท</span></p>
+        <p style="line-height: 0.7">ผลตอบแทนคิดเป็น %: <span style="color: ${roiPercentage >= 0 ? 'green' : 'red'}">${roiPercentage}%</span></p>
+        <p style="line-height: 0.7">หมายเหตุ: <span style="color: orange;">${remark}</span></p>
     `;
 
     document.getElementById('summaryResult').innerHTML = resultHTML;
