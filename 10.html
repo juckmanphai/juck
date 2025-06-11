@@ -963,7 +963,7 @@ function summarize() {
         <p>ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
         <p>ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
         
-        <p><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 15px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
+        <p><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 14px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
         <hr>
         
         <h4>สรุปผลการลงทุนทั้งหมดถึงวันนี้</h4>
@@ -971,8 +971,8 @@ function summarize() {
         <p>ลงทุนช่วงเวลานี้: ${investmentCount} ครั้ง รวมลงทุนถึงช่วงเวลานี้ ${allInvestment.toLocaleString()} บาท</p>
         <p>ถอนทุนช่วงเวลานี้ : ${withdrawalCount} ครั้ง รวมถอนทุนช่วงเวลานี้ ${allWithdrawal.toLocaleString()} บาท</p>
         <p>เงินลงทุนสุทธิช่วงเวลานี้ : ${netInvestment.toLocaleString()} บาท</p>
-        <p style="font-size: 15px; font-weight: bold; color: ${netProfitLoss >= 0 ? 'green' : 'red'}">
-            สรุปลงทุนถึงวันนี้: ${netProfitLoss >= 0 ? 'กำไรสุทธิ' : 'ขาดทุนสุทธิ'} ${Math.abs(netProfitLoss).toLocaleString()} บาท (ROI: ${roiPercentage}%)
+        <p style="font-size: 14px; font-weight: bold; color: ${netProfitLoss >= 0 ? 'green' : 'red'}">
+            ลงทุนถึงวันนี้: ${netProfitLoss >= 0 ? 'กำไรสุทธิ' : 'ขาดทุนสุทธิ'} ${Math.abs(netProfitLoss).toLocaleString()} บาท (ROI: ${roiPercentage}%)
         </p>
         
         <h4>ผลตอบแทนการลงทุน</h4>
