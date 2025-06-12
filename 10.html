@@ -810,7 +810,7 @@ function summarize() {
     }
 
     const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     // ตัวแปรสำหรับคำนวณยอดสุทธิ
     let totalLotteryWin = 0;    // รวมเงินที่ถูกหวย
