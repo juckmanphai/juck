@@ -951,6 +951,7 @@ function summarize() {
     }) + ' น.';
 
     const remark = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
+    const winPercentage = buyCount > 0 ? ((winCount / buyCount) * 100).toFixed(2) : 0;
 
     let resultHTML = `
         <div style="line-height: 0.7">
@@ -960,6 +961,7 @@ function summarize() {
         <h4 style="line-height: 0.7">สรุปยอดในช่วงวันที่เลือก</h4>
         <p style="line-height: 0.7">ถูกหวย: ${totalLotteryWin.toLocaleString()} บาท (${winCount} ครั้ง)</p>
         <p style="line-height: 0.7">ซื้อหวย: ${totalLotteryBuy.toLocaleString()} บาท (${buyCount} ครั้ง)</p>
+        <p style="line-height: 0.7">อัตราการถูกหวย: ${winCount}/${buyCount} ครั้ง (${winPercentage}%)</p>
         <p style="line-height: 0.7">ลงทุน: ${totalInvestment.toLocaleString()} บาท (${investmentCount} ครั้ง)</p>
         <p style="line-height: 0.7">ถอนทุน: ${totalWithdrawal.toLocaleString()} บาท (${withdrawalCount} ครั้ง)</p>
         <p style="line-height: 0.7"><strong>ยอดสุทธิในช่วงวันที่เลือก:</strong> <span style="font-size: 15px; font-weight: bold; color: ${totalProfitLoss >= 0 ? 'green' : 'red'};">${totalProfitLoss >= 0 ? 'ได้กำไร' : 'ขาดทุน'}: ${Math.abs(totalProfitLoss).toLocaleString()} บาท</span></p>
@@ -980,7 +982,6 @@ function summarize() {
 
     document.getElementById('summaryResult').innerHTML = resultHTML;
 }
-
 function summarizeToday() {
     // ตรวจสอบว่ามีข้อมูลที่จำเป็นหรือไม่
     if (!records || !currentAccount) {
