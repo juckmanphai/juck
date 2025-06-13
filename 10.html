@@ -278,7 +278,13 @@
     <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
     <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูล</button>
   </div>
-  
+<div class="button-container" style="text-align: center; margin-top: 20px;">
+  <button type="button" onclick="exportToExcel()" 
+    style="background-color: #28a745; color: white; padding: 12px; border-radius: 5px; border: none; 
+           cursor: pointer; width: 50%; font-size: 16px; display: block; margin: 0 auto;">
+    ส่งออก Excel
+  </button>
+</div>
   <!-- กลุ่มเลือกบัญชี -->
   <div class="date-summary-section">
     <div class="date-summary-title">เลือกบัญชี</div>
@@ -1140,6 +1146,69 @@ function toggleRecordsVisibility() {
     }
 }
 
+function exportToExcel() {
+  if (!currentAccount) {
+    alert("กรุณาเลือกบัญชีก่อนส่งออกข้อมูล");
+    return;
+  }
+
+  // สร้างข้อมูลสำหรับ Excel
+  let excelData = [
+    ["วันที่", "เวลา", "ประเภท", "รายละเอียด", "จำนวนเงิน (บาท)", "บัญชี"]
+  ];
+
+  // เรียงลำดับข้อมูลตามวันที่ล่าสุด
+  const filteredRecords = records.filter(record => record.account === currentAccount)
+                               .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+  // เตรียมข้อมูล
+  filteredRecords.forEach(record => {
+    const dateTime = new Date(record.dateTime);
+    const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
+    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')}`;
+    
+    excelData.push([
+      formattedDate,
+      formattedTime,
+      record.type,
+      record.description,
+      record.amount,
+      record.account
+    ]);
+  });
+
+  // สร้างไฟล์ CSV
+  let csvContent = excelData.map(row => 
+    row.map(cell => `"${cell}"`).join(",")
+  ).join("\r\n");
+
+  // สร้างชื่อไฟล์
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+  const timeStr = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+  const fileName = `บัญชี_${currentAccount}_${dateStr}_${timeStr}.csv`;
+
+  // ดาวน์โหลดไฟล์
+  const blob = new Blob(["\uFEFF" + csvContent], { 
+    type: "text/csv;charset=utf-8;" 
+  });
+  const link = document.createElement("a");
+  
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.style.display = "none";
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// ฟังก์ชันอื่นๆ...
+
+window.onload = function () {
+  document.getElementById('detailsSection').style.display = 'none';
+  loadFromLocal();
+};
         function saveToFile() {
             const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
             if (!fileName) {
