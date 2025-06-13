@@ -1165,14 +1165,17 @@ function exportToExcel() {
   filteredRecords.forEach(record => {
     const dateTime = new Date(record.dateTime);
     const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
-    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')}`;
+    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
+    
+    // จัดรูปแบบตัวเลขให้มีเครื่องหมายคอมม่า
+    const formattedAmount = new Intl.NumberFormat('th-TH').format(record.amount);
     
     excelData.push([
       formattedDate,
       formattedTime,
       record.type,
       record.description,
-      record.amount,
+      formattedAmount,
       record.account
     ]);
   });
@@ -1203,12 +1206,6 @@ function exportToExcel() {
   document.body.removeChild(link);
 }
 
-// ฟังก์ชันอื่นๆ...
-
-window.onload = function () {
-  document.getElementById('detailsSection').style.display = 'none';
-  loadFromLocal();
-};
         function saveToFile() {
             const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
             if (!fileName) {
