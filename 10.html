@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>ชื่อบัญชี</title>
+  <title>บัญชีหวย</title>
   <style>
     /* Base Styles */
     body {
@@ -263,6 +263,47 @@
         min-width: 320px;
       }
     }
+    /* เพิ่มสไตล์สำหรับแถบควบคุม */
+    .control-panel {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .control-panel button {
+      background-color: #4caf50;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 5px;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .control-panel button:hover {
+      background-color: #5a6268;
+    }
+    
+    .section-container {
+      transition: all 0.3s ease;
+    }
+    
+    .collapsed {
+      display: none;
+    }
+    
+    /* ปรับสไตล์ปุ่มหลัก */
+    .main-toggle-btn {
+      background-color: #ff5722; !important;
+      font-weight: bold;
+      padding: 10px 15px !important;
+      margin-bottom: 10px !important;
+    }
   </style>
 </head>
 <body>
@@ -285,7 +326,15 @@
     ส่งออก Excel
   </button>
 </div>
+    <div class="control-panel">
+      <button class="main-toggle-btn" onclick="toggleAllSections()">แสดงทั้งหมด</button>
+      <button onclick="toggleSection('accountSection')">เลือกบัญชี</button>
+      <button onclick="toggleSection('addDataSection')">เพิ่มข้อมูล</button>
+      <button onclick="toggleSection('dateRangeSummarySection')">สรุปวันที่ถึงวันที่</button>
+      <button onclick="toggleSection('customDaySummarySection')">สรุปวันที่เลือก</button>
+    </div>
   <!-- กลุ่มเลือกบัญชี -->
+<div id="accountSection" class="section-container collapsed">
   <div class="date-summary-section">
     <div class="date-summary-title">เลือกบัญชี</div>
     <label for="accountSelect">เลือกบัญชี:</label>
@@ -298,6 +347,7 @@
   </div>
 
   <!-- กลุ่มเพิ่มข้อมูล -->
+<div id="addDataSection" class="section-container collapsed">
   <div class="date-summary-section">
     <div class="date-summary-title">เพิ่มข้อมูล</div>
     <div class="entry-form">
@@ -335,6 +385,7 @@
 
 
   <!-- กลุ่มสรุปช่วงเวลา -->
+<div id="dateRangeSummarySection" class="section-container collapsed">
   <div class="date-summary-section">
     <div class="date-summary-title">สรุปวันที่ถึงวันที่</div>
     <div class="entry-form">
@@ -353,6 +404,7 @@
   </div>
 
   <!-- กลุ่มสรุปวันที่เลือก -->
+    <div id="customDaySummarySection" class="section-container collapsed">
   <div class="date-summary-section">
     <div class="date-summary-title">สรุปวันที่เลือก</div>
     <div class="entry-form">
@@ -1136,6 +1188,29 @@ function summarizeToday() {
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
     `;
 }
+
+    // ฟังก์ชันสำหรับซ่อน/แสดงแต่ละส่วน
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      section.classList.toggle('collapsed');
+    }
+
+    // ฟังก์ชันสำหรับแสดง/ซ่อนทั้งหมด
+    function toggleAllSections() {
+      const btn = document.querySelector('.main-toggle-btn');
+      const sections = document.querySelectorAll('.section-container');
+      const allHidden = Array.from(sections).every(section => section.classList.contains('collapsed'));
+      
+      sections.forEach(section => {
+        if (allHidden) {
+          section.classList.remove('collapsed');
+          btn.textContent = 'ซ่อนทั้งหมด';
+        } else {
+          section.classList.add('collapsed');
+          btn.textContent = 'แสดงทั้งหมด';
+        }
+      });
+    }
 
 function toggleRecordsVisibility() {
     const detailsSection = document.getElementById('detailsSection');
