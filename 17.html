@@ -169,7 +169,7 @@
       max-width: 800px;
       width: calc(100% - 20px);
       margin: 10px auto;
-      line-height: 0.8;
+      line-height: 0.5;
       text-align: center;
       box-sizing: border-box;
     }
@@ -1057,7 +1057,7 @@ function summarizeByDayMonth() {
         </p>
         <p>
             <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันที่ ${thaiDay} ${thaiMonth} ${thaiYear} : จำนวน </span> 
-            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 18px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
+            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
         </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
         ${recordsHTML}
@@ -1215,7 +1215,7 @@ function summarizeByDayMonth() {
         <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
         <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
         <p><strong>สรุปวันที่:</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
-        <p style="font-size: 18px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p>
+        <p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p>
         <hr>
         <p><strong>รายรับทั้งหมด:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
         ${incomeHTML}
@@ -1223,12 +1223,12 @@ function summarizeByDayMonth() {
         <p><strong>รายจ่ายทั้งหมด:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
         ${expenseHTML}
         <hr>
-        <p style="color: ${comparisonColor}; font-weight: bold; font-size: 18px;">
+        <p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">
             สรุป: ${comparisonText}
         </p>
         <p>
             <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้เหลืออยู่ : จำนวน </span> 
-            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 18px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
+            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
         </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
     `;
@@ -1410,7 +1410,7 @@ function summarizeToday() {
         </p>
         <p>
             <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้เหลืออยู่ : จำนวน </span> 
-            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 18px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
+            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
         </p>
         <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
         ${recordsHTML}
