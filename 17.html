@@ -964,11 +964,11 @@ function summarizeByDayMonth() {
     });
 
     // เรียงลำดับรายการตามเวลา (จากใหม่ไปเก่า)
-    selectedDayRecords.sort((a, b) => {
-        const [aDate, aTime] = a.dateTime.split(" ");
-        const [bDate, bTime] = b.dateTime.split(" ");
-        return new Date(`${bDate}T${bTime}`) - new Date(`${aDate}T${aTime}`);
-    });
+selectedDayRecords.sort((a, b) => {
+    const [aDate, aTime] = a.dateTime.split(" ");
+    const [bDate, bTime] = b.dateTime.split(" ");
+    return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
+});
 
     // สร้าง HTML สำหรับสรุปยอดตามประเภท
     let incomeHTML = '';
@@ -1316,11 +1316,11 @@ function summarizeToday() {
     });
 
     // เรียงลำดับรายการตามเวลา (จากใหม่ไปเก่า)
-    todayRecords.sort((a, b) => {
-        const [aDate, aTime] = a.dateTime.split(" ");
-        const [bDate, bTime] = b.dateTime.split(" ");
-        return new Date(`${bDate}T${bTime}`) - new Date(`${aDate}T${aTime}`);
-    });
+selectedDayRecords.sort((a, b) => {
+    const [aDate, aTime] = a.dateTime.split(" ");
+    const [bDate, bTime] = b.dateTime.split(" ");
+    return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
+});
 
     // สร้าง HTML สำหรับสรุปยอดตามประเภท
     let incomeHTML = '';
