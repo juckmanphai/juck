@@ -871,198 +871,200 @@
             return new Date(year, month - 1, day);
         }
 
-function summarizeByDayMonth() {
-    if (!records || !currentAccount) {
-        alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
-        return;
-    }
-
-    const dayMonth = document.getElementById('customDayMonth').value.trim();
-
-    if (!dayMonth || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dayMonth)) {
-        alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
-        return;
-    }
-
-    const [day, month, year] = dayMonth.split('/');
-    const selectedDate = new Date(year, month - 1, day);
-    selectedDate.setHours(0, 0, 0, 0);
-
-    const endOfDay = new Date(selectedDate);
-    endOfDay.setHours(23, 59, 59, 999);
-
-    // สร้าง object เพื่อเก็บข้อมูลสรุป
-    const summary = {
-        income: {},
-        expense: {},
-        totalIncome: 0,
-        totalExpense: 0,
-        incomeCount: 0,
-        expenseCount: 0
-    };
-
-    // เก็บรายการทั้งหมดของวันที่เลือก
-    const selectedDayRecords = [];
-
-    // ตัวแปรคำนวณยอดคงเหลือทั้งหมด (ถึงวันที่เลือก)
-    let totalBalance = 0;
-
-    // วนลูปบันทึกทั้งหมด
-    records.forEach(record => {
-        if (!record.dateTime || typeof record.dateTime !== 'string') return;
-
-        const [date, time] = record.dateTime.split(" ");
-        const [recordYear, recordMonth, recordDay] = date.split("-");
-        const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
-
-        if (record.account === currentAccount) {
-            // คำนวณยอดคงเหลือทั้งหมด (เฉพาะวันที่ก่อนหรือเท่ากับวันที่เลือก)
-            if (recordDate <= endOfDay) {
-                const types = accountTypes.get(currentAccount);
-                if (types["รายรับ"].includes(record.type)) {
-                    totalBalance += record.amount;
-                } else if (types["รายจ่าย"].includes(record.type)) {
-                    totalBalance -= record.amount;
-                }
+        function summarizeByDayMonth() {
+            if (!records || !currentAccount) {
+                alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
+                return;
             }
 
-            // ตรวจสอบว่าเป็นรายการของวันที่เลือกหรือไม่
-            const isSelectedDay = (recordDate >= selectedDate && recordDate <= endOfDay);
-            if (!isSelectedDay) return;
+            const dayMonth = document.getElementById('customDayMonth').value.trim();
 
-            selectedDayRecords.push(record);
-
-            // ตรวจสอบว่าเป็นรายรับหรือรายจ่าย
-            const types = accountTypes.get(currentAccount);
-            if (types["รายรับ"].includes(record.type)) {
-                summary.totalIncome += record.amount;
-                summary.incomeCount++;
-                
-                if (!summary.income[record.type]) {
-                    summary.income[record.type] = {
-                        amount: 0,
-                        count: 0
-                    };
-                }
-                summary.income[record.type].amount += record.amount;
-                summary.income[record.type].count++;
-            } 
-            else if (types["รายจ่าย"].includes(record.type)) {
-                summary.totalExpense += record.amount;
-                summary.expenseCount++;
-                
-                if (!summary.expense[record.type]) {
-                    summary.expense[record.type] = {
-                        amount: 0,
-                        count: 0
-                    };
-                }
-                summary.expense[record.type].amount += record.amount;
-                summary.expense[record.type].count++;
+            if (!dayMonth || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dayMonth)) {
+                alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
+                return;
             }
-        }
-    });
 
-    // เรียงลำดับรายการตามเวลา (จากใหม่ไปเก่า)
-selectedDayRecords.sort((a, b) => {
-    const [aDate, aTime] = a.dateTime.split(" ");
-    const [bDate, bTime] = b.dateTime.split(" ");
-    return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
-});
+            const [day, month, year] = dayMonth.split('/');
+            const selectedDate = new Date(year, month - 1, day);
+            selectedDate.setHours(0, 0, 0, 0);
 
-    // สร้าง HTML สำหรับสรุปยอดตามประเภท
-    let incomeHTML = '';
-    for (const type in summary.income) {
-        incomeHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
-    }
+            const endOfDay = new Date(selectedDate);
+            endOfDay.setHours(23, 59, 59, 999);
 
-    let expenseHTML = '';
-    for (const type in summary.expense) {
-        expenseHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
-    }
+            // สร้าง object เพื่อเก็บข้อมูลสรุป
+            const summary = {
+                income: {},
+                expense: {},
+                totalIncome: 0,
+                totalExpense: 0,
+                incomeCount: 0,
+                expenseCount: 0
+            };
 
-    // สร้าง HTML สำหรับตารางรายการ
-    let recordsHTML = '';
-    if (selectedDayRecords.length > 0) {
-        recordsHTML = `
-            <div style="margin-top: 20px;">
-                <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันที่ ${day}/${month}/${year}</h4>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                    <thead>
-                        <tr style="background-color: #f2f2f2;">
-                            <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">เวลา</th>
-                            <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">ประเภท</th>
-                            <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">รายละเอียด</th>
-                            <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">จำนวนเงิน</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${selectedDayRecords.map(record => {
-                            const [date, time] = record.dateTime.split(" ");
-                            const [hours, minutes] = time.split(":");
-                            const types = accountTypes.get(currentAccount);
-                            const isIncome = types["รายรับ"].includes(record.type);
-                            const color = isIncome ? "#4CAF50" : "#F44336";
-                            
-                            return `
-                                <tr>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">${hours}.${minutes}</td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">${record.type}</td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">${record.description}</td>
-                                    <td style="padding: 8px; border: 1px solid #ddd; text-align: right; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+            // เก็บรายการทั้งหมดของวันที่เลือก
+            const dayRecords = [];
+
+            // ตัวแปรคำนวณยอดคงเหลือทั้งหมด (ถึงวันที่เลือก)
+            let totalBalance = 0;
+
+            // วนลูปบันทึกทั้งหมด
+            records.forEach(record => {
+                if (!record.dateTime || typeof record.dateTime !== 'string') return;
+
+                const [date, time] = record.dateTime.split(" ");
+                const [recordYear, recordMonth, recordDay] = date.split("-");
+                const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
+
+                if (record.account === currentAccount) {
+                    // คำนวณยอดคงเหลือทั้งหมด (เฉพาะวันที่ก่อนหรือเท่ากับวันที่เลือก)
+                    if (recordDate <= endOfDay) {
+                        const types = accountTypes.get(currentAccount);
+                        if (types["รายรับ"].includes(record.type)) {
+                            totalBalance += record.amount;
+                        } else if (types["รายจ่าย"].includes(record.type)) {
+                            totalBalance -= record.amount;
+                        }
+                    }
+
+                    // ตรวจสอบว่าเป็นรายการของวันที่เลือกหรือไม่
+                    const isSelectedDay = (recordDate >= selectedDate && recordDate <= endOfDay);
+                    if (!isSelectedDay) return;
+
+                    dayRecords.push(record);
+
+                    // ตรวจสอบว่าเป็นรายรับหรือรายจ่าย
+                    const types = accountTypes.get(currentAccount);
+                    if (types["รายรับ"].includes(record.type)) {
+                        summary.totalIncome += record.amount;
+                        summary.incomeCount++;
+                        
+                        if (!summary.income[record.type]) {
+                            summary.income[record.type] = {
+                                amount: 0,
+                                count: 0
+                            };
+                        }
+                        summary.income[record.type].amount += record.amount;
+                        summary.income[record.type].count++;
+                    } 
+                    else if (types["รายจ่าย"].includes(record.type)) {
+                        summary.totalExpense += record.amount;
+                        summary.expenseCount++;
+                        
+                        if (!summary.expense[record.type]) {
+                            summary.expense[record.type] = {
+                                amount: 0,
+                                count: 0
+                            };
+                        }
+                        summary.expense[record.type].amount += record.amount;
+                        summary.expense[record.type].count++;
+                    }
+                }
+            });
+
+            // เรียงลำดับรายการตามเวลา (จากใหม่ไปเก่า)
+            dayRecords.sort((a, b) => {
+                const [aDate, aTime] = a.dateTime.split(" ");
+                const [bDate, bTime] = b.dateTime.split(" ");
+                return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
+            });
+
+            // สร้าง HTML สำหรับสรุปยอดตามประเภท
+            let incomeHTML = '';
+            for (const type in summary.income) {
+                incomeHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            }
+
+            let expenseHTML = '';
+            for (const type in summary.expense) {
+                expenseHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            }
+
+            // สร้าง HTML สำหรับตารางรายการ
+            let recordsHTML = '';
+            if (dayRecords.length > 0) {
+                recordsHTML = `
+                    <div style="margin-top: 20px;">
+                        <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันที่ ${day}/${month}/${year}</h4>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">เวลา</th>
+                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">ประเภท</th>
+                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">รายละเอียด</th>
+                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">จำนวนเงิน</th>
                                 </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
+                            </thead>
+                            <tbody>
+                                ${dayRecords.map(record => {
+                                    const [date, time] = record.dateTime.split(" ");
+                                    const [hours, minutes] = time.split(":");
+                                    const types = accountTypes.get(currentAccount);
+                                    const isIncome = types["รายรับ"].includes(record.type);
+                                    const color = isIncome ? "#4CAF50" : "#F44336";
+                                    
+                                    return `
+                                        <tr>
+                                            <td style="padding: 8px; border: 1px solid #ddd;">${hours}.${minutes}</td>
+                                            <td style="padding: 8px; border: 1px solid #ddd;">${record.type}</td>
+                                            <td style="padding: 8px; border: 1px solid #ddd;">${record.description}</td>
+                                            <td style="padding: 8px; border: 1px solid #ddd; text-align: right; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
 
-    // แปลงวันที่เป็นรูปแบบไทย
-    const thaiDate = new Date(selectedDate);
-    const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
-    const thaiDay = thaiDate.getDate();
-    const thaiYear = thaiDate.getFullYear() + 543;
+            // แปลงวันที่เป็นรูปแบบไทย
+            const thaiDate = new Date(selectedDate);
+            const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
+            const thaiDay = thaiDate.getDate();
+            const thaiYear = thaiDate.getFullYear() + 543;
 
-    const summaryDateTime = new Date().toLocaleString("th-TH", {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    }) + ' น.';
+            const summaryDateTime = new Date().toLocaleString("th-TH", {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) + ' น.';
 
-    const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
+            const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
 
-    // คำนวณผลต่างรายได้-รายจ่ายประจำวัน
-    const netAmount = summary.totalIncome - summary.totalExpense;
-    const netColor = netAmount >= 0 ? 'blue' : 'red';
-    const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
+            // คำนวณผลต่างรายได้-รายจ่ายประจำวัน
+            const netAmount = summary.totalIncome - summary.totalExpense;
+            const netColor = netAmount >= 0 ? 'blue' : 'red';
+            const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
 
-    // แสดงผลสรุปตามรูปแบบที่ต้องการ
-    document.getElementById('summaryResult').innerHTML = `
-        <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
-        <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
-        <p><strong>สรุปข้อมูลของวันที่:</strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-        <hr>
-        <p><strong>รายรับวันนี้:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
-        ${incomeHTML}
-        <hr>
-        <p><strong>รายจ่ายวันนี้:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
-        ${expenseHTML}
-        <hr>
-        <p style="color: ${netColor}; font-weight: bold;">
-            สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
-        </p>
-        <p>
-            <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันที่ ${thaiDay} ${thaiMonth} ${thaiYear} : จำนวน </span> 
-            <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
-        </p>
-        <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
-        ${recordsHTML}
-    `;
-}        function summarize() {
+            // แสดงผลสรุปตามรูปแบบที่ต้องการ
+            document.getElementById('summaryResult').innerHTML = `
+                <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
+                <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
+                <p><strong>สรุปข้อมูลของวันที่:</strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+                <hr>
+                <p><strong>รายรับวันนี้:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
+                ${incomeHTML}
+                <hr>
+                <p><strong>รายจ่ายวันนี้:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
+                ${expenseHTML}
+                <hr>
+                <p style="color: ${netColor}; font-weight: bold;">
+                    สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
+                </p>
+                <p>
+                    <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันที่ ${thaiDay} ${thaiMonth} ${thaiYear} : จำนวน </span> 
+                    <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
+                </p>
+                <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
+                ${recordsHTML}
+            `;
+        }
+
+        function summarize() {
             if (!records || !currentAccount) {
                 alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
                 return;
@@ -1316,11 +1318,11 @@ function summarizeToday() {
     });
 
     // เรียงลำดับรายการตามเวลา (จากใหม่ไปเก่า)
-selectedDayRecords.sort((a, b) => {
-    const [aDate, aTime] = a.dateTime.split(" ");
-    const [bDate, bTime] = b.dateTime.split(" ");
-    return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
-});
+    todayRecords.sort((a, b) => {
+        const [aDate, aTime] = a.dateTime.split(" ");
+        const [bDate, bTime] = b.dateTime.split(" ");
+        return new Date(`${aDate}T${aTime}`) - new Date(`${bDate}T${bTime}`);
+    });
 
     // สร้าง HTML สำหรับสรุปยอดตามประเภท
     let incomeHTML = '';
