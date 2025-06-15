@@ -331,9 +331,9 @@
       <input type="text" id="description" required>
     </div>
 
-<div class="button-container" style="text-align: center; display: grid; grid-template-columns: 1fr; gap: 10px;">
-  <button type="button" onclick="addEntry()" style="background-color: #2196F3;">เพิ่มข้อมูล</button>
-</div>
+    <div class="button-container" style="text-align: center; margin-top: 10px;">
+      <button type="button" onclick="addEntry('รายรับ')" style="background-color: #4CAF50;">เพิ่มข้อมูล</button>
+    </div>
   </div>
 
   <!-- กลุ่มสรุปช่วงเวลา -->
@@ -428,14 +428,13 @@
 
 <div id="summaryResult" class="summaryResult"></div>
     <script>
-const accounts = [];
-let currentAccount = null;
-const records = [];
-let editingIndex = null; // เก็บ index ของรายการที่กำลังแก้ไข
-let editingOriginalType = null; // เก็บประเภทเดิมของรายการที่กำลังแก้ไข
+        const accounts = [];
+        let currentAccount = null;
+        const records = [];
+        let editingIndex = null;
 
-// เก็บประเภทตามบัญชี (รายรับ/รายจ่าย)
-const accountTypes = new Map();
+        // เปลี่ยนจาก Object เป็น Map เพื่อเก็บประเภทตามบัญชี
+        const accountTypes = new Map();
 
         function initializeAccountTypes(accountName) {
             if (!accountTypes.has(accountName)) {
@@ -687,203 +686,183 @@ const accountTypes = new Map();
             }
         }
 
-function addEntry() {
-    // ตรวจสอบวันที่และเวลา
-    let entryDateInput = document.getElementById('entryDate').value.trim();
-    let entryTimeInput = document.getElementById('entryTime').value.trim();
-    const typeInput = document.getElementById('type');
-    const typeText = typeInput.value.trim();
-    const description = document.getElementById('description').value;
-    const amount = parseFloat(document.getElementById('amount').value);
+        function addEntry(defaultType) {
+            let entryDateInput = document.getElementById('entryDate').value.trim();
+            let entryTimeInput = document.getElementById('entryTime').value.trim();
+            const typeInput = document.getElementById('type');
+            const typeText = typeInput.value.trim();
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
 
-    // ตรวจสอบข้อมูลที่จำเป็น
-    if (!currentAccount) {
-        alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ");
-        return;
-    }
+            // ตรวจสอบและกำหนดค่าวันที่ถ้าไม่ได้กรอก
+            let selectedDate;
+            if (!entryDateInput) {
+                selectedDate = new Date();
+            } else {
+                if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) {
+                    alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
+                    return;
+                }
+                const [day, month, year] = entryDateInput.split('/');
+                selectedDate = new Date(year, month - 1, day);
+            }
 
-    if (!typeText) {
-        alert("กรุณากรอกประเภท");
-        return;
-    }
+            // ตรวจสอบและกำหนดค่าเวลาถ้าไม่ได้กรอก
+            let hours, minutes;
+            if (!entryTimeInput) {
+                const now = new Date();
+                hours = String(now.getHours()).padStart(2, '0');
+                minutes = String(now.getMinutes()).padStart(2, '0');
+            } else {
+                if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) {
+                    alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)");
+                    return;
+                }
+                [hours, minutes] = entryTimeInput.split('.');
+                hours = String(hours).padStart(2, '0');
+                minutes = String(minutes).padStart(2, '0');
+            }
 
-    if (!description) {
-        alert("กรุณากรอกรายละเอียด");
-        return;
-    }
+            const timeString = `${hours}:${minutes}`;
+            const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+            const dateTime = `${formattedDate} ${timeString}`;
 
-    if (isNaN(amount) || amount <= 0) {
-        alert("กรุณากรอกจำนวนเงินที่ถูกต้อง");
-        return;
-    }
-
-    // ตรวจสอบประเภท (รายรับ/รายจ่าย)
-    const types = accountTypes.get(currentAccount);
-    let entryType = null;
-    
-    if (types["รายรับ"].includes(typeText)) {
-        entryType = "รายรับ";
-    } else if (types["รายจ่าย"].includes(typeText)) {
-        entryType = "รายจ่าย";
-    } else {
-        alert("ประเภทที่เลือกไม่ถูกต้อง กรุณาเลือกประเภทจากรายการที่มี");
-        return;
-    }
-
-    // สร้างวันที่และเวลาในรูปแบบที่เก็บ
-    const [day, month, year] = entryDateInput.split('/');
-    const [hours, minutes] = entryTimeInput.split('.');
-    const dateTime = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
-
-    // ถ้ากำลังแก้ไขรายการ
-    if (editingIndex !== null) {
-        const originalType = editingOriginalType;
-        const newType = entryType;
-        
-        // ถ้าประเภทเปลี่ยน (รายรับ->รายจ่าย หรือ รายจ่าย->รายจ่าย)
-        if (originalType && newType && originalType !== newType) {
-            if (!confirm(`คุณกำลังเปลี่ยนประเภทจาก "${originalType}" เป็น "${newType}"\n\nคุณแน่ใจหรือไม่?`)) {
+            if (!currentAccount) {
+                alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ");
                 return;
             }
-        }
-        
-        // อัปเดตข้อมูลรายการเดิม
-        records[editingIndex] = { 
-            dateTime, 
-            type: typeText, 
-            description, 
-            amount, 
-            account: currentAccount 
-        };
-        editingIndex = null;
-        editingOriginalType = null;
-    } else {
-        // เพิ่มรายการใหม่
-        records.push({ 
-            dateTime, 
-            type: typeText, 
-            description, 
-            amount, 
-            account: currentAccount 
-        });
-    }
-    
-    // อัปเดตการแสดงผล
-    displayRecords();
-    
-    // เคลียร์ฟอร์ม
-    document.getElementById('description').value = '';
-    document.getElementById('amount').value = '';
-    document.getElementById('entryDate').value = '';
-    document.getElementById('entryTime').value = '';
-    
-    // บันทึกข้อมูล
-    saveToLocal(); 
-    
-    // แสดงข้อความสำเร็จ
-    const successMsg = entryType === 'รายรับ' 
-        ? `✓ ${editingIndex !== null ? 'แก้ไข' : 'เพิ่ม'}รายรับ "${typeText}" จำนวน ${amount.toLocaleString()} บาท สำเร็จ`
-        : `✓ ${editingIndex !== null ? 'แก้ไข' : 'เพิ่ม'}รายจ่าย "${typeText}" จำนวน ${amount.toLocaleString()} บาท สำเร็จ`;
-    
-    showToast(successMsg, entryType === 'รายรับ' ? '#4CAF50' : '#F44336');
-}
 
-// ฟังก์ชันแสดงข้อความแจ้งเตือน
-function showToast(message, color) {
-    const toast = document.createElement('div');
-    toast.style = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 24px;
-        background-color: ${color};
-        color: white;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        z-index: 1000;
-        animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
-    `;
-    toast.innerHTML = message;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        document.body.removeChild(toast);
-    }, 3000);
-}
-function displayRecords() {
-    const recordBody = document.getElementById('recordBody');
-    recordBody.innerHTML = "";
+            if (!typeText) {
+                alert("กรุณากรอกประเภท");
+                return;
+            }
 
-    // เรียงลำดับรายการจากใหม่ไปเก่า
-    records.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+            if (!description) {
+                alert("กรุณากรอกรายละเอียด");
+                return;
+            }
 
-    records.forEach((record, index) => {
-        if (record.account === currentAccount) {
-            const dateTime = new Date(record.dateTime);
-            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
-            const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
+            if (isNaN(amount) || amount <= 0) {
+                alert("กรุณากรอกจำนวนเงินที่ถูกต้อง");
+                return;
+            }
 
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${formattedTime}</td>
-                <td>${record.type}</td>
-                <td>${record.description}</td>
-                <td>${record.amount.toLocaleString()} บาท</td>
-                <td>
-                    <button onclick="editRecord(${index})">แก้ไข</button>
-                    <button onclick="deleteRecord(${index})">ลบ</button>
-                </td>
+            // ตรวจสอบว่าประเภทเป็นรายรับหรือรายจ่าย
+            const types = accountTypes.get(currentAccount);
+            let entryType = defaultType;
+            
+            if (types["รายรับ"].includes(typeText)) {
+                entryType = "รายรับ";
+            } else if (types["รายจ่าย"].includes(typeText)) {
+                entryType = "รายจ่าย";
+            }
+
+            if (editingIndex !== null) {
+                records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount };
+                editingIndex = null;
+            } else {
+                records.push({ dateTime, type: typeText, description, amount, account: currentAccount });
+            }
+            
+            displayRecords();
+            
+            // เคลียร์ฟอร์ม
+            document.getElementById('description').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('entryDate').value = '';
+            document.getElementById('entryTime').value = '';
+            
+            // บันทึกอัตโนมัติ (เหมือนเดิม)
+            saveToLocal(); 
+            
+            // แจ้งเตือนการเพิ่มข้อมูลสำเร็จ
+            const successMsg = entryType === 'รายรับ' 
+                ? `✓ เพิ่มรายรับ "${typeText}" จำนวน ${amount.toLocaleString()} บาท สำเร็จ`
+                : `✓ เพิ่มรายจ่าย "${typeText}" จำนวน ${amount.toLocaleString()} บาท สำเร็จ`;
+            
+            // แสดงแจ้งเตือนแบบไม่รบกวนผู้ใช้มากเกินไป
+            const toast = document.createElement('div');
+            toast.style = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                background-color: ${entryType === 'รายรับ' ? '#4CAF50' : '#F44336'};
+                color: white;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
             `;
-            recordBody.appendChild(row);
+            toast.innerHTML = successMsg;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 3000);
         }
-    });
 
-    if (recordBody.innerHTML === "") {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>
-        `;
-        recordBody.appendChild(row);
-    }
-}
+        function displayRecords() {
+            const recordBody = document.getElementById('recordBody');
+            recordBody.innerHTML = "";
 
-function editRecord(index) {
-    const record = records[index];
-    
-    // เตรียมข้อมูลในฟอร์มสำหรับแก้ไข
-    document.getElementById('type').value = record.type;
-    document.getElementById('description').value = record.description;
-    document.getElementById('amount').value = record.amount;
-    
-    // แยกวันที่และเวลา
-    const [datePart, timePart] = record.dateTime.split(' ');
-    const [year, month, day] = datePart.split('-');
-    document.getElementById('entryDate').value = `${day}/${month}/${year}`;
-    
-    const [hours, minutes] = timePart.split(':');
-    document.getElementById('entryTime').value = `${hours}.${minutes}`;
-    
-    // ตรวจสอบประเภทเดิม (รายรับ/รายจ่าย)
-    const types = accountTypes.get(currentAccount);
-    const isIncome = types["รายรับ"].includes(record.type);
-    const isExpense = types["รายจ่าย"].includes(record.type);
-    
-    // เก็บข้อมูลเดิมไว้ตรวจสอบการเปลี่ยนประเภท
-    editingIndex = index;
-    editingOriginalType = isIncome ? "รายรับ" : (isExpense ? "รายจ่าย" : null);
-    
-    // เลื่อนไปยังส่วนฟอร์มเพื่อความสะดวก
-    document.querySelector('.entry-form').scrollIntoView({ behavior: 'smooth' });
-}
+            records.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
-function deleteRecord(index) {
-    if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) {
-        records.splice(index, 1);
-        displayRecords();
-        saveToLocal();
-    }
-}
+            records.forEach((record, index) => {
+                if (record.account === currentAccount) {
+                    const dateTime = new Date(record.dateTime);
+                    const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
+                    const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formattedDate}</td>
+                        <td>${formattedTime}</td>
+                        <td>${record.type}</td>
+                        <td>${record.description}</td>
+                        <td>${record.amount.toLocaleString()} บาท</td>
+                        <td>
+                            <button onclick="editRecord(${index})">แก้ไข</button>
+                            <button onclick="deleteRecord(${index})">ลบ</button>
+                        </td>
+                    `;
+                    recordBody.appendChild(row);
+                }
+            });
+
+            if (recordBody.innerHTML === "") {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>
+                `;
+                recordBody.appendChild(row);
+            }
+        }
+
+        function editRecord(index) {
+            const record = records[index];
+            document.getElementById('type').value = record.type;
+            document.getElementById('description').value = record.description;
+            document.getElementById('amount').value = record.amount;
+            
+            const [datePart, timePart] = record.dateTime.split(' ');
+            const [year, month, day] = datePart.split('-');
+            document.getElementById('entryDate').value = `${day}/${month}/${year}`;
+            
+            const [hours, minutes] = timePart.split(':');
+            document.getElementById('entryTime').value = `${hours}.${minutes}`;
+            
+            editingIndex = index;
+        }
+
+        function deleteRecord(index) {
+            if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) {
+                records.splice(index, 1);
+                displayRecords();
+                saveToLocal();
+            }
+        }
+
         function parseDateInput(dateStr) {
             if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) {
                 return null;
