@@ -1128,7 +1128,7 @@
                 สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันที่ ${thaiDay} ${thaiMonth} ${thaiYear} : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
@@ -1301,7 +1301,7 @@
                 สรุป: ${comparisonText}
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้เหลืออยู่ : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
@@ -1414,7 +1414,7 @@
             
             recordsHTML = `
                 <div style="margin-top: 20px;">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันนี้ (${formattedDate})</h4>
+                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันนี้ ${formattedDate}</h4>
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
@@ -1483,7 +1483,7 @@
                 สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้เหลืออยู่ : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
