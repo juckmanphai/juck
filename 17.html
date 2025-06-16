@@ -271,20 +271,26 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
   </div>
 <div class="container">
-  <h1 style="text-align: center; color: blue; font-size: 16px;">
-    ชื่อบัญชี - <span id="accountName"></span>
-  </h1>
-  <div style="text-align: center;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+  <!-- ปุ่มโหลดข้อมูลบัญชี -->
+  <div style="position: relative;">
     <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
-    <button type="button" onclick="document.getElementById('fileInput').click()" class="file-button">โหลดข้อมูลร้าน</button>
+    <button type="button" onclick="document.getElementById('fileInput').click()" 
+            class="file-button" style="width: auto; padding: 12px 20px;">
+      โหลดข้อมูลบัญชี
+    </button>
   </div>
-  <div class="button-container" style="text-align: center; margin-top: 20px;">
+  
+  <!-- ปุ่มส่งออก Excel -->
   <button type="button" onclick="exportToExcel()" 
-    style="background-color: #28a745; color: white; padding: 12px; border-radius: 5px; border: none; 
-           cursor: pointer; width: 50%; font-size: 16px; display: block; margin: 0 auto;">
+          style="background-color: #28a745; color: white; padding: 12px 20px; border-radius: 5px; 
+                 border: none; cursor: pointer; font-size: 16px;">
     ส่งออก Excel
   </button>
 </div>
+  <h1 style="text-align: center; color: blue; font-size: 16px;">
+    ชื่อบัญชี - <span id="accountName"></span>
+  </h1>
   <!-- กลุ่มเลือกบัญชี -->
   <div class="date-summary-section">
     <div class="date-summary-title">เลือกบัญชี</div>
@@ -376,10 +382,11 @@
     </div>
 
     <!-- แถวที่ 3 -->
-    <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-      <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึก</button>
-      <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
-    </div>
+<div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+  <button type="button" onclick="saveToFile()" style="flex: 5;">บันทึกทั้งหมด</button>
+  <button type="button" onclick="saveToLocal()" style="flex: 5;">บันทึกเพื่อเปิดอีก</button>
+  <button type="button" onclick="exportAccountToJson()" style="flex: 5; background-color: #9C27B0;">บันทึกส่งออกบัญชี</button>
+</div>
   </div>
 </div>
 
@@ -1610,6 +1617,127 @@ function exportToExcel() {
                 }
             }
         }
+  function exportAccountToJson() {
+    if (!currentAccount) {
+      alert("กรุณาเลือกบัญชีที่ต้องการส่งออก");
+      return;
+    }
+
+    const fileName = prompt(`กรุณากรอกชื่อไฟล์สำหรับบัญชี ${currentAccount} (ไม่ต้องใส่นามสกุล):`, currentAccount);
+    if (!fileName) {
+      alert("กรุณากรอกชื่อไฟล์");
+      return;
+    }
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const dateTimeString = `${day}${month}${year}_${hours}${minutes}`;
+
+    const fullFileName = `${fileName}_${dateTimeString}.json`;
+
+    // เตรียมข้อมูลเฉพาะบัญชีที่เลือก
+    const accountData = {
+      accountName: currentAccount,
+      records: records.filter(record => record.account === currentAccount),
+      accountTypes: accountTypes.get(currentAccount) || {
+        "รายรับ": ["รับเงินจากคนอื่น", "รายได้อื่นๆ"],
+        "รายจ่าย": ["บริการโอนเงิน", "ค่าบริการ", "ค่าใช้จ่ายอื่นๆ"]
+      }
+    };
+
+    const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fullFileName;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`);
+  }
+
+  // ปรับปรุงฟังก์ชัน loadFromFile เพื่อรองรับการโหลดเฉพาะบัญชี
+  function loadFromFile(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+      alert("กรุณาเลือกไฟล์ JSON เท่านั้น");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        
+        // กรณีไฟล์เป็นไฟล์บัญชีเดียว (มี accountName)
+        if (data.accountName) {
+          const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`);
+          
+          if (confirmLoad) {
+            // เพิ่มบัญชีถ้ายังไม่มี
+            if (!accounts.includes(data.accountName)) {
+              accounts.push(data.accountName);
+            }
+            
+            // ตั้งค่าบัญชีปัจจุบัน
+            currentAccount = data.accountName;
+            
+            // เพิ่มประเภทถ้ายังไม่มี
+            if (!accountTypes.has(data.accountName)) {
+              accountTypes.set(data.accountName, data.accountTypes || {
+                "รายรับ": ["รับเงินจากคนอื่น", "รายได้อื่นๆ"],
+                "รายจ่าย": ["บริการโอนเงิน", "ค่าบริการ", "ค่าใช้จ่ายอื่นๆ"]
+              });
+            }
+            
+            // เพิ่มรายการทั้งหมด (แทนที่จะ push เพื่อป้องกันข้อมูลซ้ำ)
+            const existingRecords = records.filter(r => r.account !== data.accountName);
+            records.length = 0;
+            records.push(...existingRecords, ...data.records);
+            
+            updateAccountSelect();
+            updateTypeList();
+            changeAccount();
+            alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`);
+          }
+        } 
+        // กรณีไฟล์เป็นไฟล์ทั้งหมด (แบบเดิม)
+        else {
+          accounts.length = 0;
+          accounts.push(...data.accounts);
+          currentAccount = data.currentAccount;
+          records.length = 0;
+          records.push(...data.records);
+          
+          accountTypes.clear();
+          if (data.accountTypes) {
+            data.accountTypes.forEach(([account, types]) => {
+              accountTypes.set(account, types);
+            });
+          }
+          
+          updateAccountSelect();
+          updateTypeList();
+          changeAccount();
+          alert("โหลดข้อมูลทั้งหมดสำเร็จ");
+        }
+      } catch (error) {
+        alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message);
+      }
+    };
+    reader.onerror = function() {
+      alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
+    };
+    reader.readAsText(file);
+  }
 
         // เรียกใช้เมื่อเปิดหน้าเว็บ
         window.onload = function () {
