@@ -1058,7 +1058,7 @@
         if (dayRecords.length > 0) {
             recordsHTML = `
                 <div style="margin-top: 20px;">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันที่ ${day}/${month}/${year}</h4>
+                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ ${day}/${month}/${parseInt(year) + 543}</h4>
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
@@ -1412,12 +1412,15 @@
         // สร้าง HTML สำหรับตารางรายการ
         let recordsHTML = '';
         if (todayRecords.length > 0) {
-            const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+const thaiDateForTable = new Date(today);
+const day = String(thaiDateForTable.getDate()).padStart(2, '0');
+const month = String(thaiDateForTable.getMonth() + 1).padStart(2, '0');
+const year = thaiDateForTable.getFullYear() + 543;
             
-            recordsHTML = `
-                <div style="margin-top: 20px;">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายการทั้งหมดวันนี้ ${formattedDate}</h4>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+recordsHTML = `
+    <div style="margin-top: 20px;">
+        <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ ${day}/${month}/${year}</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
                                 <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
