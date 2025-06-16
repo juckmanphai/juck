@@ -1062,10 +1062,10 @@
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">เวลา</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">ประเภท</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">รายละเอียด</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">จำนวนเงิน</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1078,10 +1078,12 @@
                                 
                                 return `
                                     <tr>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${hours}.${minutes}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${record.type}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${record.description}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd; text-align: right; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+<tr>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+</tr>
                                     </tr>
                                 `;
                             }).join('')}
@@ -1418,10 +1420,10 @@
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">เวลา</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">ประเภท</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">รายละเอียด</th>
-                                <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">จำนวนเงิน</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1432,11 +1434,12 @@
                                 const color = recordType === "รายรับ" ? "#4CAF50" : "#F44336";
                                 
                                 return `
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${hours}.${minutes}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${record.type}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${record.description}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd; text-align: right; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+<tr>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td>
+    <td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td>
+</tr>
                                     </tr>
                                 `;
                             }).join('')}
