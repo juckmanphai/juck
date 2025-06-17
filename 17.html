@@ -1045,12 +1045,12 @@
         // สร้าง HTML สำหรับสรุปยอดตามประเภท
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
 
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
 
         // สร้าง HTML สำหรับตารางรายการ
@@ -1058,7 +1058,7 @@
         if (dayRecords.length > 0) {
             recordsHTML = `
                 <div style="margin-top: 20px;">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ ${day}/${month}/${parseInt(year) + 543}</h4>
+                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ : ${day}/${month}/${parseInt(year) + 543}</h4>
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
@@ -1117,20 +1117,20 @@
         // แสดงผลสรุปตามรูปแบบที่ต้องการ
         document.getElementById('summaryResult').innerHTML = `
             <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
-            <p><strong>สรุปข้อมูลของวันที่:</strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
+            <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
             <hr>
-            <p><strong>รายรับวันนี้:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
+            <p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
             ${incomeHTML}
             <hr>
-            <p><strong>รายจ่ายวันนี้:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
+            <p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
             ${expenseHTML}
             <hr>
             <p style="color: ${netColor}; font-weight: bold;">
-                สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
+                สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี :  </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
@@ -1241,12 +1241,12 @@
         // สร้าง HTML สำหรับแสดงผล
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
 
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
 
         // แปลงวันที่เป็นรูปแบบไทย
@@ -1276,11 +1276,11 @@
         
         if (summary.totalIncome > summary.totalExpense) {
             differenceAmount = summary.totalIncome - summary.totalExpense;
-            comparisonText = `รายได้มากกว่ารายจ่าย ${differenceAmount.toLocaleString()} บาท`;
+            comparisonText = `รายได้มากกว่ารายจ่าย = ${differenceAmount.toLocaleString()} บาท`;
             comparisonColor = 'blue';
         } else if (summary.totalIncome < summary.totalExpense) {
             differenceAmount = summary.totalExpense - summary.totalIncome;
-            comparisonText = `รายจ่ายมากกว่ารายได้ ${differenceAmount.toLocaleString()} บาท`;
+            comparisonText = `รายจ่ายมากกว่ารายได้ = ${differenceAmount.toLocaleString()} บาท`;
             comparisonColor = 'red';
         } else {
             comparisonText = 'รายได้เท่ากับรายจ่าย';
@@ -1288,22 +1288,22 @@
         }
                 // แสดงผลสรุป
         document.getElementById('summaryResult').innerHTML = `
-            <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
-            <p><strong>สรุปวันที่:</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
+            <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
+            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
+            <p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
             <p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p>
             <hr>
-            <p><strong>รายรับทั้งหมด:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
+            <p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
             ${incomeHTML}
             <hr>
-            <p><strong>รายจ่ายทั้งหมด:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
+            <p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
             ${expenseHTML}
             <hr>
             <p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">
-                สรุป: ${comparisonText}
+                สรุป : ${comparisonText}
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
@@ -1401,12 +1401,12 @@
         // สร้าง HTML สำหรับสรุปยอดตามประเภท
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
 
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type}: ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
 
         // สร้าง HTML สำหรับตารางรายการ
@@ -1419,7 +1419,7 @@ const year = thaiDateForTable.getFullYear() + 543;
             
 recordsHTML = `
     <div style="margin-top: 20px;">
-        <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ ${day}/${month}/${year}</h4>
+        <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ : ${day}/${month}/${year}</h4>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                         <thead>
                             <tr style="background-color: #f2f2f2;">
@@ -1475,21 +1475,21 @@ recordsHTML = `
 
         // แสดงผลสรุปตามรูปแบบที่ต้องการ
         document.getElementById('summaryResult').innerHTML = `
-            <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่:</strong> ${summaryDateTime}</p>
-            <p><strong>สรุปข้อมูลของวันที่:</strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
+            <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
+            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
+            <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
             <hr>
-            <p><strong>รายรับวันนี้:</strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
+            <p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
             ${incomeHTML}
             <hr>
-            <p><strong>รายจ่ายวันนี้:</strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
+            <p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
             ${expenseHTML}
             <hr>
             <p style="color: ${netColor}; font-weight: bold;">
-                สรุปวันนี้: ${netText} จำนวน ${Math.abs(netAmount).toLocaleString()} บาท
+                สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท
             </p>
             <p>
-                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : จำนวน </span> 
+                <span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี : </span> 
                 <span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท
             </p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
