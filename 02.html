@@ -361,15 +361,73 @@
         return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
     }
 
+    // ฟังก์ชันแปลงวันที่เป็นจันทรคติ โดยดึงข้อมูลจากเว็บ 18.html
+    async function getLunarDate(date = new Date()) {
+        try {
+            // ดึงข้อมูลจากเว็บ 18.html
+            const response = await fetch('18.html');
+            const html = await response.text();
+            
+            // สร้าง DOM parser เพื่ออ่านข้อมูลจาก HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // หาตารางแปลงวันที่ (ตารางที่ 2 ในหน้า)
+            const tables = doc.querySelectorAll('table');
+            let conversionTable = null;
+            
+            if (tables.length >= 2) {
+                conversionTable = tables[1]; // ตารางที่ 2
+            } else {
+                return "ไม่พบข้อมูลจันทรคติ";
+            }
+            
+            // ดึงข้อมูลจากตาราง
+            const rows = conversionTable.querySelectorAll('tr');
+            const dateData = [];
+            
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].querySelectorAll('td');
+                if (cells.length >= 3) {
+                    dateData.push({
+                        solarDate: cells[0].textContent.trim(),
+                        lunarDate: cells[1].textContent.trim(),
+                        lunarMonth: cells[2].textContent.trim()
+                    });
+                }
+            }
+            
+            // แปลงวันที่ input เป็นรูปแบบที่ตรงกับข้อมูลในตาราง
+            const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", 
+                              "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+            const day = date.getDate();
+            const month = thaiMonths[date.getMonth()];
+            const year = date.getFullYear() + 543;
+            const searchDate = `${day} ${month} ${year}`;
+            
+            // ค้นหาข้อมูลวันที่ในตาราง
+            const foundDate = dateData.find(item => item.solarDate.includes(searchDate));
+            
+            if (foundDate) {
+                return `จันทรคติ: ${foundDate.lunarDate} ${foundDate.lunarMonth}`;
+            } else {
+                return "ไม่พบข้อมูลจันทรคติสำหรับวันที่นี้";
+            }
+        } catch (error) {
+            console.error("Error fetching lunar date:", error);
+            return "ไม่สามารถโหลดข้อมูลจันทรคติ";
+        }
+    }
+
     function getThaiTime() {
         const now = new Date();
         const time = String(now.getHours()).padStart(2, '0') + '.' + String(now.getMinutes()).padStart(2, '0');
         return `เวลา ${time} น.`;
     }
 
-    function convertNumber() {
+    async function convertNumber() {
         const num = document.getElementById("numberInput").value;
-        const selectedTopic = getSelectedTopic(); // ใช้ฟังก์ชันใหม่นี้แทน
+        const selectedTopic = getSelectedTopic();
         const selectedPerson = getSelectedPerson();
         let noteInput = document.getElementById("noteInput").value;
         if (!noteInput.trim()) {
@@ -411,6 +469,7 @@
         const sortedPairs = [...new Set(uniquePairs)].sort();
         const dateInput = document.getElementById("dateInput").value;
         const dateDisplay = dateInput ? getThaiDate(new Date(dateInput)) : getThaiDate();
+        const lunarDateDisplay = await (dateInput ? getLunarDate(new Date(dateInput)) : getLunarDate());
 
         return `
   <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 2.1; margin-top: 10px; color: blue;">
@@ -426,18 +485,24 @@
         -1px 1px 0 white, 1px 1px 0 white;">
       ${dateDisplay}
     </p>
-<h2 style="font-size: 24px; font-weight: bold; margin: 0 0 10px 0;;; line-height: 2.1;
-  text-shadow: 
-    -1px -1px 0 white, 1px -1px 0 white,
-    -1px 1px 0 white, 1px 1px 0 white;">
-  2 ตัว <span style="color: red;
-    text-shadow: 
-      -1px -1px 0 white, 1px -1px 0 white,
-      -1px 1px 0 white, 1px 1px 0 white;">${num}</span> By : <span style="color: green;
-    text-shadow: 
-      -1px -1px 0 white, 1px -1px 0 white,
-      -1px 1px 0 white, 1px 1px 0 white;">${selectedPerson}</span>
-</h2>
+    <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 2.1;
+      text-shadow: 
+        -1px -1px 0 white, 1px -1px 0 white,
+        -1px 1px 0 white, 1px 1px 0 white;">
+      ${lunarDateDisplay}
+    </p>
+    <h2 style="font-size: 24px; font-weight: bold; margin: 0 0 10px 0;;; line-height: 2.1;
+      text-shadow: 
+        -1px -1px 0 white, 1px -1px 0 white,
+        -1px 1px 0 white, 1px 1px 0 white;">
+      2 ตัว <span style="color: red;
+        text-shadow: 
+          -1px -1px 0 white, 1px -1px 0 white,
+          -1px 1px 0 white, 1px 1px 0 white;">${num}</span> By : <span style="color: green;
+        text-shadow: 
+          -1px -1px 0 white, 1px -1px 0 white,
+          -1px 1px 0 white, 1px 1px 0 white;">${selectedPerson}</span>
+    </h2>
     <h3 style="font-size: 26px; font-weight: bold; margin: 0 0 10px 0; line-height: 2.1;
       text-shadow: 
         -1px -1px 0 white, 1px -1px 0 white,
@@ -466,27 +531,27 @@
 `;
     }
 
- function openResultInNewWindow() {
-    const resultHtml = convertNumber();
-    if (!resultHtml) return;
+    async function openResultInNewWindow() {
+        const resultHtml = await convertNumber();
+        if (!resultHtml) return;
 
-    const isMobile = window.innerWidth <= 600;
-    const windowWidth = isMobile ? Math.min(window.innerWidth, 600) : 600;
-    const windowHeight = 700;
+        const isMobile = window.innerWidth <= 600;
+        const windowWidth = isMobile ? Math.min(window.innerWidth, 600) : 600;
+        const windowHeight = 700;
 
-    const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=yes,resizable=yes`);
-    if (!newWindow) {
-        alert("กรุณาปิดการบล็อคป๊อปอัพเพื่อใช้งานฟังก์ชันนี้");
-        return;
-    }
+        const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=yes,resizable=yes`);
+        if (!newWindow) {
+            alert("กรุณาปิดการบล็อคป๊อปอัพเพื่อใช้งานฟังก์ชันนี้");
+            return;
+        }
 
-    newWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="th">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>ผลลัพธ์การแปลตัวเลข</title>
+        newWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="th">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>ผลลัพธ์การแปลตัวเลข</title>
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -632,65 +697,61 @@ body {
 }
 </style>
 
-        </head>
-                 <body>
-                    <div class="result-container">
-                        <div id="resultContent">${resultHtml}</div>
-                    </div>
-                    
-                    <div class="controls">
-                        <div class="line-height-control">
-                            <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                            <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="2.1" />
-                            <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.1</span>
+            </head>
+                     <body>
+                        <div class="result-container">
+                            <div id="resultContent">${resultHtml}</div>
                         </div>
                         
-                        <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
-                    </div>
-                    
-                    <script>
-                        function updateLineHeight() {
-                            const lineHeight = document.getElementById("popupLineHeightSlider").value;
-                            const resultContent = document.getElementById("resultContent");
+                        <div class="controls">
+                            <div class="line-height-control">
+                                <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
+                                <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="2.1" />
+                                <span id="popupLineHeightValue">ความสูงของบรรทัด: 2.1</span>
+                            </div>
                             
-                            if (resultContent) {
-                                const elements = resultContent.querySelectorAll('*');
-                                elements.forEach(element => {
-                                    element.style.lineHeight = lineHeight;
-                                });
-                                
-                                resultContent.style.lineHeight = lineHeight;
-                                document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: " + lineHeight;
-                            }
-                        }
+                            <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
+                        </div>
                         
-                        document.addEventListener("DOMContentLoaded", function() {
-                            document.getElementById("popupLineHeightSlider").addEventListener("input", updateLineHeight);
-                            document.getElementById("popupLineHeightSlider").value = 2.1;
-                            document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: 2.1";
-                        });
-                    <\/script>
-                </body>
-                </html>
-            `);
-            newWindow.document.close();
-        }
+                        <script>
+                            function updateLineHeight() {
+                                const lineHeight = document.getElementById("popupLineHeightSlider").value;
+                                const resultContent = document.getElementById("resultContent");
+                                
+                                if (resultContent) {
+                                    const elements = resultContent.querySelectorAll('*');
+                                    elements.forEach(element => {
+                                        element.style.lineHeight = lineHeight;
+                                    });
+                                    
+                                    resultContent.style.lineHeight = lineHeight;
+                                    document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: " + lineHeight;
+                                }
+                            }
+                            
+                            document.addEventListener("DOMContentLoaded", function() {
+                                document.getElementById("popupLineHeightSlider").addEventListener("input", updateLineHeight);
+                                document.getElementById("popupLineHeightSlider").value = 2.1;
+                                document.getElementById("popupLineHeightValue").textContent = "ความสูงของบรรทัด: 2.1";
+                            });
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
-        });
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
-            
-            // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const dateStr = `${year}-${month}-${day}`;
-            document.getElementById("dateInput").value = dateStr;
-        });
-    </script>
-</body>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
+                
+                // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const dateStr = `${year}-${month}-${day}`;
+                document.getElementById("dateInput").value = dateStr;
+            });
+        </script>
+    </body>
 </html>
