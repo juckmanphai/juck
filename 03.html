@@ -495,46 +495,46 @@
 
         // Generate final HTML string
         return `
-            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 1.2; margin-top: 10px; color: blue;">
-                <p style="font-size: 24px; margin: 0 0 10px 0; font-weight: bold; line-height: 1.2; color: blue; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 0.8; margin-top: 10px; color: blue;">
+                <p style="font-size: 24px; margin: 0 0 10px 0; font-weight: bold; line-height: 0.8; color: blue; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${selectedTopic}
                 </p>
-                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${getThaiDate(dateInput)}
                 </p>
-                ${lunarDate ? `<p style="font-size: 14px; color: ${lunarDate.includes('(วันพระ)') ? 'red' : '#002060'}; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                ${lunarDate ? `<p style="font-size: 14px; color: ${lunarDate.includes('(วันพระ)') ? 'red' : '#002060'}; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ( ${lunarDate} )
                 </p>` : ''}
-                <h2 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h2 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     3 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">${num}</span> By : <span style="color: green; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">${selectedPerson}</span>
                 </h2>
-                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดเด่น 2 ตัว</h3>
-                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดเด่น 2 ตัว</h3>
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${uniqueFirstSet.join(' - ')}
                 </p>
-                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดรอง 2 ตัว</h3>
-                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดรอง 2 ตัว</h3>
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${filteredSecondSet.join(' - ')}
                 </p>
-                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     จัดชุด 2 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">(แปลเพิ่ม)</span>
                 </h3>
-                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${transformedPairsText}
                 </p>
-                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุด 3 ตัว (ปกติ)</h3>
-                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุด 3 ตัว (ปกติ)</h3>
+                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${sortedThirdSet.join(' - ')}
                 </p>
-                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     จัดชุด 3 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">(แปลเพิ่ม)</span>
                 </h3>
-                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${additionalNumbersForThirdSetText}
                 </p>
-                <h2 style="font-size: 24px; font-weight: bold; margin: 0 0 10px 0; color: red; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แนวทางเท่านั้น</h2>
-                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-                <p style="font-size: 20px; margin: 0 0 10px 0; line-height: 1.2; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h2 style="font-size: 24px; font-weight: bold; margin: 0 0 10px 0; color: red; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แนวทางเท่านั้น</h2>
+                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+                <p style="font-size: 20px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     หมายเหตุ : <span style="color: red;">${noteInput}</span>
                 </p>
             </div>
@@ -564,7 +564,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>ผลลัพธ์การแปลตัวเลข</title>
                 <style>
-                    body { font-family: Arial, sans-serif; background-color: #fffde7; margin: 0; padding: 0; line-height: 1.2; color: blue; }
+                    body { font-family: Arial, sans-serif; background-color: #fffde7; margin: 0; padding: 0; line-height: 0.8; color: blue; }
                     .result-container { border: 2px solid #4CAF50; background-color: #FAFAD2; margin: 20px 2px; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); position: relative; min-height: 300px; box-sizing: border-box; }
                     .result-container::before { content: ""; background-image: url('logo.png'); background-size: 90% auto; background-repeat: no-repeat; background-position: center top 15px; opacity: 0.4; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; }
                     #resultContent { position: relative; z-index: 1; color: blue; }
@@ -584,8 +584,8 @@
                 <div class="controls">
                     <div class="line-height-control">
                         <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                        <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.2" />
-                        <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.2</span>
+                        <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="0.8" />
+                        <span id="popupLineHeightValue">ความสูงของบรรทัด: 0.8</span>
                     </div>
                     <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
                 </div>
