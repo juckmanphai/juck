@@ -49,6 +49,21 @@
       margin-bottom: 15px;
     }
     .section-content.active { display: block; }
+    
+    .sub-section-header {
+      background-color: #5c6bc0;
+      margin-top: 20px;
+    }
+    .sub-section-header:hover {
+        background-color: #3f51b5;
+    }
+    .sub-section-content {
+        border: none;
+        background-color: transparent;
+        padding: 10px 0 0 0;
+        margin-bottom: 0;
+    }
+
     .entry-form {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -186,7 +201,6 @@
         visibility: visible;
         transform: translateY(0);
     }
-    /* ***** CSS ใหม่ที่เพิ่มเข้ามา ***** */
     .checkbox-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -204,7 +218,23 @@
     .checkbox-item input {
         width: auto;
     }
-    /* ***************************** */
+    .summary-subsection {
+        border-top: 1px solid #ccc;
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+    .summary-subsection:first-child {
+        border-top: none;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    .summary-subsection-header {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #0056b3;
+    }
     @media screen and (max-width: 600px) {
       .container {
         width: 95%;
@@ -238,11 +268,6 @@
       โหลดข้อมูลบัญชี
     </button>
   </div>
-  <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
-    <button type="button" onclick="summarizeToday()" style="width: 100%; padding: 10px; background-color: #FFA500; color: #FFFFFF; border: none; border-radius: 4px; cursor: pointer;">
-      สรุปวันนี้
-    </button>
-  </div>
 </div>
 
 <div class="container">
@@ -251,16 +276,23 @@
   </h1>
   
   <div class="section-header" onclick="toggleSection('account-section')">
-    <span>เลือกบัญชี</span>
+    <span>เลือกและจัดการบัญชี</span>
     <span class="arrow">▶</span>
   </div>
   <div id="account-section" class="section-content">
     <label for="accountSelect">เลือกบัญชี:</label>
     <select id="accountSelect" onchange="changeAccount()"></select>
-    <div class="button-group">
-      <button type="button" onclick="addAccount()">เพิ่มบช.ใหม่</button>
-      <button type="button" onclick="deleteAccount()">ลบบช.</button>
-      <button type="button" onclick="editAccount()">แก้ไขชื่อบช.</button>
+    
+    <div class="section-header sub-section-header" onclick="toggleSection('manage-account-submenu')">
+      <span>จัดการบัญชี</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div id="manage-account-submenu" class="section-content sub-section-content">
+      <div class="button-group">
+        <button type="button" onclick="addAccount()" style="background-color: #28a745;">เพิ่มบช.ใหม่</button>
+        <button type="button" onclick="deleteAccount()" style="background-color: #dc3545;">ลบบช.</button>
+        <button type="button" onclick="editAccount()" style="background-color: #ffc107;">แก้ไขชื่อบช.</button>
+      </div>
     </div>
   </div>
 
@@ -287,83 +319,96 @@
       <label for="type">ประเภท</label>
       <input list="typeList" id="type" required placeholder="เลือกหรือพิมพ์ประเภท" style="height: 40px;" onfocus="showAllTypes(this)" onblur="restoreType(this)">
       <datalist id="typeList"></datalist>
-      <div class="button-group" style="margin-top: 5px;">
-        <button type="button" onclick="addNewType()" style="background-color: #2196F3;">เพิ่มประเภท</button>
-        <button type="button" onclick="editType()" style="background-color: #FFC107;">แก้ไขประเภท</button>
-        <button type="button" onclick="deleteType()" style="background-color: #F44336;">ลบประเภท</button>
+      
+      <div class="section-header sub-section-header" onclick="toggleSection('manage-types-submenu')" style="margin-top:10px;">
+        <span>จัดการประเภท</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div id="manage-types-submenu" class="section-content sub-section-content">
+        <div class="button-group">
+          <button type="button" onclick="addNewType()" style="background-color: #2196F3;">เพิ่มประเภท</button>
+          <button type="button" onclick="deleteType()" style="background-color: #F44336;">ลบประเภท</button>
+          <button type="button" onclick="editType()" style="background-color: #FFC107;">แก้ไขประเภท</button>
+        </div>
       </div>
     </div>
     <div class="entry-group">
       <label for="description">รายละเอียด</label>
       <input type="text" id="description" required>
     </div>
-
-    <!-- ***** HTML ใหม่ที่เพิ่มเข้ามา ***** -->
+    
     <div class="entry-group" id="multiAccountSelector" style="display: none; margin-top: 10px;">
-      <label>เพิ่มรายการนี้ในบัญชีอื่นด้วย:</label>
-      <div id="multiAccountCheckboxes" class="checkbox-container">
-        <!-- Checkboxes จะถูกสร้างโดย JavaScript แบบไดนามิก -->
-      </div>
+        <div class="section-header sub-section-header" onclick="toggleSection('multi-account-submenu')">
+            <span>เพิ่มรายการนี้ในบัญชีอื่นด้วย</span>
+            <span class="arrow">▶</span>
+        </div>
+        <div id="multi-account-submenu" class="section-content sub-section-content">
+            <div id="multiAccountCheckboxes" class="checkbox-container">
+            </div>
+        </div>
     </div>
-    <!-- ******************************* -->
 
     <div class="button-container" style="text-align: center; margin-top: 20px;">
-      <button type="button" onclick="addEntry()" style="background-color: #4CAF50;">เพิ่มข้อมูล</button>
+      <!-- ***** โค้ดที่แก้ไข: เปลี่ยนสีปุ่มเพิ่มข้อมูลเป็นสีชมพู ***** -->
+      <button type="button" onclick="addEntry()" style="background-color: #e91e63;">เพิ่มข้อมูล</button>
     </div>
   </div>
-
-  <!-- ส่วนอื่นๆ ของ HTML เหมือนเดิม -->
-  <div class="section-header" onclick="toggleSection('summary-section')">
-    <span>สรุปวันที่ถึงวันที่</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="summary-section" class="section-content">
-    <div class="entry-form">
-      <div class="entry-group">
-        <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
-        <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
-      </div>
-      <div class="entry-group">
-        <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
-        <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
-      </div>
-    </div>
-    <div class="button-container" style="text-align: center; margin-top: 10px;">
-      <button type="button" onclick="summarize()">สรุปวันที่ถึงวันที่</button>
-    </div>
-  </div>
-
-  <div class="section-header" onclick="toggleSection('day-summary-section')">
-    <span>สรุปวันที่เลือก</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="day-summary-section" class="section-content">
-    <div class="entry-form">
-      <div class="entry-group">
-        <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
-        <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
-      </div>
-    </div>
-    <div class="button-container" style="text-align: center; margin-top: 10px;">
-      <button type="button" onclick="summarizeByDayMonth()">สรุปวันที่เลือก</button>
-    </div>
-  </div>
-
+  
   <div class="section-header" onclick="toggleSection('other-actions-section')">
-    <span>การดำเนินการอื่นๆ</span>
+    <span>จัดการข้อมูล</span>
     <span class="arrow">▶</span>
   </div>
   <div id="other-actions-section" class="section-content">
     <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-      <button onclick="toggleRecordsVisibility()" style="flex: 5;">แสดงรายการ</button>
+      <button onclick="toggleRecordsVisibility()" style="flex: 1; background-color: #607d8b;">แสดง/ซ่อนรายการ</button>
     </div>
     <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-      <button type="button" onclick="saveToFile()" style="flex: 1;">บันทึกส่งออกทั้งหมด</button>
-      <button type="button" onclick="saveToLocal()" style="flex: 1;">บันทึกชั่วคราว</button>
+      <button type="button" onclick="saveToFile()" style="flex: 1; background-color: #0d47a1;">บันทึกส่งออกทั้งหมด</button>
+      <button type="button" onclick="saveToLocal()" style="flex: 1; background-color: #17a2b8;">บันทึกชั่วคราว</button>
       <button type="button" onclick="exportAccountToJson()" style="flex: 1; background-color: #9C27B0;">บันทึกส่งออกบัญชี</button>
       <button type="button" onclick="exportToExcel()" style="flex: 1; background-color: #2E7D32; color: white;">
         ส่งออก Excel
       </button>
+    </div>
+  </div>
+
+  <div class="section-header" onclick="toggleSection('summary-main-section')">
+    <span>สรุปข้อมูล</span>
+    <span class="arrow">▶</span>
+  </div>
+  <div id="summary-main-section" class="section-content">
+    <div class="summary-subsection">
+      <div class="button-container" style="margin: 0;">
+        <button type="button" onclick="summarizeToday()" style="background-color: #ff9800; color: #FFFFFF;">สรุปวันนี้</button>
+      </div>
+    </div>
+    <div class="summary-subsection">
+      <label class="summary-subsection-header">สรุปวันที่เลือก</label>
+      <div class="entry-form" style="margin-bottom: 0;">
+        <div class="entry-group">
+          <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
+          <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
+        </div>
+      </div>
+      <div class="button-container" style="text-align: center; margin-top: 10px;">
+        <button type="button" onclick="summarizeByDayMonth()" style="background-color: #03a9f4;">สรุปวันที่เลือก</button>
+      </div>
+    </div>
+    <div class="summary-subsection">
+      <label class="summary-subsection-header">สรุปวันที่ถึงวันที่</label>
+      <div class="entry-form" style="margin-bottom: 0;">
+        <div class="entry-group">
+          <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
+          <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
+        </div>
+        <div class="entry-group">
+          <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
+          <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
+        </div>
+      </div>
+      <div class="button-container" style="text-align: center; margin-top: 10px;">
+        <button type="button" onclick="summarize()" style="background-color: #009688;">สรุปวันที่ถึงวันที่</button>
+      </div>
     </div>
   </div>
 </div>
@@ -384,16 +429,21 @@
   </table>
 </div>
 
-<div id="summaryResult" class="summaryResult"></div>
+<div id="summaryResult" class="summaryResult" style="display: none;"></div>
 <div id="toast" class="toast-notification"></div>
 
 
 <script>
+    // ไม่มีการเปลี่ยนแปลงในส่วนของ Javascript
     function toggleSection(sectionId) {
         const section = document.getElementById(sectionId);
         const header = section.previousElementSibling;
         section.classList.toggle('active');
         header.classList.toggle('active');
+
+        if (sectionId === 'summary-main-section' && !section.classList.contains('active')) {
+            document.getElementById('summaryResult').style.display = 'none';
+        }
     }
 
     const accounts = [];
@@ -414,18 +464,14 @@
         }
     }
 
-    // ***** JavaScript ที่จัดการ Checkbox แบบไดนามิก *****
     function updateMultiAccountSelector() {
         const selectorDiv = document.getElementById('multiAccountSelector');
         const checkboxesDiv = document.getElementById('multiAccountCheckboxes');
-        checkboxesDiv.innerHTML = ''; // ล้างของเก่าทิ้งทุกครั้งที่เรียก
+        checkboxesDiv.innerHTML = ''; 
 
-        // จะแสดงส่วนนี้ก็ต่อเมื่อมีบัญชีมากกว่า 1 บัญชี และไม่ได้อยู่ในโหมดแก้ไข
         if (accounts.length > 1 && editingIndex === null) {
             selectorDiv.style.display = 'block';
-            // วนลูปจาก Array `accounts` ที่เป็นข้อมูลล่าสุด
             accounts.forEach(acc => {
-                // สร้าง checkbox ให้กับทุกบัญชี **ยกเว้น** บัญชีที่กำลังเลือกอยู่
                 if (acc !== currentAccount) {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'checkbox-item';
@@ -448,8 +494,7 @@
             selectorDiv.style.display = 'none';
         }
     }
-    // **************************************
-
+    
     function initializeAccountTypes(accountName) {
         if (!accountTypes.has(accountName)) {
             accountTypes.set(accountName, {
@@ -480,7 +525,6 @@
         });
     }
 
-    // ... (ฟังก์ชัน addNewType, editType, deleteType ไม่มีการเปลี่ยนแปลง) ...
     function addNewType() {
         if (!currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนเพิ่มประเภท");
@@ -590,13 +634,12 @@
         }
     }
 
-    // ***** ฟังก์ชันที่เกี่ยวกับบัญชีจะเรียก `updateMultiAccountSelector()` เสมอ *****
     function addAccount() {
         const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:");
         if (accountName && !accounts.includes(accountName)) {
             accounts.push(accountName);
             updateAccountSelect();
-            updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox
+            updateMultiAccountSelector(); 
             alert("เพิ่มบัญชีสำเร็จ");
             saveToLocal();
         } else {
@@ -620,7 +663,8 @@
         document.getElementById('accountName').textContent = currentAccount || "";
         updateTypeList();
         displayRecords();
-        updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox
+        updateMultiAccountSelector(); 
+        document.getElementById('summaryResult').style.display = 'none'; 
     }
 
     function editAccount() {
@@ -648,7 +692,7 @@
                 document.getElementById('accountName').textContent = currentAccount;
                 updateTypeList();
                 displayRecords();
-                updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox
+                updateMultiAccountSelector(); 
                 alert("แก้ไขชื่อบัญชีเรียบร้อย");
                 saveToLocal();
             }
@@ -676,7 +720,7 @@
                     updateAccountSelect();
                     updateTypeList();
                     displayRecords();
-                    updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox
+                    updateMultiAccountSelector(); 
                     alert("ลบบัญชีเรียบร้อย");
                     saveToLocal();
                 }
@@ -686,9 +730,7 @@
         }
     }
     
-    // ***** ฟังก์ชัน addEntry() ถูกแก้ไขให้รองรับการเพิ่มหลายบัญชี *****
     function addEntry() {
-        // 1. ดึงข้อมูลจากฟอร์ม (เหมือนเดิม)
         let entryDateInput = document.getElementById('entryDate').value.trim();
         let entryTimeInput = document.getElementById('entryTime').value.trim();
         const typeInput = document.getElementById('type');
@@ -728,33 +770,24 @@
         if (!description) { alert("กรุณากรอกรายละเอียด"); return; }
         if (isNaN(amount) || amount <= 0) { alert("กรุณากรอกจำนวนเงินที่ถูกต้อง"); return; }
         
-        // 2. ตรวจสอบประเภทรายรับ/รายจ่าย (เหมือนเดิม)
         const types = accountTypes.get(currentAccount);
         let entryCategory = 'expense';
         if (types["รายรับ"].includes(typeText)) {
             entryCategory = 'income';
         }
 
-        // 3. เพิ่มข้อมูล
         if (editingIndex !== null) {
-            // โหมดแก้ไข: แก้ไขแค่รายการเดียว ไม่สร้างเพิ่ม
             records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount };
             editingIndex = null;
         } else {
-            // โหมดเพิ่มใหม่:
-            // 3.1 เพิ่มเข้าบัญชีปัจจุบันก่อน (บัญชีหลัก)
             records.push({ dateTime, type: typeText, description, amount, account: currentAccount });
-
-            // 3.2 วนลูปหา checkbox ที่ถูกติ๊กเพื่อเพิ่มรายการเดียวกันในบัญชีอื่น
             const selectedCheckboxes = document.querySelectorAll('#multiAccountCheckboxes input:checked');
             selectedCheckboxes.forEach(checkbox => {
                 const targetAccount = checkbox.value;
-                // เพิ่ม record ใหม่สำหรับบัญชีที่ถูกเลือก โดยใช้ข้อมูลเดียวกัน
                 records.push({ dateTime, type: typeText, description, amount, account: targetAccount });
             });
         }
         
-        // 4. แสดงผลและล้างฟอร์ม
         displayRecords();
         
         document.getElementById('description').value = '';
@@ -763,14 +796,12 @@
         document.getElementById('entryTime').value = '';
         typeInput.value = '';
         
-        // 4.1 ล้าง Checkbox ทั้งหมดที่ถูกติ๊ก
         document.querySelectorAll('#multiAccountCheckboxes input:checked').forEach(checkbox => {
             checkbox.checked = false;
         });
 
-        // 5. บันทึกและแสดง Toast
         saveDataAndShowToast(entryCategory);
-        updateMultiAccountSelector(); // อัปเดตเผื่ออยู่ในโหมดแก้ไขแล้วเสร็จ (จะแสดงกล่อง checkbox กลับมา)
+        updateMultiAccountSelector(); 
     }
 
     function saveDataAndShowToast(entryCategory = 'neutral') {
@@ -805,12 +836,10 @@
     function displayRecords() {
         const recordBody = document.getElementById('recordBody');
         recordBody.innerHTML = "";
-        // กรองข้อมูลเฉพาะของบัญชีที่เลือกอยู่ (currentAccount) เพื่อแสดงผล
         const filteredRecords = records.filter(record => record.account === currentAccount)
                                       .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
         filteredRecords.forEach((record) => {
-            // หา original index จาก array `records` ทั้งหมดเพื่อใช้ในการแก้ไข/ลบ
             const originalIndex = records.indexOf(record);
             const dateTime = new Date(record.dateTime);
             const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
@@ -848,7 +877,7 @@
         const [hours, minutes] = timePart.split(':');
         document.getElementById('entryTime').value = `${hours}.${minutes}`;
         editingIndex = index;
-        updateMultiAccountSelector(); // ซ่อนกล่องเลือกหลายบัญชีเมื่ออยู่ในโหมดแก้ไข
+        updateMultiAccountSelector();
     }
 
     function deleteRecord(index) {
@@ -859,7 +888,6 @@
         }
     }
 
-    // ... (ฟังก์ชันที่เหลือ summarize, export, load etc. ไม่มีการเปลี่ยนแปลง) ...
     function parseDateInput(dateStr) {
         if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) {
             return null;
@@ -964,6 +992,7 @@
         const netColor = netAmount >= 0 ? 'blue' : 'red';
         const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
         document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p><hr><p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี =  </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>${recordsHTML}`;
+        document.getElementById('summaryResult').style.display = 'block';
     }
     function summarize() {
         if (!records || !currentAccount) {
@@ -1059,6 +1088,7 @@
             comparisonColor = 'black';
         }
         document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p><p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p><hr><p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>`;
+        document.getElementById('summaryResult').style.display = 'block';
     }
     function summarizeToday() {
         if (!records || !currentAccount) {
@@ -1142,6 +1172,7 @@
         const netColor = netAmount >= 0 ? 'blue' : 'red';
         const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
         document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p><hr><p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>${recordsHTML}`;
+        document.getElementById('summaryResult').style.display = 'block';
     }
     function exportToExcel() {
         if (!currentAccount) {
@@ -1251,7 +1282,7 @@
                 console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error);
             }
         }
-        updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox ตอนโหลดข้อมูล
+        updateMultiAccountSelector(); 
     }
     function exportAccountToJson() {
         if (!currentAccount) {
@@ -1299,6 +1330,7 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
+                document.getElementById('summaryResult').style.display = 'none';
                 if (data.accountName) {
                     const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`);
                     if (confirmLoad) {
@@ -1336,7 +1368,7 @@
                     changeAccount();
                     alert("โหลดข้อมูลทั้งหมดสำเร็จ");
                 }
-                updateMultiAccountSelector(); // <-- อัปเดตรายการ Checkbox ตอนโหลดข้อมูล
+                updateMultiAccountSelector(); 
             } catch (error) {
                 alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message);
             }
