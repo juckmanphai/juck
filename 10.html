@@ -1172,25 +1172,46 @@
         document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p><hr><p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>${recordsHTML}`;
         document.getElementById('summaryResult').style.display = 'block';
     }
+
+    // ***** START OF MODIFIED CODE *****
     function exportToExcel() {
         if (!currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนส่งออกข้อมูล");
             return;
         }
-        let excelData = [["วันที่", "เวลา", "ประเภท", "รายละเอียด", "จำนวนเงิน (บาท)", "บัญชี"]];
-        const filteredRecords = records.filter(record => record.account === currentAccount).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+        // 1. สร้างแถวสำหรับชื่อบัญชี (เพื่อให้ง่ายต่อการผสานเซลล์ใน Excel) และแถวหัวตาราง
+        const titleRow = [`ชื่อบัญชี: ${currentAccount}`, "", "", "", ""];
+        const headerRow = ["วันที่", "เวลา", "ประเภท", "รายละเอียด", "จำนวนเงิน (บาท)"];
+        let excelData = [titleRow, headerRow];
+
+        // 2. กรองข้อมูลเฉพาะบัญชีปัจจุบัน และเรียงลำดับจากเก่าสุดไปใหม่สุด
+        const filteredRecords = records.filter(record => record.account === currentAccount)
+                                      .sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+
+        // 3. เพิ่มข้อมูลแต่ละรายการลงใน excelData โดยไม่มีคอลัมน์ชื่อบัญชี
         filteredRecords.forEach(record => {
             const dateTime = new Date(record.dateTime);
             const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
             const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
             const formattedAmount = new Intl.NumberFormat('th-TH').format(record.amount);
-            excelData.push([formattedDate, formattedTime, record.type, record.description, formattedAmount, record.account]);
+            
+            excelData.push([formattedDate, formattedTime, record.type, record.description, formattedAmount]);
         });
-        let csvContent = excelData.map(row => row.map(cell => `"${cell}"`).join(",")).join("\r\n");
+
+        // 4. แปลงข้อมูลเป็นรูปแบบ CSV
+        // หมายเหตุ: การจัดกึ่งกลางเซลล์เป็นคุณสมบัติการจัดรูปแบบของ Excel และไม่สามารถตั้งค่าได้ในไฟล์ CSV
+        // แต่โครงสร้างนี้จะทำให้ง่ายต่อการจัดรูปแบบใน Excel ด้วยตนเอง (เช่น ผสานเซลล์ A1:E1)
+        let csvContent = excelData.map(row => 
+            row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+        ).join("\r\n");
+        
         const now = new Date();
         const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
         const timeStr = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
         const fileName = `บัญชี_${currentAccount}_${dateStr}_${timeStr}.csv`;
+
+        // 5. สร้าง Blob และทริกเกอร์การดาวน์โหลดไฟล์
         const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
@@ -1200,6 +1221,8 @@
         link.click();
         document.body.removeChild(link);
     }
+    // ***** END OF MODIFIED CODE *****
+
     function saveToFile() {
         const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
         if (!fileName) {
@@ -1224,7 +1247,6 @@
         URL.revokeObjectURL(url);
     }
     
-    // ***** โค้ดที่แก้ไข: เปลี่ยนการแจ้งเตือนของปุ่ม 'บันทึกชั่วคราว' *****
     function saveToLocal() {
         const dataToSave = {
             accounts: [...accounts],
@@ -1248,7 +1270,6 @@
             alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล\nกรุณาลองอีกครั้งหรือตรวจสอบพื้นที่เก็บข้อมูล");
         }
     }
-    // ***** สิ้นสุดโค้ดที่แก้ไข *****
 
     function loadFromLocal() {
         const data = localStorage.getItem('accountData');
