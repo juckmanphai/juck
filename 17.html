@@ -349,7 +349,6 @@
     </div>
 
     <div class="button-container" style="text-align: center; margin-top: 20px;">
-      <!-- ***** โค้ดที่แก้ไข: เปลี่ยนสีปุ่มเพิ่มข้อมูลเป็นสีชมพู ***** -->
       <button type="button" onclick="addEntry()" style="background-color: #e91e63;">เพิ่มข้อมูล</button>
     </div>
   </div>
@@ -434,7 +433,6 @@
 
 
 <script>
-    // ไม่มีการเปลี่ยนแปลงในส่วนของ Javascript
     function toggleSection(sectionId) {
         const section = document.getElementById(sectionId);
         const header = section.previousElementSibling;
@@ -1087,7 +1085,7 @@
             comparisonText = 'รายได้เท่ากับรายจ่าย';
             comparisonColor = 'black';
         }
-        document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p><p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p><hr><p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>`;
+        document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p><p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p><hr><p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.expenseCount.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>`;
         document.getElementById('summaryResult').style.display = 'block';
     }
     function summarizeToday() {
@@ -1225,6 +1223,8 @@
         a.click();
         URL.revokeObjectURL(url);
     }
+    
+    // ***** โค้ดที่แก้ไข: เปลี่ยนการแจ้งเตือนของปุ่ม 'บันทึกชั่วคราว' *****
     function saveToLocal() {
         const dataToSave = {
             accounts: [...accounts],
@@ -1234,29 +1234,22 @@
         };
         try {
             localStorage.setItem('accountData', JSON.stringify(dataToSave));
-            const now = new Date();
-            const saveTime = now.toLocaleTimeString('th-TH');
-            const saveDate = now.toLocaleDateString('th-TH');
-            let incomeCount = 0;
-            let expenseCount = 0;
-            if(currentAccount && accountTypes.has(currentAccount)){
-                const types = accountTypes.get(currentAccount);
-                records.forEach(record => {
-                    if (record.account === currentAccount) {
-                        if (types["รายรับ"].includes(record.type)) {
-                            incomeCount++;
-                        } else {
-                            expenseCount++;
-                        }
-                    }
-                });
-            }
-            alert(`✓ บันทึกข้อมูลสำเร็จ\n\n📅 วันที่: ${saveDate}\n⏰ เวลา: ${saveTime}\n\n📊 สถิติ:\n- บัญชีทั้งหมด: ${accounts.length} บัญชี\n- รายการทั้งหมด: ${records.filter(r => r.account === currentAccount).length} รายการ\n  ├─ รายรับ: ${incomeCount} รายการ\n  └─ รายจ่าย: ${expenseCount} รายการ\n- ประเภททั้งหมด: ${accountTypes.has(currentAccount) ? Object.values(accountTypes.get(currentAccount)).flat().length : 0} ประเภท`);
+            
+            const toast = document.getElementById('toast');
+            toast.textContent = '✓ บันทึกชั่วคราวสำเร็จแล้ว';
+            toast.style.backgroundColor = '#17a2b8'; // Match button color
+            toast.className = "toast-notification show";
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("show", ""); 
+            }, 2500);
+
         } catch (error) {
             console.error("บันทึกข้อมูลไม่สำเร็จ:", error);
             alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล\nกรุณาลองอีกครั้งหรือตรวจสอบพื้นที่เก็บข้อมูล");
         }
     }
+    // ***** สิ้นสุดโค้ดที่แก้ไข *****
+
     function loadFromLocal() {
         const data = localStorage.getItem('accountData');
         if (data) {
