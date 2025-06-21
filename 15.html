@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>เลือกเว็บไซต์ฮานอย/เวียดนาม</title>
+<title>เลือกเว็บไซต์เวียดนาม</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   body {
@@ -49,7 +49,7 @@
     box-shadow: 0 10px 25px rgba(255, 165, 0, 0.25);
     box-sizing: border-box;
     text-align: center;
-    max-height: 320px;
+    max-height: 380px; /* เพิ่มความสูงเผื่อข้อความสถานะ */
     overflow-y: auto;
   }
 
@@ -66,7 +66,7 @@ select {
   font-size: 16px;
   border: 2px solid #ffa500;
   border-radius: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px; /* ลดระยะห่างด้านล่างเล็กน้อย */
   background-color: #fff8dc;
   appearance: none;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23a66300" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
@@ -77,24 +77,16 @@ select {
   cursor: pointer;
   color: blue; /* สีของข้อความใน dropdown และเมื่อเลือก */
 }
-
-  .openButton {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 12px;
-    background-color: #ffa500;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.5);
-    transition: background-color 0.3s ease;
-  }
-
-  .openButton:hover {
-    background-color: #cc8400;
-    box-shadow: 0 6px 20px rgba(204, 132, 0, 0.6);
+  /* ปุ่มเปิดเว็บไม่จำเป็นแล้ว จึงสามารถลบ style ออกได้ */
+  /* .openButton {...} */
+  
+  #statusMessage {
+    color: #a66300;
+    font-size: 14px;
+    height: 20px; /* จองพื้นที่ไว้ ป้องกันการกระตุกของ layout */
+    line-height: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   footer {
@@ -119,14 +111,15 @@ select {
 </style>
 </head>
 <body>
+
   <button class="homeButton" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">
     กลับสู่หน้าหลัก
   </button>
 
   <div class="container">
-    <h2>เลือกเว็บไซต์ฮานอยที่ต้องการเข้า</h2>
-<select id="siteSelector">
-  <option value="">-- กรุณาเลือกเว็บไซต์ --</option>
+    <h2>เลือกเว็บไซต์เวียดนามที่ต้องการเข้า</h2>
+    <select id="siteSelector" onchange="handleSelectionChange()">
+      <option value="">-- กรุณาเลือกเว็บไซต์ --</option>
 <option value="https://xsktvn.com">ผลฮานอยเช้า - เวลา 08:30 น.</option>
 <option value="https://hanoiasean.com">ผลฮานอยอาเซียน - เวลา 09:30 น.</option>
 <option value="https://xosohd.com">ผลฮานอย HD - เวลา 11:30 น.</option>
@@ -145,21 +138,42 @@ select {
 <option value="https://www.ketqua4d.org">ผลฮานอย 4D - เวลา 21:00 น.</option>
 <option value="https://xsdky.net/">ผลฮานอยดึก - เวลา 22:30 น.</option>
 <option value="https://xosoextra.com">ผลฮานอย Extra - เวลา 22:30 น.</option>
-</select>
-    <button class="openButton" onclick="openSelectedSite()">เปิดเว็บไซต์</button>
+    </select>
+    <p id="statusMessage"></p> <!-- เพิ่ม Element สำหรับแสดงสถานะ -->
+    <!-- ลบปุ่มเปิดเว็บไซต์ออกไป -->
+    <!-- <button class="openButton" onclick="openSelectedSite()">เปิดเว็บไซต์</button> -->
   </div>
 
   <footer>
-    &copy; 2025 Juckmanphai. All Rights Reserved.
+    &copy; 2025 Juckphai. All Rights Reserved.
   </footer>
 
   <script>
-    function openSelectedSite() {
+    // สร้างตัวแปรนอกฟังก์ชันเพื่อเก็บค่า timeout ID
+    let timeoutId = null;
+
+    function handleSelectionChange() {
+      // หากมี timeout ค้างอยู่ ให้ยกเลิกก่อน
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
       const url = document.getElementById("siteSelector").value;
+      const statusEl = document.getElementById("statusMessage");
+
       if (url) {
-        window.open(url, "_blank");
+        // ถ้ามีการเลือกเว็บ ให้แสดงข้อความสถานะ
+        statusEl.textContent = "กำลังจะเปิดเว็บไซต์ในอีก 2 วินาที...";
+        
+        // ตั้งเวลาเปิดเว็บในอีก 2 วินาที (2000 มิลลิวินาที)
+        timeoutId = setTimeout(() => {
+          window.open(url, "_blank");
+          statusEl.textContent = ""; // ล้างข้อความสถานะหลังจากเปิดเว็บแล้ว
+        }, 2000);
+
       } else {
-        alert("กรุณาเลือกเว็บไซต์ก่อน");
+        // ถ้าผู้ใช้เลือก "-- กรุณาเลือกเว็บไซต์ --" ให้ล้างข้อความสถานะ
+        statusEl.textContent = "";
       }
     }
   </script>
