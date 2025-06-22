@@ -2,24 +2,15 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <!-- CHANGE 1: Improved Viewport for better accessibility and mobile experience -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>บัญชีรายรับรายจ่าย</title>
   <style>
-    /* CSS ทั้งหมดถูกจัดระเบียบและปรับปรุงเพื่อความเข้ากันได้ที่ดีขึ้น */
-    
-    /* CHANGE 2: Universal Box Sizing for consistent layout */
-    * {
-      box-sizing: border-box;
-    }
-
+    /* CSS ทั้งหมดเหมือนเดิม */
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f4f7fb;
       margin: 0;
       padding: 0;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
     h2 {
       text-align: center;
@@ -45,7 +36,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      user-select: none; /* Prevents text selection on click */
     }
     .section-header:hover { background-color: #45a049; }
     .section-header .arrow { transition: transform 0.3s; }
@@ -104,15 +94,14 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       background-color: #f9f9f9;
+      box-sizing: border-box;
     }
-    /* Removes spinners from number inputs for a cleaner look */
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
     input[type=number] { -moz-appearance: textfield; }
-    
     .back-button,
     .file-button {
       font-size: 16px;
@@ -131,7 +120,6 @@
     .back-button:hover { background-color: #e64a19; }
     .file-button { background-color: #007bff; }
     .file-button:hover { background-color: #0056b3; }
-
     .button-group button,
     .button-container button {
       padding: 12px;
@@ -148,35 +136,21 @@
       background-color: #45a049;
       transform: translateY(-2px);
     }
-
-    #detailsSection {
-        display: none;
-        margin-top: 20px;
-        width: 100%;
-        overflow-x: auto; /* Ensures table is scrollable on small screens */
-    }
     #recordTable {
       width: 100%;
-      min-width: 600px; /* Forces horizontal scroll instead of squishing content */
       border-collapse: collapse;
       margin: 10px auto;
     }
     #recordTable th,
     #recordTable td {
       border: 1px solid #ccc;
-      padding: 8px; /* Increased padding for better readability */
+      padding: 5px;
       line-height: 1.4;
       text-align: center;
-      white-space: nowrap; /* Prevents text from wrapping in cells */
-    }
-    #recordTable td:nth-child(4) { /* Allow description to wrap */
-      white-space: normal;
     }
     #recordTable th { background-color: #f4f4f4; }
     #recordTable tr:nth-child(even) { background-color: #f9f9f9; }
     #recordTable tr:hover { background-color: #f1f1f1; }
-    
-    /* CHANGE 3: Fixed line-height for readability */
     .summaryResult {
       font-size: 15px;
       font-weight: normal;
@@ -188,10 +162,10 @@
       max-width: 800px;
       width: calc(100% - 20px);
       margin: 10px auto;
-      line-height: 1.6; /* Corrected from 0.5 to a readable value */
+      line-height: 0.5;
       text-align: center;
+      box-sizing: border-box;
     }
-
     .file-actions { display: flex; gap: 10px; align-items: center; }
     .action-button {
       padding: 10px 20px;
@@ -208,7 +182,6 @@
     }
     .file-button-wrapper button { background-color: #007bff; }
     .excel-button { background-color: #28a745; }
-
     .toast-notification {
         position: fixed;
         bottom: 20px;
@@ -228,7 +201,6 @@
         visibility: visible;
         transform: translateY(0);
     }
-
     .checkbox-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -246,7 +218,6 @@
     .checkbox-item input {
         width: auto;
     }
-
     .summary-subsection {
         border-top: 1px solid #ccc;
         margin-top: 15px;
@@ -264,41 +235,22 @@
         font-size: 1.1em;
         color: #0056b3;
     }
-    
-    /* CHANGE 4: Improved Media Query for Mobile Devices */
     @media screen and (max-width: 600px) {
-      h2 {
-        font-size: 24px; /* Slightly smaller title on mobile */
-      }
       .container {
         width: 95%;
         padding: 15px;
         margin: 10px auto;
       }
-      .entry-form, .button-group, .button-container { 
-        grid-template-columns: 1fr;
-        gap: 15px; /* Increase gap for better touch targets */
-      }
-      .button-group button, .button-container button { 
-        padding: 14px; 
-        font-size: 16px; 
-      }
+      .entry-form, .button-group, .button-container { grid-template-columns: 1fr; }
+      .button-group button, .button-container button { padding: 14px; font-size: 16px; }
       .file-actions {
-        flex-direction: column; /* Stack file buttons vertically */
+        flex-direction: row;
         padding: 0 10px;
-        gap: 10px;
       }
-      .file-actions .file-button-wrapper, .file-actions button {
+      .file-actions button {
         width: 100%;
         max-width: none;
         flex: 1;
-      }
-      .summaryResult {
-          font-size: 14px; /* Adjust font size for mobile */
-          padding: 10px;
-      }
-      #recordTable td, #recordTable th {
-        padding: 6px; /* Adjust table padding for smaller screens */
       }
     }
   </style>
@@ -308,7 +260,7 @@
   <div style="text-align: center; margin-top: 20px;">
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
   </div>
-<div class="file-actions" style="display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 800px; margin: 10px auto;">
+<div class="file-actions" style="display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 800px; margin: 10px auto; box-sizing: border-box;">
   <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
     <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
     <button type="button" onclick="document.getElementById('fileInput').click()" 
@@ -460,16 +412,16 @@
   </div>
 </div>
 
-<div id="detailsSection">
-  <table id="recordTable">
+<div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
+  <table id="recordTable" style="width: 98%; border-collapse: collapse; min-width: 600px;">
     <thead>
       <tr style="background-color: #f2f2f2;">
-        <th>วันเดือนปี</th>
-        <th>เวลา</th>
-        <th>ประเภท</th>
-        <th>รายละเอียด</th>
-        <th>จำนวนเงิน</th>
-        <th>การจัดการ</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">วันเดือนปี</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
+        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
       </tr>
     </thead>
     <tbody id="recordBody" style="font-size: 14px;"></tbody>
@@ -481,7 +433,6 @@
 
 
 <script>
-    // ส่วน JavaScript ไม่มีการเปลี่ยนแปลงฟังก์ชันการทำงานหลัก จึงใช้โค้ดเดิมได้เลย
     function toggleSection(sectionId) {
         const section = document.getElementById(sectionId);
         const header = section.previousElementSibling;
@@ -943,6 +894,7 @@
         return new Date(year, month - 1, day);
     }
 
+    // ***** START OF MODIFIED CODE *****
     function summarizeByDayMonth() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1062,6 +1014,7 @@
             ${recordsHTML}`;
         document.getElementById('summaryResult').style.display = 'block';
     }
+    // ***** END OF MODIFIED CODE *****
     
     function summarize() {
         if (!records || !currentAccount) {
@@ -1160,6 +1113,7 @@
         document.getElementById('summaryResult').style.display = 'block';
     }
 
+    // ***** START OF MODIFIED CODE *****
     function summarizeToday() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1267,6 +1221,7 @@
         
         document.getElementById('summaryResult').style.display = 'block';
     }
+    // ***** END OF MODIFIED CODE *****
 
     function exportToExcel() {
         if (!currentAccount) {
