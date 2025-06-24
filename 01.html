@@ -20,9 +20,9 @@
 
         body {
             font-family: 'Kanit', 'Arial', sans-serif;
-            background-color: #f0f2f5;
+            background-color: #fffde7;
             color: #1e40af; /* [แก้ไข] เปลี่ยนสีตัวอักษรหลักเป็นสีน้ำเงิน */
-            line-height: 1.6;
+            line-height: 1;
             padding: 20px;
         }
 
@@ -38,7 +38,7 @@
         /* --- Card Style for Sections --- */
         .card {
             background-color: #ffffff;
-            border-radius: 16px;
+            border-radius: 30px;
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
@@ -49,14 +49,14 @@
             font-size: 2rem;
             font-weight: 600;
             color: #1e3a8a; /* สีน้ำเงินเข้มสำหรับหัวข้อ (คงเดิม) */
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             transition: font-size 0.3s ease;
         }
 
         .section-subtitle {
             font-size: 1rem;
             color: #1d4ed8; /* [แก้ไข] เปลี่ยนสีคำอธิบายเป็นสีน้ำเงิน */
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         /* --- Button Grid Layout (ปรับปรุงใหม่) --- */
@@ -78,7 +78,7 @@
             border: none;
             border-radius: 10px;
             background-image: linear-gradient(45deg, #D4AF37, #F9E270);
-            color: #1e3a8a; /* [แก้ไข] เปลี่ยนสีตัวอักษรบนปุ่มเป็นสีน้ำเงินเข้ม */
+            color: #1e3a8a;
             font-size: 0.95rem; 
             font-weight: 500;
             font-family: 'Kanit', sans-serif;
@@ -113,7 +113,7 @@
             }
 
             .section-title {
-                font-size: 1.6rem; 
+                font-size: 1rem; 
             }
 
             .section-subtitle {
@@ -137,8 +137,8 @@
     <div class="container">
         <!-- Section: แปลตัวเลข -->
         <div class="card">
-            <h1 class="section-title">เมนูฟอร์มแปลตัวเลข</h1>
-            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
+            <h1 class="section-title">เมนูแปลตัวเลข</h1>
+            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่เมนูด้านล่าง</p>
             <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/02.html')">แปล 2 หลัก</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/03.html')">แปล 3 หลัก</button>
@@ -149,15 +149,15 @@
 
         <!-- Section: กรอกผลตัวเลข -->
         <div class="card">
-            <h1 class="section-title">เมนูฟอร์มกรอกผลตัวเลข</h1>
-            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
+            <h1 class="section-title">เมนูกรอกและดูผลตัวเลข</h1>
+            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่เมนูด้านล่าง</p>
             <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/14.html')">ผลลาว</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/15.html')">ผลเวียดนาม</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/06.html')">กรอกกลุ่มลาวสตาร์</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/07.html')">กรอกกลุ่มลาวสามัคคี</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/05.html')">กรอกลาวพัฒนา</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/08.html')">กรอกรัฐบาล</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/06.html')">กลุ่มลาวสตาร์</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/07.html')">กลุ่มลาวสามัคคี</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/05.html')">ลาวพัฒนา</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/08.html')">รัฐบาล</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/10.html')">บัญชี</button>
             </div>
         </div>
