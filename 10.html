@@ -1063,21 +1063,33 @@
         }
         const daysDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
         const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 };
+        const transactionDays = new Set();
         let totalBalance = 0;
+
         records.forEach(record => {
             if (!record.dateTime || typeof record.dateTime !== 'string') return;
             const [date, time] = record.dateTime.split(" ");
             const [recordYear, recordMonth, recordDay] = date.split("-");
             const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
+            
             if (record.account === currentAccount) {
-                const types = accountTypes.get(currentAccount);
-                if (types["รายรับ"].includes(record.type)) {
-                    totalBalance += record.amount;
-                } else if (types["รายจ่าย"].includes(record.type)) {
-                    totalBalance -= record.amount;
+                // คำนวณยอดคงเหลือทั้งหมดถึงวันที่สิ้นสุดของช่วงที่เลือก
+                if (recordDate <= endDate) {
+                    const types = accountTypes.get(currentAccount);
+                    if (types["รายรับ"].includes(record.type)) {
+                        totalBalance += record.amount;
+                    } else if (types["รายจ่าย"].includes(record.type)) {
+                        totalBalance -= record.amount;
+                    }
                 }
+                
                 const isInPeriod = (recordDate >= startDate && recordDate <= endDate);
                 if (!isInPeriod) return;
+                
+                // เพิ่มวันที่ลงใน Set เพื่อนับจำนวนวันที่มีธุรกรรม
+                transactionDays.add(date);
+                
+                const types = accountTypes.get(currentAccount);
                 if (types["รายรับ"].includes(record.type)) {
                     summary.totalIncome += record.amount;
                     summary.incomeCount++;
@@ -1098,6 +1110,18 @@
                 }
             }
         });
+
+        // สร้าง HTML สำหรับสรุปจำนวนวันที่มี/ไม่มีธุรกรรม
+        let transactionDaysSummaryHTML = '';
+        const nonTransactionDays = daysDiff - transactionDays.size;
+        if (transactionDays.size === 0) {
+            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: orange; font-weight: bold;">ช่วงเวลานี้ไม่มีธุรกรรม</p>`;
+        } else if (transactionDays.size === daysDiff) {
+            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: green; font-weight: bold;">มีธุรกรรมทุกวันในช่วงเวลานี้</p>`;
+        } else {
+            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: #333; font-weight: bold;">ทำธุรกรรม ${transactionDays.size} วัน, ไม่ได้ทำ ${nonTransactionDays} วัน</p>`;
+        }
+
         let incomeHTML = '';
         for (const type in summary.income) {
             incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
@@ -1131,9 +1155,26 @@
             comparisonText = 'รายได้เท่ากับรายจ่าย';
             comparisonColor = 'black';
         }
-        document.getElementById('summaryResult').innerHTML = `<p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p><p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p><p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p><p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p><hr><p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}<hr><p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.expenseCount.toLocaleString()} บาท</p>${expenseHTML}<hr><p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p><p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p><p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>`;
+        document.getElementById('summaryResult').innerHTML = `
+            <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
+            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
+            <p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
+            <p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p>
+            ${transactionDaysSummaryHTML}
+            <hr>
+            <p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
+            ${incomeHTML}
+            <hr>
+            <p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
+            ${expenseHTML}
+            <hr>
+            <p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p>
+            <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
+            <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
+        `;
         document.getElementById('summaryResult').style.display = 'block';
     }
+
 
     function summarizeToday() {
         if (!records || !currentAccount) {
