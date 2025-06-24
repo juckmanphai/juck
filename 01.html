@@ -15,15 +15,24 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box; /* [ปรับปรุง] ทำให้การคำนวณขนาด layout แม่นยำบนทุกอุปกรณ์ */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Kanit', 'Arial', sans-serif;
             background-color: #fffde7;
-            color: #1e40af; /* [แก้ไข] เปลี่ยนสีตัวอักษรหลักเป็นสีน้ำเงิน */
-            line-height: 1;
+            color: #1e40af;
+            line-height: 1.5;
             padding: 20px;
+            /* [ปรับปรุง] เพิ่มโค้ดเพื่อการแสดงผลที่ดีขึ้นบนมือถือ โดยเฉพาะ iOS */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         /* --- Main Container --- */
@@ -32,34 +41,69 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
         /* --- Card Style for Sections --- */
         .card {
             background-color: #ffffff;
-            border-radius: 30px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
         }
 
-        /* --- Typography --- */
-        .section-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #1e3a8a; /* สีน้ำเงินเข้มสำหรับหัวข้อ (คงเดิม) */
-            margin-bottom: 5px;
-            transition: font-size 0.3s ease;
+        /* --- Collapsible Section Styles --- */
+        .section-header {
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
         }
+        
+        .section-header.active {
+             margin-bottom: 15px;
+        }
+        .section-header .arrow { 
+            transition: transform 0.3s; 
+            font-size: 1.2rem;
+        }
+        .section-header.active .arrow { 
+            transform: rotate(90deg); 
+        }
+        .section-content {
+            display: none;
+            padding: 0 10px;
+            text-align: center;
+        }
+        .section-content.active { 
+            display: block; 
+        }
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        /* --- สีที่แตกต่างกันสำหรับแต่ละ Header --- */
+        .container .card:nth-of-type(1) .section-header { background-color: #2c5282; }
+        .container .card:nth-of-type(1) .section-header:hover { background-color: #3b71ca; }
+        .container .card:nth-of-type(2) .section-header { background-color: #2F855A; }
+        .container .card:nth-of-type(2) .section-header:hover { background-color: #38A169; }
+        .container .card:nth-of-type(3) .section-header { background-color: #5A428B; }
+        .container .card:nth-of-type(3) .section-header:hover { background-color: #6B46C1; }
 
         .section-subtitle {
             font-size: 1rem;
-            color: #1d4ed8; /* [แก้ไข] เปลี่ยนสีคำอธิบายเป็นสีน้ำเงิน */
+            color: #1d4ed8;
             margin-bottom: 20px;
         }
 
-        /* --- Button Grid Layout (ปรับปรุงใหม่) --- */
+        /* --- Button Grid Layout --- */
         .button-grid {
             display: flex;
             flex-wrap: wrap; 
@@ -67,18 +111,16 @@
             gap: 12px;
         }
 
-        /* --- Button Styling --- */
+        /* --- Base Button Styling --- */
         .btn {
             flex-basis: 140px; 
             flex-grow: 1;
             max-width: 220px;
-
             display: block;
             padding: 12px 15px; 
             border: none;
             border-radius: 10px;
-            background-image: linear-gradient(45deg, #D4AF37, #F9E270);
-            color: #0070C0;
+            color: #ffffff;
             font-size: 0.95rem; 
             font-weight: 500;
             font-family: 'Kanit', sans-serif;
@@ -91,35 +133,35 @@
         .btn:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 7px 14px rgba(0, 0, 0, 0.12);
-            background-image: linear-gradient(45deg, #e0bd4f, #fbf29c);
         }
+
+        /* --- สีปุ่มเมนูย่อยให้แตกต่างกันในแต่ละปุ่ม --- */
+        .button-grid .btn:nth-of-type(1) { background-image: linear-gradient(45deg, #2563eb, #60a5fa); }
+        .button-grid .btn:nth-of-type(1):hover { background-image: linear-gradient(45deg, #60a5fa, #93c5fd); }
+        .button-grid .btn:nth-of-type(2) { background-image: linear-gradient(45deg, #16a34a, #4ade80); }
+        .button-grid .btn:nth-of-type(2):hover { background-image: linear-gradient(45deg, #4ade80, #86efac); }
+        .button-grid .btn:nth-of-type(3) { background-image: linear-gradient(45deg, #f97316, #fbbf24); }
+        .button-grid .btn:nth-of-type(3):hover { background-image: linear-gradient(45deg, #fbbf24, #fcd34d); }
+        .button-grid .btn:nth-of-type(4) { background-image: linear-gradient(45deg, #7c3aed, #a78bfa); }
+        .button-grid .btn:nth-of-type(4):hover { background-image: linear-gradient(45deg, #a78bfa, #c4b5fd); }
+        .button-grid .btn:nth-of-type(5) { background-image: linear-gradient(45deg, #dc2626, #f87171); }
+        .button-grid .btn:nth-of-type(5):hover { background-image: linear-gradient(45deg, #f87171, #fca5a5); }
 
         /* --- Footer --- */
         footer {
             margin-top: 40px;
             text-align: center;
             font-size: 0.875rem;
-            color: #3b82f6; /* [แก้ไข] เปลี่ยนสีตัวอักษร footer เป็นสีน้ำเงินที่อ่อนลง */
+            color: #3b82f6;
         }
 
-        /* --- Responsive Styles for Mobile --- */
+        /* --- Responsive Styles for Mobile (ยืนยันว่าเหมาะสม) --- */
         @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-
-            .card {
-                padding: 20px 16px;
-            }
-
-            .section-title {
-                font-size: 1rem; 
-            }
-
-            .section-subtitle {
-                font-size: 0.9rem;
-                margin-bottom: 20px;
-            }
+            body { padding: 15px; }
+            .card { padding: 12px; }
+            .header-title { font-size: 1.1rem; }
+            .section-subtitle { font-size: 0.9rem; margin-bottom: 20px; }
+            .btn { padding: 14px 15px; } /* เพิ่ม padding แนวตั้งเล็กน้อยเพื่อให้กดง่ายขึ้น */
         }
     </style>
     <script>
@@ -130,6 +172,17 @@
         function navigateTo(url) {
             window.location.href = url;
         }
+
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const header = section.previousElementSibling;
+            section.classList.toggle('active');
+            header.classList.toggle('active');
+        }
+
+        window.onload = function() {
+            toggleSection('translate-section');
+        };
     </script>
 </head>
 <body>
@@ -137,32 +190,57 @@
     <div class="container">
         <!-- Section: แปลตัวเลข -->
         <div class="card">
-            <h1 class="section-title">เมนูแปลตัวเลข</h1>
-            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่เมนูด้านล่าง</p>
-            <div class="button-grid">
+            <div class="section-header" onclick="toggleSection('translate-section')">
+                <span class="header-title">เมนูฟอร์มแปลตัวเลข</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div id="translate-section" class="section-content">
+                <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
+                <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/02.html')">แปล 2 ตัว</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/03.html')">แปล 3 ตัว</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/16.html')">3 ตัวแค่ 3 ตัว</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/04.html')">แปล 4 ตัว</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/10.html')">บัญชี</button>
+                </div>
             </div>
         </div>
 
         <!-- Section: กรอกผลตัวเลข -->
         <div class="card">
-            <h1 class="section-title">เมนูกรอกและดูผลตัวเลข</h1>
-            <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่เมนูด้านล่าง</p>
-            <div class="button-grid">
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/14.html')">ผลลาว</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/15.html')">ผลเวียดนาม</button>
+            <div class="section-header" onclick="toggleSection('fill-form-section')">
+                <span class="header-title">เมนูฟอร์มกรอกผลตัวเลข</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div id="fill-form-section" class="section-content">
+                <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
+                <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/06.html')">กลุ่มลาวสตาร์</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/07.html')">กลุ่มลาวสามัคคี</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/05.html')">ลาวพัฒนา</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/08.html')">รัฐบาล</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/10.html')">บัญชี</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section: เข้าเว็บและอื่นๆ -->
+        <div class="card">
+            <div class="section-header" onclick="toggleSection('other-links-section')">
+                <span class="header-title">เมนูเข้าเว็บและอื่นๆ</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div id="other-links-section" class="section-content">
+                <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
+                <div class="button-grid">
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/14.html')">ผลลาว</button>
+                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/15.html')">ผลเวียดนาม</button>
+                    <button class="btn" onclick="navigateTo('https://udon-p.github.io/Don/01.html')">เว็บ udon</button>
+                    <button class="btn" onclick="navigateTo('https://juckphai.github.io/juckphai/01.html')">เว็บ juckphai</button>
+                </div>
             </div>
         </div>
     </div>
-
+      
     <footer>
         &copy; 2025 Juckmanphai. All Rights Reserved.
     </footer>
