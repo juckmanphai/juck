@@ -36,7 +36,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .section-header {
-      background-color: #4CAF50;
+      background-color: #4CAF50; /* Base color, will be overridden */
       color: white;
       padding: 12px 15px;
       border-radius: 20px;
@@ -49,6 +49,20 @@
     .section-header:hover { background-color: #45a049; }
     .section-header .arrow { transition: transform 0.3s; }
     .section-header.active .arrow { transform: rotate(90deg); }
+    
+    /* [NEW] Custom colors for main section headers */
+    .header-account { background-color: #4A90E2; }
+    .header-account:hover { background-color: #357ABD; }
+
+    .header-add-data { background-color: #2ECC71; }
+    .header-add-data:hover { background-color: #27AE60; }
+
+    .header-actions { background-color: #F39C12; }
+    .header-actions:hover { background-color: #E67E22; }
+
+    .header-summary { background-color: #1ABC9C; }
+    .header-summary:hover { background-color: #16A085; }
+    
     .section-content {
       display: none;
       padding: 15px;
@@ -257,6 +271,17 @@
       .entry-form, .button-group, .button-container { 
         grid-template-columns: 1fr; 
       }
+
+      /* [MODIFIED] Force sub-menu button groups to have 3 columns on mobile */
+      .sub-section-content .button-group {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px; /* Reduce gap slightly for smaller screens */
+      }
+      .sub-section-content .button-group button {
+        padding: 10px 5px; /* Adjust padding for smaller buttons */
+        font-size: 14px; /* Adjust font size */
+      }
+      
       .button-group button, .button-container button { 
         padding: 14px; font-size: 16px; 
       }
@@ -295,7 +320,7 @@
     ชื่อบัญชี - <span id="accountName"></span>
   </h1>
   
-  <div class="section-header" onclick="toggleSection('account-section')">
+  <div class="section-header header-account" onclick="toggleSection('account-section')">
     <span>เลือกและจัดการบัญชี</span>
     <span class="arrow">▶</span>
   </div>
@@ -316,7 +341,7 @@
     </div>
   </div>
 
-  <div class="section-header" onclick="toggleSection('add-data-section')">
+  <div class="section-header header-add-data" onclick="toggleSection('add-data-section')">
     <span>เพิ่มข้อมูล</span>
     <span class="arrow">▶</span>
   </div>
@@ -373,7 +398,7 @@
     </div>
   </div>
   
-  <div class="section-header" onclick="toggleSection('other-actions-section')">
+  <div class="section-header header-actions" onclick="toggleSection('other-actions-section')">
     <span>จัดการข้อมูล</span>
     <span class="arrow">▶</span>
   </div>
@@ -391,7 +416,7 @@
     </div>
   </div>
 
-  <div class="section-header" onclick="toggleSection('summary-main-section')">
+  <div class="section-header header-summary" onclick="toggleSection('summary-main-section')">
     <span>สรุปข้อมูล</span>
     <span class="arrow">▶</span>
   </div>
