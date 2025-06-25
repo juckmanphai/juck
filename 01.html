@@ -60,9 +60,7 @@
             border-radius: 20px;
             margin-bottom: 0;
             cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center; /* ปรับปรุง: จัดข้อความและไอคอนให้อยู่กึ่งกลาง */
             transition: background-color 0.3s ease;
         }
         
@@ -72,6 +70,8 @@
         .section-header .arrow { 
             transition: transform 0.3s; 
             font-size: 1.2rem;
+            display: inline-block; /* ช่วยให้ transform ทำงานได้ถูกต้อง */
+            margin-left: 8px; /* เพิ่มระยะห่างเล็กน้อยระหว่างข้อความกับลูกศร */
         }
         .section-header.active .arrow { 
             transform: rotate(90deg); 
@@ -126,6 +126,7 @@
             font-family: 'Kanit', sans-serif;
             cursor: pointer;
             text-decoration: none;
+            text-align: center; /* ปรับปรุง: เพิ่มเพื่อให้แน่ใจว่าข้อความอยู่กึ่งกลาง */
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -191,8 +192,7 @@
         <!-- Section: แปลตัวเลข -->
         <div class="card">
             <div class="section-header" onclick="toggleSection('translate-section')">
-                <span class="header-title">เมนูฟอร์มแปลตัวเลข</span>
-                <span class="arrow">▶</span>
+                <span class="header-title">เมนูฟอร์มแปลตัวเลข</span><span class="arrow">▶</span>
             </div>
             <div id="translate-section" class="section-content">
                 <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
@@ -209,8 +209,7 @@
         <!-- Section: กรอกผลตัวเลข -->
         <div class="card">
             <div class="section-header" onclick="toggleSection('fill-form-section')">
-                <span class="header-title">เมนูฟอร์มกรอกผลตัวเลข</span>
-                <span class="arrow">▶</span>
+                <span class="header-title">เมนูฟอร์มกรอกผลตัวเลข</span><span class="arrow">▶</span>
             </div>
             <div id="fill-form-section" class="section-content">
                 <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
@@ -226,8 +225,7 @@
         <!-- Section: เข้าเว็บและอื่นๆ -->
         <div class="card">
             <div class="section-header" onclick="toggleSection('other-links-section')">
-                <span class="header-title">เมนูเข้าเว็บและอื่นๆ</span>
-                <span class="arrow">▶</span>
+                <span class="header-title">เมนูเข้าเว็บและอื่นๆ</span><span class="arrow">▶</span>
             </div>
             <div id="other-links-section" class="section-content">
                 <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
