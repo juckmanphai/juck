@@ -50,6 +50,12 @@
     .section-header .arrow { transition: transform 0.3s; }
     .section-header.active .arrow { transform: rotate(90deg); }
     
+    /* [NEW - MODIFIED] ทำให้ข้อความหลักใน Section Header อยู่กึ่งกลาง */
+    .section-header > span:first-child {
+        flex: 1; /* ทำให้ span ขยายเต็มพื้นที่ที่เหลือ */
+        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+    }
+
     /* [NEW] Custom colors for main section headers */
     .header-account { background-color: #4A90E2; }
     .header-account:hover { background-color: #357ABD; }
@@ -106,6 +112,7 @@
       color: #333;
       font-size: 16px;
       margin-bottom: 5px;
+      text-align: center; /* [MODIFIED] จัดข้อความใน Label ให้อยู่กึ่งกลาง */
     }
     select,
     input[type="text"],
@@ -117,6 +124,7 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       background-color: #f9f9f9;
+      text-align: center; /* [MODIFIED] จัดข้อความในช่องกรอกข้อมูลให้อยู่กึ่งกลาง */
     }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
@@ -238,6 +246,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        justify-content: center; /* [MODIFIED] จัด checkbox และ label ให้อยู่กลาง */
     }
     .checkbox-item input {
         width: auto;
@@ -305,21 +314,22 @@
   <div style="text-align: center; margin-top: 20px;">
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
   </div>
-<div class="file-actions" style="display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 800px; margin: 10px auto;">
-  <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
-    <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
-    <button type="button" onclick="document.getElementById('fileInput').click()" 
-            class="action-button" style="width: 100%; padding: 10px; background-color: #0070C0; color: #FFFFFF; border: 1px solid #CCCCCC; border-radius: 20px; cursor: pointer;">
-      โหลดข้อมูลบัญชี
-    </button>
-  </div>
+  <div style="text-align: center; margin-top: 10px;">
+    <div class="container">
+      <div class="file-actions" style="display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 300px; margin: 10px auto;">
+        <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
+          <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
+          <button type="button" onclick="document.getElementById('fileInput').click()" 
+                  class="action-button" 
+                  style="width: 100%; padding: 10px; font-size: 16px; background-color: #E709B2; color: #FFFFFF; border: 1px solid #0070C0; border-radius: 30px; cursor: pointer;">
+            โหลดข้อมูลบัญชี
+          </button>
 </div>
-
-<div class="container">
+</div>
+<div style="text-align: center; margin-top: 10px;">
   <h1 style="text-align: center; color: blue; font-size: 16px;">
     ชื่อบัญชี - <span id="accountName"></span>
   </h1>
-  
   <div class="section-header header-account" onclick="toggleSection('account-section')">
     <span>เลือกและจัดการบัญชี</span>
     <span class="arrow">▶</span>
@@ -1004,11 +1014,13 @@
         dayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         let recordsHTML = '';
         if (dayRecords.length > 0) {
@@ -1149,11 +1161,13 @@
 
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         const thaiStartDate = new Date(startDate);
         const thaiStartMonth = thaiStartDate.toLocaleString('th-TH', { month: 'long' });
@@ -1251,11 +1265,13 @@
         todayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
         let incomeHTML = '';
         for (const type in summary.income) {
-            incomeHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            expenseHTML += `<p style="margin-left: 20px;">- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
+            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
+            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         let recordsHTML = '';
         if (todayRecords.length > 0) {
