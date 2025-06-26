@@ -558,8 +558,8 @@
     function initializeAccountTypes(accountName) {
         if (!accountTypes.has(accountName)) {
             accountTypes.set(accountName, {
-                "รายรับ": ["รับเงินจากคนอื่น", "รายได้อื่นๆ"],
-                "รายจ่าย": ["บริการโอนเงิน", "ค่าบริการ", "ค่าใช้จ่ายอื่นๆ"]
+                "รายรับ": ["ถูกหวย", "เติมทุน"],
+                "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"]
             });
         }
     }
@@ -1461,8 +1461,8 @@
           accountName: currentAccount,
           records: records.filter(record => record.account === currentAccount),
           accountTypes: accountTypes.get(currentAccount) || {
-            "รายรับ": ["รับเงินจากคนอื่น", "รายได้อื่นๆ"],
-            "รายจ่าย": ["บริการโอนเงิน", "ค่าบริการ", "ค่าใช้จ่ายอื่นๆ"]
+            "รายรับ": ["ถูกหวย", "เติมทุน"],
+            "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"]
           }
         };
         const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' });
@@ -1494,7 +1494,7 @@
                         }
                         currentAccount = data.accountName;
                         if (!accountTypes.has(data.accountName)) {
-                            accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["รับเงินจากคนอื่น", "รายได้อื่นๆ"], "รายจ่าย": ["บริการโอนเงิน", "ค่าบริการ", "ค่าใช้จ่ายอื่นๆ"] });
+                            accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] });
                         }
                         const existingRecords = records.filter(r => r.account !== data.accountName);
                         records.length = 0;
