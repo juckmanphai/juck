@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจสอบและสรุปผลชุดตัวเลข</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            margin-top: 15px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+            min-width: 60px;
+        }
+        input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1em;
+            resize: vertical;
+        }
+        .paste-container {
+            margin-bottom: 20px;
+        }
+        .paste-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result-container {
+            margin-top: 20px;
+            display: grid;
+            gap: 20px;
+        }
+        .result-block {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .result-block h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .result {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .result:last-child {
+            margin-bottom: 0;
+        }
+        .found {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .not-found {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .error {
+            color: #721c24;
+            font-weight: bold;
+        }
+        .set-display {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .conversion-note {
+            font-style: italic;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .summary-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+        .summary-container h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #495057;
+        }
+        .summary-section {
+            margin-top: 20px;
+        }
+        .summary-section h4 {
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .summary-section:first-of-type {
+            margin-top: 0;
+        }
+        .summary-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .summary-section li {
+            background-color: #fff;
+            margin-bottom: 5px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .summary-section .placeholder {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .summary-set-info {
+            flex-grow: 1;
+        }
+        .summary-number-list {
+            font-weight: normal;
+            color: #5a6268;
+            font-size: 0.9em;
+            margin-left: 8px;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #fff;
+            font-size: 0.95em;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .summary-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ตรวจสอบและสรุปผลชุดตัวเลข</h1>
+        
+        <div class="paste-container">
+            <label for="excelPasteArea"><strong>วางข้อมูลจาก Excel ที่นี่ (ไม่จำกัดจำนวนชุด):</strong></label>
+            <textarea id="excelPasteArea" rows="5" placeholder="คัดลอกข้อมูลจาก Excel (ทั้งแบบคอลัมน์หรือแถว) แล้วนำมาวางที่นี่ ช่องกรอกข้อมูลจะถูกสร้างขึ้นโดยอัตโนมัติ"></textarea>
+        </div>
+        <hr>
+
+        <div id="inputContainer" class="input-grid">
+            <!-- ช่องกรอกข้อมูลจะถูกสร้างขึ้นที่นี่โดยอัตโนมัติ -->
+        </div>
+        
+        <button onclick="checkAllNumbers()">ตรวจสอบทั้งหมด</button>
+        
+        <div id="resultsContainer" class="result-container"></div>
+        
+        <div id="summaryContainer"></div>
+    </div>
+
+    <script>
+        const numberSets = {
+            "กลุ่มที่ 1": ["00", "07", "14", "12", "28", "35"],
+            "กลุ่มที่ 2": ["24", "49", "56", "36", "77"],
+            "กลุ่มที่ 3": ["48", "19", "89", "05", "26", "33"],
+            "กลุ่มที่ 4": ["04", "47", "45", "16", "68"],
+            "กลุ่มที่ 5": ["57", "69", "03", "01", "17", "13"],
+            "กลุ่มที่ 6": ["38", "25", "59", "66", "37"],
+            "กลุ่มที่ 7": ["08", "15", "22", "29", "34", "46"],
+            "กลุ่มที่ 8": ["78", "58", "99", "06", "02"],
+            "กลุ่มที่ 9": ["27", "55", "67", "09", "11", "18"],
+            "กลุ่มที่ 10": ["23", "39", "88", "44", "79"]
+        };
+
+        function convertNumber(num) {
+            let str = num.toString();
+            if (str.length === 1) str = '0' + str;
+            if (str.length !== 2) return str;
+            const tens = parseInt(str[0]);
+            const units = parseInt(str[1]);
+            if (units < tens) {
+                return units.toString() + tens.toString();
+            }
+            return str;
+        }
+
+        function createResultHtml(result) {
+            const { originalNum, convertedNum, found, setName, setNumbers } = result;
+            const conversionNote = originalNum !== convertedNum ? `<span class="conversion-note">(แปลงจาก ${originalNum})</span>` : '';
+            if (found) {
+                return `<div class="result found"><p>พบตัวเลข <strong>${convertedNum}</strong> ${conversionNote} ใน <strong>${setName}</strong></p><div class="set-display"><strong>${setName}:</strong> ${setNumbers.join(", ")}</div></div>`;
+            } else {
+                return `<div class="result not-found"><p>ไม่พบตัวเลข <strong>${convertedNum}</strong> ${conversionNote} ในชุดตัวเลขใดๆ</p></div>`;
+            }
+        }
+
+        function findSetForNumber(num) {
+            const convertedNum = convertNumber(num);
+            for (const [setName, numbers] of Object.entries(numberSets)) {
+                if (numbers.includes(convertedNum)) {
+                    return { originalNum: num, convertedNum, found: true, setName, setNumbers: numbers };
+                }
+            }
+            return { originalNum: num, convertedNum, found: false };
+        }
+
+        function checkAllNumbers() {
+            const resultsContainer = document.getElementById("resultsContainer");
+            const summaryContainer = document.getElementById("summaryContainer");
+            resultsContainer.innerHTML = "";
+            summaryContainer.innerHTML = "";
+            
+            const overallFrequency = {};
+            const specialFrequency = {};
+            const tableSummaryData = []; 
+            
+            const inputs = document.querySelectorAll('#inputContainer input[type="text"]');
+            const totalSets = inputs.length; // <-- ADDED: Get total number of sets
+
+            inputs.forEach((inputElement, index) => {
+                const setNumber = index + 1;
+                const input = inputElement.value.trim();
+                const rowData = { set: setNumber, group1: '-', group2: '-' };
+
+                if (input) {
+                    const resultBlock = document.createElement('div');
+                    resultBlock.className = 'result-block';
+                    let content = `<h3>ผลลัพธ์ชุดที่ ${setNumber}: ${input}</h3>`;
+
+                    if (!/^\d{5}$/.test(input)) {
+                        content += `<p class="error">กรุณากรอกตัวเลข 5 หลักให้ถูกต้อง</p>`;
+                    } else {
+                        const num1 = input.substring(0, 2); 
+                        const num2 = input.substring(3, 5);
+                        const result1 = findSetForNumber(num1);
+                        const result2 = findSetForNumber(num2);
+
+                        if (result1.found) {
+                            overallFrequency[result1.setName] = (overallFrequency[result1.setName] || 0) + 1;
+                            rowData.group1 = result1.setName.replace('กลุ่มที่ ', '');
+                        }
+                        if (result2.found) {
+                            overallFrequency[result2.setName] = (overallFrequency[result2.setName] || 0) + 1;
+                            rowData.group2 = result2.setName.replace('กลุ่มที่ ', '');
+                        }
+
+                        // CHANGE 1: Check if the current set is one of the last two
+                        if (totalSets > 0 && (setNumber === totalSets || setNumber === totalSets - 1)) {
+                            if (result1.found) specialFrequency[result1.setName] = (specialFrequency[result1.setName] || 0) + 1;
+                            if (result2.found) specialFrequency[result2.setName] = (specialFrequency[result2.setName] || 0) + 1;
+                        }
+                        
+                        content += createResultHtml(result1);
+                        content += createResultHtml(result2);
+                    }
+                    
+                    resultBlock.innerHTML = content;
+                    resultsContainer.appendChild(resultBlock);
+                }
+                tableSummaryData.push(rowData);
+            });
+            
+            generateSummary(overallFrequency, specialFrequency, tableSummaryData);
+        }
+
+        function generateSummary(overallFrequency, specialFrequency, tableSummaryData) {
+            const summaryContainer = document.getElementById("summaryContainer");
+            
+            let summaryTableHtml = `
+                <table class="summary-table"><thead><tr><th>ชุดที่</th><th colspan="2">พบอยู่ในกลุ่ม</th></tr></thead><tbody>`;
+            if (tableSummaryData.length > 0) {
+                tableSummaryData.forEach(row => {
+                    summaryTableHtml += `<tr><td>${row.set}</td><td>${row.group1}</td><td>${row.group2}</td></tr>`;
+                });
+            } else {
+                 summaryTableHtml += `<tr><td colspan="3">ยังไม่มีข้อมูลสำหรับสรุปผล (กรุณาวางข้อมูลเพื่อเริ่ม)</td></tr>`;
+            }
+            summaryTableHtml += `</tbody></table>`;
+
+            const sortedFoundSets = Object.entries(overallFrequency).sort(([, a], [, b]) => b - a);
+            const allSetNames = Object.keys(numberSets);
+            const foundSetNames = Object.keys(overallFrequency);
+            const missingSets = allSetNames.filter(setName => !foundSetNames.includes(setName));
+
+            let summaryHtml = `<div class="summary-container"><h2>สรุปผลการตรวจสอบ</h2><div class="summary-section"><h4>สรุปผลรายชุด</h4>${summaryTableHtml}</div><div class="summary-section"><h4>ชุดตัวเลขที่พบ (เรียงตามความถี่จากทุกชุด)</h4><ul>`;
+            if (sortedFoundSets.length > 0) {
+                sortedFoundSets.forEach(([setName, count]) => {
+                    summaryHtml += `<li><span class="summary-set-info"><strong>${setName}</strong><span class="summary-number-list">(${numberSets[setName].join(", ")})</span></span><strong>พบ ${count} ครั้ง</strong></li>`;
+                });
+            } else { summaryHtml += `<li class="placeholder">ไม่พบชุดตัวเลขใดๆ ในการตรวจสอบนี้</li>`; }
+            summaryHtml += `</ul></div><div class="summary-section"><h4>ชุดตัวเลขที่ไม่พบ (จากทุกชุด)</h4><ul>`;
+            if (missingSets.length > 0) {
+                missingSets.forEach(setName => {
+                    summaryHtml += `<li><span class="summary-set-info"><strong>${setName}</strong><span class="summary-number-list">(${numberSets[setName].join(", ")})</span></span></li>`;
+                });
+            } else { summaryHtml += `<li class="placeholder">พบครบทุกชุดตัวเลข</li>`; }
+            
+            // CHANGE 2: Update the title for the special summary section
+            summaryHtml += `</ul></div><div class="summary-section"><h4>สรุปผลลัพธ์ 2 ชุดสุดท้าย</h4><ul>`;
+            
+            const sortedSpecialSets = Object.entries(specialFrequency).sort(([, a], [, b]) => b - a);
+            if (sortedSpecialSets.length > 0) {
+                sortedSpecialSets.forEach(([setName, count]) => {
+                    summaryHtml += `<li><span class="summary-set-info"><strong>${setName}</strong><span class="summary-number-list">(${numberSets[setName].join(", ")})</span></span><strong>พบ ${count} ครั้ง</strong></li>`;
+                });
+            } else { summaryHtml += `<li class="placeholder">ไม่พบชุดตัวเลขใดๆ ใน 2 ชุดสุดท้าย</li>`; }
+            summaryHtml += `</ul></div></div>`;
+            summaryContainer.innerHTML = summaryHtml;
+        }
+        
+        function createInputFields(lines) {
+            const container = document.getElementById('inputContainer');
+            container.innerHTML = ''; 
+            lines.forEach((line, index) => {
+                const setNumber = index + 1;
+                const group = document.createElement('div');
+                group.className = 'input-group';
+                group.innerHTML = `<label for="numberInput${setNumber}">ชุดที่ ${setNumber}:</label><input type="text" id="numberInput${setNumber}" placeholder="กรอกตัวเลข 5 หลัก" maxlength="5" pattern="\\d*" value="${line.trim()}">`;
+                container.appendChild(group);
+            });
+        }
+
+        function setupPasteListener() {
+            const pasteArea = document.getElementById('excelPasteArea');
+            if (pasteArea) {
+                pasteArea.addEventListener('paste', (event) => {
+                    event.preventDefault(); 
+                    const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+                    const lines = pastedText.trim().split(/\s+/).filter(line => line);
+                    
+                    if (lines.length > 0) {
+                        createInputFields(lines);
+                        pasteArea.value = `สร้างช่องกรอกข้อมูล ${lines.length} ชุดเรียบร้อยแล้ว`;
+                        setTimeout(() => { pasteArea.value = ''; }, 2000);
+                    }
+                });
+            }
+        }
+
+        window.onload = function() {
+            setupPasteListener(); 
+        };
+    </script>
+</body>
+</html>
