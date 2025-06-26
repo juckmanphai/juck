@@ -16,6 +16,24 @@
             color: #2c3e50;
             text-align: center;
         }
+        /* ปุ่มกลับหน้าหลักสีส้ม */
+        .homeButton {
+      display: block;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto 10px;
+      padding: 10px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+        .homeButton:hover {
+            background-color: darkorange;
+        }
         .container {
             background-color: white;
             padding: 20px;
@@ -196,6 +214,8 @@
     </style>
 </head>
 <body>
+    <!-- ปุ่มกลับสู่หน้าหลัก (แก้ไขแล้ว ใส่ class="homeButton") -->
+    <button id="homeButton" class="homeButton" onclick="window.location.href='https://juckphai.github.io/juckphai/01.html'">กลับสู่หน้าหลัก</button>
     <div class="container">
         <h1>ตรวจสอบและสรุปผลชุดตัวเลข</h1>
         
