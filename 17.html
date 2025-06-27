@@ -32,6 +32,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 95%; 
     }
     .section-header {
       background-color: #4CAF50;
@@ -176,7 +177,7 @@
     #recordTable td {
       border: 1px solid #ccc;
       padding: 8px;
-      line-height: 1.4;
+      line-height: 0.5;
       text-align: center;
       word-break: break-word;
     }
@@ -184,6 +185,7 @@
     #recordTable tr:nth-child(even) { background-color: #f9f9f9; }
     #recordTable tr:hover { background-color: #f1f1f1; }
     
+    /* [ปรับแก้] สไตล์ของเนื้อหาใน Popup ให้เหมือนต้นฉบับ */
     .summaryResult {
       font-size: 15px;
       font-weight: normal;
@@ -194,10 +196,15 @@
       padding: 15px;
       width: 100%;
       margin: 0;
-      line-height: 0.5;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      line-height: 0.5; /* กำหนดระยะห่างบรรทัดให้เหมือนต้นฉบับ */
     }
+    /* คืนค่า line-height สำหรับตารางใน summaryResult ให้อ่านง่ายเหมือนเดิม */
+    .summaryResult table td, .summaryResult table th {
+        line-height: 0.5; 
+    }
+
 
     .file-actions { display: flex; gap: 10px; align-items: center; }
     .action-button {
@@ -269,11 +276,54 @@
         font-size: 1.1em;
         color: #0056b3;
     }
+
+    /* สไตล์สำหรับ POPUP สรุปผล */
+    .modal-overlay {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .modal-content-container {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto 0;
+      width: 100%; 
+      max-width: 800px;
+    }
+
+    .modal-close-btn {
+      background-color: #E97132;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+    .modal-close-btn:hover {
+      background-color: #e64a19;
+    }
+
     @media screen and (max-width: 600px) {
       .container {
-        width: 95%;
         padding: 15px;
-        margin: 10px auto;
       }
       h2 {
         font-size: 24px;
@@ -306,49 +356,6 @@
       .back-button {
           width: 80%;
       }
-    }
-
-    /* === สไตล์สำหรับ POPUP สรุปผล === */
-    .modal-overlay {
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .modal-content-container {
-      background-color: transparent;
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      /* width จะถูกกำหนดโดย JavaScript */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: auto 0;
-    }
-
-    .modal-close-btn {
-      background-color: #E97132;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      cursor: pointer;
-      border-radius: 20px;
-      font-size: 16px;
-      margin-top: 15px;
-      transition: background-color 0.3s;
-    }
-    .modal-close-btn:hover {
-      background-color: #e64a19;
     }
   </style>
 </head>
@@ -545,16 +552,6 @@
     function openSummaryModal(htmlContent) {
         const modal = document.getElementById('summaryModal');
         const modalBody = document.getElementById('modalBodyContent');
-
-        // [ปรับแก้] วัดความกว้างของ container หลักแล้วกำหนดให้ popup
-        const mainContainer = document.querySelector('.container');
-        const modalContentContainer = document.querySelector('.modal-content-container');
-        if (mainContainer && modalContentContainer) {
-            const containerWidth = mainContainer.offsetWidth;
-            // กำหนดความกว้างของ popup container ให้เท่ากับ container หลัก
-            modalContentContainer.style.width = `${containerWidth}px`;
-        }
-
         modalBody.innerHTML = htmlContent;
         modal.style.display = 'flex';
     }
@@ -1101,7 +1098,7 @@
                                 const types = accountTypes.get(currentAccount);
                                 const isIncome = types["รายรับ"].includes(record.type);
                                 const color = isIncome ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold; line-height: 1.4;">${record.amount.toLocaleString()}</td></tr>`;
+                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
                             }).join('')}
                         </tbody>
                     </table>
@@ -1176,7 +1173,6 @@
             const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
             
             if (record.account === currentAccount) {
-                // คำนวณยอดคงเหลือทั้งหมดถึงวันที่สิ้นสุดของช่วงที่เลือก
                 if (recordDate <= endDate) {
                     const types = accountTypes.get(currentAccount);
                     if (types["รายรับ"].includes(record.type)) {
@@ -1345,7 +1341,7 @@
                                 const [hours, minutes] = time.split(":");
                                 const recordType = accountTypes.get(currentAccount)["รายรับ"].includes(record.type) ? "รายรับ" : "รายจ่าย";
                                 const color = recordType === "รายรับ" ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold; line-height: 1.4;">${record.amount.toLocaleString()}</td></tr>`;
+                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
                             }).join('')}
                         </tbody></table></div>`;
         }
