@@ -2,11 +2,9 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <!-- [IMPROVEMENT] ปรับ Viewport เพื่อให้ซูมได้บนมือถือ เพิ่ม Usability -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>บัญชีรายรับรายจ่าย</title>
   <style>
-    /* [IMPROVEMENT] CSS Reset พื้นฐานเพื่อให้การคำนวณขนาดสม่ำเสมอ */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -16,7 +14,6 @@
       background-color: #f4f7fb;
       margin: 0;
       padding: 0;
-      /* [IMPROVEMENT] ป้องกันการปรับขนาดฟอนต์อัตโนมัติบน iOS */
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
       text-size-adjust: 100%;
@@ -37,7 +34,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .section-header {
-      background-color: #4CAF50; /* Base color, will be overridden */
+      background-color: #4CAF50;
       color: white;
       padding: 12px 15px;
       border-radius: 20px;
@@ -46,24 +43,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      /* [REMOVED] ลบขอบออกจากคลาสทั่วไป */
     }
     .section-header:hover { background-color: #45a049; }
     .section-header .arrow { transition: transform 0.3s; }
     .section-header.active .arrow { transform: rotate(90deg); }
     
-    /* [NEW - MODIFIED] ทำให้ข้อความหลักใน Section Header อยู่กึ่งกลาง */
     .section-header > span:first-child {
-        flex: 1; /* ทำให้ span ขยายเต็มพื้นที่ที่เหลือ */
-        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+        flex: 1;
+        text-align: center;
     }
 
-    /* [MODIFIED] เพิ่มขอบสีแดงเฉพาะเมนูหลัก 4 เมนู */
     .header-account, .header-add-data, .header-actions, .header-summary {
         border: 3px solid #E97132;
     }
 
-    /* [NEW] Custom colors for main section headers */
     .header-account { background-color: #0070C0; }
     .header-account:hover { background-color: #B5E6A2; }
 
@@ -86,17 +79,13 @@
     }
     .section-content.active { display: block; }
     
-    /* === จุดที่แก้ไข ตามคำขอ === */
     .sub-section-header {
-      /* background-color: #5c6bc0; */ /* สีเดิม */
-      background-color: rgba(92, 107, 192, 0.6); /* [ปรับแก้] เปลี่ยนเป็นสีเดิมแต่จางลง */
+      background-color: rgba(92, 107, 192, 0.6);
       margin-top: 20px;
     }
     .sub-section-header:hover {
-      /* background-color: #3f51b5; */ /* สีเดิม */
-      background-color: rgba(63, 81, 181, 0.75); /* [ปรับแก้] ทำให้สี hover เข้มขึ้นเล็กน้อยเพื่อการตอบสนองที่ดี */
+      background-color: rgba(63, 81, 181, 0.75);
     }
-    /* === สิ้นสุดจุดที่แก้ไข === */
 
     .sub-section-content {
         border: none;
@@ -124,7 +113,7 @@
       color: #333;
       font-size: 16px;
       margin-bottom: 5px;
-      text-align: center; /* [MODIFIED] จัดข้อความใน Label ให้อยู่กึ่งกลาง */
+      text-align: center;
     }
     select,
     input[type="text"],
@@ -136,7 +125,7 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       background-color: #f9f9f9;
-      text-align: center; /* [MODIFIED] จัดข้อความในช่องกรอกข้อมูลให้อยู่กึ่งกลาง */
+      text-align: center;
     }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
@@ -186,15 +175,15 @@
     #recordTable th,
     #recordTable td {
       border: 1px solid #ccc;
-      padding: 8px; /* ปรับ Padding ให้เหมาะสม */
+      padding: 8px;
       line-height: 1.4;
       text-align: center;
-      /* [IMPROVEMENT] ช่วยให้ข้อความยาวๆ ตัดคำได้ดีขึ้นในมือถือ */
       word-break: break-word;
     }
     #recordTable th { background-color: #f4f4f4; }
     #recordTable tr:nth-child(even) { background-color: #f9f9f9; }
     #recordTable tr:hover { background-color: #f1f1f1; }
+    
     .summaryResult {
       font-size: 15px;
       font-weight: normal;
@@ -203,13 +192,13 @@
       border: 2px solid green;
       border-radius: 5px;
       padding: 15px;
-      max-width: 800px;
-      width: calc(100% - 20px);
-      margin: 10px auto;
-      /* [IMPROVEMENT] แก้ไข line-height ให้อ่านง่าย */
+      width: 100%;
+      margin: 0;
       line-height: 0.5;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
+
     .file-actions { display: flex; gap: 10px; align-items: center; }
     .action-button {
       padding: 10px 20px;
@@ -258,7 +247,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        justify-content: center; /* [MODIFIED] จัด checkbox และ label ให้อยู่กลาง */
+        justify-content: center;
     }
     .checkbox-item input {
         width: auto;
@@ -287,29 +276,28 @@
         margin: 10px auto;
       }
       h2 {
-        font-size: 24px; /* ปรับขนาดหัวข้อให้พอดีกับจอเล็ก */
+        font-size: 24px;
       }
       .entry-form, .button-group, .button-container { 
         grid-template-columns: 1fr; 
       }
 
-      /* [MODIFIED] Force sub-menu button groups to have 3 columns on mobile */
       .sub-section-content .button-group {
         grid-template-columns: repeat(3, 1fr);
-        gap: 5px; /* Reduce gap slightly for smaller screens */
+        gap: 5px;
       }
       .sub-section-content .button-group button {
-        padding: 10px 5px; /* Adjust padding for smaller buttons */
-        font-size: 14px; /* Adjust font size */
+        padding: 10px 5px;
+        font-size: 14px;
       }
       
       .button-group button, .button-container button { 
         padding: 14px; font-size: 16px; 
       }
       .file-actions {
-        flex-direction: column; /* จัดเรียงปุ่มเป็นแนวตั้ง */
+        flex-direction: column;
         padding: 0 10px;
-        align-items: stretch; /* ทำให้ปุ่มเต็มความกว้าง */
+        align-items: stretch;
       }
       .file-actions button {
         width: 100%;
@@ -318,6 +306,49 @@
       .back-button {
           width: 80%;
       }
+    }
+
+    /* === สไตล์สำหรับ POPUP สรุปผล === */
+    .modal-overlay {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-content-container {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      /* width จะถูกกำหนดโดย JavaScript */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto 0;
+    }
+
+    .modal-close-btn {
+      background-color: #E97132;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+    .modal-close-btn:hover {
+      background-color: #e64a19;
     }
   </style>
 </head>
@@ -498,23 +529,46 @@
 </div>
       </div>
 
-<div id="summaryResult" class="summaryResult" style="display: none;"></div>
+<!-- โครงสร้าง Popup สำหรับแสดงผลสรุป -->
+<div id="summaryModal" class="modal-overlay">
+  <div class="modal-content-container">
+    <div id="modalBodyContent" class="summaryResult">
+      <!-- เนื้อหาการสรุปจะถูกใส่ที่นี่โดย JavaScript -->
+    </div>
+    <button onclick="closeSummaryModal()" class="modal-close-btn">ปิดหน้าต่างนี้</button>
+  </div>
+</div>
+
 <div id="toast" class="toast-notification"></div>
 
 <script>
-    // The JavaScript code is already modern and compatible.
-    // No changes are needed here to improve compatibility on Chrome.
-    // All functions from the original file are retained below.
+    function openSummaryModal(htmlContent) {
+        const modal = document.getElementById('summaryModal');
+        const modalBody = document.getElementById('modalBodyContent');
+
+        // [ปรับแก้] วัดความกว้างของ container หลักแล้วกำหนดให้ popup
+        const mainContainer = document.querySelector('.container');
+        const modalContentContainer = document.querySelector('.modal-content-container');
+        if (mainContainer && modalContentContainer) {
+            const containerWidth = mainContainer.offsetWidth;
+            // กำหนดความกว้างของ popup container ให้เท่ากับ container หลัก
+            modalContentContainer.style.width = `${containerWidth}px`;
+        }
+
+        modalBody.innerHTML = htmlContent;
+        modal.style.display = 'flex';
+    }
+
+    function closeSummaryModal() {
+        const modal = document.getElementById('summaryModal');
+        modal.style.display = 'none';
+    }
 
     function toggleSection(sectionId) {
         const section = document.getElementById(sectionId);
         const header = section.previousElementSibling;
         section.classList.toggle('active');
         header.classList.toggle('active');
-
-        if (sectionId === 'summary-main-section' && !section.classList.contains('active')) {
-            document.getElementById('summaryResult').style.display = 'none';
-        }
     }
 
     const accounts = [];
@@ -735,7 +789,6 @@
         updateTypeList();
         displayRecords();
         updateMultiAccountSelector(); 
-        document.getElementById('summaryResult').style.display = 'none'; 
     }
 
     function editAccount() {
@@ -1028,12 +1081,10 @@
         dayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
         let incomeHTML = '';
         for (const type in summary.income) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         let recordsHTML = '';
@@ -1050,7 +1101,7 @@
                                 const types = accountTypes.get(currentAccount);
                                 const isIncome = types["รายรับ"].includes(record.type);
                                 const color = isIncome ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
+                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold; line-height: 1.4;">${record.amount.toLocaleString()}</td></tr>`;
                             }).join('')}
                         </tbody>
                     </table>
@@ -1073,7 +1124,7 @@
             summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุป : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`;
         }
         
-        document.getElementById('summaryResult').innerHTML = `
+        const summaryHTML = `
             <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
             <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
             <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
@@ -1086,7 +1137,8 @@
             <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี =  </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
             ${recordsHTML}`;
-        document.getElementById('summaryResult').style.display = 'block';
+        
+        openSummaryModal(summaryHTML);
     }
     
     function summarize() {
@@ -1137,7 +1189,6 @@
                 const isInPeriod = (recordDate >= startDate && recordDate <= endDate);
                 if (!isInPeriod) return;
                 
-                // เพิ่มวันที่ลงใน Set เพื่อนับจำนวนวันที่มีธุรกรรม
                 transactionDays.add(date);
                 
                 const types = accountTypes.get(currentAccount);
@@ -1162,7 +1213,6 @@
             }
         });
 
-        // สร้าง HTML สำหรับสรุปจำนวนวันที่มี/ไม่มีธุรกรรม
         let transactionDaysSummaryHTML = '';
         const nonTransactionDays = daysDiff - transactionDays.size;
         if (transactionDays.size === 0) {
@@ -1175,12 +1225,10 @@
 
         let incomeHTML = '';
         for (const type in summary.income) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         const thaiStartDate = new Date(startDate);
@@ -1208,7 +1256,7 @@
             comparisonText = 'รายได้เท่ากับรายจ่าย';
             comparisonColor = 'black';
         }
-        document.getElementById('summaryResult').innerHTML = `
+        const summaryHTML = `
             <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
             <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
             <p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
@@ -1225,7 +1273,7 @@
             <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
         `;
-        document.getElementById('summaryResult').style.display = 'block';
+        openSummaryModal(summaryHTML);
     }
 
 
@@ -1279,12 +1327,10 @@
         todayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
         let incomeHTML = '';
         for (const type in summary.income) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
         }
         let expenseHTML = '';
         for (const type in summary.expense) {
-            // [MODIFIED] Removed inline style to allow parent's text-align:center to work
             expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
         }
         let recordsHTML = '';
@@ -1299,7 +1345,7 @@
                                 const [hours, minutes] = time.split(":");
                                 const recordType = accountTypes.get(currentAccount)["รายรับ"].includes(record.type) ? "รายรับ" : "รายจ่าย";
                                 const color = recordType === "รายรับ" ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
+                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; line-height: 1.4;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold; line-height: 1.4;">${record.amount.toLocaleString()}</td></tr>`;
                             }).join('')}
                         </tbody></table></div>`;
         }
@@ -1320,7 +1366,7 @@
             summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`;
         }
         
-        document.getElementById('summaryResult').innerHTML = `
+        const summaryHTML = `
             <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
             <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
             <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
@@ -1336,7 +1382,7 @@
             <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
             ${recordsHTML}`;
         
-        document.getElementById('summaryResult').style.display = 'block';
+        openSummaryModal(summaryHTML);
     }
 
     function exportToExcel() {
@@ -1411,7 +1457,7 @@
             
             const toast = document.getElementById('toast');
             toast.textContent = '✓ บันทึกชั่วคราวสำเร็จแล้ว';
-            toast.style.backgroundColor = '#17a2b8'; // Match button color
+            toast.style.backgroundColor = '#17a2b8';
             toast.className = "toast-notification show";
             setTimeout(function(){ 
                 toast.className = toast.className.replace("show", ""); 
@@ -1496,7 +1542,6 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                document.getElementById('summaryResult').style.display = 'none';
                 if (data.accountName) {
                     const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`);
                     if (confirmLoad) {
@@ -1549,6 +1594,13 @@
         document.getElementById('detailsSection').style.display = 'none';
         loadFromLocal();
         toggleSection('account-section');
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('summaryModal');
+            if (event.target == modal) {
+                closeSummaryModal();
+            }
+        });
     };
 </script>
 </body>
