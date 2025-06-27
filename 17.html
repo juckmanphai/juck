@@ -30,7 +30,7 @@
     .container {
       max-width: 800px;
       margin: 20px auto;
-      background-color: #ffffff;
+      background-color: #FFFFF3;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -45,6 +45,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      /* [REMOVED] ลบขอบออกจากคลาสทั่วไป */
     }
     .section-header:hover { background-color: #45a049; }
     .section-header .arrow { transition: transform 0.3s; }
@@ -54,6 +55,11 @@
     .section-header > span:first-child {
         flex: 1; /* ทำให้ span ขยายเต็มพื้นที่ที่เหลือ */
         text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+    }
+
+    /* [MODIFIED] เพิ่มขอบสีแดงเฉพาะเมนูหลัก 4 เมนู */
+    .header-account, .header-add-data, .header-actions, .header-summary {
+        border: 3px solid #E97132;
     }
 
     /* [NEW] Custom colors for main section headers */
@@ -79,13 +85,18 @@
     }
     .section-content.active { display: block; }
     
+    /* === จุดที่แก้ไข ตามคำขอ === */
     .sub-section-header {
-      background-color: #5c6bc0;
+      /* background-color: #5c6bc0; */ /* สีเดิม */
+      background-color: rgba(92, 107, 192, 0.6); /* [ปรับแก้] เปลี่ยนเป็นสีเดิมแต่จางลง */
       margin-top: 20px;
     }
     .sub-section-header:hover {
-        background-color: #3f51b5;
+      /* background-color: #3f51b5; */ /* สีเดิม */
+      background-color: rgba(63, 81, 181, 0.75); /* [ปรับแก้] ทำให้สี hover เข้มขึ้นเล็กน้อยเพื่อการตอบสนองที่ดี */
     }
+    /* === สิ้นสุดจุดที่แก้ไข === */
+
     .sub-section-content {
         border: none;
         background-color: transparent;
@@ -405,7 +416,7 @@
     </div>
 
     <div class="button-container" style="text-align: center; margin-top: 20px;">
-      <button type="button" onclick="addEntry()" style="background-color: #e91e63;">เพิ่มข้อมูล</button>
+      <button type="button" onclick="addEntry()" style="background-color: #FFA7A7;">เพิ่มข้อมูล</button>
     </div>
   </div>
   
@@ -434,7 +445,7 @@
   <div id="summary-main-section" class="section-content">
     <div class="summary-subsection">
       <div class="button-container" style="margin: 0;">
-        <button type="button" onclick="summarizeToday()" style="background-color: #ff9800; color: #FFFFFF;">สรุปวันนี้</button>
+        <button type="button" onclick="summarizeToday()" style="background-color: #F4B89A; color: #FFFFFF;">สรุปวันนี้</button>
       </div>
     </div>
     <div class="summary-subsection">
@@ -446,7 +457,7 @@
         </div>
       </div>
       <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarizeByDayMonth()" style="background-color: #03a9f4;">สรุปวันที่เลือก</button>
+        <button type="button" onclick="summarizeByDayMonth()" style="background-color: #97E4FF;">สรุปวันที่เลือก</button>
       </div>
     </div>
     <div class="summary-subsection">
@@ -462,7 +473,7 @@
         </div>
       </div>
       <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarize()" style="background-color: #009688;">สรุปวันที่ถึงวันที่</button>
+        <button type="button" onclick="summarize()" style="background-color: #B7E0FF;">สรุปวันที่ถึงวันที่</button>
       </div>
     </div>
   </div>
@@ -488,7 +499,6 @@
 
 <div id="summaryResult" class="summaryResult" style="display: none;"></div>
 <div id="toast" class="toast-notification"></div>
-
 
 <script>
     // The JavaScript code is already modern and compatible.
