@@ -184,6 +184,31 @@ select {
   z-index: 0;
 }
 
+/* ---------- START: ADJUSTED STYLES FOR POPUP HEADER AND DATE ---------- */
+#popupTopicDisplay, #popupDateDisplay {
+    margin: 3px 0;
+    color: blue;
+    text-shadow:
+        -2px -2px 1px #fff8dc,
+        -1px -1px 1px #fff8dc,
+        1px 1px 0 #cc9900,
+        2px 2px 2px #996600,
+        3px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+#popupTopicDisplay {
+    font-weight: bold;
+    /* Responsive font-size: min 18px, preferred 4.4vw, max 26px */
+    font-size: clamp(18px, 4.4vw, 26px);
+}
+
+#popupDateDisplay {
+    /* Responsive font-size: min 16px, preferred 3.4vw, max 20px */
+    font-size: clamp(16px, 3.4vw, 20px);
+}
+/* ---------- END: ADJUSTED STYLES ---------- */
+
+
 /* ปุ่มใน Popup */
 .popup-buttons-container {
   display: flex;
@@ -389,32 +414,10 @@ footer {
         <div class="popup-content">
             <div class="popup-main-content">
                 <div style="position: relative; z-index: 1;">
-<h3 id="popupTopicDisplay" class="blue" style="
-  font-size: 26px;
-  margin: 3px 0;
-  font-weight: bold;
-  color: blue;
-  text-shadow:
-    -2px -2px 1px #fff8dc,     /* แสงจากมุมบนซ้าย สีทองอ่อน */
-    -1px -1px 1px #fff8dc,
-     1px 1px 0 #cc9900,        /* เงาทองล่างขวา */
-     2px 2px 2px #996600,      /* เงาทองเข้ม */
-     3px 3px 3px rgba(0, 0, 0, 0.25);  /* เงาดำบางช่วยยกตัวอักษร */
-">
-</h3>
-
-                    <p id="popupDateDisplay" class="blue" style="
-  font-size: 20px;
-  margin: 3px 0;
-  text-shadow:
-    -2px -2px 1px #fff8dc,     /* แสงสีทองอ่อนจากบนซ้าย */
-    -1px -1px 1px #fff8dc,
-     1px 1px 0 #cc9900,        /* เงาทองจากล่างขวา */
-     2px 2px 2px #996600,      /* เงาทองเข้มลึก */
-     3px 3px 3px rgba(0, 0, 0, 0.25); /* เงาดำบางช่วยยกตัวอักษร */
-">
-</p>
-
+                    <!-- START: REMOVED INLINE STYLES FROM HERE -->
+                    <h3 id="popupTopicDisplay" class="blue"></h3>
+                    <p id="popupDateDisplay" class="blue"></p>
+                    <!-- END: REMOVED INLINE STYLES FROM HERE -->
                     <h2 class="prize-label-red">รางวัลเลข 5 ตัว</h2>
                     <div id="popupFiveDigitsDisplay" class="ball-group"></div> 
                     <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
