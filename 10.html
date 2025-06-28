@@ -559,6 +559,7 @@
 
 <script>
     // --- START: Global Variables & System Handles ---
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     let fileHandle = null; // ตัวแปรสำหรับ File System Access API
     const accounts = [];
     let currentAccount = null;
@@ -636,44 +637,62 @@
 
     async function saveToFileSystem() {
         if (!fileHandle) {
-             // ถ้าไม่มีการเชื่อมต่อ จะไม่ทำอะไรจากฟังก์ชันนี้โดยตรง
-             // ให้ผู้ใช้กดปุ่ม Export แทน
-            showToast('ไม่ได้เชื่อมต่อไฟล์ถาวร บันทึกใน LocalStorage แทน', '#ff9800');
-            return false; // ส่งสัญญาณว่าบันทึกไม่สำเร็จ
+            return false; 
         }
+
+        const dataToSave = {
+            accounts: [...accounts],
+            currentAccount: currentAccount,
+            records: [...records],
+            accountTypes: Array.from(accountTypes.entries())
+        };
+
         try {
-            if (await fileHandle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
-                if (await fileHandle.requestPermission({ mode: 'readwrite' }) !== 'granted') {
-                    alert("ไม่ได้รับอนุญาตให้บันทึกไฟล์");
-                    return false;
+            if (isMobile) {
+                const newHandle = await window.showSaveFilePicker({
+                    suggestedName: fileHandle.name,
+                    types: [{
+                        description: 'JSON Files',
+                        accept: { 'application/json': ['.json'] },
+                    }],
+                });
+                const writable = await newHandle.createWritable();
+                await writable.write(JSON.stringify(dataToSave, null, 2));
+                await writable.close();
+                fileHandle = newHandle;
+                return true;
+            } else {
+                if (await fileHandle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
+                    if (await fileHandle.requestPermission({ mode: 'readwrite' }) !== 'granted') {
+                        alert("ไม่ได้รับอนุญาตให้บันทึกไฟล์");
+                        return false;
+                    }
                 }
+                const writable = await fileHandle.createWritable();
+                await writable.write(JSON.stringify(dataToSave, null, 2));
+                await writable.close();
+                return true;
             }
-            const dataToSave = {
-                accounts: [...accounts],
-                currentAccount: currentAccount,
-                records: [...records],
-                accountTypes: Array.from(accountTypes.entries())
-            };
-            const writable = await fileHandle.createWritable();
-            await writable.write(JSON.stringify(dataToSave, null, 2));
-            await writable.close();
-            return true; // ส่งสัญญาณว่าบันทึกสำเร็จ
         } catch (err) {
-            console.error("เกิดข้อผิดพลาดในการบันทึกไฟล์:", err);
-            alert("ไม่สามารถบันทึกข้อมูลลงไฟล์ได้");
+            if (err.name === 'AbortError') {
+                console.log("ผู้ใช้ยกเลิกการบันทึกไฟล์");
+            } else {
+                console.error("เกิดข้อผิดพลาดในการบันทึกไฟล์:", err);
+                alert("ไม่สามารถบันทึกข้อมูลลงไฟล์ได้");
+            }
             return false;
         }
     }
     
-    // **ฟังก์ชันศูนย์กลางการบันทึกข้อมูล**
     async function saveData(entryCategory = 'neutral') {
         const savedToFile = await saveToFileSystem();
         
         if (savedToFile) {
-            // บันทึกลงไฟล์สำเร็จ
-            showToast(`✓ บันทึกข้อมูลลงไฟล์ ${fileHandle.name} สำเร็จ`, '#1976d2');
+            let color = '#1976d2';
+            if(entryCategory === 'income') color = '#28a745';
+            else if(entryCategory === 'expense') color = '#dc3545';
+            showToast(`✓ บันทึกข้อมูลลงไฟล์ ${fileHandle.name} สำเร็จ`, color);
         } else {
-            // บันทึกลงไฟล์ไม่สำเร็จ (อาจจะไม่ได้เชื่อมต่อ) ให้บันทึกลง LocalStorage แทน
             const dataToSave = {
                 accounts: [...accounts],
                 currentAccount: currentAccount,
@@ -682,7 +701,6 @@
             };
             try {
                 localStorage.setItem('accountData', JSON.stringify(dataToSave));
-                // Toast สำหรับ LocalStorage จะแสดงก็ต่อเมื่อไม่ได้เชื่อมต่อไฟล์เท่านั้น
                 if (!fileHandle) {
                     let toastColor = '#007bff';
                     if (entryCategory === 'income') toastColor = '#28a745';
@@ -708,7 +726,6 @@
         }
     }
     
-    // ฟังก์ชัน Helper เพื่อโหลดข้อมูลและอัปเดต UI
     function loadDataIntoApp(data) {
         accounts.length = 0;
         records.length = 0;
@@ -1078,7 +1095,6 @@
         summarizeByDayMonth();
     }
     
-    // (ฟังก์ชัน summarizeByDayMonth และ summarize ไม่ได้แก้ไข แต่เก็บไว้เพื่อความสมบูรณ์)
     function summarizeByDayMonth() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1397,13 +1413,12 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if (data.accountName) { // ไฟล์จาก Export บัญชีเดียว
+                if (data.accountName) { 
                     if (confirm(`พบข้อมูลบัญชี "${data.accountName}"\nต้องการนำเข้ารวมกับข้อมูลปัจจุบันหรือไม่?`)) {
                         if (!accounts.includes(data.accountName)) {
                             accounts.push(data.accountName);
                             accountTypes.set(data.accountName, data.accountTypes);
                         }
-                        // ลบรายการเก่าของบัญชีนี้ (ถ้ามี) เพื่อแทนที่ด้วยข้อมูลใหม่
                         for (let i = records.length - 1; i >= 0; i--) {
                             if (records[i].account === data.accountName) records.splice(i, 1);
                         }
@@ -1413,7 +1428,7 @@
                         saveData();
                         alert(`นำเข้าบัญชี "${data.accountName}" สำเร็จ`);
                     }
-                } else { // ไฟล์จาก Export ทุกบัญชี
+                } else { 
                     if (confirm(`พบไฟล์สำรองข้อมูลทั้งหมด\nต้องการโหลดข้อมูลนี้ทับข้อมูลปัจจุบันทั้งหมดหรือไม่?`)) {
                         loadDataIntoApp(data);
                         saveData();
@@ -1425,7 +1440,7 @@
             }
         };
         reader.readAsText(file);
-        event.target.value = ''; // เคลียร์ค่า input เพื่อให้เลือกไฟล์เดิมซ้ำได้
+        event.target.value = '';
     }
 
     // --- END: Data Summarization & Exporting ---
