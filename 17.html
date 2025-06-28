@@ -364,7 +364,7 @@
 <body>
 
 <div style="text-align: center; margin-top: 5px;">
-  <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="width: 600px; height: 45px; margin: 0 auto;">กลับสู่หน้าหลัก</button>
+    <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="width: 600px; height: 45px; margin: 0 auto;">กลับสู่หน้าหลัก</button>
 </div>
 <div style="text-align: center; margin-top: 5px;">
     <div class="container">
@@ -469,7 +469,8 @@
     <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
       <button onclick="toggleRecordsVisibility()" style="flex: 1; background-color: #607d8b;">แสดง/ซ่อนรายการ</button>
     </div>
-    <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+    <!-- [ปรับแก้] เพิ่ม flex-wrap: wrap; เพื่อให้ปุ่มตัดขึ้นบรรทัดใหม่เมื่อหน้าจอแคบ -->
+    <div class="button-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
       <button type="button" onclick="saveToFile()" style="flex: 1; background-color: #0d47a1;">บันทึกถาวรทุกบัญชี</button>
       <button type="button" onclick="saveToLocal()" style="flex: 1; background-color: #17a2b8;">บันทึกชั่วคราว</button>
       <button type="button" onclick="exportAccountToJson()" style="flex: 1; background-color: #9C27B0;">บันทึกบัญชีที่เลือก</button>
