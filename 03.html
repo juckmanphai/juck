@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -128,7 +129,7 @@
         border: 2px solid #4CAF50;
         background-color: #FAFAD2;
         margin: 20px 5px;
-        padding: 15px;
+        padding: 5px;
         border-radius: 10px;
         width: auto;
         max-width: calc(100% - 40px);
@@ -158,7 +159,7 @@
     /* ===== Custom Input Container Styles ===== */
     .custom-input-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         width: 100%;
         gap: 10px;
     }
@@ -332,10 +333,8 @@
                     <option value="ฮานอย VIP เวลา 19.30 น.">ฮานอย VIP เวลา 19.30 น.</option>
                 </select>
             <div id="customTopicContainer" class="custom-input-container" style="display: none;">
-<div style="display: flex; gap: 10px;">
-  <input type="text" id="topicNameInput" class="custom-input-split" placeholder="ชื่อหวย (เช่น: ลาว TV)" style="width: 60%;">
-  <input type="text" id="topicTimeInput" class="custom-input-split" placeholder="เวลา (เช่น: 10.30 น)" style="width: 40%;">
-</div>
+                <input type="text" id="topicNameInput" class="custom-input-split" placeholder="ชื่อหวย (เช่น: ลาว TV)" style="width: 60%;">
+                <input type="text" id="topicTimeInput" class="custom-input-split" placeholder="เวลา (เช่น: 10.30 น.)" style="width: 40%;">
             </div>
         </div>
         
@@ -417,7 +416,7 @@
                 '55': '25', '66': '26', '77': '27', '88': '28', '99': '29'
             },
             '3digit': {
-                '000': '002', '011': '012', '022': '022', '033': '023', '044': '024', '055': '025', '066': '026', '077': '027', '088': '028', '099': '029', '111': '112', '122': '122', '133': '123', '144': '124', '155': '125', '166': '126', '177': '127', '188': '128', '199': '129', '222': '222', '233': '223', '244': '224', '255': '225', '266': '226', '277': '227', '288': '228', '299': '229', '333': '233', '344': '234', '355': '235', '366': '236', '377': '237', '388': '238', '399': '239', '444': '244', '455': '245', '466': '246', '477': '247', '488': '248', '499': '249', '555': '255', '566': '256', '577': '257', '588': '258', '599': '259', '666': '266', '677': '267', '688': '268', '699': '269', '777': '277', '788': '278', '799': '279', '888': '288', '899': '289', '001': '012', '002': '022', '003': '023', '004': '024', '005': '025', '006': '026', '007': '027', '008': '028', '009': '029', '112': '122', '113': '123', '114': '124', '115': '125', '116': '126', '117': '127', '118': '128', '119': '129', '223': '223', '224': '224', '225': '225', '226': '226', '227': '227', '228': '228', '229': '229', '334': '234', '335': '235', '336': '236', '337': '237', '338': '238', '339': '239', '445': '245', '446': '246', '447': '247', '448': '248', '449': '249', '556': '256', '557': '257', '558': '258', '559': '259', '667': '267', '668': '268', '669': '269', '778': '278', '779': '279', '889': '289'
+                '000': '002', '011': '012', '022': '022', '033': '023', '044': '024', '055': '025', '066': '026', '077': '027', '088': '028', '099': '029', '111': '112', '122': '122', '133': '123', '144': '124', '155': '125', '166': '126', '177': '127', '188': '128', '199': '129', '222': '222', '233': '223', '244': '224', '255': '225', '266': '226', '277': '227', '288': '228', '299': '229', '333': '233', '344': '234', '355': '235', '366': '236', '377': '237', '388': '238', '399': '239', '444': '244', '455': '245', '466': '246', '477': '247', '488': '248', '499': '249', '555': '255', '566': '256', '577': '257', '588': '258', '599': '259', '666': '266', '677': '267', '688': '268', '699': '269', '777': '277', '788': '278', '799': '279', '888': '288', '899': '289', '999': '299', '001': '012', '002': '022', '003': '023', '004': '024', '005': '025', '006': '026', '007': '027', '008': '028', '009': '029', '112': '122', '113': '123', '114': '124', '115': '125', '116': '126', '117': '127', '118': '128', '119': '129', '223': '223', '224': '224', '225': '225', '226': '226', '227': '227', '228': '228', '229': '229', '334': '234', '335': '235', '336': '236', '337': '237', '338': '238', '339': '239', '445': '245', '446': '246', '447': '247', '448': '248', '449': '249', '556': '256', '557': '257', '558': '258', '559': '259', '667': '267', '668': '268', '669': '269', '778': '278', '779': '279', '889': '289'
             }
         };
 
@@ -431,8 +430,6 @@
         return [...new Set(additionalNumbers)];
     }
 
-    // ===== MODIFIED FUNCTION START =====
-    // ฟังก์ชันนี้ถูกแก้ไขให้ใช้ clamp() เพื่อปรับขนาดตัวอักษรตามความกว้างของหน้าจอ
     function generateResultHTML() {
         const num = document.getElementById("numberInput").value;
         
@@ -489,62 +486,61 @@
         const transformedPairs = [ sortPair(`${transformed[0]}${transformed[1]}`), sortPair(`${transformed[0]}${transformed[2]}`), sortPair(`${transformed[1]}${transformed[2]}`) ];
         const uniqueTransformedPairs = [...new Set(transformedPairs)].sort();
         const uniquePairs = uniqueTransformedPairs.filter(pair => !uniqueFirstSet.includes(pair) && !filteredSecondSet.includes(pair));
-        const transformedPairsText = uniquePairs.length === 0 ? '<span style="color: green; font-size: clamp(12px, 3.7vw, 18px);">ไม่มีชุดตัวเลขเพิ่ม</span>' : uniquePairs.join(' - ');
+        const transformedPairsText = uniquePairs.length === 0 ? '<span style="color: green; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>' : uniquePairs.join(' - ');
 
         const thirdSet = [ `${num[0]}${num[1]}${num[2]}`, `${num[0]}${num[1]}${transformed[2]}`, `${num[0]}${transformed[1]}${num[2]}`, `${num[0]}${transformed[1]}${transformed[2]}`, `${transformed[0]}${num[1]}${num[2]}`, `${transformed[0]}${num[1]}${transformed[2]}`, `${transformed[0]}${transformed[1]}${num[2]}`, `${transformed[0]}${transformed[1]}${transformed[2]}` ];
         const sortedThirdSet = [...new Set(thirdSet.map(triplet => triplet.split('').sort().join('')))].sort();
         const additionalNumbersForThirdSet = generateAdditionalNumbers(sortedThirdSet, '3digit');
         const finalAdditionalNumbers = additionalNumbersForThirdSet.filter(n => !sortedThirdSet.includes(n)).sort((a, b) => a - b);
-        const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0 ? finalAdditionalNumbers.join(' - ') : '<span style="color: green; font-size: clamp(12px, 3.7vw, 18px);">ไม่มีชุดตัวเลขเพิ่ม</span>';
+        const additionalNumbersForThirdSetText = finalAdditionalNumbers.length > 0 ? finalAdditionalNumbers.join(' - ') : '<span style="color: green; font-size: 18px;">ไม่มีชุดตัวเลขเพิ่ม</span>';
 
-        // Generate final HTML string using clamp() for responsive font sizes
+        // Generate final HTML string
         return `
-            <div id="resultContent" style="position: relative; text-align: center; line-height: 0.8; margin-top: 10px; color: blue;">
-                <p style="font-size: clamp(16px, 4.0vw, 24px); margin: 0 0 10px 0; font-weight: bold; line-height: 0.8; color: blue; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+            <div id="resultContent" style="position: relative; text-align: center; font-size: 20px; line-height: 0.8; margin-top: 10px; color: blue;">
+                <p style="font-size: 24px; margin: 0 0 10px 0; font-weight: bold; line-height: 0.8; color: blue; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${selectedTopic}
                 </p>
-                <p style="font-size: clamp(12px, 3.0vw, 18px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${getThaiDate(dateInput)}
                 </p>
-                ${lunarDate ? `<p style="font-size: clamp(10px, 2.4vw, 14px); color: ${lunarDate.includes('(วันพระ)') ? 'red' : '#002060'}; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                ${lunarDate ? `<p style="font-size: 14px; color: ${lunarDate.includes('(วันพระ)') ? 'red' : '#002060'}; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ( ${lunarDate} )
                 </p>` : ''}
-                <h2 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h2 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     3 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">${num}</span> By : <span style="color: green; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">${selectedPerson}</span>
                 </h2>
-                <h3 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดเด่น 2 ตัว</h3>
-                <p style="font-size: clamp(14px, 3.7vw, 22px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดเด่น 2 ตัว</h3>
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${uniqueFirstSet.join(' - ')}
                 </p>
-                <h3 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดรอง 2 ตัว</h3>
-                <p style="font-size: clamp(14px, 3.7vw, 22px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุดรอง 2 ตัว</h3>
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${filteredSecondSet.join(' - ')}
                 </p>
-                <h3 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     จัดชุด 2 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">(แปลเพิ่ม)</span>
                 </h3>
-                <p style="font-size: clamp(14px, 3.7vw, 22px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${transformedPairsText}
                 </p>
-                <h3 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุด 3 ตัว (ปกติ)</h3>
-                <p style="font-size: clamp(12px, 3.0vw, 18px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">จัดชุด 3 ตัว (ปกติ)</h3>
+                <p style="font-size: 18px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${sortedThirdSet.join(' - ')}
                 </p>
-                <h3 style="font-size: clamp(14px, 3.7vw, 22px); font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h3 style="font-size: 22px; font-weight: bold; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     จัดชุด 3 ตัว <span style="color: red; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">(แปลเพิ่ม)</span>
                 </h3>
-                <p style="font-size: clamp(14px, 3.7vw, 22px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <p style="font-size: 22px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     ${additionalNumbersForThirdSetText}
                 </p>
-                <h2 style="font-size: clamp(16px, 4.0vw, 24px); font-weight: bold; margin: 0 0 10px 0; color: red; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แนวทางเท่านั้น</h2>
-                <p style="font-size: clamp(9px, 2.2vw, 13px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
-                <p style="font-size: clamp(13px, 3.4vw, 20px); margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                <h2 style="font-size: 24px; font-weight: bold; margin: 0 0 10px 0; color: red; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แนวทางเท่านั้น</h2>
+                <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">แปล: ${getThaiDate()} ${getThaiTime()}</p>
+                <p style="font-size: 20px; margin: 0 0 10px 0; line-height: 0.8; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
                     หมายเหตุ : <span style="color: red;">${noteInput}</span>
                 </p>
             </div>
         `;
     }
-    // ===== MODIFIED FUNCTION END =====
 
     // ===== Main Function =====
     function openResultInNewWindow() {
@@ -588,31 +584,62 @@
                 </div>
                 <div class="controls">
                     <div class="line-height-control">
+                        <label for="popupFontSizeSlider">ปรับขนาดตัวอักษร:</label>
+                        <input type="range" id="popupFontSizeSlider" min="0.5" max="1.5" step="0.05" value="1.0">
+                        <span id="popupFontSizeValue">ขนาด: 100%</span>
+                    </div>
+                    <div class="line-height-control">
                         <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                        <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="0.8" />
+                        <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="0.8">
                         <span id="popupLineHeightValue">ความสูงของบรรทัด: 0.8</span>
                     </div>
                     <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
                 </div>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
-                        const slider = document.getElementById("popupLineHeightSlider");
-                        const valueSpan = document.getElementById("popupLineHeightValue");
+                        // --- Get Elements ---
                         const resultContent = document.getElementById("resultContent");
-
+                        if (!resultContent) return;
+                        const textElements = resultContent.querySelectorAll('p, h2, h3');
+                        
+                        // --- Line Height Control ---
+                        const lhSlider = document.getElementById("popupLineHeightSlider");
+                        const lhValueSpan = document.getElementById("popupLineHeightValue");
+                        
                         function updateLineHeight() {
-                            const lineHeight = slider.value;
-                            if (resultContent) {
-                                resultContent.style.lineHeight = lineHeight;
-                                const elements = resultContent.querySelectorAll('p, h2, h3');
-                                elements.forEach(el => el.style.lineHeight = lineHeight);
-                            }
-                            valueSpan.textContent = "ความสูงของบรรทัด: " + lineHeight;
+                            const lineHeight = lhSlider.value;
+                            resultContent.style.lineHeight = lineHeight;
+                            textElements.forEach(el => el.style.lineHeight = lineHeight);
+                            lhValueSpan.textContent = "ความสูงของบรรทัด: " + lineHeight;
                         }
+                        
+                        lhSlider.addEventListener("input", updateLineHeight);
 
-                        slider.addEventListener("input", updateLineHeight);
-                        // Initial call to set the line height based on the default slider value
-                        updateLineHeight(); 
+                        // --- Font Size Control ---
+                        const fsSlider = document.getElementById("popupFontSizeSlider");
+                        const fsValueSpan = document.getElementById("popupFontSizeValue");
+                        
+                        // Store original font sizes in a data attribute
+                        textElements.forEach(el => {
+                            el.dataset.originalSize = parseFloat(window.getComputedStyle(el).fontSize);
+                        });
+                        
+                        function updateFontSize() {
+                            const scale = fsSlider.value;
+                            textElements.forEach(el => {
+                                const originalSize = el.dataset.originalSize;
+                                if (originalSize) {
+                                    el.style.fontSize = (originalSize * scale) + 'px';
+                                }
+                            });
+                            fsValueSpan.textContent = "ขนาด: " + Math.round(scale * 100) + "%";
+                        }
+                        
+                        fsSlider.addEventListener("input", updateFontSize);
+                        
+                        // --- Initial Calls to set default values ---
+                        updateLineHeight();
+                        updateFontSize();
                     });
                 <\/script>
             </body>
