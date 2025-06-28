@@ -185,7 +185,10 @@
     #recordTable tr:nth-child(even) { background-color: #f9f9f9; }
     #recordTable tr:hover { background-color: #f1f1f1; }
     
+    /* [ปรับแก้] สไตล์ของเนื้อหาใน Popup ให้เหมือนต้นฉบับ */
     .summaryResult {
+      /* [ปรับแก้ตามคำขอ] ปรับขนาดตัวอักษรให้อัตโนมัติ ตามความกว้างของหน้าจอ */
+      /* โดยขนาดจะอยู่ระหว่าง 12px (เล็กสุด) ถึง 15px (ใหญ่สุด) เพื่อให้พอดีกับแถว */
       font-size: clamp(12px, 2.2vw, 15px);
       font-weight: normal;
       color: blue;
@@ -197,11 +200,13 @@
       margin: 0;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      line-height: 0.5;
+      line-height: 0.5; /* กำหนดระยะห่างบรรทัดให้เหมือนต้นฉบับ */
     }
+    /* คืนค่า line-height สำหรับตารางใน summaryResult ให้อ่านง่ายเหมือนเดิม */
     .summaryResult table td, .summaryResult table th {
         line-height: 0.5; 
     }
+
 
     .file-actions { display: flex; gap: 10px; align-items: center; }
     .action-button {
@@ -274,6 +279,7 @@
         color: #0056b3;
     }
 
+    /* สไตล์สำหรับ POPUP สรุปผล */
     .modal-overlay {
       position: fixed;
       z-index: 1000;
@@ -463,6 +469,7 @@
     <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
       <button onclick="toggleRecordsVisibility()" style="flex: 1; background-color: #607d8b;">แสดง/ซ่อนรายการ</button>
     </div>
+    <!-- [ปรับแก้] เพิ่ม flex-wrap: wrap; เพื่อให้ปุ่มตัดขึ้นบรรทัดใหม่เมื่อหน้าจอแคบ -->
     <div class="button-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
       <button type="button" onclick="saveToFile()" style="flex: 1; background-color: #0d47a1;">บันทึกถาวรทุกบัญชี</button>
       <button type="button" onclick="saveToLocal()" style="flex: 1; background-color: #17a2b8;">บันทึกชั่วคราว</button>
@@ -545,51 +552,6 @@
 <div id="toast" class="toast-notification"></div>
 
 <script>
-    // --- [ปรับปรุง] START: ส่วนจัดการไฟล์โดยตรง (File System Access API) ---
-    let fileHandle = null; // ตัวแปรสำหรับเก็บ "การอ้างอิง" ถึงไฟล์ที่เลือก
-
-    // ฟังก์ชันสำหรับเปิดฐานข้อมูลในเบราว์เซอร์ (IndexedDB) เพื่อจำ "การอ้างอิง" ไฟล์ข้าม session
-    function getDb() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open('file-handle-db', 1);
-            request.onerror = () => reject("Error opening DB");
-            request.onsuccess = () => resolve(request.result);
-            request.onupgradeneeded = event => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains('handles')) {
-                    db.createObjectStore('handles', { keyPath: 'id' });
-                }
-            };
-        });
-    }
-
-    // ฟังก์ชันสำหรับบันทึก "การอ้างอิง" ไฟล์ลงใน IndexedDB
-    async function saveFileHandle(handle) {
-        try {
-            const db = await getDb();
-            const tx = db.transaction('handles', 'readwrite');
-            await tx.objectStore('handles').put({ id: 'main-handle', handle });
-            await tx.done;
-        } catch (error) {
-            console.error('Could not save file handle:', error);
-        }
-    }
-
-    // ฟังก์ชันสำหรับโหลด "การอ้างอิง" ไฟล์จาก IndexedDB
-    async function loadFileHandle() {
-        try {
-            const db = await getDb();
-            const tx = db.transaction('handles', 'readonly');
-            const handleRecord = await tx.objectStore('handles').get('main-handle');
-            await tx.done;
-            return handleRecord ? handleRecord.handle : null;
-        } catch (error) {
-            console.error('Could not load file handle:', error);
-            return null;
-        }
-    }
-    // --- [ปรับปรุง] END: ส่วนจัดการไฟล์โดยตรง ---
-
     function openSummaryModal(htmlContent) {
         const modal = document.getElementById('summaryModal');
         const modalBody = document.getElementById('modalBodyContent');
@@ -710,7 +672,7 @@
             types[category].push(typeName);
             updateTypeList();
             alert(`เพิ่มประเภท "${typeName}" ในหมวด "${category}" เรียบร้อย`);
-            saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+            saveToLocal();
         } else {
             alert("ประเภทนี้มีอยู่แล้ว");
         }
@@ -751,7 +713,7 @@
             updateTypeList();
             typeInput.value = newName;
             alert("แก้ไขชื่อประเภทเรียบร้อย");
-            saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+            saveToLocal();
         }
     }
     function deleteType() {
@@ -784,7 +746,7 @@
             updateTypeList();
             typeInput.value = '';
             alert("ลบประเภทเรียบร้อย");
-            saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+            saveToLocal();
         }
     }
 
@@ -804,7 +766,7 @@
             updateAccountSelect();
             updateMultiAccountSelector(); 
             alert("เพิ่มบัญชีสำเร็จ");
-            saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+            saveToLocal();
         } else {
             alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
         }
@@ -812,7 +774,6 @@
 
     function updateAccountSelect() {
         const accountSelect = document.getElementById('accountSelect');
-        const selectedValue = accountSelect.value;
         accountSelect.innerHTML = '<option value="">เลือกบัญชี</option>';
         accounts.forEach(account => {
             const option = document.createElement('option');
@@ -820,7 +781,6 @@
             option.textContent = account;
             accountSelect.appendChild(option);
         });
-        accountSelect.value = selectedValue;
     }
 
     function changeAccount() {
@@ -853,13 +813,12 @@
                 }
                 currentAccount = newAccountName;
                 updateAccountSelect();
-                document.getElementById('accountSelect').value = currentAccount;
                 document.getElementById('accountName').textContent = currentAccount;
                 updateTypeList();
                 displayRecords();
                 updateMultiAccountSelector(); 
                 alert("แก้ไขชื่อบัญชีเรียบร้อย");
-                saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+                saveToLocal();
             }
         } else {
             alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
@@ -887,7 +846,7 @@
                     displayRecords();
                     updateMultiAccountSelector(); 
                     alert("ลบบัญชีเรียบร้อย");
-                    saveToLocal(); // [ปรับปรุง] การเปลี่ยนแปลงจะถูกบันทึกลงไฟล์หลักทันที
+                    saveToLocal();
                 }
             }
         } else {
@@ -970,7 +929,32 @@
     }
 
     function saveDataAndShowToast(entryCategory = 'neutral') {
-        saveToLocal(); // [ปรับปรุง] เปลี่ยนให้เรียกฟังก์ชัน saveToLocal หลัก ซึ่งจะจัดการบันทึกลงไฟล์หรือ LocalStorage เอง
+        const dataToSave = {
+            accounts: [...accounts],
+            currentAccount: currentAccount,
+            records: [...records],
+            accountTypes: Array.from(accountTypes.entries())
+        };
+        try {
+            localStorage.setItem('accountData', JSON.stringify(dataToSave));
+        } catch (error) {
+            console.error("บันทึกข้อมูลไม่สำเร็จ:", error);
+            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+            return;
+        }
+        const toast = document.getElementById('toast');
+        toast.textContent = '✓ บันทึกข้อมูลสำเร็จแล้ว';
+        if (entryCategory === 'income') {
+            toast.style.backgroundColor = '#28a745';
+        } else if (entryCategory === 'expense') {
+            toast.style.backgroundColor = '#dc3545';
+        } else {
+            toast.style.backgroundColor = '#007bff';
+        }
+        toast.className = "toast-notification show";
+        setTimeout(function(){ 
+            toast.className = toast.className.replace("show", ""); 
+        }, 2500);
     }
     
     function displayRecords() {
@@ -1035,7 +1019,7 @@
         const [day, month, year] = dateStr.split('/');
         return new Date(year, month - 1, day);
     }
-    //... (ส่วนของ summarize, summarizeByDayMonth, summarizeToday ไม่มีการเปลี่ยนแปลง) ...
+
     function summarizeByDayMonth() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1156,6 +1140,7 @@
         
         openSummaryModal(summaryHTML);
     }
+    
     function summarize() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1289,6 +1274,8 @@
         `;
         openSummaryModal(summaryHTML);
     }
+
+
     function summarizeToday() {
         if (!records || !currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
@@ -1396,6 +1383,7 @@
         
         openSummaryModal(summaryHTML);
     }
+
     function exportToExcel() {
         if (!currentAccount) {
             alert("กรุณาเลือกบัญชีก่อนส่งออกข้อมูล");
@@ -1431,6 +1419,7 @@
         link.click();
         document.body.removeChild(link);
     }
+
     function saveToFile() {
         const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
         if (!fileName) {
@@ -1455,31 +1444,7 @@
         URL.revokeObjectURL(url);
     }
     
-    // --- [ปรับปรุง] START: ฟังก์ชันบันทึกและโหลดข้อมูล ---
-
-    // ฟังก์ชันนี้จะทำหน้าที่เป็น "ตัวกลาง" ในการโหลดข้อมูลเข้าระบบ
-    function loadData(parsed) {
-        if (!parsed) return;
-        accounts.length = 0;
-        accounts.push(...parsed.accounts || []);
-        currentAccount = parsed.currentAccount || null;
-        records.length = 0;
-        records.push(...parsed.records || []);
-        accountTypes.clear();
-        if (parsed.accountTypes) {
-            parsed.accountTypes.forEach(([account, types]) => {
-                accountTypes.set(account, types);
-            });
-        }
-        updateAccountSelect();
-        if (currentAccount) {
-            document.getElementById('accountSelect').value = currentAccount;
-        }
-        changeAccount();
-    }
-
-    // ฟังก์ชันบันทึกข้อมูลลง LocalStorage (แบบดั้งเดิม)
-    function saveToLocalStorageLegacy() {
+    function saveToLocal() {
         const dataToSave = {
             accounts: [...accounts],
             currentAccount: currentAccount,
@@ -1488,85 +1453,48 @@
         };
         try {
             localStorage.setItem('accountData', JSON.stringify(dataToSave));
+            
             const toast = document.getElementById('toast');
-            toast.textContent = '✓ บันทึกชั่วคราว (ในเบราว์เซอร์) สำเร็จแล้ว';
+            toast.textContent = '✓ บันทึกชั่วคราวสำเร็จแล้ว';
             toast.style.backgroundColor = '#17a2b8';
             toast.className = "toast-notification show";
             setTimeout(function(){ 
                 toast.className = toast.className.replace("show", ""); 
             }, 2500);
+
         } catch (error) {
             console.error("บันทึกข้อมูลไม่สำเร็จ:", error);
-            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล\nกรุณาลองอีกครั้งหรือตรวจสอบพื้นที่เก็บข้อมูล");
         }
     }
 
-    // [ปรับปรุง] ฟังก์ชัน "บันทึกชั่วคราว" ใหม่
-    async function saveToLocal() {
-        // ตรวจสอบว่าเบราว์เซอร์รองรับ File System Access API หรือไม่
-        if (!('showSaveFilePicker' in window)) {
-            // ถ้าไม่รองรับ ให้ใช้การบันทึกแบบเดิม
-            saveToLocalStorageLegacy();
-            return;
-        }
-
-        try {
-            // ถ้ายังไม่เคยเลือกไฟล์ (fileHandle เป็น null) ให้ผู้ใช้เลือกไฟล์ก่อน
-            if (!fileHandle) {
-                fileHandle = await window.showSaveFilePicker({
-                    suggestedName: 'my-account-data.json',
-                    types: [{
-                        description: 'JSON Files',
-                        accept: { 'application/json': ['.json'] },
-                    }],
-                });
-                // บันทึก "การอ้างอิง" ไฟล์ไว้ใน IndexedDB เพื่อใช้ครั้งถัดไป
-                await saveFileHandle(fileHandle);
-            }
-            
-            // เตรียมข้อมูลที่จะบันทึก
-            const dataToSave = {
-                accounts: [...accounts],
-                currentAccount: currentAccount,
-                records: [...records],
-                accountTypes: Array.from(accountTypes.entries())
-            };
-            
-            // เขียนข้อมูลลงไฟล์โดยตรง
-            const writable = await fileHandle.createWritable();
-            await writable.write(JSON.stringify(dataToSave, null, 2));
-            await writable.close();
-
-            // แสดงข้อความแจ้งเตือน
-            const toast = document.getElementById('toast');
-            toast.textContent = `✓ บันทึกข้อมูลลงไฟล์ ${fileHandle.name} สำเร็จ`;
-            toast.style.backgroundColor = '#17a2b8';
-            toast.className = "toast-notification show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-
-        } catch (err) {
-            // จัดการกรณีที่ผู้ใช้กดยกเลิกการเลือกไฟล์
-            if (err.name !== 'AbortError') {
-                console.error('Error saving file:', err);
-                alert('เกิดข้อผิดพลาดในการบันทึกไฟล์: ' + err.message);
-            }
-        }
-    }
-
-    // ฟังก์ชันโหลดข้อมูลจาก LocalStorage (แบบดั้งเดิม)
     function loadFromLocal() {
         const data = localStorage.getItem('accountData');
         if (data) {
             try {
                 const parsed = JSON.parse(data);
-                loadData(parsed);
+                accounts.length = 0;
+                accounts.push(...parsed.accounts || []);
+                currentAccount = parsed.currentAccount || null;
+                records.length = 0;
+                records.push(...parsed.records || []);
+                accountTypes.clear();
+                if (parsed.accountTypes) {
+                    parsed.accountTypes.forEach(([account, types]) => {
+                        accountTypes.set(account, types);
+                    });
+                }
+                updateAccountSelect();
+                if (currentAccount) {
+                    document.getElementById('accountSelect').value = currentAccount;
+                }
+                changeAccount();
             } catch (error) {
                 console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error);
             }
         }
         updateMultiAccountSelector(); 
     }
-    
     function exportAccountToJson() {
         if (!currentAccount) {
           alert("กรุณาเลือกบัญชีที่ต้องการส่งออก");
@@ -1602,7 +1530,6 @@
         URL.revokeObjectURL(url);
         alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`);
     }
-
     function loadFromFile(event) {
         const file = event.target.files[0];
         if (!file) { return; }
@@ -1614,7 +1541,7 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if (data.accountName) { // กรณีไฟล์เป็นข้อมูลของบัญชีเดียว
+                if (data.accountName) {
                     const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`);
                     if (confirmLoad) {
                         if (!accounts.includes(data.accountName)) {
@@ -1632,8 +1559,23 @@
                         changeAccount();
                         alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`);
                     }
-                } else { // กรณีไฟล์เป็นข้อมูลทั้งหมด
-                    loadData(data); // ใช้ฟังก์ชันกลางในการโหลด
+                } else {
+                    accounts.length = 0;
+                    accounts.push(...data.accounts);
+                    currentAccount = data.currentAccount;
+                    records.length = 0;
+                    records.push(...data.records);
+                    accountTypes.clear();
+                    if (data.accountTypes) {
+                        data.accountTypes.forEach(([account, types]) => {
+                            accountTypes.set(account, types);
+                        });
+                    }
+                    updateAccountSelect();
+                    if (currentAccount) {
+                        document.getElementById('accountSelect').value = currentAccount;
+                    }
+                    changeAccount();
                     alert("โหลดข้อมูลทั้งหมดสำเร็จ");
                 }
                 updateMultiAccountSelector(); 
@@ -1647,48 +1589,9 @@
         reader.readAsText(file);
     }
 
-    // [ปรับปรุง] ฟังก์ชันสำหรับเริ่มต้นการทำงานของเว็บแอป
-    async function initializeApp() {
+    window.onload = function () {
         document.getElementById('detailsSection').style.display = 'none';
-        
-        let loadedFromFile = false;
-        // ตรวจสอบว่าเบราว์เซอร์รองรับหรือไม่
-        if ('showSaveFilePicker' in window) {
-            try {
-                const handle = await loadFileHandle();
-                if (handle) {
-                    // ตรวจสอบว่ายังได้รับอนุญาตให้เข้าถึงไฟล์หรือไม่
-                    if (await handle.queryPermission({ mode: 'readwrite' }) === 'granted') {
-                        fileHandle = handle; // กำหนด file handle ที่โหลดมา
-                        const file = await fileHandle.getFile();
-                        const contents = await file.text();
-                        if(contents) {
-                           loadData(JSON.parse(contents)); // โหลดข้อมูลจากไฟล์
-                           loadedFromFile = true;
-                           const toast = document.getElementById('toast');
-                           toast.textContent = `✓ โหลดข้อมูลจากไฟล์ ${fileHandle.name} สำเร็จ`;
-                           toast.style.backgroundColor = '#28a745';
-                           toast.className = "toast-notification show";
-                           setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-                        }
-                    } else {
-                        // หากไม่ได้รับอนุญาต ให้ล้าง handle ที่เก็บไว้ออก
-                        await saveFileHandle(null);
-                        fileHandle = null;
-                    }
-                }
-            } catch (err) {
-                console.error("Error loading from file handle:", err);
-                await saveFileHandle(null); // ล้าง handle ที่อาจเสียออก
-                fileHandle = null;
-            }
-        }
-
-        // หากไม่ได้โหลดข้อมูลจากไฟล์ (เช่น เป็นการเข้าใช้ครั้งแรก หรือเบราว์เซอร์ไม่รองรับ) ให้โหลดจาก LocalStorage แทน
-        if (!loadedFromFile) {
-            loadFromLocal();
-        }
-
+        loadFromLocal();
         toggleSection('account-section');
 
         window.addEventListener('click', function(event) {
@@ -1697,12 +1600,7 @@
                 closeSummaryModal();
             }
         });
-    }
-
-    // --- [ปรับปรุง] END: ฟังก์ชันบันทึกและโหลดข้อมูล ---
-
-    window.onload = initializeApp; // เปลี่ยนให้เรียกใช้ฟังก์ชัน initializeApp เมื่อหน้าเว็บโหลดเสร็จ
-
+    };
 </script>
 </body>
 </html>
