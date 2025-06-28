@@ -391,7 +391,9 @@ footer {
 ผลลาวพัฒนา
 </h3>
                     <p id="popupDateDisplay" class="blue" style="
-  font-size: 20px;
+  /* [ปรับแก้] ใช้ clamp() เพื่อปรับขนาดฟอนต์อัตโนมัติ และบังคับให้อยู่ในบรรทัดเดียว */
+  font-size: clamp(14px, 4vw, 20px);
+  white-space: nowrap;
   margin: 5px 0;
   text-shadow:
     -2px -2px 1px #fff8dc,     /* แสงสีทองอ่อนจากบนซ้าย */
