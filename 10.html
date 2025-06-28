@@ -560,6 +560,7 @@
 <script>
     // --- START: Global Variables & System Handles ---
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isOpera = /Opera|OPR\//.test(navigator.userAgent);
     let fileHandle = null; // ตัวแปรสำหรับ File System Access API
     const accounts = [];
     let currentAccount = null;
@@ -637,18 +638,16 @@
 
     async function saveToFileSystem() {
         if (!fileHandle) {
-            return false; 
+            return false;
         }
-
         const dataToSave = {
             accounts: [...accounts],
             currentAccount: currentAccount,
             records: [...records],
             accountTypes: Array.from(accountTypes.entries())
         };
-
         try {
-            if (isMobile) {
+            if (isMobile || isOpera) {
                 const newHandle = await window.showSaveFilePicker({
                     suggestedName: fileHandle.name,
                     types: [{
