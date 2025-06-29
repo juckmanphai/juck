@@ -3,388 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ผลกลุ่มลาวสตาร์</title>
+    <title>กรอกผลกลุ่มลาวสตาร์</title>
+
+    <!-- [PWA] ส่วนนี้ถูกต้องแล้ว -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="กรอกผลลาวสตาร์">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    
 <style>
-/* ---------- พื้นหลังและฟอนต์ของหน้า ---------- */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #fffde7;
-  margin: 0 auto;
-  padding: 0 20px;
-  max-width: 600px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* ---------- หัวเรื่อง ---------- */
-h1 {
-  text-align: center;
-  color: #e65100;
-  margin: 10px 0 15px;
-  font-size: 24px;
-}
-
-.blue {
-  color: blue;
-  font-size: 22px;
-}
-
-.red {
-  color: red;
-}
-
-/* ---------- ปุ่มทั่วไป ---------- */
-.convert-button,
-.back-button,
-.popup-button,
-.close-popup {
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-/* ปุ่มกลับ */
-.back-button {
-  display: block;
-  width: 90%;
-  max-width: 600px;
-  margin: 20px auto 15px;
-  padding: 10px 20px;
-  background-color: orange;
-  font-size: 16px;
-}
-
-.back-button:hover {
-  background-color: darkorange;
-}
-
-/* ปุ่มแปลง */
-.convert-button {
-  background-color: #FF9800;
-  padding: 12px 24px;
-  font-size: 18px;
-  border-radius: 8px;
-  margin-top: 10px;
-}
-
-.convert-button:hover {
-  background-color: #F57C00;
-}
-
-/* ---------- ฟอร์ม ---------- */
-.form-container {
-  background-color: #f9f9f9;
-  border-radius: 15px;
-  padding: 20px;
-  margin: 10px 0 15px;
-  border: 2px solid orange;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 18px;
-  color: #333;
-  font-weight: bold;
-}
-
-input,
-select {
-  font-size: 16px;
-  padding: 8px;
-  margin: 5px 0;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 250px;
-}
-
-/* กล่องกรอกตัวเลข */
-#numberInput {
-  background-color: #e3f2fd;
-  color: #1a237e;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  border: 2px solid #1a237e;
-  border-radius: 10px;
-  text-align: center;
-  width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-#numberInput:focus {
-  background-color: #bbdefb;
-  border-color: #3f51b5;
-  outline: none;
-}
-
-.form-footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-/* ---------- Popup Overlay ---------- */
-.popup-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-/* ---------- Popup Content ---------- */
-.popup-content {
-  background-color: #fffde7;
-  border-radius: 1px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 600px;
-  padding: 20px 2px; /* ด้านบนล่าง 20px, ด้านซ้ายขวา 2px */
-  position: relative;
-}
-
-.popup-main-content {
-  position: relative;
-  background-color: #FAFAD2;
-  margin: 20px 5px; /* ด้านบนล่าง 20px, ด้านซ้ายขวา 2px */
-  padding: 20px 0;
-  border-radius: 10px;
-  border: 3px solid green;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: calc(100% - 4px);
-  text-align: center;
-  width: auto;
-}
-
-.popup-main-content::before {
-  content: "";
-  background-image: url('logo.png');
-  background-size: 80% auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.4;
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 0;
-}
-
-/* ---------- START: ADJUSTED STYLES FOR POPUP HEADER AND DATE ---------- */
-#popupTopicDisplay, #popupDateDisplay {
-    margin: 3px 0;
-    color: blue;
-    text-shadow:
-        -2px -2px 1px #fff8dc,
-        -1px -1px 1px #fff8dc,
-        1px 1px 0 #cc9900,
-        2px 2px 2px #996600,
-        3px 3px 3px rgba(0, 0, 0, 0.25);
-}
-
-#popupTopicDisplay {
-    font-weight: bold;
-    /* Responsive font-size: min 18px, preferred 4.4vw, max 26px */
-    font-size: clamp(18px, 4.4vw, 26px);
-}
-
-#popupDateDisplay {
-    /* Responsive font-size: min 16px, preferred 3.4vw, max 20px */
-    font-size: clamp(16px, 3.4vw, 20px);
-}
-/* ---------- END: ADJUSTED STYLES ---------- */
-
-
-/* ปุ่มใน Popup */
-.popup-buttons-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.popup-button {
-  padding: 8px 15px;
-  background-color: #FF9800;
-}
-
-.popup-button:hover {
-  background-color: #F57C00;
-}
-
-.popup-button.active {
-  background-color: #4CAF50;
-}
-
-.close-popup {
-  padding: 8px 15px;
-  background-color: #f44336;
-  width: 100%;
-  max-width: 200px;
-}
-
-.close-popup:hover {
-  background-color: #d32f2f;
-}
-
-/* ---------- ลูกปิงปอง ---------- */
-.pingpong-ball {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 22px;
-  font-weight: bold;
-  margin: 0 0.5px;
-  background: radial-gradient(circle at 30% 30%, #e0e0e0, #888888);
-  box-shadow:
-    inset 0 4px 6px rgba(0, 0, 0, 0.5),
-    inset 0 -4px 8px rgba(255, 255, 255, 0.2),
-    inset -4px -4px 6px rgba(0, 0, 0, 0.25),
-    inset 4px 4px 6px rgba(255, 255, 255, 0.25);
-  text-shadow:
-    -1px -1px 1px rgba(0, 0, 0, 0.7),
-     1px 1px 2px rgba(255, 255, 255, 0.3);
-  transition: box-shadow 0.3s ease;
-}
-
-.pingpong-ball-red {
-  background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
-  box-shadow:
-    inset 0 4px 6px rgba(0, 0, 0, 0.6),
-    inset 0 -4px 8px rgba(255, 255, 255, 0.2),
-    inset -4px -4px 6px rgba(0, 0, 0, 0.3),
-    inset 4px 4px 6px rgba(255, 255, 255, 0.3);
-}
-
-.pingpong-ball-blue {
-  background: radial-gradient(circle at 30% 30%, #47D359, #0066cc);
-}
-
-.pingpong-ball-orange {
-  background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600);
-}
-
-
-/* ป้ายรางวัล */
-.prize-label-red,
-.prize-label-blue,
-.prize-label-orange {
-  font-weight: bold;
-  font-size: 22px;
-  color: blue;
-  margin: 5px 0;
-  text-shadow:
-    2px 2px 3px rgba(0, 0, 0, 0.4),
-   -1px -1px 1px rgba(255, 255, 255, 0.5);
-}
-
-/* กลุ่มลูกปิงปอง */
-.ball-group {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  margin: 3px 0;
-}
-
-/* ---------- กรอบแสดงเลข ---------- */
-.circle-container,
-.square-container,
-.square-two-container {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
-  margin: 0 0.5px;
-  padding: 5px;
-  background: transparent;
-  box-shadow:
-    inset 2px 2px 4px rgba(0, 0, 0, 0.3),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.4);
-}
-
-.circle-container {
-  width: 82px;
-  border: 3px solid #FF00FF;
-  border-radius: 2%;
-}
-
-.square-container {
-  width: 125px;
-  border: 3px solid red;
-}
-
-.square-two-container {
-  width: 82px;
-  border: 3px solid blue;
-}
-
-/* กลุ่มแสดงตัวเลข */
-.numbers-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 8px 0;
-}
-
-.number-group {
-  text-align: center;
-  min-width: 120px;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 480px) {
-  #numberInput {
-    font-size: 18px;
-    padding: 8px;
-  }
-}
-
-/* ---------- ส่วนท้าย ---------- */
-footer {
-  text-align: center;
-  margin: 15px 0;
-  color: #666;
-  padding: 10px 0;
-}
+/* CSS ทั้งหมดของคุณยังคงเหมือนเดิม */
+body { font-family: Arial, sans-serif; background-color: #fffde7; margin: 0 auto; padding: 0 20px; max-width: 600px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+h1 { text-align: center; color: #e65100; margin: 10px 0 15px; font-size: 24px; }
+.blue { color: blue; font-size: 22px; }
+.red { color: red; }
+.convert-button, .back-button, .popup-button, .close-popup { border: none; border-radius: 5px; font-weight: bold; color: white; cursor: pointer; transition: background-color 0.3s; }
+.back-button { display: block; width: 90%; max-width: 600px; margin: 20px auto 15px; padding: 10px 20px; background-color: orange; font-size: 16px; }
+.back-button:hover { background-color: darkorange; }
+.convert-button { background-color: #FF9800; padding: 12px 24px; font-size: 18px; border-radius: 8px; margin-top: 10px; }
+.convert-button:hover { background-color: #F57C00; }
+.form-container { background-color: #f9f9f9; border-radius: 15px; padding: 20px; margin: 10px 0 15px; border: 2px solid orange; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+.form-group { margin-bottom: 12px; text-align: center; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 18px; color: #333; font-weight: bold; }
+input, select { font-size: 16px; padding: 8px; margin: 5px 0; border: 2px solid #ddd; border-radius: 5px; width: 100%; max-width: 250px; }
+#numberInput { background-color: #e3f2fd; color: #1a237e; font-weight: bold; font-size: 20px; padding: 10px; border: 2px solid #1a237e; border-radius: 10px; text-align: center; width: 100%; max-width: none; box-sizing: border-box; transition: background-color 0.3s, border-color 0.3s; }
+#numberInput:focus { background-color: #bbdefb; border-color: #3f51b5; outline: none; }
+.form-footer { display: flex; justify-content: center; margin-top: 15px; }
+.popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; }
+.popup-content { background-color: #fffde7; border-radius: 1px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); width: 100%; max-width: 600px; padding: 20px 2px; position: relative; }
+.popup-main-content { position: relative; background-color: #FAFAD2; margin: 20px 5px; padding: 20px 0; border-radius: 10px; border: 3px solid green; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: calc(100% - 4px); text-align: center; width: auto; }
+.popup-main-content::before { content: ""; background-image: url('logo.png'); background-size: 80% auto; background-repeat: no-repeat; background-position: center; opacity: 0.4; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; }
+#popupTopicDisplay, #popupDateDisplay { margin: 3px 0; color: blue; text-shadow: -2px -2px 1px #fff8dc, -1px -1px 1px #fff8dc, 1px 1px 0 #cc9900, 2px 2px 2px #996600, 3px 3px 3px rgba(0, 0, 0, 0.25); }
+#popupTopicDisplay { font-weight: bold; font-size: clamp(18px, 4.4vw, 26px); }
+#popupDateDisplay { font-size: clamp(16px, 3.4vw, 20px); }
+.popup-buttons-container { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.popup-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.popup-button { padding: 8px 15px; background-color: #FF9800; }
+.popup-button:hover { background-color: #F57C00; }
+.popup-button.active { background-color: #4CAF50; }
+.close-popup { padding: 8px 15px; background-color: #f44336; width: 100%; max-width: 200px; }
+.close-popup:hover { background-color: #d32f2f; }
+.pingpong-ball { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; color: #fff; font-size: 22px; font-weight: bold; margin: 0 0.5px; background: radial-gradient(circle at 30% 30%, #e0e0e0, #888888); box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.5), inset 0 -4px 8px rgba(255, 255, 255, 0.2), inset -4px -4px 6px rgba(0, 0, 0, 0.25), inset 4px 4px 6px rgba(255, 255, 255, 0.25); text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.7), 1px 1px 2px rgba(255, 255, 255, 0.3); transition: box-shadow 0.3s ease; }
+.pingpong-ball-red { background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF); box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.2), inset -4px -4px 6px rgba(0, 0, 0, 0.3), inset 4px 4px 6px rgba(255, 255, 255, 0.3); }
+.pingpong-ball-blue { background: radial-gradient(circle at 30% 30%, #47D359, #0066cc); }
+.pingpong-ball-orange { background: radial-gradient(circle at 30% 30%, #ff9933, #cc6600); }
+.prize-label-red, .prize-label-blue, .prize-label-orange { font-weight: bold; font-size: 22px; color: blue; margin: 5px 0; text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(255, 255, 255, 0.5); }
+.ball-group { display: inline-flex; justify-content: center; align-items: center; height: 50px; margin: 3px 0; }
+.circle-container, .square-container, .square-two-container { display: inline-flex; justify-content: center; align-items: center; height: 38px; margin: 0 0.5px; padding: 5px; background: transparent; box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.4); }
+.circle-container { width: 82px; border: 3px solid #FF00FF; border-radius: 2%; }
+.square-container { width: 125px; border: 3px solid red; }
+.square-two-container { width: 82px; border: 3px solid blue; }
+.numbers-display { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+.number-group { text-align: center; min-width: 120px; }
+/* [PWA] สไตล์กล่องคำแนะนำการติดตั้ง */
+.install-prompt { display: none; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; padding: 15px; margin: 0 auto 20px; text-align: left; font-size: 14px; position: relative; max-width: 600px; }
+.install-prompt h4 { margin-top: 0; }
+.install-prompt ul { padding-left: 20px; margin-bottom: 0; }
+.install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
+@media (max-width: 480px) { #numberInput { font-size: 18px; padding: 8px; } }
+footer { text-align: center; margin: 15px 0; color: #666; padding: 10px 0; }
 </style>
 </head>
 <body>
+    <!-- [PWA] กล่องคำแนะนำการติดตั้ง -->
+    <div id="install-guide" class="install-prompt">
+        <span class="close-prompt" onclick="this.parentElement.style.display='none'">&times;</span>
+        <h4>ติดตั้งแอปนี้ลงในเครื่องของคุณ!</h4>
+        <ul>
+            <li><b>Android:</b> กดปุ่ม "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอหลัก"</li>
+            <li><b>iPhone:</b> กดปุ่ม "แชร์" (Share) > "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)</li>
+        </ul>
+    </div>
+
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'">กลับสู่หน้าหลัก</button>
     <h1>ผลกลุ่มลาวสตาร์</h1>
 
     <div class="form-container">
+        <!-- เนื้อหา Form เดิมทั้งหมด -->
         <div class="form-group">
             <input type="text" id="numberInput" placeholder="กรุณากรอกตัวเลข 5 หลัก" pattern="\d{5}" maxlength="5" inputmode="numeric" />
         </div>
-        
         <div class="form-group">
             <select id="topicSelect">
                 <option value="ลาวประตูชัย เวลา 05.45 น">ลาวประตูชัย เวลา 05.45 น</option>
@@ -399,11 +99,9 @@ footer {
                 <option value="ลาวกาชาด เวลา 23.30 น">ลาวกาชาด เวลา 23.30 น</option>
             </select>
         </div>
-        
         <div class="form-group">
             <input type="date" id="dateInput">
         </div>
-        
         <div class="form-footer">
             <button id="convertButton" class="convert-button">แจงรายละเอียด</button>
         </div>
@@ -414,13 +112,10 @@ footer {
         <div class="popup-content">
             <div class="popup-main-content">
                 <div style="position: relative; z-index: 1;">
-                    <!-- START: REMOVED INLINE STYLES FROM HERE -->
                     <h3 id="popupTopicDisplay" class="blue"></h3>
                     <p id="popupDateDisplay" class="blue"></p>
-                    <!-- END: REMOVED INLINE STYLES FROM HERE -->
                     <h2 class="prize-label-red">รางวัลเลข 5 ตัว</h2>
-                    <div id="popupFiveDigitsDisplay" class="ball-group"></div> 
-                    <!-- จัดกลุ่มเลข 3 ตัวบนและ 2 ตัวล่างให้อยู่แนวเดียวกัน -->
+                    <div id="popupFiveDigitsDisplay" class="ball-group"></div>
                     <div class="numbers-display">
                         <div class="number-group">
                             <p class="prize-label-blue">3 ตัวบน</p>
@@ -433,7 +128,6 @@ footer {
                     </div>
                 </div>
             </div>
-            
             <div class="popup-buttons-container">
                 <div class="popup-buttons">
                     <button id="popupCircleButton" class="popup-button" onclick="toggleCirclePopup()">สี่เหลี่ยมล่าง</button>
@@ -449,43 +143,40 @@ footer {
         &copy; 2025 Juckmanphai. All Rights Reserved.
     </footer>
     
+    <!-- [แก้ไข] รวมโค้ด JavaScript ทั้งหมดและ PWA Script ไว้ที่นี่ที่เดียว -->
     <script>
-        // ตั้งค่าวันเริ่มต้น
-function setDefaultDate() {
-    const dateInput = document.getElementById("dateInput");
-    if (dateInput) {
-        const nowUTC = new Date();
-        const timezoneOffset = 7 * 60; // UTC+7 เป็นนาที
-        const localTimestamp = nowUTC.getTime() + (timezoneOffset * 60 * 1000);
-        const localDate = new Date(localTimestamp);
-        const today = localDate.toISOString().split('T')[0];
-        dateInput.value = today;
-    }
-}
+        // ป้องกันคลิกขวา
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // สร้างลูกปิงปอง
+        // ฟังก์ชันสร้างลูกปิงปอง
         function createPingPongBall(number, type = 'red') {
             return `<span class="pingpong-ball pingpong-ball-${type}">${number}</span>`;
         }
 
-        // สร้างกลุ่มลูกปิงปองจากตัวเลข
         function createPingPongNumbers(numbers, type = 'red') {
             return numbers.split('').map(digit => createPingPongBall(digit, type)).join('');
         }
 
-        // แสดง Popup
+        // ฟังก์ชันจัดการ Popup
         function showPopup() {
-            const popup = document.getElementById("popupOverlay");
-            popup.style.display = "flex";
+            document.getElementById("popupOverlay").style.display = "flex";
         }
 
-        // ปิด Popup
         function closePopup() {
-            const popup = document.getElementById("popupOverlay");
-            popup.style.display = "none";
+            document.getElementById("popupOverlay").style.display = "none";
         }
 
-        // แปลงตัวเลขและแสดงผล
+        // แปลงวันที่เป็นรูปแบบไทย
+        function getThaiDate(date = new Date()) {
+            const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"][date.getMonth()];
+            const year = date.getFullYear() + 543;
+            const dayOfWeek = daysOfWeek[date.getDay()];
+            return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+        }
+
+        // ฟังก์ชันหลักในการแปลงตัวเลข
         function convertNumber() {
             const num = document.getElementById("numberInput").value;
             const selectedTopic = document.getElementById("topicSelect").value;
@@ -496,24 +187,15 @@ function setDefaultDate() {
                 return;
             }
 
-            const threeDigits = num.slice(2); // 3 ตัวหลัง
-            const twoDigits = num.slice(0, 2); // 2 ตัวแรก
-            const fiveDigits = num;
-
+            const threeDigits = num.slice(2);
+            const twoDigits = num.slice(0, 2);
             const date = dateInput ? new Date(dateInput) : new Date();
             const thaiDate = getThaiDate(date);
 
-            // ตั้งค่าข้อมูลใน Popup
             document.getElementById("popupTopicDisplay").textContent = `ผล${selectedTopic}`;
             document.getElementById("popupDateDisplay").textContent = thaiDate;
-            
-            // แสดงเลข 5 ตัวเป็นลูกปิงปองสีแดง
-            document.getElementById("popupFiveDigitsDisplay").innerHTML = createPingPongNumbers(fiveDigits, 'red');
-            
-            // แสดงเลข 3 ตัวบนเป็นลูกปิงปองสีน้ำเงิน
+            document.getElementById("popupFiveDigitsDisplay").innerHTML = createPingPongNumbers(num, 'red');
             document.getElementById("popupThreeDigitsDisplay").innerHTML = createPingPongNumbers(threeDigits, 'blue');
-            
-            // แสดงเลข 2 ตัวล่างเป็นลูกปิงปองสีส้ม
             document.getElementById("popupTwoDigitsDisplay").innerHTML = createPingPongNumbers(twoDigits, 'orange');
             
             // รีเซ็ตสถานะปุ่ม
@@ -521,93 +203,87 @@ function setDefaultDate() {
             document.getElementById("popupSquareButton").classList.remove("active");
             document.getElementById("popupCircleTopButton").classList.remove("active");
             
-            // แสดง Popup
             showPopup();
         }
 
-        // วงกลมสองตัวล่าง
+        // ฟังก์ชันสลับการแสดงผล
         function toggleCirclePopup() {
-            const twoDigitsDisplay = document.getElementById("popupTwoDigitsDisplay");
+            const display = document.getElementById("popupTwoDigitsDisplay");
             const button = document.getElementById("popupCircleButton");
-            
-            if (!twoDigitsDisplay) return;
-            
-            if (button.classList.contains("active")) {
-                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีส้ม)
-                twoDigitsDisplay.innerHTML = createPingPongNumbers(twoDigitsDisplay.textContent.replace(/\D/g, ''), 'orange');
-                button.classList.remove("active");
+            const numbers = display.textContent.replace(/\D/g, '');
+            if (button.classList.toggle("active")) {
+                display.innerHTML = `<div class="circle-container">${createPingPongNumbers(numbers, 'orange')}</div>`;
             } else {
-                // แสดงในวงกลม (ลูกปิงปองสีส้ม)
-                const numbers = twoDigitsDisplay.textContent.replace(/\D/g, '');
-                twoDigitsDisplay.innerHTML = `<div class="circle-container">${createPingPongNumbers(numbers, 'orange')}</div>`;
-                button.classList.add("active");
+                display.innerHTML = createPingPongNumbers(numbers, 'orange');
             }
         }
 
-        // สี่เหลี่ยมสามตัวบน
         function toggleSquarePopup() {
-            const threeDigitsDisplay = document.getElementById("popupThreeDigitsDisplay");
+            const display = document.getElementById("popupThreeDigitsDisplay");
             const button = document.getElementById("popupSquareButton");
-            
-            if (!threeDigitsDisplay) return;
-            
-            if (button.classList.contains("active")) {
-                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีน้ำเงิน)
-                threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigitsDisplay.textContent.replace(/\D/g, ''), 'blue');
-                button.classList.remove("active");
+            const numbers = display.textContent.replace(/\D/g, '');
+            if (button.classList.toggle("active")) {
+                display.innerHTML = `<div class="square-container">${createPingPongNumbers(numbers, 'blue')}</div>`;
             } else {
-                // แสดงในสี่เหลี่ยม (ลูกปิงปองสีน้ำเงิน)
-                const numbers = threeDigitsDisplay.textContent.replace(/\D/g, '');
-                threeDigitsDisplay.innerHTML = `<div class="square-container">${createPingPongNumbers(numbers, 'blue')}</div>`;
-                button.classList.add("active");
+                display.innerHTML = createPingPongNumbers(numbers, 'blue');
             }
         }
 
-        // สี่เหลี่ยมสองตัวบน
         function toggleSquareTopPopup() {
-            const threeDigitsDisplay = document.getElementById("popupThreeDigitsDisplay");
+            const display = document.getElementById("popupThreeDigitsDisplay");
             const button = document.getElementById("popupCircleTopButton");
-            
-            if (!threeDigitsDisplay) return;
-            
-            if (button.classList.contains("active")) {
-                // กลับไปแสดงแบบปกติ (ลูกปิงปองสีน้ำเงิน)
-                threeDigitsDisplay.innerHTML = createPingPongNumbers(threeDigitsDisplay.textContent.replace(/\D/g, ''), 'blue');
-                button.classList.remove("active");
-            } else {
-                // แสดงแบบสี่เหลี่ยมสองตัวบน (ลูกปิงปองสีน้ำเงิน)
-                const numbers = threeDigitsDisplay.textContent.replace(/\D/g, '');
+            const numbers = display.textContent.replace(/\D/g, '');
+            if (button.classList.toggle("active")) {
                 const firstDigit = numbers[0];
                 const lastTwoDigits = numbers.slice(1);
-                threeDigitsDisplay.innerHTML = 
-                    `${createPingPongBall(firstDigit, 'blue')}<div class="square-two-container">${createPingPongNumbers(lastTwoDigits, 'blue')}</div>`;
-                button.classList.add("active");
+                display.innerHTML = `${createPingPongBall(firstDigit, 'blue')}<div class="square-two-container">${createPingPongNumbers(lastTwoDigits, 'blue')}</div>`;
+            } else {
+                display.innerHTML = createPingPongNumbers(numbers, 'blue');
             }
         }
 
-        // แปลงวันที่เป็นรูปแบบไทย
-        function getThaiDate(date = new Date()) {
-            const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = [
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-            ][date.getMonth()];
-            const year = date.getFullYear() + 543;
-            const dayOfWeek = daysOfWeek[date.getDay()];
-            return `วัน${dayOfWeek}ที่ ${day} ${month} พ.ศ. ${year}`;
+        // [PWA] ฟังก์ชันจัดการกล่องคำแนะนำ
+        function showInstallPrompt() {
+            const installGuide = document.getElementById('install-guide');
+            if (installGuide) { installGuide.style.display = 'block'; }
         }
-
-        // ป้องกันคลิกขวา
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
+        function hideInstallPrompt() {
+            const installGuide = document.getElementById('install-guide');
+            if (installGuide) { installGuide.style.display = 'none'; }
+        }
+        window.addEventListener('appinstalled', () => {
+            hideInstallPrompt();
+            localStorage.setItem('pwa_installed', 'true');
         });
 
-        // ตั้งค่าเมื่อโหลดหน้าเว็บ
+        // Event Listener หลักเมื่อหน้าเว็บโหลดเสร็จ
         document.addEventListener("DOMContentLoaded", function () {
+            // โค้ดที่ต้องทำงานเมื่อหน้าพร้อม
             document.getElementById("convertButton").addEventListener("click", convertNumber);
-            setDefaultDate();
+            const dateInput = document.getElementById("dateInput");
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+
+            // [PWA] ตรวจสอบสถานะการติดตั้ง
+            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || localStorage.getItem('pwa_installed') === 'true') {
+                hideInstallPrompt();
+            } else {
+                setTimeout(showInstallPrompt, 1500);
+            }
         });
+    </script>
+    
+    <!-- [PWA] Script สำหรับลงทะเบียน Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('Service Worker registered for 06.html:', registration.scope))
+                    .catch(error => console.log('Service Worker registration failed:', error));
+            });
+        }
     </script>
 </body>
 </html>
