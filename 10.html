@@ -4,361 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>บัญชีรายรับรายจ่าย</title>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50"/>
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="บัญชี">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f7fb;
-      margin: 0;
-      padding: 0;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-    h2 {
-      text-align: center;
-      color: #333;
-      margin-top: 30px;
-      font-size: 28px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      background-color: #FAFAD2;
-      border: 2px solid #ED01ED;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 95%; 
-    }
-    .section-header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 15px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  <style>
+    /* CSS ทั้งหมดของคุณยังคงเหมือนเดิม */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f4f7fb; margin: 0; padding: 0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-size-adjust: 100%; }
+    h2 { text-align: center; color: #333; margin-top: 30px; font-size: 28px; }
+    .container { max-width: 800px; margin: 20px auto; background-color: #FAFAD2; border: 2px solid #ED01ED; padding: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 95%; }
+    .section-header { background-color: #4CAF50; color: white; padding: 12px 15px; border-radius: 20px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .section-header:hover { background-color: #45a049; }
     .section-header .arrow { transition: transform 0.3s; }
     .section-header.active .arrow { transform: rotate(90deg); }
-    
-    .section-header > span:first-child {
-        flex: 1;
-        text-align: center;
-    }
-
-    .header-account, .header-add-data, .header-actions, .header-summary {
-        border: 3px solid #E97132;
-    }
-
+    .section-header > span:first-child { flex: 1; text-align: center; }
+    .header-account, .header-add-data, .header-actions, .header-summary { border: 3px solid #E97132; }
     .header-account { background-color: #0070C0; }
     .header-account:hover { background-color: #B5E6A2; }
-
     .header-add-data { background-color: #00B0F0; }
     .header-add-data:hover { background-color: #B5E6A2; }
-
     .header-actions { background-color: #00B050; }
     .header-actions:hover { background-color: #B5E6A2; }
-
     .header-summary { background-color: #ED01ED; }
     .header-summary:hover { background-color: #B5E6A2; }
-    
-    .section-content {
-      display: none;
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      background-color: #f9f9f9;
-      margin-bottom: 15px;
-    }
+    .section-content { display: none; padding: 5px; border: 1px solid #ddd; border-radius: 20px; background-color: #f9f9f9; margin-bottom: 15px; }
     .section-content.active { display: block; }
-    
-    .sub-section-header {
-      background-color: rgba(92, 107, 192, 0.6);
-      margin-top: 20px;
-    }
-    .sub-section-header:hover {
-      background-color: rgba(63, 81, 181, 0.75);
-    }
-
-    .sub-section-content {
-        border: none;
-        background-color: transparent;
-        padding: 10px 0 0 0;
-        margin-bottom: 0;
-    }
-
-    .entry-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 15px;
-    }
+    .sub-section-header { background-color: rgba(92, 107, 192, 0.6); margin-top: 20px; }
+    .sub-section-header:hover { background-color: rgba(63, 81, 181, 0.75); }
+    .sub-section-content { border: none; background-color: transparent; padding: 10px 0 0 0; margin-bottom: 0; }
+    .entry-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
     .entry-group { display: flex; flex-direction: column; }
-    .button-group,
-    .button-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-      margin: 10px 0;
-    }
-    label {
-      font-weight: bold;
-      color: #333;
-      font-size: 16px;
-      margin-bottom: 5px;
-      text-align: center;
-    }
-    select,
-    input[type="text"],
-    input[type="number"],
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+    .button-group, .button-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
+    label { font-weight: bold; color: #333; font-size: 16px; margin-bottom: 5px; text-align: center; }
+    select, input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 20px; background-color: #f9f9f9; text-align: center; }
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     input[type=number] { -moz-appearance: textfield; }
-    .back-button,
-    .file-button {
-      font-size: 16px;
-      padding: 12px 20px;
-      border-radius: 20px;
-      border: none;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      margin: 10px auto;
-      display: block;
-      width: 60%;
-      max-width: 300px;
-    }
+    .back-button, .file-button { font-size: 16px; padding: 12px 20px; border-radius: 20px; border: none; color: white; cursor: pointer; transition: background-color 0.3s, transform 0.2s; margin: 10px auto; display: block; width: 60%; max-width: 300px; }
     .back-button { background-color: #E97132; }
     .back-button:hover { background-color: #e64a19; }
     .file-button { background-color: #007bff; }
     .file-button:hover { background-color: #0056b3; }
-    .button-group button,
-    .button-container button {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 50px;
-      background-color: #4caf50;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .button-group button:hover,
-    .button-container button:hover {
-      background-color: #45a049;
-      transform: translateY(-2px);
-    }
-    #recordTable {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px auto;
-    }
-    #recordTable th,
-    #recordTable td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      line-height: 0.5;
-      text-align: center;
-      word-break: break-word;
-    }
+    .button-group button, .button-container button { padding: 12px; font-size: 16px; border: none; border-radius: 50px; background-color: #4caf50; color: white; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; }
+    .button-group button:hover, .button-container button:hover { background-color: #45a049; transform: translateY(-2px); }
+    #recordTable { width: 100%; border-collapse: collapse; margin: 10px auto; }
+    #recordTable th, #recordTable td { border: 1px solid #ccc; padding: 8px; line-height: 0.5; text-align: center; word-break: break-word; }
     #recordTable th { background-color: #f4f4f4; }
     #recordTable tr:nth-child(even) { background-color: #f9f9f9; }
     #recordTable tr:hover { background-color: #f1f1f1; }
-    
-    /* [ปรับแก้] สไตล์ของเนื้อหาใน Popup ให้เหมือนต้นฉบับ */
-    .summaryResult {
-      /* [ปรับแก้ตามคำขอ] ปรับขนาดตัวอักษรให้อัตโนมัติ ตามความกว้างของหน้าจอ */
-      /* โดยขนาดจะอยู่ระหว่าง 12px (เล็กสุด) ถึง 15px (ใหญ่สุด) เพื่อให้พอดีกับแถว */
-      font-size: clamp(12px, 2.2vw, 15px);
-      font-weight: normal;
-      color: blue;
-      background-color: #FAFAD2;
-      border: 3px solid #4CAF50;
-      border-radius: 5px;
-      padding: 5px;
-      width: 100%;
-      margin: 0;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      line-height: 0.5; /* กำหนดระยะห่างบรรทัดให้เหมือนต้นฉบับ */
-    }
-    /* คืนค่า line-height สำหรับตารางใน summaryResult ให้อ่านง่ายเหมือนเดิม */
-    .summaryResult table td, .summaryResult table th {
-        line-height: 0.5; 
-    }
-
-
+    .summaryResult { font-size: clamp(12px, 2.2vw, 15px); font-weight: normal; color: blue; background-color: #FAFAD2; border: 3px solid #4CAF50; border-radius: 5px; padding: 5px; width: 100%; margin: 0; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25); line-height: 0.5; }
+    .summaryResult table td, .summaryResult table th { line-height: 0.5; }
     .file-actions { display: flex; gap: 10px; align-items: center; }
-    .action-button {
-      padding: 10px 20px;
-      height: 40px;
-      min-width: 150px;
-      border: none;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .action-button { padding: 10px 20px; height: 40px; min-width: 150px; border: none; border-radius: 20px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
     .file-button-wrapper button { background-color: #007bff; }
     .excel-button { background-color: #28a745; }
-    .toast-notification {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 24px;
-        color: white;
-        border-radius: 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        z-index: 1001;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
-        transform: translateY(20px);
-    }
-    .toast-notification.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-    .checkbox-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-        background-color: #e9ecef;
-        padding: 10px;
-        border-radius: 20px;
-        border: 1px solid #ced4da;
-    }
-    .checkbox-item {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        justify-content: center;
-    }
-    .checkbox-item input {
-        width: auto;
-    }
-    .summary-subsection {
-        border-top: 1px solid #ccc;
-        margin-top: 15px;
-        padding-top: 15px;
-    }
-    .summary-subsection:first-child {
-        border-top: none;
-        margin-top: 0;
-        padding-top: 0;
-    }
-    .summary-subsection-header {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-        font-size: 1.1em;
-        color: #0056b3;
-    }
-
-    /* สไตล์สำหรับ POPUP สรุปผล */
-    .modal-overlay {
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 5px;
-      overflow-y: auto;
-    }
-
-    .modal-content-container {
-      background-color: transparent;
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: auto 0;
-      width: 100%; 
-      max-width: 800px;
-    }
-
-    .modal-close-btn {
-      background-color: #E97132;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      cursor: pointer;
-      border-radius: 20px;
-      font-size: 16px;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-    }
-    .modal-close-btn:hover {
-      background-color: #e64a19;
-    }
-
-    @media screen and (max-width: 600px) {
-      .container {
-        padding: 5px;
-      }
-      h2 {
-        font-size: 24px;
-      }
-      .entry-form, .button-group, .button-container { 
-        grid-template-columns: 1fr; 
-      }
-
-      .sub-section-content .button-group {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
-      }
-      .sub-section-content .button-group button {
-        padding: 10px 5px;
-        font-size: 14px;
-      }
-      
-      .button-group button, .button-container button { 
-        padding: 14px; font-size: 16px; 
-      }
-      .file-actions {
-        flex-direction: column;
-        padding: 0 10px;
-        align-items: stretch;
-      }
-      .file-actions button {
-        width: 100%;
-        max-width: none;
-      }
-      .back-button {
-          width: 100%;
-      }
-    }
+    .toast-notification { position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; color: white; border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 1001; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s, transform 0.5s; transform: translateY(20px); }
+    .toast-notification.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .checkbox-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; background-color: #e9ecef; padding: 10px; border-radius: 20px; border: 1px solid #ced4da; }
+    .checkbox-item { display: flex; align-items: center; gap: 5px; justify-content: center; }
+    .checkbox-item input { width: auto; }
+    .summary-subsection { border-top: 1px solid #ccc; margin-top: 15px; padding-top: 15px; }
+    .summary-subsection:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+    .summary-subsection-header { display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #0056b3; }
+    .modal-overlay { position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; padding: 5px; overflow-y: auto; }
+    .modal-content-container { background-color: transparent; padding: 0; border: none; box-shadow: none; display: flex; flex-direction: column; align-items: center; margin: auto 0; width: 100%; max-width: 800px; }
+    .modal-close-btn { background-color: #E97132; color: white; padding: 12px 30px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; margin-top: 10px; transition: background-color 0.3s; }
+    .modal-close-btn:hover { background-color: #e64a19; }
+    .install-prompt { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; padding: 15px; margin: 15px 10px; text-align: left; font-size: 14px; position: relative; }
+    .install-prompt h4 { margin-top: 0; }
+    .install-prompt ul { padding-left: 20px; margin-bottom: 0; }
+    .install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
+    @media screen and (max-width: 600px) { .container { padding: 5px; } h2 { font-size: 24px; } .entry-form, .button-group, .button-container { grid-template-columns: 1fr; } .sub-section-content .button-group { grid-template-columns: repeat(3, 1fr); gap: 5px; } .sub-section-content .button-group button { padding: 10px 5px; font-size: 14px; } .button-group button, .button-container button { padding: 14px; font-size: 16px; } .file-actions { flex-direction: column; padding: 0 10px; align-items: stretch; } .file-actions button { width: 100%; max-width: none; } .back-button { width: 100%; } }
   </style>
 </head>
 <body>
@@ -366,178 +87,194 @@
 <div style="text-align: center; margin-top: 5px;">
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="width: 600px; height: 45px; margin: 0 auto;">กลับสู่หน้าหลัก</button>
 </div>
+
+<div class="container" style="padding:0; border:none; background:none;">
+    <div id="install-guide" class="install-prompt">
+        <span class="close-prompt" onclick="this.parentElement.style.display='none'">&times;</span>
+        <h4>ติดตั้งแอปนี้ลงในเครื่องของคุณ!</h4>
+        <ul>
+            <li><b>สำหรับ Android:</b> เบราว์เซอร์ Chrome จะมีปุ่ม "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอหลัก" แสดงขึ้นมาให้กด</li>
+            <li><b>สำหรับ iPhone (iOS):</b> เปิดใน Safari แล้วกดที่ปุ่ม "แชร์" (Share) จากนั้นเลือก "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)</li>
+        </ul>
+        <p style="color: red; font-weight: bold; margin-top: 10px; margin-bottom: 0;">
+            ข้อควรระวังสำหรับ iPhone: ระบบอาจลบข้อมูลที่บันทึกไว้หากไม่ได้ใช้งานนานๆ หรือพื้นที่เหลือน้อย! <br>แนะนำให้ "บันทึกถาวร" หรือ "ส่งออก Excel" เพื่อสำรองข้อมูลสม่ำเสมอ
+        </p>
+    </div>
+</div>
+
 <div style="text-align: center; margin-top: 5px;">
     <div class="container">
-  <div style="width: 100%; max-width: 600px; margin: 10px auto;">
-    <div class="file-actions" style="display: flex; justify-content: center; gap: 10px;">
-      <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
-        <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
-        <button type="button" onclick="document.getElementById('fileInput').click()" 
-                class="action-button" 
-                 style="width: 100%; height: 45px; padding: 10px; font-size: 16px; background-color: #196B24; color: #FFFFFF; border: 2px solid #EE0000; border-radius: 30px; cursor: pointer; margin: 0 auto;">
-          โหลดข้อมูลบัญชี
-        </button>
-</div>
-</div>
-<div style="text-align: center; margin-top: 10px;">
-  <h1 style="text-align: center; color: blue; font-size: 16px;">
-    ชื่อบัญชี - <span id="accountName"></span>
-  </h1>
-  <div class="section-header header-account" onclick="toggleSection('account-section')">
-    <span>เลือกและจัดการบัญชี</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="account-section" class="section-content">
-    <label for="accountSelect">เลือกบัญชี:</label>
-    <select id="accountSelect" onchange="changeAccount()"></select>
-    
-    <div class="section-header sub-section-header" onclick="toggleSection('manage-account-submenu')">
-      <span>จัดการบัญชี</span>
-      <span class="arrow">▶</span>
-    </div>
-    <div id="manage-account-submenu" class="section-content sub-section-content">
-      <div class="button-group">
-        <button type="button" onclick="addAccount()" style="background-color: #28a745;">เพิ่มบช.ใหม่</button>
-        <button type="button" onclick="deleteAccount()" style="background-color: #dc3545;">ลบบช.</button>
-        <button type="button" onclick="editAccount()" style="background-color: #ffc107;">แก้ไขชื่อบช.</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header header-add-data" onclick="toggleSection('add-data-section')">
-    <span>เพิ่มข้อมูล</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="add-data-section" class="section-content">
-    <div class="entry-form">
-      <div class="entry-group">
-        <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
-        <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
-      </div>
-      <div class="entry-group">
-        <label for="entryTime">เวลา (HH.MM)</label>
-        <input type="text" id="entryTime" placeholder="เช่น 14.30" pattern="\d{1,2}\.\d{2}">
-      </div>
-    </div>
-    <div class="entry-group">
-      <label for="amount">จำนวนเงิน</label>
-      <input type="number" id="amount" required>
-    </div>
-    <div class="entry-group">
-      <label for="type">ประเภท</label>
-      <input list="typeList" id="type" required placeholder="เลือกหรือพิมพ์ประเภท" style="height: 40px;" onfocus="showAllTypes(this)" onblur="restoreType(this)">
-      <datalist id="typeList"></datalist>
-      
-      <div class="section-header sub-section-header" onclick="toggleSection('manage-types-submenu')" style="margin-top:10px;">
-        <span>จัดการประเภท</span>
-        <span class="arrow">▶</span>
-      </div>
-      <div id="manage-types-submenu" class="section-content sub-section-content">
-        <div class="button-group">
-          <button type="button" onclick="addNewType()" style="background-color: #2196F3;">เพิ่มประเภท</button>
-          <button type="button" onclick="deleteType()" style="background-color: #F44336;">ลบประเภท</button>
-          <button type="button" onclick="editType()" style="background-color: #FFC107;">แก้ไขประเภท</button>
+        <!-- เนื้อหา HTML หลักทั้งหมดของคุณ -->
+        <!-- ... -->
+        <div style="width: 100%; max-width: 600px; margin: 10px auto;">
+            <div class="file-actions" style="display: flex; justify-content: center; gap: 10px;">
+              <div class="file-button-wrapper" style="flex: 1; min-width: 0;">
+                <input type="file" id="fileInput" onchange="loadFromFile(event)" style="display: none;" accept=".json,application/json">
+                <button type="button" onclick="document.getElementById('fileInput').click()" 
+                        class="action-button" 
+                         style="width: 100%; height: 45px; padding: 10px; font-size: 16px; background-color: #196B24; color: #FFFFFF; border: 2px solid #EE0000; border-radius: 30px; cursor: pointer; margin: 0 auto;">
+                  โหลดข้อมูลบัญชี
+                </button>
         </div>
-      </div>
-    </div>
-    <div class="entry-group">
-      <label for="description">รายละเอียด</label>
-      <input type="text" id="description" required>
-    </div>
-    
-    <div class="entry-group" id="multiAccountSelector" style="display: none; margin-top: 10px;">
-        <div class="section-header sub-section-header" onclick="toggleSection('multi-account-submenu')">
-            <span>เพิ่มรายการนี้ในบัญชีอื่นด้วย</span>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+          <h1 style="text-align: center; color: blue; font-size: 16px;">
+            ชื่อบัญชี - <span id="accountName"></span>
+          </h1>
+          <div class="section-header header-account" onclick="toggleSection('account-section')">
+            <span>เลือกและจัดการบัญชี</span>
             <span class="arrow">▶</span>
-        </div>
-        <div id="multi-account-submenu" class="section-content sub-section-content">
-            <div id="multiAccountCheckboxes" class="checkbox-container">
+          </div>
+          <div id="account-section" class="section-content">
+            <label for="accountSelect">เลือกบัญชี:</label>
+            <select id="accountSelect" onchange="changeAccount()"></select>
+            
+            <div class="section-header sub-section-header" onclick="toggleSection('manage-account-submenu')">
+              <span>จัดการบัญชี</span>
+              <span class="arrow">▶</span>
             </div>
+            <div id="manage-account-submenu" class="section-content sub-section-content">
+              <div class="button-group">
+                <button type="button" onclick="addAccount()" style="background-color: #28a745;">เพิ่มบช.ใหม่</button>
+                <button type="button" onclick="deleteAccount()" style="background-color: #dc3545;">ลบบช.</button>
+                <button type="button" onclick="editAccount()" style="background-color: #ffc107;">แก้ไขชื่อบช.</button>
+              </div>
+            </div>
+          </div>
+        
+          <div class="section-header header-add-data" onclick="toggleSection('add-data-section')">
+            <span>เพิ่มข้อมูล</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="add-data-section" class="section-content">
+            <div class="entry-form">
+              <div class="entry-group">
+                <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
+                <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
+              </div>
+              <div class="entry-group">
+                <label for="entryTime">เวลา (HH.MM)</label>
+                <input type="text" id="entryTime" placeholder="เช่น 14.30" pattern="\d{1,2}\.\d{2}">
+              </div>
+            </div>
+            <div class="entry-group">
+              <label for="amount">จำนวนเงิน</label>
+              <input type="number" id="amount" required>
+            </div>
+            <div class="entry-group">
+              <label for="type">ประเภท</label>
+              <input list="typeList" id="type" required placeholder="เลือกหรือพิมพ์ประเภท" style="height: 40px;" onfocus="showAllTypes(this)" onblur="restoreType(this)">
+              <datalist id="typeList"></datalist>
+              
+              <div class="section-header sub-section-header" onclick="toggleSection('manage-types-submenu')" style="margin-top:10px;">
+                <span>จัดการประเภท</span>
+                <span class="arrow">▶</span>
+              </div>
+              <div id="manage-types-submenu" class="section-content sub-section-content">
+                <div class="button-group">
+                  <button type="button" onclick="addNewType()" style="background-color: #2196F3;">เพิ่มประเภท</button>
+                  <button type="button" onclick="deleteType()" style="background-color: #F44336;">ลบประเภท</button>
+                  <button type="button" onclick="editType()" style="background-color: #FFC107;">แก้ไขประเภท</button>
+                </div>
+              </div>
+            </div>
+            <div class="entry-group">
+              <label for="description">รายละเอียด</label>
+              <input type="text" id="description" required>
+            </div>
+            
+            <div class="entry-group" id="multiAccountSelector" style="display: none; margin-top: 10px;">
+                <div class="section-header sub-section-header" onclick="toggleSection('multi-account-submenu')">
+                    <span>เพิ่มรายการนี้ในบัญชีอื่นด้วย</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div id="multi-account-submenu" class="section-content sub-section-content">
+                    <div id="multiAccountCheckboxes" class="checkbox-container">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="button-container" style="text-align: center; margin-top: 20px;">
+              <button type="button" onclick="addEntry()" style="background-color: #e91e63;">เพิ่มข้อมูล</button>
+            </div>
+          </div>
+          
+          <div class="section-header header-actions" onclick="toggleSection('other-actions-section')">
+            <span>จัดการข้อมูล</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="other-actions-section" class="section-content">
+            <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
+              <button onclick="toggleRecordsVisibility()" style="flex: 1; background-color: #607d8b;">แสดง/ซ่อนรายการ</button>
+            </div>
+            <div class="button-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+              <button type="button" onclick="saveToFile()" style="flex: 1; background-color: #0d47a1;">บันทึกถาวรทุกบัญชี</button>
+              <button type="button" onclick="saveToLocal()" style="flex: 1; background-color: #17a2b8;">บันทึกชั่วคราว</button>
+              <button type="button" onclick="exportAccountToJson()" style="flex: 1; background-color: #9C27B0;">บันทึกบัญชีที่เลือก</button>
+              <button type="button" onclick="exportToExcel()" style="flex: 1; background-color: #2E7D32; color: white;">
+                ส่งออก Excel
+              </button>
+            </div>
+          </div>
+        
+          <div class="section-header header-summary" onclick="toggleSection('summary-main-section')">
+            <span>สรุปข้อมูล</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="summary-main-section" class="section-content">
+            <div class="summary-subsection">
+              <div class="button-container" style="margin: 0;">
+                <button type="button" onclick="summarizeToday()" style="background-color: #ff9800; color: #FFFFFF;">สรุปวันนี้</button>
+              </div>
+            </div>
+            <div class="summary-subsection">
+              <label class="summary-subsection-header">สรุปวันที่เลือก</label>
+              <div class="entry-form" style="margin-bottom: 0;">
+                <div class="entry-group">
+                  <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
+                  <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
+                </div>
+              </div>
+              <div class="button-container" style="text-align: center; margin-top: 10px;">
+                <button type="button" onclick="summarizeByDayMonth()" style="background-color: #03a9f4;">สรุปวันที่เลือก</button>
+              </div>
+            </div>
+            <div class="summary-subsection">
+              <label class="summary-subsection-header">สรุปวันที่ถึงวันที่</label>
+              <div class="entry-form" style="margin-bottom: 0;">
+                <div class="entry-group">
+                  <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
+                  <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
+                </div>
+                <div class="entry-group">
+                  <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
+                  <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
+                </div>
+              </div>
+              <div class="button-container" style="text-align: center; margin-top: 10px;">
+                <button type="button" onclick="summarize()" style="background-color: #009688;">สรุปวันที่ถึงวันที่</button>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-
-    <div class="button-container" style="text-align: center; margin-top: 20px;">
-      <button type="button" onclick="addEntry()" style="background-color: #e91e63;">เพิ่มข้อมูล</button>
+        
+    <div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
+        <table id="recordTable" style="min-width: 600px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">วันเดือนปี</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
+            </tr>
+        </thead>
+        <tbody id="recordBody" style="font-size: 14px;"></tbody>
+        </table>
     </div>
-  </div>
-  
-  <div class="section-header header-actions" onclick="toggleSection('other-actions-section')">
-    <span>จัดการข้อมูล</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="other-actions-section" class="section-content">
-    <div class="button-container" style="display: flex; gap: 10px; margin-top: 10px;">
-      <button onclick="toggleRecordsVisibility()" style="flex: 1; background-color: #607d8b;">แสดง/ซ่อนรายการ</button>
-    </div>
-    <!-- [ปรับแก้] เพิ่ม flex-wrap: wrap; เพื่อให้ปุ่มตัดขึ้นบรรทัดใหม่เมื่อหน้าจอแคบ -->
-    <div class="button-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-      <button type="button" onclick="saveToFile()" style="flex: 1; background-color: #0d47a1;">บันทึกถาวรทุกบัญชี</button>
-      <button type="button" onclick="saveToLocal()" style="flex: 1; background-color: #17a2b8;">บันทึกชั่วคราว</button>
-      <button type="button" onclick="exportAccountToJson()" style="flex: 1; background-color: #9C27B0;">บันทึกบัญชีที่เลือก</button>
-      <button type="button" onclick="exportToExcel()" style="flex: 1; background-color: #2E7D32; color: white;">
-        ส่งออก Excel
-      </button>
-    </div>
-  </div>
-
-  <div class="section-header header-summary" onclick="toggleSection('summary-main-section')">
-    <span>สรุปข้อมูล</span>
-    <span class="arrow">▶</span>
-  </div>
-  <div id="summary-main-section" class="section-content">
-    <div class="summary-subsection">
-      <div class="button-container" style="margin: 0;">
-        <button type="button" onclick="summarizeToday()" style="background-color: #ff9800; color: #FFFFFF;">สรุปวันนี้</button>
-      </div>
-    </div>
-    <div class="summary-subsection">
-      <label class="summary-subsection-header">สรุปวันที่เลือก</label>
-      <div class="entry-form" style="margin-bottom: 0;">
-        <div class="entry-group">
-          <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
-        </div>
-      </div>
-      <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarizeByDayMonth()" style="background-color: #03a9f4;">สรุปวันที่เลือก</button>
-      </div>
-    </div>
-    <div class="summary-subsection">
-      <label class="summary-subsection-header">สรุปวันที่ถึงวันที่</label>
-      <div class="entry-form" style="margin-bottom: 0;">
-        <div class="entry-group">
-          <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
-        </div>
-        <div class="entry-group">
-          <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
-          <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
-        </div>
-      </div>
-      <div class="button-container" style="text-align: center; margin-top: 10px;">
-        <button type="button" onclick="summarize()" style="background-color: #009688;">สรุปวันที่ถึงวันที่</button>
-      </div>
-    </div>
-  </div>
 </div>
-      </div>
-
-<div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
-  <table id="recordTable" style="min-width: 600px;">
-    <thead>
-      <tr style="background-color: #f2f2f2;">
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">วันเดือนปี</th>
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
-        <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
-      </tr>
-    </thead>
-    <tbody id="recordBody" style="font-size: 14px;"></tbody>
-  </table>
-</div>
-      </div>
 
 <!-- โครงสร้าง Popup สำหรับแสดงผลสรุป -->
 <div id="summaryModal" class="modal-overlay">
@@ -552,1042 +289,62 @@
 <div id="toast" class="toast-notification"></div>
 
 <script>
-    function openSummaryModal(htmlContent) {
-        const modal = document.getElementById('summaryModal');
-        const modalBody = document.getElementById('modalBodyContent');
-        modalBody.innerHTML = htmlContent;
-        modal.style.display = 'flex';
-    }
-
-    function closeSummaryModal() {
-        const modal = document.getElementById('summaryModal');
-        modal.style.display = 'none';
-    }
-
-    function toggleSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        const header = section.previousElementSibling;
-        section.classList.toggle('active');
-        header.classList.toggle('active');
-    }
-
+    // โค้ด JavaScript หลักทั้งหมดของคุณยังคงอยู่ที่นี่
+    // ...
+    function openSummaryModal(htmlContent) { const modal = document.getElementById('summaryModal'); const modalBody = document.getElementById('modalBodyContent'); modalBody.innerHTML = htmlContent; modal.style.display = 'flex'; }
+    function closeSummaryModal() { const modal = document.getElementById('summaryModal'); modal.style.display = 'none'; }
+    function toggleSection(sectionId) { const section = document.getElementById(sectionId); const header = section.previousElementSibling; section.classList.toggle('active'); header.classList.toggle('active'); }
     const accounts = [];
     let currentAccount = null;
     const records = [];
     let editingIndex = null;
     const accountTypes = new Map();
     let tempTypeValue = '';
-
-    function showAllTypes(inputElement) {
-        tempTypeValue = inputElement.value;
-        inputElement.value = '';
-    }
-
-    function restoreType(inputElement) {
-        if (inputElement.value === '') {
-            inputElement.value = tempTypeValue;
-        }
-    }
-
-    function updateMultiAccountSelector() {
-        const selectorDiv = document.getElementById('multiAccountSelector');
-        const checkboxesDiv = document.getElementById('multiAccountCheckboxes');
-        checkboxesDiv.innerHTML = ''; 
-
-        if (accounts.length > 1 && editingIndex === null) {
-            selectorDiv.style.display = 'block';
-            accounts.forEach(acc => {
-                if (acc !== currentAccount) {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'checkbox-item';
-
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = `acc-check-${acc}`;
-                    checkbox.value = acc;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `acc-check-${acc}`;
-                    label.textContent = acc;
-
-                    itemDiv.appendChild(checkbox);
-                    itemDiv.appendChild(label);
-                    checkboxesDiv.appendChild(itemDiv);
-                }
-            });
-        } else {
-            selectorDiv.style.display = 'none';
-        }
-    }
+    function showAllTypes(inputElement) { tempTypeValue = inputElement.value; inputElement.value = ''; }
+    function restoreType(inputElement) { if (inputElement.value === '') { inputElement.value = tempTypeValue; } }
+    function updateMultiAccountSelector() { const selectorDiv = document.getElementById('multiAccountSelector'); const checkboxesDiv = document.getElementById('multiAccountCheckboxes'); checkboxesDiv.innerHTML = ''; if (accounts.length > 1 && editingIndex === null) { selectorDiv.style.display = 'block'; accounts.forEach(acc => { if (acc !== currentAccount) { const itemDiv = document.createElement('div'); itemDiv.className = 'checkbox-item'; const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.id = `acc-check-${acc}`; checkbox.value = acc; const label = document.createElement('label'); label.htmlFor = `acc-check-${acc}`; label.textContent = acc; itemDiv.appendChild(checkbox); itemDiv.appendChild(label); checkboxesDiv.appendChild(itemDiv); } }); } else { selectorDiv.style.display = 'none'; } }
+    function initializeAccountTypes(accountName) { if (!accountTypes.has(accountName)) { accountTypes.set(accountName, { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] }); } }
+    function updateTypeList() { const typeList = document.getElementById('typeList'); if (!currentAccount) { typeList.innerHTML = ''; return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); typeList.innerHTML = ''; types["รายจ่าย"].forEach(type => { const option = document.createElement('option'); option.value = type; typeList.appendChild(option); }); types["รายรับ"].forEach(type => { const option = document.createElement('option'); option.value = type; typeList.appendChild(option); }); }
+    function addNewType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const category = prompt("เลือกประเภทที่จะเพิ่ม (รายรับ/รายจ่าย):"); if (category !== "รายรับ" && category !== "รายจ่าย") { alert("กรุณากรอก 'รายรับ' หรือ 'รายจ่าย' เท่านั้น"); return; } const typeInput = document.getElementById('type'); const typeName = typeInput.value.trim(); if (!typeName) { alert("กรุณากรอกชื่อประเภทในช่องประเภทก่อน"); return; } if (!types[category].includes(typeName)) { types[category].push(typeName); updateTypeList(); alert(`เพิ่มประเภท "${typeName}" ในหมวด "${category}" เรียบร้อย`); saveToLocal(); } else { alert("ประเภทนี้มีอยู่แล้ว"); } }
+    function editType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนแก้ไขประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const typeInput = document.getElementById('type'); const currentType = typeInput.value.trim(); if (!currentType) { alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการแก้ไข"); return; } let foundCategory = null; for (const category in types) { if (types[category].includes(currentType)) { foundCategory = category; break; } } if (!foundCategory) { alert("ไม่พบประเภทที่ต้องการแก้ไข"); return; } const newName = prompt("กรุณากรอกชื่อประเภทใหม่:", currentType); if (newName && newName !== currentType) { const index = types[foundCategory].indexOf(currentType); types[foundCategory][index] = newName; records.forEach(record => { if (record.account === currentAccount && record.type === currentType) { record.type = newName; } }); updateTypeList(); typeInput.value = newName; alert("แก้ไขชื่อประเภทเรียบร้อย"); saveToLocal(); } }
+    function deleteType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนลบประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const typeInput = document.getElementById('type'); const currentType = typeInput.value.trim(); if (!currentType) { alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการลบ"); return; } let foundCategory = null; for (const category in types) { if (types[category].includes(currentType)) { foundCategory = category; break; } } if (!foundCategory) { alert("ไม่พบประเภทที่ต้องการลบ"); return; } if (confirm(`คุณแน่ใจว่าจะลบประเภท "${currentType}" หรือไม่?`)) { const index = types[foundCategory].indexOf(currentType); types[foundCategory].splice(index, 1); updateTypeList(); typeInput.value = ''; alert("ลบประเภทเรียบร้อย"); saveToLocal(); } }
+    function toggleRecordsVisibility() { const detailsSection = document.getElementById('detailsSection'); if (detailsSection.style.display === 'none' || detailsSection.style.display === '') { detailsSection.style.display = 'block'; } else { detailsSection.style.display = 'none'; } }
+    function addAccount() { const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:"); if (accountName && !accounts.includes(accountName)) { accounts.push(accountName); updateAccountSelect(); updateMultiAccountSelector(); alert("เพิ่มบัญชีสำเร็จ"); saveToLocal(); } else { alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง"); } }
+    function updateAccountSelect() { const accountSelect = document.getElementById('accountSelect'); accountSelect.innerHTML = '<option value="">เลือกบัญชี</option>'; accounts.forEach(account => { const option = document.createElement('option'); option.value = account; option.textContent = account; accountSelect.appendChild(option); }); }
+    function changeAccount() { currentAccount = document.getElementById('accountSelect').value; document.getElementById('accountName').textContent = currentAccount || ""; updateTypeList(); displayRecords(); updateMultiAccountSelector(); }
+    function editAccount() { if (!currentAccount) { alert("กรุณาเลือกบัญชีที่ต้องการแก้ไข"); return; } const newAccountName = prompt("กรุณากรอกชื่อบัญชีใหม่:", currentAccount); if (newAccountName && newAccountName !== currentAccount && !accounts.includes(newAccountName)) { const index = accounts.indexOf(currentAccount); if (index > -1) { accounts[index] = newAccountName; records.forEach(record => { if (record.account === currentAccount) { record.account = newAccountName; } }); if (accountTypes.has(currentAccount)) { const oldTypes = accountTypes.get(currentAccount); accountTypes.set(newAccountName, oldTypes); accountTypes.delete(currentAccount); } currentAccount = newAccountName; updateAccountSelect(); document.getElementById('accountName').textContent = currentAccount; updateTypeList(); displayRecords(); updateMultiAccountSelector(); alert("แก้ไขชื่อบัญชีเรียบร้อย"); saveToLocal(); } } else { alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง"); } }
+    function deleteAccount() { if (currentAccount) { const confirmDelete = confirm(`คุณแน่ใจว่าจะลบบัญชี "${currentAccount}" และข้อมูลทั้งหมดในบัญชีนี้หรือไม่?`); if (confirmDelete) { const index = accounts.indexOf(currentAccount); if (index > -1) { accounts.splice(index, 1); accountTypes.delete(currentAccount); for (let i = records.length - 1; i >= 0; i--) { if (records[i].account === currentAccount) { records.splice(i, 1); } } currentAccount = null; document.getElementById('accountSelect').value = ""; document.getElementById('accountName').textContent = ""; updateAccountSelect(); updateTypeList(); displayRecords(); updateMultiAccountSelector(); alert("ลบบัญชีเรียบร้อย"); saveToLocal(); } } } else { alert("กรุณาเลือกบัญชีที่ต้องการลบ"); } }
+    function addEntry() { let entryDateInput = document.getElementById('entryDate').value.trim(); let entryTimeInput = document.getElementById('entryTime').value.trim(); const typeInput = document.getElementById('type'); const typeText = typeInput.value.trim(); const description = document.getElementById('description').value; const amount = parseFloat(document.getElementById('amount').value); let selectedDate; if (!entryDateInput) { selectedDate = new Date(); } else { if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) { alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return; } const [day, month, year] = entryDateInput.split('/'); selectedDate = new Date(year, month - 1, day); } let hours, minutes; if (!entryTimeInput) { const now = new Date(); hours = String(now.getHours()).padStart(2, '0'); minutes = String(now.getMinutes()).padStart(2, '0'); } else { if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) { alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)"); return; } [hours, minutes] = entryTimeInput.split('.'); hours = String(hours).padStart(2, '0'); minutes = String(minutes).padStart(2, '0'); } const timeString = `${hours}:${minutes}`; const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`; const dateTime = `${formattedDate} ${timeString}`; if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ"); return; } if (!typeText) { alert("กรุณากรอกประเภท"); return; } if (!description) { alert("กรุณากรอกรายละเอียด"); return; } if (isNaN(amount) || amount <= 0) { alert("กรุณากรอกจำนวนเงินที่ถูกต้อง"); return; } const types = accountTypes.get(currentAccount); let entryCategory = 'expense'; if (types["รายรับ"].includes(typeText)) { entryCategory = 'income'; } if (editingIndex !== null) { records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount }; editingIndex = null; } else { records.push({ dateTime, type: typeText, description, amount, account: currentAccount }); const selectedCheckboxes = document.querySelectorAll('#multiAccountCheckboxes input:checked'); selectedCheckboxes.forEach(checkbox => { const targetAccount = checkbox.value; records.push({ dateTime, type: typeText, description, amount, account: targetAccount }); }); } displayRecords(); document.getElementById('description').value = ''; document.getElementById('amount').value = ''; document.getElementById('entryDate').value = ''; document.getElementById('entryTime').value = ''; typeInput.value = ''; document.querySelectorAll('#multiAccountCheckboxes input:checked').forEach(checkbox => { checkbox.checked = false; }); saveDataAndShowToast(entryCategory); updateMultiAccountSelector(); }
+    function saveDataAndShowToast(entryCategory = 'neutral') { const dataToSave = { accounts: [...accounts], currentAccount: currentAccount, records: [...records], accountTypes: Array.from(accountTypes.entries()) }; try { localStorage.setItem('accountData', JSON.stringify(dataToSave)); } catch (error) { console.error("บันทึกข้อมูลไม่สำเร็จ:", error); alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล"); return; } const toast = document.getElementById('toast'); toast.textContent = '✓ บันทึกข้อมูลสำเร็จแล้ว'; if (entryCategory === 'income') { toast.style.backgroundColor = '#28a745'; } else if (entryCategory === 'expense') { toast.style.backgroundColor = '#dc3545'; } else { toast.style.backgroundColor = '#007bff'; } toast.className = "toast-notification show"; setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500); }
+    function displayRecords() { const recordBody = document.getElementById('recordBody'); recordBody.innerHTML = ""; const filteredRecords = records.filter(record => record.account === currentAccount) .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); filteredRecords.forEach((record) => { const originalIndex = records.indexOf(record); const dateTime = new Date(record.dateTime); const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`; const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`; const row = document.createElement('tr'); row.innerHTML = ` <td>${formattedDate}</td> <td>${formattedTime}</td> <td>${record.type}</td> <td>${record.description}</td> <td>${record.amount.toLocaleString()} บาท</td> <td> <button onclick="editRecord(${originalIndex})">แก้ไข</button> <button onclick="deleteRecord(${originalIndex})">ลบ</button> </td> `; recordBody.appendChild(row); }); if (filteredRecords.length === 0) { const row = document.createElement('tr'); row.innerHTML = `<td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>`; recordBody.appendChild(row); } }
+    function editRecord(index) { const record = records[index]; document.getElementById('type').value = record.type; document.getElementById('description').value = record.description; document.getElementById('amount').value = record.amount; const [datePart, timePart] = record.dateTime.split(' '); const [year, month, day] = datePart.split('-'); document.getElementById('entryDate').value = `${day}/${month}/${year}`; const [hours, minutes] = timePart.split(':'); document.getElementById('entryTime').value = `${hours}.${minutes}`; editingIndex = index; updateMultiAccountSelector(); }
+    function deleteRecord(index) { if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) { records.splice(index, 1); displayRecords(); saveDataAndShowToast(); } }
+    function parseDateInput(dateStr) { if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) { return null; } const [day, month, year] = dateStr.split('/'); return new Date(year, month - 1, day); }
+    function summarizeByDayMonth() { if (!records || !currentAccount) { alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล"); return; } const dayMonth = document.getElementById('customDayMonth').value.trim(); if (!dayMonth || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dayMonth)) { alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return; } const [day, month, year] = dayMonth.split('/'); const selectedDate = new Date(year, month - 1, day); selectedDate.setHours(0, 0, 0, 0); const endOfDay = new Date(selectedDate); endOfDay.setHours(23, 59, 59, 999); const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 }; const dayRecords = []; let totalBalance = 0; records.forEach(record => { if (!record.dateTime || typeof record.dateTime !== 'string') return; const [date, time] = record.dateTime.split(" "); const [recordYear, recordMonth, recordDay] = date.split("-"); const recordDate = new Date(recordYear, recordMonth - 1, recordDay); if (record.account === currentAccount) { if (recordDate <= endOfDay) { const types = accountTypes.get(currentAccount); if (types["รายรับ"].includes(record.type)) { totalBalance += record.amount; } else if (types["รายจ่าย"].includes(record.type)) { totalBalance -= record.amount; } } const isSelectedDay = (recordDate >= selectedDate && recordDate <= endOfDay); if (!isSelectedDay) return; dayRecords.push(record); const types = accountTypes.get(currentAccount); if (types["รายรับ"].includes(record.type)) { summary.totalIncome += record.amount; summary.incomeCount++; if (!summary.income[record.type]) { summary.income[record.type] = { amount: 0, count: 0 }; } summary.income[record.type].amount += record.amount; summary.income[record.type].count++; } else if (types["รายจ่าย"].includes(record.type)) { summary.totalExpense += record.amount; summary.expenseCount++; if (!summary.expense[record.type]) { summary.expense[record.type] = { amount: 0, count: 0 }; } summary.expense[record.type].amount += record.amount; summary.expense[record.type].count++; } } }); dayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime)); let incomeHTML = ''; for (const type in summary.income) { incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`; } let expenseHTML = ''; for (const type in summary.expense) { expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`; } let recordsHTML = ''; if (dayRecords.length > 0) { recordsHTML = ` <div style="margin-top: 20px;"> <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันที่เลือก : ${day}/${month}/${parseInt(year) + 543}</h4> <table style="width: 100%; border-collapse: collapse; margin-top: 10px;"> <thead><tr style="background-color: #f2f2f2;"><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th></tr></thead> <tbody> ${dayRecords.map(record => { const [date, time] = record.dateTime.split(" "); const [hours, minutes] = time.split(":"); const types = accountTypes.get(currentAccount); const isIncome = types["รายรับ"].includes(record.type); const color = isIncome ? "#4CAF50" : "#F44336"; return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`; }).join('')} </tbody> </table> </div>`; } const thaiDate = new Date(selectedDate); const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' }); const thaiDay = thaiDate.getDate(); const thaiYear = thaiDate.getFullYear() + 543; const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.'; const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment"; let summaryLineHTML; if (summary.totalIncome === 0 && summary.totalExpense === 0) { summaryLineHTML = `<p style="color: green; font-weight: bold;">สรุป : ไม่มีธุระกรรมการเงินวันนี้</p>`; } else { const netAmount = summary.totalIncome - summary.totalExpense; const netColor = netAmount >= 0 ? 'blue' : 'red'; const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้'; summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุป : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`; } const summaryHTML = ` <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p> <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p> <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p> <hr> <p><strong>รายรับ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML} <hr> <p><strong>รายจ่าย : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML} <hr> ${summaryLineHTML} <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p> <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p> ${recordsHTML}`; openSummaryModal(summaryHTML); }
+    function summarize() { if (!records || !currentAccount) { alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล"); return; } const startDateInput = document.getElementById('startDate').value.trim(); const endDateInput = document.getElementById('endDate').value.trim(); if (!startDateInput || !endDateInput) { alert("กรุณาเลือกวันที่ให้ครบถ้วน"); return; } if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(startDateInput) || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(endDateInput)) { alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return; } const [startDay, startMonth, startYear] = startDateInput.split('/'); const [endDay, endMonth, endYear] = endDateInput.split('/'); const startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0); const endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999); if (startDate > endDate) { alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด"); return; } const daysDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 }; const transactionDays = new Set(); let totalBalance = 0; records.forEach(record => { if (!record.dateTime || typeof record.dateTime !== 'string') return; const [date, time] = record.dateTime.split(" "); const [recordYear, recordMonth, recordDay] = date.split("-"); const recordDate = new Date(recordYear, recordMonth - 1, recordDay); if (record.account === currentAccount) { if (recordDate <= endDate) { const types = accountTypes.get(currentAccount); if (types["รายรับ"].includes(record.type)) { totalBalance += record.amount; } else if (types["รายจ่าย"].includes(record.type)) { totalBalance -= record.amount; } } const isInPeriod = (recordDate >= startDate && recordDate <= endDate); if (!isInPeriod) return; transactionDays.add(date); const types = accountTypes.get(currentAccount); if (types["รายรับ"].includes(record.type)) { summary.totalIncome += record.amount; summary.incomeCount++; if (!summary.income[record.type]) { summary.income[record.type] = { amount: 0, count: 0 }; } summary.income[record.type].amount += record.amount; summary.income[record.type].count++; } else if (types["รายจ่าย"].includes(record.type)) { summary.totalExpense += record.amount; summary.expenseCount++; if (!summary.expense[record.type]) { summary.expense[record.type] = { amount: 0, count: 0 }; } summary.expense[record.type].amount += record.amount; summary.expense[record.type].count++; } } }); let transactionDaysSummaryHTML = ''; const nonTransactionDays = daysDiff - transactionDays.size; if (transactionDays.size === 0) { transactionDaysSummaryHTML = `<p style="font-size: 16px; color: orange; font-weight: bold;">ช่วงเวลานี้ไม่มีธุรกรรม</p>`; } else if (transactionDays.size === daysDiff) { transactionDaysSummaryHTML = `<p style="font-size: 16px; color: green; font-weight: bold;">มีธุรกรรมทุกวันในช่วงเวลานี้</p>`; } else { transactionDaysSummaryHTML = `<p style="font-size: 16px; color: #333; font-weight: bold;">ทำธุรกรรม ${transactionDays.size} วัน, ไม่ได้ทำ ${nonTransactionDays} วัน</p>`; } let incomeHTML = ''; for (const type in summary.income) { incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`; } let expenseHTML = ''; for (const type in summary.expense) { expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`; } const thaiStartDate = new Date(startDate); const thaiStartMonth = thaiStartDate.toLocaleString('th-TH', { month: 'long' }); const thaiStartDay = thaiStartDate.getDate(); const thaiStartYear = thaiStartDate.getFullYear() + 543; const thaiEndDate = new Date(endDate); const thaiEndMonth = thaiEndDate.toLocaleString('th-TH', { month: 'long' }); const thaiEndDay = thaiEndDate.getDate(); const thaiEndYear = thaiEndDate.getFullYear() + 543; const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.'; const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment"; let comparisonText = ''; let comparisonColor = ''; let differenceAmount = 0; if (summary.totalIncome > summary.totalExpense) { differenceAmount = summary.totalIncome - summary.totalExpense; comparisonText = `รายได้มากกว่ารายจ่าย = ${differenceAmount.toLocaleString()} บาท`; comparisonColor = 'blue'; } else if (summary.totalIncome < summary.totalExpense) { differenceAmount = summary.totalExpense - summary.totalIncome; comparisonText = `รายจ่ายมากกว่ารายได้ = ${differenceAmount.toLocaleString()} บาท`; comparisonColor = 'red'; } else { comparisonText = 'รายได้เท่ากับรายจ่าย'; comparisonColor = 'black'; } const summaryHTML = ` <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p> <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p> <p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p> <p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p> ${transactionDaysSummaryHTML} <hr> <p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p> ${incomeHTML} <hr> <p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p> ${expenseHTML} <hr> <p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p> <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p> <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p> `; openSummaryModal(summaryHTML); }
+    function summarizeToday() { if (!records || !currentAccount) { alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล"); return; } const today = new Date(); today.setHours(0, 0, 0, 0); const endOfToday = new Date(today); endOfToday.setHours(23, 59, 59, 999); const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 }; const todayRecords = []; let totalBalance = 0; records.forEach(record => { if (!record.dateTime || typeof record.dateTime !== 'string') return; const [date, time] = record.dateTime.split(" "); const [year, month, day] = date.split("-"); const recordDate = new Date(year, month - 1, day); if (record.account === currentAccount) { const types = accountTypes.get(currentAccount); if (types["รายรับ"].includes(record.type)) { totalBalance += record.amount; } else if (types["รายจ่าย"].includes(record.type)) { totalBalance -= record.amount; } const isToday = (recordDate >= today && recordDate <= endOfToday); if (!isToday) return; todayRecords.push(record); if (types["รายรับ"].includes(record.type)) { summary.totalIncome += record.amount; summary.incomeCount++; if (!summary.income[record.type]) { summary.income[record.type] = { amount: 0, count: 0 }; } summary.income[record.type].amount += record.amount; summary.income[record.type].count++; } else if (types["รายจ่าย"].includes(record.type)) { summary.totalExpense += record.amount; summary.expenseCount++; if (!summary.expense[record.type]) { summary.expense[record.type] = { amount: 0, count: 0 }; } summary.expense[record.type].amount += record.amount; summary.expense[record.type].count++; } } }); todayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime)); let incomeHTML = ''; for (const type in summary.income) { incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`; } let expenseHTML = ''; for (const type in summary.expense) { expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`; } let recordsHTML = ''; if (todayRecords.length > 0) { const thaiDateForTable = new Date(today); const day = String(thaiDateForTable.getDate()).padStart(2, '0'); const month = String(thaiDateForTable.getMonth() + 1).padStart(2, '0'); const year = thaiDateForTable.getFullYear() + 543; recordsHTML = `<div style="margin-top: 20px;"><h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ : ${day}/${month}/${year}</h4><table style="width: 100%; border-collapse: collapse; margin-top: 10px;"><thead><tr style="background-color: #f2f2f2;"><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th></tr></thead><tbody> ${todayRecords.map(record => { const [date, time] = record.dateTime.split(" "); const [hours, minutes] = time.split(":"); const recordType = accountTypes.get(currentAccount)["รายรับ"].includes(record.type) ? "รายรับ" : "รายจ่าย"; const color = recordType === "รายรับ" ? "#4CAF50" : "#F44336"; return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`; }).join('')} </tbody></table></div>`; } const thaiDate = new Date(today); const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' }); const thaiDay = thaiDate.getDate(); const thaiYear = thaiDate.getFullYear() + 543; const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.'; const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment"; let summaryLineHTML; if (summary.totalIncome === 0 && summary.totalExpense === 0) { summaryLineHTML = `<p style="color: green; font-weight: bold;">สรุปวันนี้ : ไม่มีธุระกรรมการเงินวันนี้</p>`; } else { const netAmount = summary.totalIncome - summary.totalExpense; const netColor = netAmount >= 0 ? 'blue' : 'red'; const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้'; summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`; } const summaryHTML = ` <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p> <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p> <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p> <hr> <p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p> ${incomeHTML} <hr> <p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p> ${expenseHTML} <hr> ${summaryLineHTML} <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p> <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p> ${recordsHTML}`; openSummaryModal(summaryHTML); }
+    function exportToExcel() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนส่งออกข้อมูล"); return; } const titleRow = [`ชื่อบัญชี: ${currentAccount}`, "", "", "", ""]; const headerRow = ["วันที่", "เวลา", "ประเภท", "รายละเอียด", "จำนวนเงิน (บาท)"]; let excelData = [titleRow, headerRow]; const filteredRecords = records.filter(record => record.account === currentAccount) .sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime)); filteredRecords.forEach(record => { const dateTime = new Date(record.dateTime); const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`; const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`; const formattedAmount = new Intl.NumberFormat('th-TH').format(record.amount); excelData.push([formattedDate, formattedTime, record.type, record.description, formattedAmount]); }); let csvContent = excelData.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",") ).join("\r\n"); const now = new Date(); const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`; const timeStr = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`; const fileName = `บัญชี_${currentAccount}_${dateStr}_${timeStr}.csv`; const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = fileName; link.style.display = "none"; document.body.appendChild(link); link.click(); document.body.removeChild(link); }
+    function saveToFile() { const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):"); if (!fileName) { alert("กรุณากรอกชื่อไฟล์"); return; } const now = new Date(); const day = String(now.getDate()).padStart(2, '0'); const month = String(now.getMonth() + 1).padStart(2, '0'); const year = now.getFullYear(); const hours = String(now.getHours()).padStart(2, '0'); const minutes = String(now.getMinutes()).padStart(2, '0'); const dateTimeString = `${day}${month}${year}_${hours}${minutes}`; const fullFileName = `${fileName}_${dateTimeString}.json`; const data = { accounts, currentAccount, records, accountTypes: Array.from(accountTypes.entries()) }; const blob = new Blob([JSON.stringify(data)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fullFileName; a.click(); URL.revokeObjectURL(url); }
+    function saveToLocal() { const dataToSave = { accounts: [...accounts], currentAccount: currentAccount, records: [...records], accountTypes: Array.from(accountTypes.entries()) }; try { localStorage.setItem('accountData', JSON.stringify(dataToSave)); const toast = document.getElementById('toast'); toast.textContent = '✓ บันทึกชั่วคราวสำเร็จแล้ว'; toast.style.backgroundColor = '#17a2b8'; toast.className = "toast-notification show"; setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500); } catch (error) { console.error("บันทึกข้อมูลไม่สำเร็จ:", error); alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล\nกรุณาลองอีกครั้งหรือตรวจสอบพื้นที่เก็บข้อมูล"); } }
+    function loadFromLocal() { const data = localStorage.getItem('accountData'); if (data) { try { const parsed = JSON.parse(data); accounts.length = 0; accounts.push(...parsed.accounts || []); currentAccount = parsed.currentAccount || null; records.length = 0; records.push(...parsed.records || []); accountTypes.clear(); if (parsed.accountTypes) { parsed.accountTypes.forEach(([account, types]) => { accountTypes.set(account, types); }); } updateAccountSelect(); if (currentAccount) { document.getElementById('accountSelect').value = currentAccount; } changeAccount(); } catch (error) { console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error); } } updateMultiAccountSelector(); }
+    function exportAccountToJson() { if (!currentAccount) { alert("กรุณาเลือกบัญชีที่ต้องการส่งออก"); return; } const fileName = prompt(`กรุณากรอกชื่อไฟล์สำหรับบัญชี ${currentAccount} (ไม่ต้องใส่นามสกุล):`, currentAccount); if (!fileName) { alert("กรุณากรอกชื่อไฟล์"); return; } const now = new Date(); const day = String(now.getDate()).padStart(2, '0'); const month = String(now.getMonth() + 1).padStart(2, '0'); const year = now.getFullYear(); const hours = String(now.getHours()).padStart(2, '0'); const minutes = String(now.getMinutes()).padStart(2, '0'); const dateTimeString = `${day}${month}${year}_${hours}${minutes}`; const fullFileName = `${fileName}_${dateTimeString}.json`; const accountData = { accountName: currentAccount, records: records.filter(record => record.account === currentAccount), accountTypes: accountTypes.get(currentAccount) || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] } }; const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fullFileName; a.click(); URL.revokeObjectURL(url); alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`); }
+    function loadFromFile(event) { const file = event.target.files[0]; if (!file) { return; } if (!file.name.endsWith('.json') && file.type !== 'application/json') { alert("กรุณาเลือกไฟล์ JSON เท่านั้น"); return; } const reader = new FileReader(); reader.onload = function(e) { try { const data = JSON.parse(e.target.result); if (data.accountName) { const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`); if (confirmLoad) { if (!accounts.includes(data.accountName)) { accounts.push(data.accountName); } currentAccount = data.accountName; if (!accountTypes.has(data.accountName)) { accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] }); } const existingRecords = records.filter(r => r.account !== data.accountName); records.length = 0; records.push(...existingRecords, ...data.records); updateAccountSelect(); document.getElementById('accountSelect').value = currentAccount; changeAccount(); alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`); } } else { accounts.length = 0; accounts.push(...data.accounts); currentAccount = data.currentAccount; records.length = 0; records.push(...data.records); accountTypes.clear(); if (data.accountTypes) { data.accountTypes.forEach(([account, types]) => { accountTypes.set(account, types); }); } updateAccountSelect(); if (currentAccount) { document.getElementById('accountSelect').value = currentAccount; } changeAccount(); alert("โหลดข้อมูลทั้งหมดสำเร็จ"); } updateMultiAccountSelector(); } catch (error) { alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message); } }; reader.onerror = function() { alert("เกิดข้อผิดพลาดในการอ่านไฟล์"); }; reader.readAsText(file); }
     
-    function initializeAccountTypes(accountName) {
-        if (!accountTypes.has(accountName)) {
-            accountTypes.set(accountName, {
-                "รายรับ": ["ถูกหวย", "เติมทุน"],
-                "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"]
-            });
+    // <!-- [แก้ไขล่าสุด] เพิ่มฟังก์ชันและตรรกะใหม่สำหรับซ่อนกล่องคำแนะนำ -->
+    function hideInstallPrompt() {
+        const installGuide = document.getElementById('install-guide');
+        if (installGuide) {
+            installGuide.style.display = 'none';
         }
     }
 
-    function updateTypeList() {
-        const typeList = document.getElementById('typeList');
-        if (!currentAccount) {
-            typeList.innerHTML = '';
-            return;
-        }
-        initializeAccountTypes(currentAccount);
-        const types = accountTypes.get(currentAccount);
-        typeList.innerHTML = '';
-        types["รายจ่าย"].forEach(type => {
-            const option = document.createElement('option');
-            option.value = type;
-            typeList.appendChild(option);
-        });
-        types["รายรับ"].forEach(type => {
-            const option = document.createElement('option');
-            option.value = type;
-            typeList.appendChild(option);
-        });
-    }
-
-    function addNewType() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนเพิ่มประเภท");
-            return;
-        }
-        initializeAccountTypes(currentAccount);
-        const types = accountTypes.get(currentAccount);
-        const category = prompt("เลือกประเภทที่จะเพิ่ม (รายรับ/รายจ่าย):");
-        if (category !== "รายรับ" && category !== "รายจ่าย") {
-            alert("กรุณากรอก 'รายรับ' หรือ 'รายจ่าย' เท่านั้น");
-            return;
-        }
-        const typeInput = document.getElementById('type');
-        const typeName = typeInput.value.trim();
-        if (!typeName) {
-            alert("กรุณากรอกชื่อประเภทในช่องประเภทก่อน");
-            return;
-        }
-        if (!types[category].includes(typeName)) {
-            types[category].push(typeName);
-            updateTypeList();
-            alert(`เพิ่มประเภท "${typeName}" ในหมวด "${category}" เรียบร้อย`);
-            saveToLocal();
-        } else {
-            alert("ประเภทนี้มีอยู่แล้ว");
-        }
-    }
-    function editType() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนแก้ไขประเภท");
-            return;
-        }
-        initializeAccountTypes(currentAccount);
-        const types = accountTypes.get(currentAccount);
-        const typeInput = document.getElementById('type');
-        const currentType = typeInput.value.trim();
-        if (!currentType) {
-            alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการแก้ไข");
-            return;
-        }
-        let foundCategory = null;
-        for (const category in types) {
-            if (types[category].includes(currentType)) {
-                foundCategory = category;
-                break;
-            }
-        }
-        if (!foundCategory) {
-            alert("ไม่พบประเภทที่ต้องการแก้ไข");
-            return;
-        }
-        const newName = prompt("กรุณากรอกชื่อประเภทใหม่:", currentType);
-        if (newName && newName !== currentType) {
-            const index = types[foundCategory].indexOf(currentType);
-            types[foundCategory][index] = newName;
-            records.forEach(record => {
-                if (record.account === currentAccount && record.type === currentType) {
-                    record.type = newName;
-                }
-            });
-            updateTypeList();
-            typeInput.value = newName;
-            alert("แก้ไขชื่อประเภทเรียบร้อย");
-            saveToLocal();
-        }
-    }
-    function deleteType() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนลบประเภท");
-            return;
-        }
-        initializeAccountTypes(currentAccount);
-        const types = accountTypes.get(currentAccount);
-        const typeInput = document.getElementById('type');
-        const currentType = typeInput.value.trim();
-        if (!currentType) {
-            alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการลบ");
-            return;
-        }
-        let foundCategory = null;
-        for (const category in types) {
-            if (types[category].includes(currentType)) {
-                foundCategory = category;
-                break;
-            }
-        }
-        if (!foundCategory) {
-            alert("ไม่พบประเภทที่ต้องการลบ");
-            return;
-        }
-        if (confirm(`คุณแน่ใจว่าจะลบประเภท "${currentType}" หรือไม่?`)) {
-            const index = types[foundCategory].indexOf(currentType);
-            types[foundCategory].splice(index, 1);
-            updateTypeList();
-            typeInput.value = '';
-            alert("ลบประเภทเรียบร้อย");
-            saveToLocal();
-        }
-    }
-
-    function toggleRecordsVisibility() {
-        const detailsSection = document.getElementById('detailsSection');
-        if (detailsSection.style.display === 'none' || detailsSection.style.display === '') {
-            detailsSection.style.display = 'block';
-        } else {
-            detailsSection.style.display = 'none';
-        }
-    }
-
-    function addAccount() {
-        const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:");
-        if (accountName && !accounts.includes(accountName)) {
-            accounts.push(accountName);
-            updateAccountSelect();
-            updateMultiAccountSelector(); 
-            alert("เพิ่มบัญชีสำเร็จ");
-            saveToLocal();
-        } else {
-            alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
-        }
-    }
-
-    function updateAccountSelect() {
-        const accountSelect = document.getElementById('accountSelect');
-        accountSelect.innerHTML = '<option value="">เลือกบัญชี</option>';
-        accounts.forEach(account => {
-            const option = document.createElement('option');
-            option.value = account;
-            option.textContent = account;
-            accountSelect.appendChild(option);
-        });
-    }
-
-    function changeAccount() {
-        currentAccount = document.getElementById('accountSelect').value;
-        document.getElementById('accountName').textContent = currentAccount || "";
-        updateTypeList();
-        displayRecords();
-        updateMultiAccountSelector(); 
-    }
-
-    function editAccount() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีที่ต้องการแก้ไข");
-            return;
-        }
-        const newAccountName = prompt("กรุณากรอกชื่อบัญชีใหม่:", currentAccount);
-        if (newAccountName && newAccountName !== currentAccount && !accounts.includes(newAccountName)) {
-            const index = accounts.indexOf(currentAccount);
-            if (index > -1) {
-                accounts[index] = newAccountName;
-                records.forEach(record => {
-                    if (record.account === currentAccount) {
-                        record.account = newAccountName;
-                    }
-                });
-                if (accountTypes.has(currentAccount)) {
-                    const oldTypes = accountTypes.get(currentAccount);
-                    accountTypes.set(newAccountName, oldTypes);
-                    accountTypes.delete(currentAccount);
-                }
-                currentAccount = newAccountName;
-                updateAccountSelect();
-                document.getElementById('accountName').textContent = currentAccount;
-                updateTypeList();
-                displayRecords();
-                updateMultiAccountSelector(); 
-                alert("แก้ไขชื่อบัญชีเรียบร้อย");
-                saveToLocal();
-            }
-        } else {
-            alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง");
-        }
-    }
-
-    function deleteAccount() {
-        if (currentAccount) {
-            const confirmDelete = confirm(`คุณแน่ใจว่าจะลบบัญชี "${currentAccount}" และข้อมูลทั้งหมดในบัญชีนี้หรือไม่?`);
-            if (confirmDelete) {
-                const index = accounts.indexOf(currentAccount);
-                if (index > -1) {
-                    accounts.splice(index, 1);
-                    accountTypes.delete(currentAccount);
-                    for (let i = records.length - 1; i >= 0; i--) {
-                        if (records[i].account === currentAccount) {
-                            records.splice(i, 1);
-                        }
-                    }
-                    currentAccount = null;
-                    document.getElementById('accountSelect').value = "";
-                    document.getElementById('accountName').textContent = "";
-                    updateAccountSelect();
-                    updateTypeList();
-                    displayRecords();
-                    updateMultiAccountSelector(); 
-                    alert("ลบบัญชีเรียบร้อย");
-                    saveToLocal();
-                }
-            }
-        } else {
-            alert("กรุณาเลือกบัญชีที่ต้องการลบ");
-        }
-    }
-    
-    function addEntry() {
-        let entryDateInput = document.getElementById('entryDate').value.trim();
-        let entryTimeInput = document.getElementById('entryTime').value.trim();
-        const typeInput = document.getElementById('type');
-        const typeText = typeInput.value.trim();
-        const description = document.getElementById('description').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-
-        let selectedDate;
-        if (!entryDateInput) {
-            selectedDate = new Date();
-        } else {
-            if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) {
-                alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return;
-            }
-            const [day, month, year] = entryDateInput.split('/');
-            selectedDate = new Date(year, month - 1, day);
-        }
-        let hours, minutes;
-        if (!entryTimeInput) {
-            const now = new Date();
-            hours = String(now.getHours()).padStart(2, '0');
-            minutes = String(now.getMinutes()).padStart(2, '0');
-        } else {
-            if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) {
-                alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)"); return;
-            }
-            [hours, minutes] = entryTimeInput.split('.');
-            hours = String(hours).padStart(2, '0');
-            minutes = String(minutes).padStart(2, '0');
-        }
-        const timeString = `${hours}:${minutes}`;
-        const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
-        const dateTime = `${formattedDate} ${timeString}`;
-
-        if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ"); return; }
-        if (!typeText) { alert("กรุณากรอกประเภท"); return; }
-        if (!description) { alert("กรุณากรอกรายละเอียด"); return; }
-        if (isNaN(amount) || amount <= 0) { alert("กรุณากรอกจำนวนเงินที่ถูกต้อง"); return; }
-        
-        const types = accountTypes.get(currentAccount);
-        let entryCategory = 'expense';
-        if (types["รายรับ"].includes(typeText)) {
-            entryCategory = 'income';
-        }
-
-        if (editingIndex !== null) {
-            records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount };
-            editingIndex = null;
-        } else {
-            records.push({ dateTime, type: typeText, description, amount, account: currentAccount });
-            const selectedCheckboxes = document.querySelectorAll('#multiAccountCheckboxes input:checked');
-            selectedCheckboxes.forEach(checkbox => {
-                const targetAccount = checkbox.value;
-                records.push({ dateTime, type: typeText, description, amount, account: targetAccount });
-            });
-        }
-        
-        displayRecords();
-        
-        document.getElementById('description').value = '';
-        document.getElementById('amount').value = '';
-        document.getElementById('entryDate').value = '';
-        document.getElementById('entryTime').value = '';
-        typeInput.value = '';
-        
-        document.querySelectorAll('#multiAccountCheckboxes input:checked').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-
-        saveDataAndShowToast(entryCategory);
-        updateMultiAccountSelector(); 
-    }
-
-    function saveDataAndShowToast(entryCategory = 'neutral') {
-        const dataToSave = {
-            accounts: [...accounts],
-            currentAccount: currentAccount,
-            records: [...records],
-            accountTypes: Array.from(accountTypes.entries())
-        };
-        try {
-            localStorage.setItem('accountData', JSON.stringify(dataToSave));
-        } catch (error) {
-            console.error("บันทึกข้อมูลไม่สำเร็จ:", error);
-            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล");
-            return;
-        }
-        const toast = document.getElementById('toast');
-        toast.textContent = '✓ บันทึกข้อมูลสำเร็จแล้ว';
-        if (entryCategory === 'income') {
-            toast.style.backgroundColor = '#28a745';
-        } else if (entryCategory === 'expense') {
-            toast.style.backgroundColor = '#dc3545';
-        } else {
-            toast.style.backgroundColor = '#007bff';
-        }
-        toast.className = "toast-notification show";
-        setTimeout(function(){ 
-            toast.className = toast.className.replace("show", ""); 
-        }, 2500);
-    }
-    
-    function displayRecords() {
-        const recordBody = document.getElementById('recordBody');
-        recordBody.innerHTML = "";
-        const filteredRecords = records.filter(record => record.account === currentAccount)
-                                      .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-
-        filteredRecords.forEach((record) => {
-            const originalIndex = records.indexOf(record);
-            const dateTime = new Date(record.dateTime);
-            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
-            const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${formattedTime}</td>
-                <td>${record.type}</td>
-                <td>${record.description}</td>
-                <td>${record.amount.toLocaleString()} บาท</td>
-                <td>
-                    <button onclick="editRecord(${originalIndex})">แก้ไข</button>
-                    <button onclick="deleteRecord(${originalIndex})">ลบ</button>
-                </td>
-            `;
-            recordBody.appendChild(row);
-        });
-
-        if (filteredRecords.length === 0) {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>`;
-            recordBody.appendChild(row);
-        }
-    }
-
-    function editRecord(index) {
-        const record = records[index];
-        document.getElementById('type').value = record.type;
-        document.getElementById('description').value = record.description;
-        document.getElementById('amount').value = record.amount;
-        const [datePart, timePart] = record.dateTime.split(' ');
-        const [year, month, day] = datePart.split('-');
-        document.getElementById('entryDate').value = `${day}/${month}/${year}`;
-        const [hours, minutes] = timePart.split(':');
-        document.getElementById('entryTime').value = `${hours}.${minutes}`;
-        editingIndex = index;
-        updateMultiAccountSelector();
-    }
-
-    function deleteRecord(index) {
-        if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) {
-            records.splice(index, 1);
-            displayRecords();
-            saveDataAndShowToast();
-        }
-    }
-
-    function parseDateInput(dateStr) {
-        if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) {
-            return null;
-        }
-        const [day, month, year] = dateStr.split('/');
-        return new Date(year, month - 1, day);
-    }
-
-    function summarizeByDayMonth() {
-        if (!records || !currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
-            return;
-        }
-        const dayMonth = document.getElementById('customDayMonth').value.trim();
-        if (!dayMonth || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dayMonth)) {
-            alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
-            return;
-        }
-        const [day, month, year] = dayMonth.split('/');
-        const selectedDate = new Date(year, month - 1, day);
-        selectedDate.setHours(0, 0, 0, 0);
-        const endOfDay = new Date(selectedDate);
-        endOfDay.setHours(23, 59, 59, 999);
-        const summary = {
-            income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0
-        };
-        const dayRecords = [];
-        let totalBalance = 0;
-        records.forEach(record => {
-            if (!record.dateTime || typeof record.dateTime !== 'string') return;
-            const [date, time] = record.dateTime.split(" ");
-            const [recordYear, recordMonth, recordDay] = date.split("-");
-            const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
-            if (record.account === currentAccount) {
-                if (recordDate <= endOfDay) {
-                    const types = accountTypes.get(currentAccount);
-                    if (types["รายรับ"].includes(record.type)) {
-                        totalBalance += record.amount;
-                    } else if (types["รายจ่าย"].includes(record.type)) {
-                        totalBalance -= record.amount;
-                    }
-                }
-                const isSelectedDay = (recordDate >= selectedDate && recordDate <= endOfDay);
-                if (!isSelectedDay) return;
-                dayRecords.push(record);
-                const types = accountTypes.get(currentAccount);
-                if (types["รายรับ"].includes(record.type)) {
-                    summary.totalIncome += record.amount;
-                    summary.incomeCount++;
-                    if (!summary.income[record.type]) {
-                        summary.income[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.income[record.type].amount += record.amount;
-                    summary.income[record.type].count++;
-                } 
-                else if (types["รายจ่าย"].includes(record.type)) {
-                    summary.totalExpense += record.amount;
-                    summary.expenseCount++;
-                    if (!summary.expense[record.type]) {
-                        summary.expense[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.expense[record.type].amount += record.amount;
-                    summary.expense[record.type].count++;
-                }
-            }
-        });
-        dayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
-        let incomeHTML = '';
-        for (const type in summary.income) {
-            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
-        }
-        let expenseHTML = '';
-        for (const type in summary.expense) {
-            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
-        }
-        let recordsHTML = '';
-        if (dayRecords.length > 0) {
-            recordsHTML = `
-                <div style="margin-top: 20px;">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันที่เลือก : ${day}/${month}/${parseInt(year) + 543}</h4>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                        <thead><tr style="background-color: #f2f2f2;"><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th></tr></thead>
-                        <tbody>
-                            ${dayRecords.map(record => {
-                                const [date, time] = record.dateTime.split(" ");
-                                const [hours, minutes] = time.split(":");
-                                const types = accountTypes.get(currentAccount);
-                                const isIncome = types["รายรับ"].includes(record.type);
-                                const color = isIncome ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                </div>`;
-        }
-        const thaiDate = new Date(selectedDate);
-        const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
-        const thaiDay = thaiDate.getDate();
-        const thaiYear = thaiDate.getFullYear() + 543;
-        const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.';
-        const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
-        
-        let summaryLineHTML;
-        if (summary.totalIncome === 0 && summary.totalExpense === 0) {
-            summaryLineHTML = `<p style="color: green; font-weight: bold;">สรุป : ไม่มีธุระกรรมการเงินวันนี้</p>`;
-        } else {
-            const netAmount = summary.totalIncome - summary.totalExpense;
-            const netColor = netAmount >= 0 ? 'blue' : 'red';
-            const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
-            summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุป : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`;
-        }
-        
-        const summaryHTML = `
-            <p><strong>ชื่อบัญชี:</strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
-            <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-            <hr>
-            <p><strong>รายรับ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>${incomeHTML}
-            <hr>
-            <p><strong>รายจ่าย : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>${expenseHTML}
-            <hr>
-            ${summaryLineHTML}
-            <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี =  </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
-            <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
-            ${recordsHTML}`;
-        
-        openSummaryModal(summaryHTML);
-    }
-    
-    function summarize() {
-        if (!records || !currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
-            return;
-        }
-        const startDateInput = document.getElementById('startDate').value.trim();
-        const endDateInput = document.getElementById('endDate').value.trim();
-        if (!startDateInput || !endDateInput) {
-            alert("กรุณาเลือกวันที่ให้ครบถ้วน");
-            return;
-        }
-        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(startDateInput) || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(endDateInput)) {
-            alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)");
-            return;
-        }
-        const [startDay, startMonth, startYear] = startDateInput.split('/');
-        const [endDay, endMonth, endYear] = endDateInput.split('/');
-        const startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0);
-        const endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
-        if (startDate > endDate) {
-            alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
-            return;
-        }
-        const daysDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-        const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 };
-        const transactionDays = new Set();
-        let totalBalance = 0;
-
-        records.forEach(record => {
-            if (!record.dateTime || typeof record.dateTime !== 'string') return;
-            const [date, time] = record.dateTime.split(" ");
-            const [recordYear, recordMonth, recordDay] = date.split("-");
-            const recordDate = new Date(recordYear, recordMonth - 1, recordDay);
-            
-            if (record.account === currentAccount) {
-                if (recordDate <= endDate) {
-                    const types = accountTypes.get(currentAccount);
-                    if (types["รายรับ"].includes(record.type)) {
-                        totalBalance += record.amount;
-                    } else if (types["รายจ่าย"].includes(record.type)) {
-                        totalBalance -= record.amount;
-                    }
-                }
-                
-                const isInPeriod = (recordDate >= startDate && recordDate <= endDate);
-                if (!isInPeriod) return;
-                
-                transactionDays.add(date);
-                
-                const types = accountTypes.get(currentAccount);
-                if (types["รายรับ"].includes(record.type)) {
-                    summary.totalIncome += record.amount;
-                    summary.incomeCount++;
-                    if (!summary.income[record.type]) {
-                        summary.income[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.income[record.type].amount += record.amount;
-                    summary.income[record.type].count++;
-                } 
-                else if (types["รายจ่าย"].includes(record.type)) {
-                    summary.totalExpense += record.amount;
-                    summary.expenseCount++;
-                    if (!summary.expense[record.type]) {
-                        summary.expense[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.expense[record.type].amount += record.amount;
-                    summary.expense[record.type].count++;
-                }
-            }
-        });
-
-        let transactionDaysSummaryHTML = '';
-        const nonTransactionDays = daysDiff - transactionDays.size;
-        if (transactionDays.size === 0) {
-            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: orange; font-weight: bold;">ช่วงเวลานี้ไม่มีธุรกรรม</p>`;
-        } else if (transactionDays.size === daysDiff) {
-            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: green; font-weight: bold;">มีธุรกรรมทุกวันในช่วงเวลานี้</p>`;
-        } else {
-            transactionDaysSummaryHTML = `<p style="font-size: 16px; color: #333; font-weight: bold;">ทำธุรกรรม ${transactionDays.size} วัน, ไม่ได้ทำ ${nonTransactionDays} วัน</p>`;
-        }
-
-        let incomeHTML = '';
-        for (const type in summary.income) {
-            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
-        }
-        let expenseHTML = '';
-        for (const type in summary.expense) {
-            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
-        }
-        const thaiStartDate = new Date(startDate);
-        const thaiStartMonth = thaiStartDate.toLocaleString('th-TH', { month: 'long' });
-        const thaiStartDay = thaiStartDate.getDate();
-        const thaiStartYear = thaiStartDate.getFullYear() + 543;
-        const thaiEndDate = new Date(endDate);
-        const thaiEndMonth = thaiEndDate.toLocaleString('th-TH', { month: 'long' });
-        const thaiEndDay = thaiEndDate.getDate();
-        const thaiEndYear = thaiEndDate.getFullYear() + 543;
-        const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.';
-        const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
-        let comparisonText = '';
-        let comparisonColor = '';
-        let differenceAmount = 0;
-        if (summary.totalIncome > summary.totalExpense) {
-            differenceAmount = summary.totalIncome - summary.totalExpense;
-            comparisonText = `รายได้มากกว่ารายจ่าย = ${differenceAmount.toLocaleString()} บาท`;
-            comparisonColor = 'blue';
-        } else if (summary.totalIncome < summary.totalExpense) {
-            differenceAmount = summary.totalExpense - summary.totalIncome;
-            comparisonText = `รายจ่ายมากกว่ารายได้ = ${differenceAmount.toLocaleString()} บาท`;
-            comparisonColor = 'red';
-        } else {
-            comparisonText = 'รายได้เท่ากับรายจ่าย';
-            comparisonColor = 'black';
-        }
-        const summaryHTML = `
-            <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
-            <p><strong>สรุปวันที่ :</strong> ${thaiStartDay} ${thaiStartMonth} ${thaiStartYear} ถึง ${thaiEndDay} ${thaiEndMonth} ${thaiEndYear}</p>
-            <p style="font-size: 16px; color: blue; font-weight: bold;">จำนวน ${daysDiff} วัน</p>
-            ${transactionDaysSummaryHTML}
-            <hr>
-            <p><strong>รายรับทั้งหมด : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
-            ${incomeHTML}
-            <hr>
-            <p><strong>รายจ่ายทั้งหมด : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
-            ${expenseHTML}
-            <hr>
-            <p style="color: ${comparisonColor}; font-weight: bold; font-size: 16px;">สรุป : ${comparisonText}</p>
-            <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
-            <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
-        `;
-        openSummaryModal(summaryHTML);
-    }
-
-
-    function summarizeToday() {
-        if (!records || !currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนทำการสรุปข้อมูล");
-            return;
-        }
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const endOfToday = new Date(today);
-        endOfToday.setHours(23, 59, 59, 999);
-        const summary = { income: {}, expense: {}, totalIncome: 0, totalExpense: 0, incomeCount: 0, expenseCount: 0 };
-        const todayRecords = [];
-        let totalBalance = 0;
-        records.forEach(record => {
-            if (!record.dateTime || typeof record.dateTime !== 'string') return;
-            const [date, time] = record.dateTime.split(" ");
-            const [year, month, day] = date.split("-");
-            const recordDate = new Date(year, month - 1, day);
-            if (record.account === currentAccount) {
-                const types = accountTypes.get(currentAccount);
-                if (types["รายรับ"].includes(record.type)) {
-                    totalBalance += record.amount;
-                } else if (types["รายจ่าย"].includes(record.type)) {
-                    totalBalance -= record.amount;
-                }
-                const isToday = (recordDate >= today && recordDate <= endOfToday);
-                if (!isToday) return;
-                todayRecords.push(record);
-                if (types["รายรับ"].includes(record.type)) {
-                    summary.totalIncome += record.amount;
-                    summary.incomeCount++;
-                    if (!summary.income[record.type]) {
-                        summary.income[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.income[record.type].amount += record.amount;
-                    summary.income[record.type].count++;
-                } 
-                else if (types["รายจ่าย"].includes(record.type)) {
-                    summary.totalExpense += record.amount;
-                    summary.expenseCount++;
-                    if (!summary.expense[record.type]) {
-                        summary.expense[record.type] = { amount: 0, count: 0 };
-                    }
-                    summary.expense[record.type].amount += record.amount;
-                    summary.expense[record.type].count++;
-                }
-            }
-        });
-        todayRecords.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
-        let incomeHTML = '';
-        for (const type in summary.income) {
-            incomeHTML += `<p>- ${type} : ${summary.income[type].count} ครั้ง เป็นเงิน ${summary.income[type].amount.toLocaleString()} บาท</p>`;
-        }
-        let expenseHTML = '';
-        for (const type in summary.expense) {
-            expenseHTML += `<p>- ${type} : ${summary.expense[type].count} ครั้ง เป็นเงิน ${summary.expense[type].amount.toLocaleString()} บาท</p>`;
-        }
-        let recordsHTML = '';
-        if (todayRecords.length > 0) {
-            const thaiDateForTable = new Date(today);
-            const day = String(thaiDateForTable.getDate()).padStart(2, '0');
-            const month = String(thaiDateForTable.getMonth() + 1).padStart(2, '0');
-            const year = thaiDateForTable.getFullYear() + 543;
-            recordsHTML = `<div style="margin-top: 20px;"><h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">รายละเอียดวันนี้ : ${day}/${month}/${year}</h4><table style="width: 100%; border-collapse: collapse; margin-top: 10px;"><thead><tr style="background-color: #f2f2f2;"><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th></tr></thead><tbody>
-                            ${todayRecords.map(record => {
-                                const [date, time] = record.dateTime.split(" ");
-                                const [hours, minutes] = time.split(":");
-                                const recordType = accountTypes.get(currentAccount)["รายรับ"].includes(record.type) ? "รายรับ" : "รายจ่าย";
-                                const color = recordType === "รายรับ" ? "#4CAF50" : "#F44336";
-                                return `<tr><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${hours}.${minutes}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.type}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${record.description}</td><td style="padding: 8px; border: 1px solid #ddd; text-align: center; color: ${color}; font-weight: bold;">${record.amount.toLocaleString()}</td></tr>`;
-                            }).join('')}
-                        </tbody></table></div>`;
-        }
-        const thaiDate = new Date(today);
-        const thaiMonth = thaiDate.toLocaleString('th-TH', { month: 'long' });
-        const thaiDay = thaiDate.getDate();
-        const thaiYear = thaiDate.getFullYear() + 543;
-        const summaryDateTime = new Date().toLocaleString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' น.';
-        const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
-        
-        let summaryLineHTML;
-        if (summary.totalIncome === 0 && summary.totalExpense === 0) {
-            summaryLineHTML = `<p style="color: green; font-weight: bold;">สรุปวันนี้ : ไม่มีธุระกรรมการเงินวันนี้</p>`;
-        } else {
-            const netAmount = summary.totalIncome - summary.totalExpense;
-            const netColor = netAmount >= 0 ? 'blue' : 'red';
-            const netText = netAmount >= 0 ? 'รายได้มากกว่ารายจ่าย' : 'รายจ่ายมากกว่ารายได้';
-            summaryLineHTML = `<p style="color: ${netColor}; font-weight: bold;">สรุปวันนี้ : ${netText} = ${Math.abs(netAmount).toLocaleString()} บาท</p>`;
-        }
-        
-        const summaryHTML = `
-            <p><strong>ชื่อบัญชี : </strong> ${currentAccount}</p>
-            <p><strong>สรุปเมื่อวันที่ : </strong> ${summaryDateTime}</p>
-            <p><strong>สรุปข้อมูลของวันที่ : </strong> ${thaiDay} ${thaiMonth} ${thaiYear}</p>
-            <hr>
-            <p><strong>รายรับวันนี้ : </strong> ${summary.incomeCount} ครั้ง เป็นเงิน ${summary.totalIncome.toLocaleString()} บาท</p>
-            ${incomeHTML}
-            <hr>
-            <p><strong>รายจ่ายวันนี้ : </strong> ${summary.expenseCount} ครั้ง เป็นเงิน ${summary.totalExpense.toLocaleString()} บาท</p>
-            ${expenseHTML}
-            <hr>
-            ${summaryLineHTML}
-            <p><span style="color: blue; font-size: 14px; font-weight: bold;">เงินในบัญชีถึงวันนี้มี = </span><span style="color: ${totalBalance >= 0 ? 'green' : 'red'}; font-size: 16px; font-weight: bold;">${totalBalance.toLocaleString()}</span> บาท</p>
-            <p>ข้อความเพิ่ม : <span style="color: orange;">${remarkInput}</span></p>
-            ${recordsHTML}`;
-        
-        openSummaryModal(summaryHTML);
-    }
-
-    function exportToExcel() {
-        if (!currentAccount) {
-            alert("กรุณาเลือกบัญชีก่อนส่งออกข้อมูล");
-            return;
-        }
-        const titleRow = [`ชื่อบัญชี: ${currentAccount}`, "", "", "", ""];
-        const headerRow = ["วันที่", "เวลา", "ประเภท", "รายละเอียด", "จำนวนเงิน (บาท)"];
-        let excelData = [titleRow, headerRow];
-        const filteredRecords = records.filter(record => record.account === currentAccount)
-                                      .sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
-        filteredRecords.forEach(record => {
-            const dateTime = new Date(record.dateTime);
-            const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`;
-            const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`;
-            const formattedAmount = new Intl.NumberFormat('th-TH').format(record.amount);
-            
-            excelData.push([formattedDate, formattedTime, record.type, record.description, formattedAmount]);
-        });
-        let csvContent = excelData.map(row => 
-            row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")
-        ).join("\r\n");
-        
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
-        const timeStr = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
-        const fileName = `บัญชี_${currentAccount}_${dateStr}_${timeStr}.csv`;
-        const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        link.style.display = "none";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    function saveToFile() {
-        const fileName = prompt("กรุณากรอกชื่อไฟล์ (ไม่ต้องใส่นามสกุล):");
-        if (!fileName) {
-            alert("กรุณากรอกชื่อไฟล์");
-            return;
-        }
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const dateTimeString = `${day}${month}${year}_${hours}${minutes}`;
-        const fullFileName = `${fileName}_${dateTimeString}.json`;
-        const data = { accounts, currentAccount, records, accountTypes: Array.from(accountTypes.entries()) };
-        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fullFileName;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-    
-    function saveToLocal() {
-        const dataToSave = {
-            accounts: [...accounts],
-            currentAccount: currentAccount,
-            records: [...records],
-            accountTypes: Array.from(accountTypes.entries())
-        };
-        try {
-            localStorage.setItem('accountData', JSON.stringify(dataToSave));
-            
-            const toast = document.getElementById('toast');
-            toast.textContent = '✓ บันทึกชั่วคราวสำเร็จแล้ว';
-            toast.style.backgroundColor = '#17a2b8';
-            toast.className = "toast-notification show";
-            setTimeout(function(){ 
-                toast.className = toast.className.replace("show", ""); 
-            }, 2500);
-
-        } catch (error) {
-            console.error("บันทึกข้อมูลไม่สำเร็จ:", error);
-            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล\nกรุณาลองอีกครั้งหรือตรวจสอบพื้นที่เก็บข้อมูล");
-        }
-    }
-
-    function loadFromLocal() {
-        const data = localStorage.getItem('accountData');
-        if (data) {
-            try {
-                const parsed = JSON.parse(data);
-                accounts.length = 0;
-                accounts.push(...parsed.accounts || []);
-                currentAccount = parsed.currentAccount || null;
-                records.length = 0;
-                records.push(...parsed.records || []);
-                accountTypes.clear();
-                if (parsed.accountTypes) {
-                    parsed.accountTypes.forEach(([account, types]) => {
-                        accountTypes.set(account, types);
-                    });
-                }
-                updateAccountSelect();
-                if (currentAccount) {
-                    document.getElementById('accountSelect').value = currentAccount;
-                }
-                changeAccount();
-            } catch (error) {
-                console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error);
-            }
-        }
-        updateMultiAccountSelector(); 
-    }
-    function exportAccountToJson() {
-        if (!currentAccount) {
-          alert("กรุณาเลือกบัญชีที่ต้องการส่งออก");
-          return;
-        }
-        const fileName = prompt(`กรุณากรอกชื่อไฟล์สำหรับบัญชี ${currentAccount} (ไม่ต้องใส่นามสกุล):`, currentAccount);
-        if (!fileName) {
-          alert("กรุณากรอกชื่อไฟล์");
-          return;
-        }
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const dateTimeString = `${day}${month}${year}_${hours}${minutes}`;
-        const fullFileName = `${fileName}_${dateTimeString}.json`;
-        const accountData = {
-          accountName: currentAccount,
-          records: records.filter(record => record.account === currentAccount),
-          accountTypes: accountTypes.get(currentAccount) || {
-            "รายรับ": ["ถูกหวย", "เติมทุน"],
-            "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"]
-          }
-        };
-        const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fullFileName;
-        a.click();
-        URL.revokeObjectURL(url);
-        alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`);
-    }
-    function loadFromFile(event) {
-        const file = event.target.files[0];
-        if (!file) { return; }
-        if (!file.name.endsWith('.json') && file.type !== 'application/json') {
-            alert("กรุณาเลือกไฟล์ JSON เท่านั้น");
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = JSON.parse(e.target.result);
-                if (data.accountName) {
-                    const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`);
-                    if (confirmLoad) {
-                        if (!accounts.includes(data.accountName)) {
-                            accounts.push(data.accountName);
-                        }
-                        currentAccount = data.accountName;
-                        if (!accountTypes.has(data.accountName)) {
-                            accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] });
-                        }
-                        const existingRecords = records.filter(r => r.account !== data.accountName);
-                        records.length = 0;
-                        records.push(...existingRecords, ...data.records);
-                        updateAccountSelect();
-                        document.getElementById('accountSelect').value = currentAccount;
-                        changeAccount();
-                        alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`);
-                    }
-                } else {
-                    accounts.length = 0;
-                    accounts.push(...data.accounts);
-                    currentAccount = data.currentAccount;
-                    records.length = 0;
-                    records.push(...data.records);
-                    accountTypes.clear();
-                    if (data.accountTypes) {
-                        data.accountTypes.forEach(([account, types]) => {
-                            accountTypes.set(account, types);
-                        });
-                    }
-                    updateAccountSelect();
-                    if (currentAccount) {
-                        document.getElementById('accountSelect').value = currentAccount;
-                    }
-                    changeAccount();
-                    alert("โหลดข้อมูลทั้งหมดสำเร็จ");
-                }
-                updateMultiAccountSelector(); 
-            } catch (error) {
-                alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message);
-            }
-        };
-        reader.onerror = function() {
-            alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
-        };
-        reader.readAsText(file);
-    }
+    // ดักฟัง event เมื่อแอปถูกติดตั้งสำเร็จ
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App was installed.');
+        hideInstallPrompt();
+        // บันทึกสถานะการติดตั้งไว้ใน localStorage
+        localStorage.setItem('pwa_installed', 'true');
+    });
 
     window.onload = function () {
         document.getElementById('detailsSection').style.display = 'none';
@@ -1600,7 +357,26 @@
                 closeSummaryModal();
             }
         });
+
+        // ตรวจสอบสถานะการติดตั้ง 3 รูปแบบเพื่อให้ครอบคลุมที่สุด
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || localStorage.getItem('pwa_installed') === 'true') {
+            hideInstallPrompt();
+        }
     };
 </script>
+
+<!-- Script สำหรับลงทะเบียน Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then(registration => {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+
 </body>
 </html>
