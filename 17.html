@@ -78,7 +78,7 @@
     .modal-close-btn { background-color: #E97132; color: white; padding: 12px 30px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; margin-top: 10px; transition: background-color 0.3s; }
     .modal-close-btn:hover { background-color: #e64a19; }
     
-    /* [เพิ่มใหม่] สไตล์สำหรับกล่องคำแนะนำการติดตั้ง */
+    /* สไตล์สำหรับกล่องคำแนะนำการติดตั้ง */
     .install-prompt {
         background-color: #fff3cd;
         color: #856404;
@@ -110,7 +110,7 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="width: 600px; height: 45px; margin: 0 auto;">กลับสู่หน้าหลัก</button>
 </div>
 
-<!-- [เพิ่มใหม่] กล่องคำแนะนำการติดตั้งแอป และข้อควรระวัง -->
+<!-- กล่องคำแนะนำการติดตั้งแอป และข้อควรระวัง -->
 <div class="container" style="padding:0; border:none; background:none;">
     <div id="install-guide" class="install-prompt">
         <span class="close-prompt" onclick="this.parentElement.style.display='none'">&times;</span>
@@ -355,6 +355,7 @@
     function loadFromLocal() { const data = localStorage.getItem('accountData'); if (data) { try { const parsed = JSON.parse(data); accounts.length = 0; accounts.push(...parsed.accounts || []); currentAccount = parsed.currentAccount || null; records.length = 0; records.push(...parsed.records || []); accountTypes.clear(); if (parsed.accountTypes) { parsed.accountTypes.forEach(([account, types]) => { accountTypes.set(account, types); }); } updateAccountSelect(); if (currentAccount) { document.getElementById('accountSelect').value = currentAccount; } changeAccount(); } catch (error) { console.error("โหลดข้อมูลจาก LocalStorage ไม่สำเร็จ", error); } } updateMultiAccountSelector(); }
     function exportAccountToJson() { if (!currentAccount) { alert("กรุณาเลือกบัญชีที่ต้องการส่งออก"); return; } const fileName = prompt(`กรุณากรอกชื่อไฟล์สำหรับบัญชี ${currentAccount} (ไม่ต้องใส่นามสกุล):`, currentAccount); if (!fileName) { alert("กรุณากรอกชื่อไฟล์"); return; } const now = new Date(); const day = String(now.getDate()).padStart(2, '0'); const month = String(now.getMonth() + 1).padStart(2, '0'); const year = now.getFullYear(); const hours = String(now.getHours()).padStart(2, '0'); const minutes = String(now.getMinutes()).padStart(2, '0'); const dateTimeString = `${day}${month}${year}_${hours}${minutes}`; const fullFileName = `${fileName}_${dateTimeString}.json`; const accountData = { accountName: currentAccount, records: records.filter(record => record.account === currentAccount), accountTypes: accountTypes.get(currentAccount) || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] } }; const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fullFileName; a.click(); URL.revokeObjectURL(url); alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`); }
     function loadFromFile(event) { const file = event.target.files[0]; if (!file) { return; } if (!file.name.endsWith('.json') && file.type !== 'application/json') { alert("กรุณาเลือกไฟล์ JSON เท่านั้น"); return; } const reader = new FileReader(); reader.onload = function(e) { try { const data = JSON.parse(e.target.result); if (data.accountName) { const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`); if (confirmLoad) { if (!accounts.includes(data.accountName)) { accounts.push(data.accountName); } currentAccount = data.accountName; if (!accountTypes.has(data.accountName)) { accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] }); } const existingRecords = records.filter(r => r.account !== data.accountName); records.length = 0; records.push(...existingRecords, ...data.records); updateAccountSelect(); document.getElementById('accountSelect').value = currentAccount; changeAccount(); alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`); } } else { accounts.length = 0; accounts.push(...data.accounts); currentAccount = data.currentAccount; records.length = 0; records.push(...data.records); accountTypes.clear(); if (data.accountTypes) { data.accountTypes.forEach(([account, types]) => { accountTypes.set(account, types); }); } updateAccountSelect(); if (currentAccount) { document.getElementById('accountSelect').value = currentAccount; } changeAccount(); alert("โหลดข้อมูลทั้งหมดสำเร็จ"); } updateMultiAccountSelector(); } catch (error) { alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message); } }; reader.onerror = function() { alert("เกิดข้อผิดพลาดในการอ่านไฟล์"); }; reader.readAsText(file); }
+    
     window.onload = function () {
         document.getElementById('detailsSection').style.display = 'none';
         loadFromLocal();
@@ -367,14 +368,15 @@
             }
         });
 
-        // [เพิ่มใหม่] ซ่อนกล่องคำแนะนำถ้าเคยติดตั้งแอปไปแล้ว
+        // <!-- [แก้ไขล่าสุด] -->
+        // เพิ่มโค้ดตรวจสอบเพื่อซ่อนกล่องคำแนะนำ ถ้าแอปถูกเปิดจากไอคอนบนหน้าจอหลัก
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
             document.getElementById('install-guide').style.display = 'none';
         }
     };
 </script>
 
-<!-- [เพิ่มใหม่] Script สำหรับลงทะเบียน Service Worker -->
+<!-- Script สำหรับลงทะเบียน Service Worker -->
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
