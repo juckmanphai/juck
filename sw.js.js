@@ -1,35 +1,59 @@
-const CACHE_NAME = 'accounting-app-cache-v1';
-// เพิ่มไฟล์ทั้งหมดที่จำเป็นสำหรับแอปของคุณที่นี่
+// เปลี่ยนชื่อ Cache เพื่อบังคับให้เบราว์เซอร์ติดตั้ง Service Worker ใหม่
+const CACHE_NAME = 'juckmanphai-pwa-cache-v5'; // อัปเดตเวอร์ชันเป็น v5
+
+// [สำคัญ] เพิ่ม './06.html' และไฟล์อื่นๆ ที่อาจเกี่ยวข้องลงในลิสต์นี้
 const urlsToCache = [
-  './', // นี่คือ 17.html (เมื่อ start_url คือ '.')
-  './17.html', // ใส่ชื่อไฟล์เต็มๆ เพื่อความแน่นอน
+  './',
+  './01.html',
+  './02.html', 
+  './03.html', 
+  './04.html',
+  './05.html',
+  './06.html', // <-- เพิ่มไฟล์นี้เข้ามา
+  './07.html',
+  './08.html',
+  './10.html',
+  './14.html',
+  './15.html',
+  './16.html',
+  './17.html',
+  './19.html',
+  './20.html',
+  // ไฟล์พื้นฐานของ PWA
   './manifest.json',
   './icon-192x192.png',
-  './icon-512x512.png'
+  './icon-512x512.png',
+  './logo.png'
 ];
 
-// Event: install - ติดตั้ง Service Worker และ Cache ไฟล์
+// โค้ดส่วนที่เหลือของ sw.js ยังคงเหมือนเดิม
+// (self.addEventListener('install', ...), self.addEventListener('activate', ...), self.addEventListener('fetch', ...))
+
+// Event: install
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Opened cache and caching files');
+        console.log('Opened cache and caching all app files');
         return cache.addAll(urlsToCache);
+      })
+      .catch(error => {
+        console.error('Failed to cache files during install:', error);
       })
   );
   self.skipWaiting();
 });
 
-// Event: activate - จัดการแคชเก่า
+// Event: activate
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('Service Worker: Clearing old cache');
-            return caches.delete(cache);
-          }
+        cacheNames.filter(cache => {
+          return cache.startsWith('juckmanphai-pwa-cache-') && cache !== CACHE_NAME;
+        }).map(cache => {
+          console.log('Service Worker: Clearing old cache:', cache);
+          return caches.delete(cache);
         })
       );
     })
@@ -37,9 +61,8 @@ self.addEventListener('activate', event => {
   return self.clients.claim();
 });
 
-// Event: fetch - จัดการกับการร้องขอไฟล์ (Cache First Strategy)
+// Event: fetch
 self.addEventListener('fetch', event => {
-  // ไม่แคช request ที่ไม่ใช่ GET
   if (event.request.method !== 'GET') {
       return;
   }
@@ -47,29 +70,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // ถ้ามีในแคช ก็ส่ง response จากแคชกลับไปเลย
-        if (response) {
-          return response;
-        }
-        
-        // ถ้าไม่มีในแคช ก็ไปโหลดจากเน็ตเวิร์ก
-        return fetch(event.request).then(
-          networkResponse => {
-            // และเก็บ response ที่ได้มาใหม่ลงในแคชด้วย
-            return caches.open(CACHE_NAME).then(cache => {
-                // ไม่แคชไฟล์ที่เกิดข้อผิดพลาด
-                if (networkResponse.status === 200) {
-                    cache.put(event.request, networkResponse.clone());
-                }
-                return networkResponse;
-            });
-          }
-        ).catch(err => {
-            // กรณีที่ไม่มีทั้งในแคชและโหลดจากเน็ตไม่ได้ (ออฟไลน์)
-            // คุณสามารถส่งหน้า fallback page ได้ที่นี่ (ถ้ามี)
-            console.error('Fetching failed:', err);
-        });
-      }
-    )
+        return response || fetch(event.request);
+      })
   );
 });
