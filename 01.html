@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เมนูฟอร์มแปลและกรอกผลตัวเลข</title>
     
-    <!-- [เพิ่มสำหรับ PWA] -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#fffde7"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="JuckApp">
-    <link rel="apple-touch-icon" href="icon-192x192.png">
-
     <!-- Google Fonts: Kanit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,15 +146,8 @@
         .button-grid .btn:nth-of-type(4):hover { background-image: linear-gradient(45deg, #a78bfa, #c4b5fd); }
         .button-grid .btn:nth-of-type(5) { background-image: linear-gradient(45deg, #dc2626, #f87171); }
         .button-grid .btn:nth-of-type(5):hover { background-image: linear-gradient(45deg, #f87171, #fca5a5); }
-        .button-grid .btn:nth-of-type(6) { background-image: linear-gradient(45deg, #f97316, #fbbf24); }
+                .button-grid .btn:nth-of-type(6) { background-image: linear-gradient(45deg, #f97316, #fbbf24); }
         .button-grid .btn:nth-of-type(6):hover { background-image: linear-gradient(45deg, #fbbf24, #fcd34d); }
-        
-        /* [เพิ่มสำหรับ PWA] */
-        .install-prompt { display: none; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; padding: 15px; margin: 0 auto 20px; text-align: left; font-size: 14px; position: relative; max-width: 900px; }
-        .install-prompt h4 { margin-top: 0; }
-        .install-prompt ul { padding-left: 20px; margin-bottom: 0; }
-        .install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
-
 
         /* --- Footer --- */
         footer {
@@ -197,29 +182,21 @@
             header.classList.toggle('active');
         }
 
-        // โค้ด window.onload ถูกย้ายไปรวมกับ PWA script ด้านล่าง
+        window.onload = function() {
+            toggleSection('translate-section');
+        };
     </script>
 </head>
 <body>
 
-    <!-- [เพิ่มสำหรับ PWA] กล่องคำแนะนำการติดตั้ง -->
-    <div id="install-guide" class="install-prompt">
-        <span class="close-prompt" onclick="this.parentElement.style.display='none'">&times;</span>
-        <h4>ติดตั้งแอปนี้ลงในเครื่องของคุณ!</h4>
-        <ul>
-            <li><b>Android:</b> กดปุ่ม "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอหลัก"</li>
-            <li><b>iPhone:</b> กดปุ่ม "แชร์" (Share) > "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)</li>
-        </ul>
-    </div>
-
     <div class="container">
         <!-- Section: แปลตัวเลข -->
         <div class="card">
-            <div class="section-header active" onclick="toggleSection('translate-section')">
+            <div class="section-header" onclick="toggleSection('translate-section')">
                 <span class="header-title">เมนูฟอร์มแปลตัวเลข</span>
-                <span class="arrow active">▶</span>
+                <span class="arrow">▶</span>
             </div>
-            <div id="translate-section" class="section-content active">
+            <div id="translate-section" class="section-content">
                 <p class="section-subtitle">ท่านสามารถเลือกรายการโดยคลิกที่ปุ่มด้านล่าง</p>
                 <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/02.html')">แปล 2 ตัว</button>
@@ -259,10 +236,10 @@
                 <div class="button-grid">
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/14.html')">ผลลาว</button>
                 <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/15.html')">ผลเวียดนาม</button>
-                <button class="btn" onclick="navigateTo('https://udon-p.github.io/Don/01.html')">เว็บ udon</button>
-                <button class="btn" onclick="navigateTo('https://juckphai.github.io/juckphai/01.html')">เว็บ juckphai</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/19.html')">วิเคราะห์ 6 ตัว</button>
-                <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/20.html')">วิเคราะห์ 5 ตัว</button>
+                    <button class="btn" onclick="navigateTo('https://udon-p.github.io/Don/01.html')">เว็บ udon</button>
+                    <button class="btn" onclick="navigateTo('https://juckphai.github.io/juckphai/01.html')">เว็บ juckphai</button>
+                   <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/19.html')">วิเคราะห์ 6 ตัว</button>
+                   <button class="btn" onclick="navigateTo('https://juckmanphai.github.io/juck/20.html')">วิเคราะห์ 5 ตัว</button>
                 </div>
             </div>
         </div>
@@ -271,43 +248,6 @@
     <footer>
         &copy; 2025 Juckmanphai. All Rights Reserved.
     </footer>
-    
-    <!-- [เพิ่มสำหรับ PWA] โค้ดจัดการและลงทะเบียน PWA -->
-    <script>
-        function showInstallPrompt() {
-            const installGuide = document.getElementById('install-guide');
-            if (installGuide) { installGuide.style.display = 'block'; }
-        }
-        
-        function hideInstallPrompt() {
-            const installGuide = document.getElementById('install-guide');
-            if (installGuide) { installGuide.style.display = 'none'; }
-        }
 
-        window.addEventListener('appinstalled', () => {
-            hideInstallPrompt();
-            localStorage.setItem('pwa_installed', 'true');
-        });
-
-        window.onload = function() {
-            // โค้ดเดิมของคุณ
-            //toggleSection('translate-section'); // เปิด section แรกไว้ตามเดิม
-            
-            // โค้ด PWA
-            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || localStorage.getItem('pwa_installed') === 'true') {
-                hideInstallPrompt();
-            } else {
-                setTimeout(showInstallPrompt, 1500);
-            }
-        };
-
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => console.log('Service Worker registered with scope:', registration.scope))
-                    .catch(error => console.log('Service Worker registration failed:', error));
-            });
-        }
-    </script>
 </body>
 </html>
