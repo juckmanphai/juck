@@ -30,51 +30,7 @@
     .install-prompt ul { padding-left: 20px; margin-bottom: 0; }
     .install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
     
-    /* CSS สำหรับ Modal Popup */
-    .modal-overlay { position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; padding: 10px; overflow-y: auto; box-sizing: border-box; }
-    .modal-content-container { background-color: #fffde7; padding: 10px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; margin: auto 0; width: 100%; max-width: 600px; box-sizing: border-box; }
-    .modal-close-btn { background-color: #f44336; color: white; padding: 10px 30px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; margin-top: 15px; transition: background-color 0.3s; }
-    .modal-close-btn:hover { background-color: #d32f2f; }
-    
-    /* [แก้ไข] CSS สำหรับเนื้อหาใน Popup แก้ปัญหาล้นจอ */
-    .result-popup-content {
-        background-color: #FAFAD2;
-        border: 3px solid green;
-        border-radius: 10px;
-        padding: 15px 5px;
-        width: 100%;
-        margin: 0;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        position: relative;
-        box-sizing: border-box;      /* เพิ่มเพื่อให้การคำนวณความกว้างแม่นยำ */
-        overflow-wrap: break-word;   /* เพิ่มเพื่อบังคับให้ตัดคำที่ยาวเกิน */
-    }
-
-    .result-popup-content::before {
-        content: ""; background-image: url('logo.png'); background-size: 90% auto;
-        background-repeat: no-repeat; background-position: center; opacity: 0.2;
-        position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
-    }
-    
-    /* [แก้ไข] CSS สำหรับเนื้อหาใน Popup แก้ปัญหาสีตัวอักษร */
-    #modalBodyContent > div { 
-        position: relative; 
-        z-index: 1;
-        color: blue; /* เพิ่มเพื่อให้สีข้อความเริ่มต้นเป็นสีน้ำเงิน */
-    }
-    
-    .controls { 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-top: 15px; 
-    }
-    .line-height-control { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 15px; }
-    .line-height-control label, .line-height-control span { font-size: 16px; color: blue; }
-    .line-height-control input[type="range"] { width: 80%; max-width: 300px; }
-
+    /* [ลบ] CSS สำหรับ Modal Popup ถูกลบออกไป */
 
     @media only screen and (max-width: 600px) { .form-container { margin: 20px auto; width: 90%; } input, select, button { width: 90%; } }
 </style>
@@ -133,32 +89,10 @@
         &copy; 2024-2025 Juckmanphai. All Rights Reserved.
     </footer>
     
-    <div id="resultModal" class="modal-overlay">
-        <div class="modal-content-container">
-            <div id="modalBodyContent" class="result-popup-content">
-                <!-- เนื้อหาผลลัพธ์จะถูกใส่ที่นี่โดย JavaScript -->
-            </div>
-
-            <div class="controls">
-                <div class="line-height-control">
-                    <label for="popupFontSizeSlider">ปรับขนาดตัวอักษร:</label>
-                    <input type="range" id="popupFontSizeSlider" min="0.5" max="1.5" step="0.05" value="1.0">
-                    <span id="popupFontSizeValue">ขนาด: 100%</span>
-                </div>
-                <div class="line-height-control">
-                    <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
-                    <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.3">
-                    <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.3</span>
-                </div>
-            </div>
-
-            <button onclick="closeResultModal()" class="modal-close-btn">ปิด</button>
-        </div>
-    </div>
-
+    <!-- [ลบ] HTML ของ Modal Popup ถูกลบออกไป -->
 
     <script>
-    // ส่วนของ JavaScript ทั้งหมดยังคงเหมือนเดิม ไม่มีการเปลี่ยนแปลง
+    // JavaScript ของ 02new.html ที่ยังคงไว้
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     // ข้อมูลจันทรคติ
@@ -259,64 +193,107 @@
             </div>`;
     }
 
-    function openResultModal(htmlContent) {
-        const modal = document.getElementById('resultModal');
-        const modalBody = document.getElementById('modalBodyContent');
-        modalBody.innerHTML = htmlContent;
-        modal.style.display = 'flex';
-        attachSliderListeners();
-    }
+    // [แทนที่] ฟังก์ชันเปิดหน้าต่างใหม่จาก 02old.html
+    function openResultInNewWindow() {
+        const resultHtml = generateResultHTML(); // ใช้ฟังก์ชัน generateResultHTML ของ 02new.html
+        if (!resultHtml) return;
 
-    function closeResultModal() {
-        document.getElementById('resultModal').style.display = 'none';
-    }
+        const isMobile = window.innerWidth <= 600;
+        const windowWidth = isMobile ? Math.min(window.innerWidth, 600) : 600;
+        const windowHeight = 700;
 
-    function attachSliderListeners() {
-        const resultContent = document.querySelector("#modalBodyContent > div"); 
-        if (!resultContent) return;
-
-        const textElements = resultContent.querySelectorAll('p, h2, h3');
-        const lhSlider = document.getElementById("popupLineHeightSlider");
-        const lhValueSpan = document.getElementById("popupLineHeightValue");
-        const fsSlider = document.getElementById("popupFontSizeSlider");
-        const fsValueSpan = document.getElementById("popupFontSizeValue");
-
-        if (!lhSlider || !fsSlider) return;
-        
-        textElements.forEach(el => { el.dataset.originalSize = parseFloat(window.getComputedStyle(el).fontSize); });
-
-        function updateLineHeight() {
-            const lineHeight = lhSlider.value;
-            textElements.forEach(el => el.style.lineHeight = lineHeight);
-            lhValueSpan.textContent = "ความสูงของบรรทัด: " + lineHeight;
+        const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=yes,resizable=yes`);
+        if (!newWindow) {
+            alert("กรุณาปิดการบล็อคป๊อปอัพเพื่อใช้งานฟังก์ชันนี้");
+            return;
         }
-        
-        function updateFontSize() {
-            const scale = fsSlider.value;
-            textElements.forEach(el => {
-                const originalSize = el.dataset.originalSize;
-                if (originalSize) { el.style.fontSize = (originalSize * scale) + 'px'; }
-            });
-            fsValueSpan.textContent = "ขนาด: " + Math.round(scale * 100) + "%";
-        }
-        
-        lhSlider.removeEventListener("input", updateLineHeight);
-        fsSlider.removeEventListener("input", updateFontSize);
 
-        lhSlider.addEventListener("input", updateLineHeight);
-        fsSlider.addEventListener("input", updateFontSize);
-        
-        updateLineHeight();
-        updateFontSize();
-    }
-    
-    function processAndShowResult() {
-        const resultHtml = generateResultHTML();
-        if (resultHtml) {
-            openResultModal(resultHtml);
-        }
+        newWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="th">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>ผลลัพธ์การแปลตัวเลข</title>
+                <style>
+                    body { font-family: Arial, sans-serif; background-color: #fffde7; margin: 0; padding: 0; line-height: 1.3; color: blue; }
+                    .result-container { border: 2px solid #4CAF50; background-color: #FAFAD2; margin: 20px 2px; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2); position: relative; min-height: 300px; box-sizing: border-box; }
+                    .result-container::before { content: ""; background-image: url('logo.png'); background-size: 90% auto; background-repeat: no-repeat; background-position: center top 15px; opacity: 0.4; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; }
+                    #resultContent { position: relative; z-index: 1; color: blue; }
+                    .controls { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 20px; }
+                    .line-height-control { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 15px; }
+                    .line-height-control label, .line-height-control span { font-size: 16px; color: blue; }
+                    .line-height-control input[type="range"] { width: 80%; max-width: 300px; }
+                    .close-btn { padding: 10px 20px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 20px auto; display: block; width: 90%; max-width: 200px; text-align: center; }
+                    .close-btn:hover { background-color: #d32f2f; }
+                    @media only screen and (max-width: 600px) { .result-container { margin: 20px 3px; width: calc(100% - 6px); } }
+                </style>
+            </head>
+            <body>
+                <div class="result-container">
+                    ${resultHtml.replace('<div>', '<div id="resultContent">')}
+                </div>
+                <div class="controls">
+                    <div class="line-height-control">
+                        <label for="popupFontSizeSlider">ปรับขนาดตัวอักษร:</label>
+                        <input type="range" id="popupFontSizeSlider" min="0.5" max="1.5" step="0.05" value="1.0">
+                        <span id="popupFontSizeValue">ขนาด: 100%</span>
+                    </div>
+                    <div class="line-height-control">
+                        <label for="popupLineHeightSlider">ปรับขนาดของบรรทัด:</label>
+                        <input type="range" id="popupLineHeightSlider" min="0.5" max="2.5" step="0.1" value="1.3">
+                        <span id="popupLineHeightValue">ความสูงของบรรทัด: 1.3</span>
+                    </div>
+                    <button class="close-btn" onclick="window.close()">ปิดหน้าต่าง</button>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const resultContent = document.getElementById("resultContent");
+                        if (!resultContent) return;
+                        const textElements = resultContent.querySelectorAll('p, h2, h3');
+                        
+                        const lhSlider = document.getElementById("popupLineHeightSlider");
+                        const lhValueSpan = document.getElementById("popupLineHeightValue");
+                        
+                        function updateLineHeight() {
+                            const lineHeight = lhSlider.value;
+                            textElements.forEach(el => el.style.lineHeight = lineHeight);
+                            lhValueSpan.textContent = "ความสูงของบรรทัด: " + lineHeight;
+                        }
+                        
+                        lhSlider.addEventListener("input", updateLineHeight);
+
+                        const fsSlider = document.getElementById("popupFontSizeSlider");
+                        const fsValueSpan = document.getElementById("popupFontSizeValue");
+                        
+                        textElements.forEach(el => {
+                            el.dataset.originalSize = parseFloat(window.getComputedStyle(el).fontSize);
+                        });
+                        
+                        function updateFontSize() {
+                            const scale = fsSlider.value;
+                            textElements.forEach(el => {
+                                const originalSize = el.dataset.originalSize;
+                                if (originalSize) {
+                                    el.style.fontSize = (originalSize * scale) + 'px';
+                                }
+                            });
+                            fsValueSpan.textContent = "ขนาด: " + Math.round(scale * 100) + "%";
+                        }
+                        
+                        fsSlider.addEventListener("input", updateFontSize);
+                        
+                        updateLineHeight();
+                        updateFontSize();
+                    });
+                <\/script>
+            </body>
+            </html>
+        `);
+        newWindow.document.close();
     }
 
+    // PWA Functions
     function showInstallPrompt() {
         const installGuide = document.getElementById('install-guide');
         if (installGuide) { installGuide.style.display = 'block'; }
@@ -330,6 +307,7 @@
         localStorage.setItem('pwa_installed', 'true');
     });
 
+    // Page Initialization
     document.addEventListener('DOMContentLoaded', () => {
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || localStorage.getItem('pwa_installed') === 'true') {
             hideInstallPrompt();
@@ -337,7 +315,8 @@
             setTimeout(showInstallPrompt, 1500);
         }
 
-        document.getElementById("convertButton").addEventListener("click", processAndShowResult);
+        // [แก้ไข] เปลี่ยน Event Listener ให้เรียกใช้ฟังก์ชันเปิดหน้าต่างใหม่
+        document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
         
         const dateInput = document.getElementById("dateInput");
         if (dateInput) {
