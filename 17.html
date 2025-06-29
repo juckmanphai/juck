@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>บัญชีรายรับรายจ่าย</title>
   
-  <!-- [เพิ่มใหม่] PWA Manifest และ Theme Color -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4CAF50"/>
   
-  <!-- [เพิ่มใหม่] Meta Tags สำหรับ iOS (iPhone/iPad) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="บัญชี">
@@ -77,30 +75,10 @@
     .modal-content-container { background-color: transparent; padding: 0; border: none; box-shadow: none; display: flex; flex-direction: column; align-items: center; margin: auto 0; width: 100%; max-width: 800px; }
     .modal-close-btn { background-color: #E97132; color: white; padding: 12px 30px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; margin-top: 10px; transition: background-color 0.3s; }
     .modal-close-btn:hover { background-color: #e64a19; }
-    
-    /* สไตล์สำหรับกล่องคำแนะนำการติดตั้ง */
-    .install-prompt {
-        background-color: #fff3cd;
-        color: #856404;
-        border: 1px solid #ffeeba;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 15px 10px;
-        text-align: left;
-        font-size: 14px;
-        position: relative;
-    }
+    .install-prompt { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; padding: 15px; margin: 15px 10px; text-align: left; font-size: 14px; position: relative; }
     .install-prompt h4 { margin-top: 0; }
     .install-prompt ul { padding-left: 20px; margin-bottom: 0; }
-    .install-prompt .close-prompt {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        color: #856404;
-    }
+    .install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
     @media screen and (max-width: 600px) { .container { padding: 5px; } h2 { font-size: 24px; } .entry-form, .button-group, .button-container { grid-template-columns: 1fr; } .sub-section-content .button-group { grid-template-columns: repeat(3, 1fr); gap: 5px; } .sub-section-content .button-group button { padding: 10px 5px; font-size: 14px; } .button-group button, .button-container button { padding: 14px; font-size: 16px; } .file-actions { flex-direction: column; padding: 0 10px; align-items: stretch; } .file-actions button { width: 100%; max-width: none; } .back-button { width: 100%; } }
   </style>
 </head>
@@ -110,7 +88,6 @@
     <button class="back-button" onclick="window.location.href='https://juckmanphai.github.io/juck/01.html'" style="width: 600px; height: 45px; margin: 0 auto;">กลับสู่หน้าหลัก</button>
 </div>
 
-<!-- กล่องคำแนะนำการติดตั้งแอป และข้อควรระวัง -->
 <div class="container" style="padding:0; border:none; background:none;">
     <div id="install-guide" class="install-prompt">
         <span class="close-prompt" onclick="this.parentElement.style.display='none'">&times;</span>
@@ -127,8 +104,7 @@
 
 <div style="text-align: center; margin-top: 5px;">
     <div class="container">
-        <!-- เนื้อหา HTML ทั้งหมดของคุณ -->
-        <!-- ไม่มีการเปลี่ยนแปลงในส่วนนี้ -->
+        <!-- เนื้อหา HTML หลักทั้งหมดของคุณ -->
         <!-- ... -->
         <div style="width: 100%; max-width: 600px; margin: 10px auto;">
             <div class="file-actions" style="display: flex; justify-content: center; gap: 10px;">
@@ -281,24 +257,23 @@
             </div>
           </div>
         </div>
-              </div>
+    </div>
         
-        <div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
-          <table id="recordTable" style="min-width: 600px;">
-            <thead>
-              <tr style="background-color: #f2f2f2;">
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">วันเดือนปี</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
-              </tr>
-            </thead>
-            <tbody id="recordBody" style="font-size: 14px;"></tbody>
-          </table>
-        </div>
-      </div>
+    <div id="detailsSection" style="display: none; margin-top: 20px; width: 100%; overflow-x: auto;">
+        <table id="recordTable" style="min-width: 600px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">วันเดือนปี</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">เวลา</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">ประเภท</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">รายละเอียด</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">จำนวนเงิน</th>
+            <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">การจัดการ</th>
+            </tr>
+        </thead>
+        <tbody id="recordBody" style="font-size: 14px;"></tbody>
+        </table>
+    </div>
 </div>
 
 <!-- โครงสร้าง Popup สำหรับแสดงผลสรุป -->
@@ -314,8 +289,7 @@
 <div id="toast" class="toast-notification"></div>
 
 <script>
-    // JavaScript ทั้งหมดของคุณยังคงเหมือนเดิม
-    // ไม่มีการเปลี่ยนแปลงในส่วนนี้
+    // โค้ด JavaScript หลักทั้งหมดของคุณยังคงอยู่ที่นี่
     // ...
     function openSummaryModal(htmlContent) { const modal = document.getElementById('summaryModal'); const modalBody = document.getElementById('modalBodyContent'); modalBody.innerHTML = htmlContent; modal.style.display = 'flex'; }
     function closeSummaryModal() { const modal = document.getElementById('summaryModal'); modal.style.display = 'none'; }
@@ -356,6 +330,22 @@
     function exportAccountToJson() { if (!currentAccount) { alert("กรุณาเลือกบัญชีที่ต้องการส่งออก"); return; } const fileName = prompt(`กรุณากรอกชื่อไฟล์สำหรับบัญชี ${currentAccount} (ไม่ต้องใส่นามสกุล):`, currentAccount); if (!fileName) { alert("กรุณากรอกชื่อไฟล์"); return; } const now = new Date(); const day = String(now.getDate()).padStart(2, '0'); const month = String(now.getMonth() + 1).padStart(2, '0'); const year = now.getFullYear(); const hours = String(now.getHours()).padStart(2, '0'); const minutes = String(now.getMinutes()).padStart(2, '0'); const dateTimeString = `${day}${month}${year}_${hours}${minutes}`; const fullFileName = `${fileName}_${dateTimeString}.json`; const accountData = { accountName: currentAccount, records: records.filter(record => record.account === currentAccount), accountTypes: accountTypes.get(currentAccount) || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] } }; const blob = new Blob([JSON.stringify(accountData, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fullFileName; a.click(); URL.revokeObjectURL(url); alert(`ส่งออกบัญชี "${currentAccount}" เรียบร้อย\n\nไฟล์: ${fullFileName}\nจำนวนรายการ: ${accountData.records.length} รายการ`); }
     function loadFromFile(event) { const file = event.target.files[0]; if (!file) { return; } if (!file.name.endsWith('.json') && file.type !== 'application/json') { alert("กรุณาเลือกไฟล์ JSON เท่านั้น"); return; } const reader = new FileReader(); reader.onload = function(e) { try { const data = JSON.parse(e.target.result); if (data.accountName) { const confirmLoad = confirm(`ต้องการโหลดบัญชี "${data.accountName}" จำนวน ${data.records.length} รายการหรือไม่?\n\nหมายเหตุ: จะโหลดเฉพาะบัญชีนี้เท่านั้น`); if (confirmLoad) { if (!accounts.includes(data.accountName)) { accounts.push(data.accountName); } currentAccount = data.accountName; if (!accountTypes.has(data.accountName)) { accountTypes.set(data.accountName, data.accountTypes || { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] }); } const existingRecords = records.filter(r => r.account !== data.accountName); records.length = 0; records.push(...existingRecords, ...data.records); updateAccountSelect(); document.getElementById('accountSelect').value = currentAccount; changeAccount(); alert(`โหลดบัญชี "${data.accountName}" สำเร็จ\nจำนวนรายการ: ${data.records.length} รายการ`); } } else { accounts.length = 0; accounts.push(...data.accounts); currentAccount = data.currentAccount; records.length = 0; records.push(...data.records); accountTypes.clear(); if (data.accountTypes) { data.accountTypes.forEach(([account, types]) => { accountTypes.set(account, types); }); } updateAccountSelect(); if (currentAccount) { document.getElementById('accountSelect').value = currentAccount; } changeAccount(); alert("โหลดข้อมูลทั้งหมดสำเร็จ"); } updateMultiAccountSelector(); } catch (error) { alert("ไฟล์ไม่ถูกต้องหรือเสียหาย: " + error.message); } }; reader.onerror = function() { alert("เกิดข้อผิดพลาดในการอ่านไฟล์"); }; reader.readAsText(file); }
     
+    // <!-- [แก้ไขล่าสุด] เพิ่มฟังก์ชันและตรรกะใหม่สำหรับซ่อนกล่องคำแนะนำ -->
+    function hideInstallPrompt() {
+        const installGuide = document.getElementById('install-guide');
+        if (installGuide) {
+            installGuide.style.display = 'none';
+        }
+    }
+
+    // ดักฟัง event เมื่อแอปถูกติดตั้งสำเร็จ
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App was installed.');
+        hideInstallPrompt();
+        // บันทึกสถานะการติดตั้งไว้ใน localStorage
+        localStorage.setItem('pwa_installed', 'true');
+    });
+
     window.onload = function () {
         document.getElementById('detailsSection').style.display = 'none';
         loadFromLocal();
@@ -368,10 +358,9 @@
             }
         });
 
-        // <!-- [แก้ไขล่าสุด] -->
-        // เพิ่มโค้ดตรวจสอบเพื่อซ่อนกล่องคำแนะนำ ถ้าแอปถูกเปิดจากไอคอนบนหน้าจอหลัก
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-            document.getElementById('install-guide').style.display = 'none';
+        // ตรวจสอบสถานะการติดตั้ง 3 รูปแบบเพื่อให้ครอบคลุมที่สุด
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || localStorage.getItem('pwa_installed') === 'true') {
+            hideInstallPrompt();
         }
     };
 </script>
