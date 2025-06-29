@@ -36,8 +36,6 @@
     .install-prompt ul { padding-left: 20px; margin-bottom: 0; }
     .install-prompt .close-prompt { position: absolute; top: 10px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #856404; }
     
-    /* [ลบ] CSS สำหรับ Modal Popup ถูกลบออกไปจากส่วนนี้ */
-
     @media only screen and (max-width: 600px) { .form-container { margin: 10px auto; width: 98%; } input, select, button { width: 98%; } .custom-select-wrapper { width: 98%; } .custom-input-container { flex-direction: column; } .custom-input-split { width: 100%; } }
 </style>
 </head>
@@ -103,8 +101,6 @@
     <footer>
         &copy; 2025 Juckmanphai. All Rights Reserved.
     </footer>
-
-    <!-- [ลบ] Modal Popup HTML ถูกลบออกไปจากส่วนนี้ -->
 
 <script>
     // ส่วนของ JavaScript ทั้งหมดยังคงเหมือนเดิม ยกเว้นส่วนที่ควบคุมการแสดงผล
@@ -213,22 +209,31 @@
             </div>`;
     }
 
-    // [แทนที่] ฟังก์ชันแสดงผลแบบ popup window จาก 03old.html
+    // [ปรับปรุง] แก้ไขฟังก์ชันแสดงผลเพื่อป้องกันการ Block Popup
     function openResultInNewWindow() {
-        const resultHtml = generateResultHTML();
-        if (!resultHtml) return;
-
+        // 1. เปิดหน้าต่างใหม่ทันทีที่ผู้ใช้คลิก เพื่อให้เบราว์เซอร์รับรู้ว่ามาจากการกระทำของผู้ใช้โดยตรง
         const isMobile = window.innerWidth <= 600;
         const windowWidth = isMobile ? Math.min(window.innerWidth, 600) : 600;
         const windowHeight = 700;
-
         const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=yes,resizable=yes`);
-        if (!newWindow) {
-            alert("กรุณาปิดการบล็อคป๊อปอัพเพื่อใช้งานฟังก์ชันนี้");
+
+        // 2. ตรวจสอบว่าหน้าต่างเปิดสำเร็จหรือไม่ (ถ้าไม่สำเร็จแสดงว่าถูก block)
+        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+            alert("ไม่สามารถเปิดหน้าต่างใหม่ได้ กรุณาปิดการบล็อคป๊อปอัพ (Pop-up Blocker) ในเบราว์เซอร์ของคุณ แล้วลองอีกครั้ง");
+            return;
+        }
+        
+        // 3. สร้างเนื้อหา HTML
+        const resultHtml = generateResultHTML();
+
+        // 4. ถ้าการสร้างเนื้อหาไม่สำเร็จ (เช่น กรอกข้อมูลไม่ถูกต้อง) ให้ปิดหน้าต่างที่เปิดไว้
+        if (!resultHtml) {
+            newWindow.close();
             return;
         }
 
-        newWindow.document.write(`
+        // 5. เขียนเนื้อหาทั้งหมดลงในหน้าต่างใหม่ที่เปิดรอไว้แล้ว (ส่วนนี้ยังคงเหมือนเดิมทุกประการ)
+        const fullPopupHTML = `
             <!DOCTYPE html>
             <html lang="th">
             <head>
@@ -315,9 +320,13 @@
                 <\/script>
             </body>
             </html>
-        `);
+        `;
+        
+        newWindow.document.write(fullPopupHTML);
         newWindow.document.close();
+        newWindow.focus(); // นำหน้าต่างใหม่มาไว้ด้านหน้า
     }
+
 
     // ===== PWA Functions =====
     function showInstallPrompt() {
@@ -356,7 +365,6 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("dateInput").value = today;
         
-        // [แก้ไข] เปลี่ยน Event Listener ให้เรียกใช้ฟังก์ชันเปิดหน้าต่างใหม่
         document.getElementById("convertButton").addEventListener("click", openResultInNewWindow);
     });
 </script>
