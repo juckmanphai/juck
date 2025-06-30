@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมสุ่มตัวเลข (กดหยุด/ตั้งเวลา)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            transition: padding 0.3s; /* เพิ่ม transition */
+        }
+
+        h1 {
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        /* แก้ไข: เพิ่ม ID ให้กับคอนเทนเนอร์ของ input */
+        #inputContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            transition: opacity 0.3s, max-height 0.3s, margin 0.3s; /* เพิ่ม transition */
+            overflow: hidden;
+            max-height: 300px; /* กำหนดความสูงเผื่อไว้ */
+            opacity: 1;
+        }
+
+        /* เพิ่มเข้ามา: สไตล์ตอนที่ซ่อน input */
+        #inputContainer.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .input-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        label.optional::after {
+            content: ' (ถ้ามี)';
+            font-weight: normal;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #3f51b5;
+            outline: none;
+        }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #0070C0;
+            background-color: #E8E8E8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            letter-spacing: 10px;
+            border: 3px solid #444;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            flex-grow: 1;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: 'Sarabun', sans-serif;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .run-button { background-color: #4CAF50; color: white; }
+        .run-button:hover { background-color: #45a049; }
+        .stop-button { background-color: #f44336; color: white; }
+        .stop-button:hover { background-color: #e53935; }
+        button:disabled { background-color: #cccccc; color: #666666; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>โปรแกรมสุ่มตัวเลข (กดหยุด/ตั้งเวลา)</h1>
+
+        <!-- แก้ไข: ย้าย class="input-grid" ออกมาและใส่ ID ให้ -->
+        <div id="inputContainer">
+            <div class="input-group">
+                <label for="startNumber">เลขเริ่มต้น</label>
+                <input type="text" id="startNumber" maxlength="5" placeholder="00000">
+            </div>
+            <div class="input-group">
+                <label for="stopNumber" class="optional">เลขที่จะหยุด</label>
+                <input type="text" id="stopNumber" maxlength="5" placeholder="เว้นว่างได้">
+            </div>
+            <div class="input-group">
+                <label for="timerInput" class="optional">เวลา (วินาที)</label>
+                <input type="number" id="timerInput" min="1" placeholder="ปล่อยว่างได้">
+            </div>
+        </div>
+
+        <div id="displayArea" class="display">00000</div>
+
+        <div class="button-group">
+            <button id="runButton" class="run-button">รันตัวเลข</button>
+            <button id="stopButton" class="stop-button" disabled>หยุด</button>
+        </div>
+    </div>
+
+    <script>
+        const displayArea = document.getElementById('displayArea');
+        const inputContainer = document.getElementById('inputContainer'); // เพิ่มเข้ามา
+        const startNumberInput = document.getElementById('startNumber');
+        const stopNumberInput = document.getElementById('stopNumber');
+        const timerInput = document.getElementById('timerInput');
+        const runButton = document.getElementById('runButton');
+        const stopButton = document.getElementById('stopButton');
+
+        let intervalId = null; 
+        let timeoutId = null;
+
+        function generateRandomNumber() {
+            return (Math.floor(Math.random() * 90000) + 10000).toString();
+        }
+        
+        startNumberInput.addEventListener('input', () => {
+            if (!intervalId) {
+                displayArea.textContent = startNumberInput.value.padStart(5, '0');
+            }
+        });
+        
+        function stopRunning() {
+            if (!intervalId) return;
+
+            const lastRunningNumber = displayArea.textContent;
+
+            clearInterval(intervalId);
+            clearTimeout(timeoutId);
+            intervalId = null;
+            timeoutId = null;
+
+            const userDefinedStopNumber = stopNumberInput.value;
+            displayArea.textContent = (userDefinedStopNumber.length === 5) ? userDefinedStopNumber : lastRunningNumber;
+
+            // รีเซ็ตสถานะปุ่มและแสดงช่องกรอก
+            runButton.disabled = false;
+            stopButton.disabled = true;
+            inputContainer.classList.remove('hidden'); // เพิ่มเข้ามา: แสดงช่องกรอก
+        }
+
+        runButton.addEventListener('click', () => {
+            if (intervalId) return;
+            
+            // ตรวจสอบ: ถ้ากรอก "เลขที่จะหยุด" หรือ "เวลา" ต้องกรอกให้ถูกต้อง
+            if (stopNumberInput.value.length > 0 && stopNumberInput.value.length < 5) {
+                alert('ถ้าต้องการกำหนด "เลขที่จะหยุด" กรุณากรอกให้ครบ 5 หลัก');
+                stopNumberInput.focus();
+                return;
+            }
+            if (timerInput.value && timerInput.value <= 0) {
+                alert('กรุณากรอก "เวลา" เป็นตัวเลขที่มากกว่า 0');
+                timerInput.focus();
+                return;
+            }
+
+            // --- ส่วนที่แก้ไข ---
+            // 1. ซ่อนช่องกรอกทั้งหมด
+            inputContainer.classList.add('hidden');
+
+            // 2. เริ่มการรันตัวเลข
+            intervalId = setInterval(() => {
+                displayArea.textContent = generateRandomNumber();
+            }, 50);
+
+            // 3. ตรวจสอบว่ามีการตั้งเวลาหรือไม่
+            const timeInSeconds = parseInt(timerInput.value, 10);
+            if (timeInSeconds > 0) {
+                // ถ้ามีเวลา ให้ตั้งเวลาหยุดอัตโนมัติ
+                timeoutId = setTimeout(stopRunning, timeInSeconds * 1000);
+            }
+            // ถ้าไม่มีเวลา (เป็น NaN หรือ 0) ก็ไม่ต้องทำอะไร โปรแกรมจะรันไปเรื่อยๆ
+
+            // 4. อัปเดตสถานะปุ่ม
+            runButton.disabled = true;
+            stopButton.disabled = false;
+        });
+
+        stopButton.addEventListener('click', () => {
+            stopRunning();
+        });
+    </script>
+
+</body>
+</html>
