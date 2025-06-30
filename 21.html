@@ -26,27 +26,26 @@
             text-align: center;
             width: 90%;
             max-width: 500px;
-            transition: padding 0.3s; /* เพิ่ม transition */
+            transition: padding 0.3s;
         }
 
         h1 {
             color: #1a237e;
             margin-bottom: 20px;
         }
-
-        /* แก้ไข: เพิ่ม ID ให้กับคอนเทนเนอร์ของ input */
+        
+        /* แก้ไข: เปลี่ยน Layout เป็น 2x2 */
         #inputContainer {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px;
             margin-bottom: 25px;
-            transition: opacity 0.3s, max-height 0.3s, margin 0.3s; /* เพิ่ม transition */
+            transition: opacity 0.3s, max-height 0.3s, margin 0.3s;
             overflow: hidden;
-            max-height: 300px; /* กำหนดความสูงเผื่อไว้ */
+            max-height: 300px; 
             opacity: 1;
         }
 
-        /* เพิ่มเข้ามา: สไตล์ตอนที่ซ่อน input */
         #inputContainer.hidden {
             max-height: 0;
             opacity: 0;
@@ -71,7 +70,7 @@
             font-size: 0.9em;
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"], input[type="number"], select { /* เพิ่ม select */
             width: 100%;
             padding: 12px;
             font-size: 1.2rem;
@@ -80,9 +79,15 @@
             border-radius: 8px;
             box-sizing: border-box;
             transition: border-color 0.3s;
+            font-family: 'Sarabun', sans-serif; /* ทำให้ font เหมือนกัน */
+        }
+        
+        /* จัด select ให้ text อยู่ตรงกลาง */
+        select {
+            text-align-last: center;
         }
 
-        input:focus {
+        input:focus, select:focus {
             border-color: #3f51b5;
             outline: none;
         }
@@ -104,12 +109,14 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 30px;
-            letter-spacing: 10px;
+            letter-spacing: 8px; /* แก้ไข: ลดระยะห่างเล็กน้อย */
             border: 3px solid #444;
             min-height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            word-break: break-all;
         }
 
         .button-group {
@@ -145,15 +152,27 @@
     <div class="container">
         <h1>โปรแกรมสุ่มตัวเลข (กดหยุด/ตั้งเวลา)</h1>
 
-        <!-- แก้ไข: ย้าย class="input-grid" ออกมาและใส่ ID ให้ -->
         <div id="inputContainer">
+             <!-- เพิ่มเข้ามา: ช่องเลือกจำนวนหลัก -->
+            <div class="input-group">
+                <label for="digitSelector">จำนวนหลัก</label>
+                <select id="digitSelector">
+                    <option value="2">2 หลัก</option>
+                    <option value="3">3 หลัก</option>
+                    <option value="4">4 หลัก</option>
+                    <option value="5" selected>5 หลัก</option>
+                    <option value="6">6 หลัก</option>
+                </select>
+            </div>
             <div class="input-group">
                 <label for="startNumber">เลขเริ่มต้น</label>
-                <input type="text" id="startNumber" maxlength="5" placeholder="00000">
+                 <!-- แก้ไข: ลบ maxlength ออก -->
+                <input type="text" id="startNumber">
             </div>
             <div class="input-group">
                 <label for="stopNumber" class="optional">เลขที่จะหยุด</label>
-                <input type="text" id="stopNumber" maxlength="5" placeholder="เว้นว่างได้">
+                 <!-- แก้ไข: ลบ maxlength ออก -->
+                <input type="text" id="stopNumber" placeholder="เว้นว่างได้">
             </div>
             <div class="input-group">
                 <label for="timerInput" class="optional">เวลา (วินาที)</label>
@@ -171,7 +190,8 @@
 
     <script>
         const displayArea = document.getElementById('displayArea');
-        const inputContainer = document.getElementById('inputContainer'); // เพิ่มเข้ามา
+        const inputContainer = document.getElementById('inputContainer');
+        const digitSelector = document.getElementById('digitSelector'); // เพิ่มเข้ามา
         const startNumberInput = document.getElementById('startNumber');
         const stopNumberInput = document.getElementById('stopNumber');
         const timerInput = document.getElementById('timerInput');
@@ -180,17 +200,34 @@
 
         let intervalId = null; 
         let timeoutId = null;
+        let numDigits = 5; // ตัวแปรเก็บจำนวนหลัก
 
-        function generateRandomNumber() {
-            return (Math.floor(Math.random() * 90000) + 10000).toString();
+        // --- ฟังก์ชันที่แก้ไข ---
+        // สร้างตัวเลขสุ่มตามจำนวนหลักที่กำหนด
+        function generateRandomNumber(digits) {
+            const min = Math.pow(10, digits - 1);
+            const max = Math.pow(10, digits) - 1;
+            return (Math.floor(Math.random() * (max - min + 1)) + min).toString();
         }
         
-        startNumberInput.addEventListener('input', () => {
+        // --- ฟังก์ชันที่เพิ่มเข้ามา ---
+        // อัปเดต UI เมื่อมีการเปลี่ยนจำนวนหลัก
+        function updateDigitSettings() {
+            numDigits = parseInt(digitSelector.value, 10);
+            const placeholderText = '0'.repeat(numDigits);
+
+            // อัปเดตค่าต่างๆ
+            startNumberInput.placeholder = placeholderText;
+            startNumberInput.maxLength = numDigits;
+            stopNumberInput.maxLength = numDigits;
+
+            // อัปเดตหน้าจอแสดงผลถ้ายังไม่เริ่มรัน
             if (!intervalId) {
-                displayArea.textContent = startNumberInput.value.padStart(5, '0');
+                displayArea.textContent = startNumberInput.value.padStart(numDigits, '0') || placeholderText;
             }
-        });
-        
+        }
+
+        // --- ฟังก์ชันที่แก้ไข ---
         function stopRunning() {
             if (!intervalId) return;
 
@@ -202,20 +239,43 @@
             timeoutId = null;
 
             const userDefinedStopNumber = stopNumberInput.value;
-            displayArea.textContent = (userDefinedStopNumber.length === 5) ? userDefinedStopNumber : lastRunningNumber;
+            // ถ้ามีการกำหนดเลขหยุดไว้ ให้แสดงเลขนั้น (พร้อมเติม 0 ข้างหน้าให้ครบ)
+            if (userDefinedStopNumber && userDefinedStopNumber.length === numDigits) {
+                 displayArea.textContent = userDefinedStopNumber;
+            } else {
+                 displayArea.textContent = lastRunningNumber;
+            }
 
             // รีเซ็ตสถานะปุ่มและแสดงช่องกรอก
             runButton.disabled = false;
             stopButton.disabled = true;
-            inputContainer.classList.remove('hidden'); // เพิ่มเข้ามา: แสดงช่องกรอก
+            inputContainer.classList.remove('hidden'); 
         }
 
+        // --- Event Listeners ---
+
+        // เมื่อเปลี่ยนจำนวนหลัก
+        digitSelector.addEventListener('change', () => {
+             startNumberInput.value = ''; // เคลียร์ค่าเก่า
+             stopNumberInput.value = '';
+             updateDigitSettings();
+        });
+
+        // เมื่อพิมพ์ในช่องเลขเริ่มต้น
+        startNumberInput.addEventListener('input', () => {
+            if (!intervalId) {
+                // อัปเดตหน้าจอตามจำนวนหลักที่เลือก
+                displayArea.textContent = startNumberInput.value.padStart(numDigits, '0');
+            }
+        });
+
+        // เมื่อกดปุ่ม "รันตัวเลข"
         runButton.addEventListener('click', () => {
             if (intervalId) return;
             
-            // ตรวจสอบ: ถ้ากรอก "เลขที่จะหยุด" หรือ "เวลา" ต้องกรอกให้ถูกต้อง
-            if (stopNumberInput.value.length > 0 && stopNumberInput.value.length < 5) {
-                alert('ถ้าต้องการกำหนด "เลขที่จะหยุด" กรุณากรอกให้ครบ 5 หลัก');
+            // แก้ไข: ตรวจสอบความยาวของ "เลขที่จะหยุด" ตามจำนวนหลักที่เลือก
+            if (stopNumberInput.value.length > 0 && stopNumberInput.value.length !== numDigits) {
+                alert(`ถ้าต้องการกำหนด "เลขที่จะหยุด" กรุณากรอกให้ครบ ${numDigits} หลัก`);
                 stopNumberInput.focus();
                 return;
             }
@@ -225,31 +285,33 @@
                 return;
             }
 
-            // --- ส่วนที่แก้ไข ---
-            // 1. ซ่อนช่องกรอกทั้งหมด
+            // ซ่อนช่องกรอกทั้งหมด
             inputContainer.classList.add('hidden');
 
-            // 2. เริ่มการรันตัวเลข
+            // แก้ไข: เริ่มการรันตัวเลขตามจำนวนหลักที่เลือก
             intervalId = setInterval(() => {
-                displayArea.textContent = generateRandomNumber();
+                displayArea.textContent = generateRandomNumber(numDigits);
             }, 50);
 
-            // 3. ตรวจสอบว่ามีการตั้งเวลาหรือไม่
+            // ตรวจสอบว่ามีการตั้งเวลาหรือไม่
             const timeInSeconds = parseInt(timerInput.value, 10);
             if (timeInSeconds > 0) {
-                // ถ้ามีเวลา ให้ตั้งเวลาหยุดอัตโนมัติ
                 timeoutId = setTimeout(stopRunning, timeInSeconds * 1000);
             }
-            // ถ้าไม่มีเวลา (เป็น NaN หรือ 0) ก็ไม่ต้องทำอะไร โปรแกรมจะรันไปเรื่อยๆ
 
-            // 4. อัปเดตสถานะปุ่ม
+            // อัปเดตสถานะปุ่ม
             runButton.disabled = true;
             stopButton.disabled = false;
         });
 
+        // เมื่อกดปุ่ม "หยุด"
         stopButton.addEventListener('click', () => {
             stopRunning();
         });
+
+        // สั่งให้ฟังก์ชัน updateDigitSettings ทำงานครั้งแรกเมื่อเปิดหน้าเว็บ
+        document.addEventListener('DOMContentLoaded', updateDigitSettings);
+
     </script>
 
 </body>
