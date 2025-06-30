@@ -34,7 +34,6 @@
             margin-bottom: 20px;
         }
         
-        /* แก้ไข: เปลี่ยน Layout เป็น 2x2 */
         #inputContainer {
             display: grid;
             grid-template-columns: 1fr 1fr; 
@@ -70,7 +69,7 @@
             font-size: 0.9em;
         }
 
-        input[type="text"], input[type="number"], select { /* เพิ่ม select */
+        input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 12px;
             font-size: 1.2rem;
@@ -79,10 +78,9 @@
             border-radius: 8px;
             box-sizing: border-box;
             transition: border-color 0.3s;
-            font-family: 'Sarabun', sans-serif; /* ทำให้ font เหมือนกัน */
+            font-family: 'Sarabun', sans-serif;
         }
         
-        /* จัด select ให้ text อยู่ตรงกลาง */
         select {
             text-align-last: center;
         }
@@ -100,23 +98,41 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
-
+        
         .display {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #0070C0;
             background-color: #E8E8E8;
-            padding: 20px;
+            padding: 20px 10px;
             border-radius: 10px;
             margin-bottom: 30px;
-            letter-spacing: 8px; /* แก้ไข: ลดระยะห่างเล็กน้อย */
             border: 3px solid #444;
-            min-height: 80px;
+            min-height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            word-break: break-all;
+            gap: 6px;
+        }
+        
+        .pingpong-ball {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            /* --- แก้ไขเฉพาะจุดนี้ --- */
+            color: white; 
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 2px;
+            background: radial-gradient(circle at 30% 30%, #FFB3B3, #FF00FF);
+  box-shadow:
+    inset 0 4px 6px rgba(0, 0, 0, 0.6),
+    inset 0 -4px 8px rgba(255, 255, 255, 0.2),
+    inset -4px -4px 6px rgba(0, 0, 0, 0.3),
+    inset 4px 4px 6px rgba(255, 255, 255, 0.3);
+            text-shadow: 
+                -1px -1px 1px rgba(0, 0, 0, 0.6), /* เงาดำเข้มขึ้นเล็กน้อยเพื่อตัดกับสีขาว */
+                1px 1px 1px rgba(255, 255, 255, 0.1); /* แสงสะท้อนลดลงเล็กน้อย */
         }
 
         .button-group {
@@ -153,7 +169,6 @@
         <h1>โปรแกรมสุ่มตัวเลข (กดหยุด/ตั้งเวลา)</h1>
 
         <div id="inputContainer">
-             <!-- เพิ่มเข้ามา: ช่องเลือกจำนวนหลัก -->
             <div class="input-group">
                 <label for="digitSelector">จำนวนหลัก</label>
                 <select id="digitSelector">
@@ -166,12 +181,10 @@
             </div>
             <div class="input-group">
                 <label for="startNumber">เลขเริ่มต้น</label>
-                 <!-- แก้ไข: ลบ maxlength ออก -->
                 <input type="text" id="startNumber">
             </div>
             <div class="input-group">
                 <label for="stopNumber" class="optional">เลขที่จะหยุด</label>
-                 <!-- แก้ไข: ลบ maxlength ออก -->
                 <input type="text" id="stopNumber" placeholder="เว้นว่างได้">
             </div>
             <div class="input-group">
@@ -180,7 +193,7 @@
             </div>
         </div>
 
-        <div id="displayArea" class="display">00000</div>
+        <div id="displayArea" class="display"></div>
 
         <div class="button-group">
             <button id="runButton" class="run-button">รันตัวเลข</button>
@@ -191,7 +204,7 @@
     <script>
         const displayArea = document.getElementById('displayArea');
         const inputContainer = document.getElementById('inputContainer');
-        const digitSelector = document.getElementById('digitSelector'); // เพิ่มเข้ามา
+        const digitSelector = document.getElementById('digitSelector');
         const startNumberInput = document.getElementById('startNumber');
         const stopNumberInput = document.getElementById('stopNumber');
         const timerInput = document.getElementById('timerInput');
@@ -200,38 +213,42 @@
 
         let intervalId = null; 
         let timeoutId = null;
-        let numDigits = 5; // ตัวแปรเก็บจำนวนหลัก
+        let numDigits = 5;
+        let lastRunningNumber = '';
 
-        // --- ฟังก์ชันที่แก้ไข ---
-        // สร้างตัวเลขสุ่มตามจำนวนหลักที่กำหนด
+        function renderPingPongBalls(numberString) {
+            displayArea.innerHTML = '';
+            for (const digit of numberString) {
+                const ball = document.createElement('div');
+                ball.className = 'pingpong-ball';
+                ball.textContent = digit;
+                displayArea.appendChild(ball);
+            }
+            lastRunningNumber = numberString;
+        }
+
         function generateRandomNumber(digits) {
             const min = Math.pow(10, digits - 1);
             const max = Math.pow(10, digits) - 1;
             return (Math.floor(Math.random() * (max - min + 1)) + min).toString();
         }
         
-        // --- ฟังก์ชันที่เพิ่มเข้ามา ---
-        // อัปเดต UI เมื่อมีการเปลี่ยนจำนวนหลัก
         function updateDigitSettings() {
             numDigits = parseInt(digitSelector.value, 10);
             const placeholderText = '0'.repeat(numDigits);
 
-            // อัปเดตค่าต่างๆ
             startNumberInput.placeholder = placeholderText;
             startNumberInput.maxLength = numDigits;
             stopNumberInput.maxLength = numDigits;
 
-            // อัปเดตหน้าจอแสดงผลถ้ายังไม่เริ่มรัน
             if (!intervalId) {
-                displayArea.textContent = startNumberInput.value.padStart(numDigits, '0') || placeholderText;
+                const initialValue = startNumberInput.value.padStart(numDigits, '0') || placeholderText;
+                renderPingPongBalls(initialValue);
             }
         }
-
-        // --- ฟังก์ชันที่แก้ไข ---
+        
         function stopRunning() {
             if (!intervalId) return;
-
-            const lastRunningNumber = displayArea.textContent;
 
             clearInterval(intervalId);
             clearTimeout(timeoutId);
@@ -239,41 +256,36 @@
             timeoutId = null;
 
             const userDefinedStopNumber = stopNumberInput.value;
-            // ถ้ามีการกำหนดเลขหยุดไว้ ให้แสดงเลขนั้น (พร้อมเติม 0 ข้างหน้าให้ครบ)
-            if (userDefinedStopNumber && userDefinedStopNumber.length === numDigits) {
-                 displayArea.textContent = userDefinedStopNumber;
-            } else {
-                 displayArea.textContent = lastRunningNumber;
-            }
+            let finalNumber;
 
-            // รีเซ็ตสถานะปุ่มและแสดงช่องกรอก
+            if (userDefinedStopNumber && userDefinedStopNumber.length === numDigits) {
+                 finalNumber = userDefinedStopNumber;
+            } else {
+                 finalNumber = lastRunningNumber;
+            }
+            renderPingPongBalls(finalNumber);
+
             runButton.disabled = false;
             stopButton.disabled = true;
             inputContainer.classList.remove('hidden'); 
         }
 
-        // --- Event Listeners ---
-
-        // เมื่อเปลี่ยนจำนวนหลัก
         digitSelector.addEventListener('change', () => {
-             startNumberInput.value = ''; // เคลียร์ค่าเก่า
+             startNumberInput.value = '';
              stopNumberInput.value = '';
              updateDigitSettings();
         });
 
-        // เมื่อพิมพ์ในช่องเลขเริ่มต้น
         startNumberInput.addEventListener('input', () => {
             if (!intervalId) {
-                // อัปเดตหน้าจอตามจำนวนหลักที่เลือก
-                displayArea.textContent = startNumberInput.value.padStart(numDigits, '0');
+                const currentValue = startNumberInput.value.padStart(numDigits, '0');
+                renderPingPongBalls(currentValue);
             }
         });
 
-        // เมื่อกดปุ่ม "รันตัวเลข"
         runButton.addEventListener('click', () => {
             if (intervalId) return;
             
-            // แก้ไข: ตรวจสอบความยาวของ "เลขที่จะหยุด" ตามจำนวนหลักที่เลือก
             if (stopNumberInput.value.length > 0 && stopNumberInput.value.length !== numDigits) {
                 alert(`ถ้าต้องการกำหนด "เลขที่จะหยุด" กรุณากรอกให้ครบ ${numDigits} หลัก`);
                 stopNumberInput.focus();
@@ -285,33 +297,25 @@
                 return;
             }
 
-            // ซ่อนช่องกรอกทั้งหมด
             inputContainer.classList.add('hidden');
 
-            // แก้ไข: เริ่มการรันตัวเลขตามจำนวนหลักที่เลือก
             intervalId = setInterval(() => {
-                displayArea.textContent = generateRandomNumber(numDigits);
-            }, 50);
+                const newNumber = generateRandomNumber(numDigits);
+                renderPingPongBalls(newNumber);
+            }, 60);
 
-            // ตรวจสอบว่ามีการตั้งเวลาหรือไม่
             const timeInSeconds = parseInt(timerInput.value, 10);
             if (timeInSeconds > 0) {
                 timeoutId = setTimeout(stopRunning, timeInSeconds * 1000);
             }
 
-            // อัปเดตสถานะปุ่ม
             runButton.disabled = true;
             stopButton.disabled = false;
         });
 
-        // เมื่อกดปุ่ม "หยุด"
-        stopButton.addEventListener('click', () => {
-            stopRunning();
-        });
+        stopButton.addEventListener('click', stopRunning);
 
-        // สั่งให้ฟังก์ชัน updateDigitSettings ทำงานครั้งแรกเมื่อเปิดหน้าเว็บ
         document.addEventListener('DOMContentLoaded', updateDigitSettings);
-
     </script>
 
 </body>
