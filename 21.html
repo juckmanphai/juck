@@ -119,7 +119,6 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            /* --- แก้ไขเฉพาะจุดนี้ --- */
             color: white; 
             font-size: 1.8rem;
             font-weight: bold;
@@ -188,8 +187,12 @@
                 <input type="text" id="stopNumber" placeholder="เว้นว่างได้">
             </div>
             <div class="input-group">
-                <label for="timerInput" class="optional">เวลา (วินาที)</label>
+                <label for="timerInput" class="optional">เวลาหยุดอัตโนมัติ (วินาที)</label>
                 <input type="number" id="timerInput" min="1" placeholder="ปล่อยว่างได้">
+            </div>
+            <div class="input-group" style="grid-column: 1 / -1;">
+                <label for="delayInput" class="optional">หน่วงเวลาหยุดทีละหลัก (วินาที)</label>
+                <input type="number" id="delayInput" min="0.1" step="0.1" placeholder="เช่น 3 (ว่าง=หยุดทันที)">
             </div>
         </div>
 
@@ -202,12 +205,13 @@
     </div>
 
     <script>
-       const displayArea = document.getElementById('displayArea');
+        const displayArea = document.getElementById('displayArea');
         const inputContainer = document.getElementById('inputContainer');
         const digitSelector = document.getElementById('digitSelector');
         const startNumberInput = document.getElementById('startNumber');
         const stopNumberInput = document.getElementById('stopNumber');
         const timerInput = document.getElementById('timerInput');
+        const delayInput = document.getElementById('delayInput');
         const runButton = document.getElementById('runButton');
         const stopButton = document.getElementById('stopButton');
 
@@ -224,7 +228,6 @@
                 ball.textContent = digit;
                 displayArea.appendChild(ball);
             }
-            // อัปเดต lastRunningNumber เฉพาะตอนที่ตัวเลขยังหมุนทั้งหมด
             if (intervalId) {
                 lastRunningNumber = numberString;
             }
@@ -252,62 +255,65 @@
         
         // --- START: โค้ดที่แก้ไข ---
         function stopRunning() {
-            // ถ้าไม่ได้กำลังรันอยู่ ให้ไม่ต้องทำอะไร
             if (!intervalId) return;
 
-            // 1. หยุดการสุ่มตัวเลขหลัก (intervalId) และ timer ที่ตั้งเวลาหยุดอัตโนมัติ (timeoutId)
+            // 1. หยุดการสุ่มหลักและ timer ทั้งหมด
             clearInterval(intervalId);
             clearTimeout(timeoutId);
             intervalId = null;
             timeoutId = null;
 
-            // 2. กำหนดเลขที่จะหยุดสุดท้าย (จากช่อง input หรือจากเลขล่าสุดที่สุ่มได้)
+            // 2. กำหนดเลขสุดท้าย
             const userDefinedStopNumber = stopNumberInput.value;
             const finalNumber = (userDefinedStopNumber && userDefinedStopNumber.length === numDigits)
                 ? userDefinedStopNumber
                 : lastRunningNumber;
 
-            // 3. ปิดการใช้งานปุ่มทั้งหมดระหว่างที่กำลังแสดงอนิเมชันการหยุด
+            // 3. ปิดการใช้งานปุ่มทั้งหมดชั่วคราว
             runButton.disabled = true;
             stopButton.disabled = true;
+            
+            // 4. อ่านค่าหน่วงเวลาจาก input field
+            const delayInSeconds = parseFloat(delayInput.value) || 0;
+            
+            // 5. ตรวจสอบว่าต้องการหยุดแบบหน่วงเวลาหรือไม่
+            if (delayInSeconds > 0) {
+                // --- โหมดที่ 1: หยุดแบบหน่วงเวลา (มีอนิเมชัน) ---
+                let stoppedDigitIndex = 0;
+                const stoppingAnimation = setInterval(() => {
+                    const stoppedPart = finalNumber.substring(0, stoppedDigitIndex);
+                    let spinningPart = "";
+                    const remainingDigits = numDigits - stoppedDigitIndex;
+                    for (let i = 0; i < remainingDigits; i++) {
+                        spinningPart += Math.floor(Math.random() * 10);
+                    }
+                    renderPingPongBalls(stoppedPart + spinningPart);
+                }, 60);
 
-            let stoppedDigitIndex = 0; // ตัวแปรนับจำนวนหลักที่หยุดไปแล้ว
+                const sequenceController = () => {
+                    stoppedDigitIndex++;
+                    if (stoppedDigitIndex >= numDigits) {
+                        clearInterval(stoppingAnimation);
+                        renderPingPongBalls(finalNumber);
+                        runButton.disabled = false;
+                        inputContainer.classList.remove('hidden');
+                    } else {
+                        setTimeout(sequenceController, delayInSeconds * 1000);
+                    }
+                };
+                sequenceController();
 
-            // 4. สร้าง Interval ใหม่สำหรับแสดงผลอนิเมชัน "การหยุด"
-            // โดยจะแสดงหลักที่หยุดแล้ว + หลักที่ยังหมุนอยู่
-            const stoppingAnimation = setInterval(() => {
-                const stoppedPart = finalNumber.substring(0, stoppedDigitIndex);
-                let spinningPart = "";
-                const remainingDigits = numDigits - stoppedDigitIndex;
-                for (let i = 0; i < remainingDigits; i++) {
-                    spinningPart += Math.floor(Math.random() * 10);
-                }
-                renderPingPongBalls(stoppedPart + spinningPart);
-            }, 60); // ความเร็วในการหมุนของอนิเมชัน
-
-            // 5. ฟังก์ชันควบคุมการหยุดทีละหลัก
-            const sequenceController = () => {
-                stoppedDigitIndex++; // สั่งให้หยุดเพิ่ม 1 หลัก
-
-                if (stoppedDigitIndex >= numDigits) {
-                    // ถ้าทุกหลักหยุดหมดแล้ว
-                    clearInterval(stoppingAnimation); // หยุดอนิเมชันการหมุน
-                    renderPingPongBalls(finalNumber); // แสดงผลเลขสุดท้ายให้ถูกต้อง
-                    
-                    // คืนค่า UI ให้พร้อมทำงานครั้งต่อไป
-                    runButton.disabled = false;
-                    inputContainer.classList.remove('hidden');
-                } else {
-                    // ถ้ายังเหลือหลักที่ยังไม่หยุด ให้ตั้งเวลาเรียกฟังก์ชันนี้อีกครั้งใน 3 วินาที
-                    setTimeout(sequenceController, 3000);
-                }
-            };
-
-            // 6. เริ่มกระบวนการหยุด โดยการเรียกฟังก์ชันควบคุมครั้งแรก
-            sequenceController();
+            } else {
+                // --- โหมดที่ 2: หยุดทันที (ไม่มีอนิเมชัน) ---
+                // แสดงผลเลขสุดท้ายทันที
+                renderPingPongBalls(finalNumber);
+                
+                // คืนค่า UI ให้พร้อมทำงานครั้งต่อไป
+                runButton.disabled = false;
+                inputContainer.classList.remove('hidden');
+            }
         }
         // --- END: โค้ดที่แก้ไข ---
-
 
         digitSelector.addEventListener('change', () => {
              startNumberInput.value = '';
@@ -331,8 +337,13 @@
                 return;
             }
             if (timerInput.value && timerInput.value <= 0) {
-                alert('กรุณากรอก "เวลา" เป็นตัวเลขที่มากกว่า 0');
+                alert('กรุณากรอก "เวลาหยุดอัตโนมัติ" เป็นตัวเลขที่มากกว่า 0');
                 timerInput.focus();
+                return;
+            }
+            if (delayInput.value && delayInput.value <= 0) {
+                alert('กรุณากรอก "หน่วงเวลาหยุด" เป็นตัวเลขที่มากกว่า 0');
+                delayInput.focus();
                 return;
             }
 
