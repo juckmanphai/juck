@@ -64,18 +64,61 @@
             display: flex;
             justify-content: center;
         }
+        
+        /* -------- START: POPUP STYLES -------- */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            /* === CHANGE HERE: ปรับ padding ให้ด้านซ้าย-ขวาเหลือ 5px === */
+            padding: 10px 5px; 
+            box-sizing: border-box;
+        }
+
+        .popup-content {
+            background-color: transparent; /* Make wrapper transparent */
+            border-radius: 10px; /* Match the inner container */
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            text-align: center; /* Center the close button */
+        }
+        
+        .close-popup {
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 10px 20px;
+            background-color: #f44336;
+            width: 100%;
+            max-width: 200px;
+            font-size: 16px;
+            margin-top: 15px; /* Space between results and button */
+        }
+
+        .close-popup:hover {
+            background-color: #d32f2f;
+        }
+        /* -------- END: POPUP STYLES -------- */
+
 
         .result-display {
             background-color: #FAFAD2;
             padding: 10px;
             border-radius: 10px;
             border: 2px solid green;
-            margin-top: 20px;
-            margin-bottom: 30px;
             text-align: center;
             position: relative;
-            margin-top: 20px;
-            margin-bottom: 20px;
         }
 
         .result-section {
@@ -371,56 +414,76 @@ display: inline-block;
         </div>
     </div>
 
-    <div id="resultContainer" class="result-display" style="display: none;">
-        <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
-            <!-- หัวข้อหลัก -->
-            <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
-            <div class="draw-date">
-                <span id="display-draw-date"></span>
-            </div>
+    <!-- START: MODIFIED RESULT CONTAINER TO BE A POPUP -->
+    <div id="popupOverlay" class="popup-overlay">
+        <div class="popup-content">
+            <div class="result-display">
+                <div style="position: relative; text-align: center; font-size: 18px; line-height: 0.5;">
+                    <!-- หัวข้อหลัก -->
+                    <h2 class="header-title">ผลฉลากกินแบ่งรัฐบาล</h2>
+                    <div class="draw-date">
+                        <span id="display-draw-date"></span>
+                    </div>
 
-            <!-- ผลรางวัลที่ 1 -->
-            <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
-                <!-- โลโก้ด้านซ้าย -->
-                <img src="logo.png" alt="Logo Left" style="width: 50px; height: 50px; margin-right: 10px;">
+                    <!-- ผลรางวัลที่ 1 -->
+                    <div class="result-section" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <!-- โลโก้ด้านซ้าย -->
+                        <img src="logo.png" alt="Logo Left" style="width: 50px; height: 50px; margin-right: 10px;">
+                        <!-- หัวข้อรางวัล -->
+                        <div class="prize-title first-prize-title">รางวัลที่ 1</div>
+                        <!-- โลโก้ด้านขวา -->
+                        <img src="logo.png" alt="Logo Right" style="width: 50px; height: 50px; margin-left: 10px;">
+                    </div>
 
-                <!-- หัวข้อรางวัล -->
-                <div class="prize-title first-prize-title">รางวัลที่ 1</div>
+                    <div id="first-prize-display" class="number-group" style="margin-top: 5px;"></div>
 
-                <!-- โลโก้ด้านขวา -->
-                <img src="logo.png" alt="Logo Right" style="width: 50px; height: 50px; margin-left: 10px;">
-            </div>
+                    <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
+                    <div class="result-section flex-row">
+                        <div>
+                            <h3 class="result-title front-three-title result-title-with-margin">เลขหน้า 3 ตัว</h3>
+                            <div id="display-front-three-1" class="number-group"></div>
+                            <div id="display-front-three-2" class="number-group"></div>
+                        </div>
+                        <div style="margin: 0 15px;"></div>
+                        <div>
+                            <h3 class="result-title back-three-title result-title-with-margin">เลขท้าย 3 ตัว</h3>
+                            <div id="display-back-three-1" class="number-group"></div>
+                            <div id="display-back-three-2" class="number-group"></div>
+                        </div>
+                    </div>
 
-            <div id="first-prize-display" class="number-group" style="margin-top: 5px;"></div>
-
-            <!-- เลขหน้า 3 ตัว และ เลขท้าย 3 ตัว -->
-            <div class="result-section flex-row">
-                <div>
-                    <h3 class="result-title front-three-title result-title-with-margin">เลขหน้า 3 ตัว</h3>
-                    <div id="display-front-three-1" class="number-group"></div>
-                    <div id="display-front-three-2" class="number-group"></div>
+                    <!-- เลขท้าย 2 ตัว -->
+                    <div class="result-section back-two-section">
+                        <div id="display-back-two" class="number-group back-two-number-group"></div>
+                        <h3 class="result-title back-two-title">เลขท้าย 2 ตัว</h3>
+                    </div>
                 </div>
-                <div style="margin: 0 15px;"></div>
-                <div>
-                    <h3 class="result-title back-three-title result-title-with-margin">เลขท้าย 3 ตัว</h3>
-                    <div id="display-back-three-1" class="number-group"></div>
-                    <div id="display-back-three-2" class="number-group"></div>
-                </div>
             </div>
-
-            <!-- เลขท้าย 2 ตัว -->
-            <div class="result-section back-two-section">
-                <div id="display-back-two" class="number-group back-two-number-group"></div>
-                <h3 class="result-title back-two-title">เลขท้าย 2 ตัว</h3>
-            </div>
+            <!-- ปุ่มปิด Popup -->
+            <button class="close-popup" onclick="closePopup()">ปิดหน้าต่างนี้</button>
         </div>
     </div>
+    <!-- END: MODIFIED RESULT CONTAINER -->
 
     <footer>
         &copy; 2025 Juckmanphai. All Rights Reserved.
     </footer>
 
     <script>
+        // -------- START: JAVASCRIPT FOR POPUP --------
+        // แสดง Popup
+        function showPopup() {
+            const popup = document.getElementById("popupOverlay");
+            popup.style.display = "flex";
+        }
+
+        // ปิด Popup
+        function closePopup() {
+            const popup = document.getElementById("popupOverlay");
+            popup.style.display = "none";
+        }
+        // -------- END: JAVASCRIPT FOR POPUP --------
+
         function formatThaiDate(dateString) {
             const days = [
                 "วันอาทิตย์", "วันจันทร์", "วันอังคาร", 
@@ -433,20 +496,23 @@ display: inline-block;
                 "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
             ];
 
-            const parts = dateString.split("/");
-            if (parts.length === 3) {
-                const day = parseInt(parts[0], 10);
-                const month = parseInt(parts[1], 10) - 1;
-                const year = parseInt(parts[2], 10);
-
-                const date = new Date(year, month, day);
-                const dayOfWeek = days[date.getDay()];
-                const thaiYear = year + 543;
-                const monthName = months[month];
-
-                return `${dayOfWeek}ที่ ${day} ${monthName} พ.ศ. ${thaiYear}`;
+            // ลองแปลงจากรูปแบบ "1 มกราคม 2567" เป็น Date object
+            let date;
+            const thDateParts = dateString.match(/(\d+)\s+([^\s]+)\s+(\d+)/);
+            if (thDateParts) {
+                const day = parseInt(thDateParts[1], 10);
+                const monthName = thDateParts[2];
+                const thaiYear = parseInt(thDateParts[3], 10);
+                const monthIndex = months.indexOf(monthName);
+                if (monthIndex > -1) {
+                    date = new Date(thaiYear - 543, monthIndex, day);
+                    const dayOfWeek = days[date.getDay()];
+                    return `งวด${dayOfWeek}ที่ ${day} ${months[monthIndex]} พ.ศ. ${thaiYear}`;
+                }
             }
-            return dateString;
+            
+            // ถ้าไม่สำเร็จ ให้คืนค่าเดิมไป
+            return `งวดวันที่ ${dateString}`;
         }
 
         function createNumberBall(number, colorClass) {
@@ -466,8 +532,7 @@ display: inline-block;
         }
 
         function displayResults() {
-            document.getElementById("resultContainer").style.display = "block";
-            
+            // ดึงข้อมูลและจัดรูปแบบวันที่
             const rawDate = document.getElementById("draw-date").value;
             const formattedDate = formatThaiDate(rawDate);
             document.getElementById("display-draw-date").innerText = formattedDate;
@@ -509,6 +574,9 @@ display: inline-block;
                 document.getElementById("back-two").value, 
                 "circle-number-orange"
             );
+            
+            // แสดง Popup หลังจากเตรียมข้อมูลเสร็จ
+            showPopup();
         }
     </script>
 </body>
