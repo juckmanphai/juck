@@ -21,8 +21,8 @@ const urlsToCache = [
   './20.html',
   // ไฟล์พื้นฐานของ PWA
   './manifest.json',
-  './icon-192x192.png',
-  './icon-512x512.png',
+  './192.png',
+  './521.png',
   './logo.png'
 ];
 
