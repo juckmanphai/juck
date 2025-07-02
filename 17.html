@@ -301,7 +301,57 @@
     function initializeAccountTypes(accountName) { if (!accountTypes.has(accountName)) { accountTypes.set(accountName, { "รายรับ": ["ถูกหวย", "เติมทุน"], "รายจ่าย": ["ชื้อหวย", "โอนกำไร", "ชื้อกับข้าว"] }); } }
     function updateTypeList() { const typeList = document.getElementById('typeList'); if (!currentAccount) { typeList.innerHTML = ''; return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); typeList.innerHTML = ''; types["รายจ่าย"].forEach(type => { const option = document.createElement('option'); option.value = type; typeList.appendChild(option); }); types["รายรับ"].forEach(type => { const option = document.createElement('option'); option.value = type; typeList.appendChild(option); }); }
     function addNewType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const category = prompt("เลือกประเภทที่จะเพิ่ม (รายรับ/รายจ่าย):"); if (category !== "รายรับ" && category !== "รายจ่าย") { alert("กรุณากรอก 'รายรับ' หรือ 'รายจ่าย' เท่านั้น"); return; } const typeInput = document.getElementById('type'); const typeName = typeInput.value.trim(); if (!typeName) { alert("กรุณากรอกชื่อประเภทในช่องประเภทก่อน"); return; } if (!types[category].includes(typeName)) { types[category].push(typeName); updateTypeList(); alert(`เพิ่มประเภท "${typeName}" ในหมวด "${category}" เรียบร้อย`); saveToLocal(); } else { alert("ประเภทนี้มีอยู่แล้ว"); } }
-    function editType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนแก้ไขประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const typeInput = document.getElementById('type'); const currentType = typeInput.value.trim(); if (!currentType) { alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการแก้ไข"); return; } let foundCategory = null; for (const category in types) { if (types[category].includes(currentType)) { foundCategory = category; break; } } if (!foundCategory) { alert("ไม่พบประเภทที่ต้องการแก้ไข"); return; } const newName = prompt("กรุณากรอกชื่อประเภทใหม่:", currentType); if (newName && newName !== currentType) { const index = types[foundCategory].indexOf(currentType); types[foundCategory][index] = newName; records.forEach(record => { if (record.account === currentAccount && record.type === currentType) { record.type = newName; } }); updateTypeList(); typeInput.value = newName; alert("แก้ไขชื่อประเภทเรียบร้อย"); saveToLocal(); } }
+    
+    // [ปรับปรุงตามคำขอ] แก้ไขชื่อประเภทและอัปเดตข้อมูลที่เกี่ยวข้องในบัญชีปัจจุบัน
+    function editType() {
+        if (!currentAccount) {
+            alert("กรุณาเลือกบัญชีก่อนแก้ไขประเภท");
+            return;
+        }
+        initializeAccountTypes(currentAccount);
+        const types = accountTypes.get(currentAccount);
+        const typeInput = document.getElementById('type');
+        const currentType = typeInput.value.trim();
+
+        if (!currentType) {
+            alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการแก้ไข");
+            return;
+        }
+
+        let foundCategory = null;
+        for (const category in types) {
+            if (types[category].includes(currentType)) {
+                foundCategory = category;
+                break;
+            }
+        }
+
+        if (!foundCategory) {
+            alert("ไม่พบประเภทที่ต้องการแก้ไข");
+            return;
+        }
+
+        const newName = prompt("กรุณากรอกชื่อประเภทใหม่:", currentType);
+
+        if (newName && newName !== currentType) {
+            // แก้ไขชื่อประเภทใน list
+            const index = types[foundCategory].indexOf(currentType);
+            types[foundCategory][index] = newName;
+
+            // [ส่วนที่ปรับปรุง] วนลูปเพื่อแก้ไขข้อมูลรายการ (records) ทั้งหมดในบัญชีปัจจุบันที่ใช้ประเภทนี้
+            records.forEach(record => {
+                if (record.account === currentAccount && record.type === currentType) {
+                    record.type = newName;
+                }
+            });
+
+            updateTypeList();
+            typeInput.value = newName;
+            alert("แก้ไขชื่อประเภทเรียบร้อย");
+            saveToLocal(); // บันทึกการเปลี่ยนแปลงทั้งหมด
+        }
+    }
+    
     function deleteType() { if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนลบประเภท"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); const typeInput = document.getElementById('type'); const currentType = typeInput.value.trim(); if (!currentType) { alert("กรุณาเลือกหรือพิมพ์ประเภทที่ต้องการลบ"); return; } let foundCategory = null; for (const category in types) { if (types[category].includes(currentType)) { foundCategory = category; break; } } if (!foundCategory) { alert("ไม่พบประเภทที่ต้องการลบ"); return; } if (confirm(`คุณแน่ใจว่าจะลบประเภท "${currentType}" หรือไม่?`)) { const index = types[foundCategory].indexOf(currentType); types[foundCategory].splice(index, 1); updateTypeList(); typeInput.value = ''; alert("ลบประเภทเรียบร้อย"); saveToLocal(); } }
     function toggleRecordsVisibility() { const detailsSection = document.getElementById('detailsSection'); if (detailsSection.style.display === 'none' || detailsSection.style.display === '') { detailsSection.style.display = 'block'; } else { detailsSection.style.display = 'none'; } }
     function addAccount() { const accountName = prompt("กรุณากรอกชื่อบัญชีใหม่:"); if (accountName && !accounts.includes(accountName)) { accounts.push(accountName); updateAccountSelect(); updateMultiAccountSelector(); alert("เพิ่มบัญชีสำเร็จ"); saveToLocal(); } else { alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง"); } }
