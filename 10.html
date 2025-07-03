@@ -672,7 +672,23 @@
     function closeFormatModal() { document.getElementById('formatSelectionModal').style.display = 'none'; }
     function closeExportSingleAccountModal() { document.getElementById('exportSingleAccountModal').style.display = 'none'; }
     function saveToFile() { if (accounts.length === 0) { alert("ไม่มีบัญชีให้บันทึก"); return; } document.getElementById('formatSelectionModal').style.display = 'flex'; }
-    function saveToLocal() { saveDataAndShowToast('neutral'); }
+    
+    // --- ADJUSTED FUNCTION ---
+    function saveToLocal() {
+        const dataToSave = {
+            accounts: [...accounts],
+            currentAccount: currentAccount,
+            records: [...records],
+            accountTypes: Array.from(accountTypes.entries())
+        };
+        try {
+            localStorage.setItem('accountData', JSON.stringify(dataToSave));
+            alert('✓ บันทึกข้อมูลชั่วคราวในเบราว์เซอร์เรียบร้อยแล้ว');
+        } catch (error) {
+            console.error("บันทึกข้อมูลชั่วคราวไม่สำเร็จ:", error);
+            alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูลชั่วคราว: " + error.message);
+        }
+    }
 
     function handleSaveAs(format) {
         closeFormatModal(); const formatLower = format.toLowerCase().trim(); const fileName = prompt("กรุณากรอกชื่อไฟล์สำหรับสำรองข้อมูล (ไม่ต้องใส่นามสกุล):", "backup_all"); if (!fileName) return;
