@@ -125,7 +125,7 @@
         }
         .section-content.active { display: block; }
         
-        /* --- NEW: Styles for collapsible bars inside a section --- */
+        /* --- Styles for collapsible bars inside a section --- */
         .collapsible-bar {
             background-color: #78909c;
             color: white;
@@ -160,7 +160,6 @@
         .collapsible-content.active {
             display: block;
         }
-        /* --- END NEW --- */
 
 
         h2 { 
@@ -307,6 +306,27 @@
         .modal-content-container { background-color: transparent; padding: 0; border: none; box-shadow: none; display: flex; flex-direction: column; align-items: center; margin: auto 0; width: 100%; max-width: 950px; }
         #modalBodyContent { background-color: #FAFAD2; border: 3px solid #4CAF50; border-radius: 10px; padding: 20px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.25); max-height: 85vh; overflow-y: auto; }
         #modalBodyContent, #modalBodyContent * { color: blue !important; }
+        
+        /* --- NEW: Reduced spacing inside modal --- */
+        #modalBodyContent h2 {
+            margin-top: 0;
+            margin-bottom: 8px; /* Reduced */
+            padding-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        #modalBodyContent p {
+            margin-top: 4px; /* Reduced */
+            margin-bottom: 4px; /* Reduced */
+            line-height: 1.3;
+        }
+        #modalBodyContent table {
+            margin-top: 10px; /* Reduced */
+        }
+        #modalBodyContent hr {
+            margin: 15px 0; /* Reduced */
+        }
+        /* --- END NEW --- */
+        
         .modal-close-btn { background-color: #E97132; color: white; padding: 12px 30px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; margin-top: 10px; transition: background-color 0.3s; }
         .modal-close-btn:hover { background-color: #e64a19; }
         .format-modal-content { background-color: #fff; padding: 20px 30px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 90%; max-width: 400px; }
@@ -647,15 +667,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sellerKeys.forEach((sellerId, index) => {
                 const sellerData = summaryResult.sellerSummary[sellerId];
 
-                // --- MODIFICATION START ---
-                // Create the dynamic date line for the summary header
                 const isSingleDay = (startDate.getFullYear() === endDate.getFullYear() &&
                                      startDate.getMonth() === endDate.getMonth() &&
                                      startDate.getDate() === endDate.getDate());
                 const dateLinePrefix = isSingleDay ? 'สรุปยอดขาย วันที่' : 'สรุปยอดขายจากวันที่';
-                const fullDateLine = `<p style="font-size:0.9em; color:#333; font-weight:bold; margin-top:5px; margin-bottom: 10px;">${dateLinePrefix} ${thaiDateString}</p>`;
-                // --- MODIFICATION END ---
-
+                const fullDateLine = `<p style="font-size: 0.9em; color: #333; font-weight: bold; margin-bottom: 8px;">${dateLinePrefix} ${thaiDateString}</p>`;
 
                 let productTableRows = '';
                 Object.values(sellerData.productSummary).forEach(p => {
@@ -680,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const itemsList = s.items.map(item => { const product = this.data.products.find(p => p.id === item.productId); const unit = product ? product.unit : 'หน่วย'; return `${item.name}( ${this.formatNumberSmart(item.quantity)} ${unit} )`; }).join(', ');
                         creditRows += `<tr><td data-label="วันที่">${formatDate(s.date)}</td><td data-label="ผู้ซื้อ" style="text-align:left;">${s.buyerName || '-'}</td><td data-label="รายการ" style="text-align:left;">${itemsList}</td><td data-label="ยอดเงิน (บาท)">${formatCurrency(s.total)}</td><td data-label="กำหนดชำระ">${formatDate(s.creditDueDate)}</td></tr>`;
                     });
-                    creditDetailsHtml = `<div style="margin-top:20px; text-align:center;"><h2>รายละเอียดลูกหนี้ (เครดิต)</h2><table class="credit-details-table"><thead><tr><th>วันที่</th><th>ผู้ซื้อ</th><th>รายการ</th><th>ยอดเงิน (บาท)</th><th>กำหนดชำระ</th></tr></thead><tbody>${creditRows}</tbody></table></div>`;
+                    creditDetailsHtml = `<div style="margin-top: 15px; text-align:center;"><h2>รายละเอียดลูกหนี้ (เครดิต)</h2><table class="credit-details-table"><thead><tr><th>วันที่</th><th>ผู้ซื้อ</th><th>รายการ</th><th>ยอดเงิน (บาท)</th><th>กำหนดชำระ</th></tr></thead><tbody>${creditRows}</tbody></table></div>`;
                 }
                 
                 if (index > 0) { allSellersHtml += `<hr>`; }
@@ -690,8 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h2>${title}</h2>
                         <p style="font-size:0.8em; color:#555; margin-bottom: 0;">สรุปโดย: ${this.currentUser.username} | สรุปเมื่อ: ${summaryTimestamp}</p>
                         ${fullDateLine}
-                        <p><strong>ยอดขายรวม: ${formatCurrency(sellerData.totalSales)} บาท</strong><br>
-                        <span style="font-size:0.9em; color:#555;">(เงินสด: ${formatCurrency(sellerData.totalCash)} | เครดิต: ${formatCurrency(sellerData.totalCredit)})</span></p>
+                        <p style="margin-bottom: 8px;"><strong>ยอดขายรวม: ${formatCurrency(sellerData.totalSales)} บาท</strong> (${isSellerReport ? `เงินสด: ${formatCurrency(sellerData.totalCash)} | เครดิต: ${formatCurrency(sellerData.totalCredit)}` : ''})</p>
                         ${profitOrCommissionHtml}
                         <table class="product-summary-table">
                             <thead><tr><th>สินค้า</th><th>ขายเงินสด</th><th>ขายเครดิต</th><th>รวม (หน่วย)</th><th>ยอดขาย (บาท)</th><th>สต็อกคงเหลือ</th></tr></thead>
@@ -703,18 +718,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let overallSummaryHtml = '';
             if (this.currentUser.role === 'admin' && !isSellerReport) {
-                // Admin's overall view has a different title structure, so we replace the per-seller title with a general one.
                 const isSingleDay = (startDate.getFullYear() === endDate.getFullYear() &&
                                      startDate.getMonth() === endDate.getMonth() &&
                                      startDate.getDate() === endDate.getDate());
                 const dateLinePrefix = isSingleDay ? 'สรุปยอดขาย วันที่' : 'สรุปยอดขายจากวันที่';
-                const fullDateLineForAdmin = `<p style="font-size:0.9em; color:#333; font-weight:bold; margin-top:5px; margin-bottom: 10px;">${dateLinePrefix} ${thaiDateString}</p>`;
+                const fullDateLineForAdmin = `<p style="font-size:0.9em; color:#333; font-weight:bold; margin-bottom: 8px;">${dateLinePrefix} ${thaiDateString}</p>`;
 
                 overallSummaryHtml = `
                     <div style="text-align:center;">
                         <h2>${title}</h2>
                         <p style="font-size:0.8em; color:#555; margin-bottom: 0;">สรุปโดย: ${this.currentUser.username} | สรุปเมื่อ: ${summaryTimestamp}</p>
-                        ${fullDateLineForAdmin}
+                         ${fullDateLineForAdmin}
                     </div>
                     <hr><h2>ภาพรวมทั้งหมด</h2>
                     <p><strong>ยอดเงินสด:</strong> ${formatCurrency(summaryResult.grandTotalCash)} บาท</p>
@@ -723,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p style="font-weight: bold; font-size: 1.2em; color: ${summaryResult.grandTotalProfit >= 0 ? 'green' : 'red'};">
                         <strong>กำไรสุทธิรวม: ${formatCurrency(summaryResult.grandTotalProfit)} บาท</strong>
                     </p><hr>`;
-                 allSellersHtml = allSellersHtml.replace(/<h2>.*?<\/h2>/, ''); // Remove the per-seller h2 if admin is viewing all
+                 allSellersHtml = allSellersHtml.replace(/<h2.*?>(.*?)<\/h2>/, `<h2>สรุปตามผู้ขาย: $1</h2>`); // Keep the seller name
             }
             
             return `${overallSummaryHtml}${allSellersHtml || '<p>ไม่พบข้อมูลการขายในช่วงเวลานี้</p>'}`;
@@ -838,13 +852,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <!-- Seller Sections -->
             <div class="collapsible-bar seller-only" data-target="seller-backup-content"><span>บันทึกข้อมูล (Backup)</span><span class="arrow">▶</span></div>
-            <div id="seller-backup-content" class="collapsible-content seller-only"><div style="text-align:center;"><p>สำรองข้อมูลทั้งหมด (ผู้ใช้, สินค้า, ประวัติการขาย) ลงในไฟล์ JSON เพื่อเก็บไว้หรือย้ายไปยังเครื่องอื่น</p><button id="save-to-file-btn-seller" class="success">บันทึกข้อมูลทั้งหมดลงไฟล์</button><button id="save-to-browser-btn-seller" style="background-color: #007bff;">บันทึกข้อมูลปัจจุบันลงในเบราว์เซอร์</button></div></div>
+            <div id="seller-backup-content" class="collapsible-content seller-only"><div style="text-align:center; padding-top: 10px;"><p style="margin-top:0;">สำรองข้อมูลทั้งหมด (ผู้ใช้, สินค้า, ประวัติการขาย) ลงในไฟล์ JSON เพื่อเก็บไว้หรือย้ายไปยังเครื่องอื่น</p><button id="save-to-file-btn-seller" class="success">บันทึกข้อมูลทั้งหมดลงไฟล์</button><button id="save-to-browser-btn-seller" style="background-color: #007bff;">บันทึกข้อมูลปัจจุบันลงในเบราว์เซอร์</button></div></div>
 
             <div class="collapsible-bar seller-only" data-target="seller-summary-content"><span>รายงานสรุป (สำหรับผู้ใช้ปัจจุบัน)</span><span class="arrow">▶</span></div>
             <div id="seller-summary-content" class="collapsible-content seller-only"><div style="text-align:center;"><div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"><button id="my-summary-today-btn" style="background-color: var(--warning-color);">สรุปยอดขายวันนี้</button><button id="my-summary-all-btn" style="background-color: #673ab7;">สรุปทั้งหมดของฉัน</button></div><div class="summary-form-inline" style="margin-top: 15px; justify-content: center; flex-direction: column; gap:10px; align-items: stretch;"><label>เลือกวันที่: <input type="date" id="my-summary-date" style="width:100%;"></label><button id="my-summary-by-day-btn" style="background-color: #03a9f4;">สรุปยอดขายวันที่เลือก</button></div></div></div>
 
             <div class="collapsible-bar seller-only" data-target="seller-recent-sales-content"><span>รายการขาย 2 วันล่าสุด</span><span class="arrow">▶</span></div>
-            <div id="seller-recent-sales-content" class="collapsible-content seller-only"><div class="table-container"><table id="seller-sales-history-table"><thead><tr><th>วันที่</th><th>เวลา</th><th>รายการสินค้า</th><th>ยอดขาย</th><th>ประเภทชำระ</th><th>จัดการ</th></tr></thead><tbody></tbody></table></div></div>`; 
+            <div id="seller-recent-sales-content" class="collapsible-content seller-only"><div class="table-container" style="margin-top:0;"><table id="seller-sales-history-table"><thead><tr><th>วันที่</th><th>เวลา</th><th>รายการสินค้า</th><th>ยอดขาย</th><th>ประเภทชำระ</th><th>จัดการ</th></tr></thead><tbody></tbody></table></div></div>`; 
         },
         attachEventListeners(){ 
             document.getElementById('login-form').addEventListener('submit', (e) => { e.preventDefault(); this.login(document.getElementById('username').value, document.getElementById('password').value); }); 
@@ -878,7 +892,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (e.target.classList.contains('edit-user-btn')) this.editUser(e.target.dataset.id); 
                 if (e.target.classList.contains('delete-user-btn')) this.deleteUser(e.target.dataset.id); 
                 
-                // --- NEW: Event listener for the collapsible bars ---
                 const collapsibleBar = e.target.closest('.collapsible-bar');
                 if (collapsibleBar) {
                     const targetId = collapsibleBar.dataset.target;
