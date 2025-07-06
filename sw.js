@@ -50,7 +50,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.filter(cache => {
-          return cache.startsWith('juckmanphai-pwa-cache-') && cache !== CACHE_NAME;
+          return cache.startsWith('manphai-pwa-cache-') && cache !== CACHE_NAME;
         }).map(cache => {
           console.log('Service Worker: Clearing old cache:', cache);
           return caches.delete(cache);
