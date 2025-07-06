@@ -1,7 +1,7 @@
 {
-  "name": "manphaiApps",
-  "short_name": "manphaiApp",
-  "description": "ชุดเครื่องมือและแอปพลิเคชันโดย Juckmanphai",
+  "name": "manphai",
+  "short_name": "manphai",
+  "description": "ชุดเครื่องมือและแอปพลิเคชันโดย manphai",
   "start_url": "./10.html",
   "display": "standalone",
   "background_color": "#FAFAD2",
