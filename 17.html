@@ -45,7 +45,7 @@
     .entry-group { display: flex; flex-direction: column; }
     .button-group, .button-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
     label { font-weight: bold; color: #333; font-size: 16px; margin-bottom: 5px; text-align: center; }
-    select, input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 20px; background-color: #f9f9f9; text-align: center; }
+    select, input[type="text"], input[type="number"], input[type="date"], input[type="time"] { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 20px; background-color: #f9f9f9; text-align: center; }
     input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     input[type=number] { -moz-appearance: textfield; }
     .back-button, .file-button { font-size: 16px; padding: 12px 20px; border-radius: 20px; border: none; color: white; cursor: pointer; transition: background-color 0.3s, transform 0.2s; margin: 10px auto; display: block; width: 60%; max-width: 300px; }
@@ -187,12 +187,12 @@
           <div id="add-data-section" class="section-content">
             <div class="entry-form">
               <div class="entry-group">
-                <label for="entryDate">วันที่ (วัน/เดือน/ปี)</label>
-                <input type="text" id="entryDate" placeholder="เช่น 10/11/2024">
+                <label for="entryDate">วันที่</label>
+                <input type="date" id="entryDate">
               </div>
               <div class="entry-group">
-                <label for="entryTime">เวลา (HH.MM)</label>
-                <input type="text" id="entryTime" placeholder="เช่น 14.30" pattern="\d{1,2}\.\d{2}">
+                <label for="entryTime">เวลา</label>
+                <input type="time" id="entryTime">
               </div>
             </div>
             <div class="entry-group">
@@ -273,8 +273,8 @@
               <label class="summary-subsection-header">สรุปวันที่เลือก</label>
               <div class="entry-form" style="margin-bottom: 0;">
                 <div class="entry-group">
-                  <label for="customDayMonth">วันที่ (วัน/เดือน/ปี):</label>
-                  <input type="text" id="customDayMonth" placeholder="เช่น 10/11/2024">
+                  <label for="customDayMonth">วันที่:</label>
+                  <input type="date" id="customDayMonth">
                 </div>
               </div>
               <div class="button-container" style="text-align: center; margin-top: 10px;">
@@ -285,12 +285,12 @@
               <label class="summary-subsection-header">สรุปวันที่ถึงวันที่</label>
               <div class="entry-form" style="margin-bottom: 0;">
                 <div class="entry-group">
-                  <label for="startDate">จากวันที่ (วัน/เดือน/ปี):</label>
-                  <input type="text" id="startDate" placeholder="เช่น 10/11/2024">
+                  <label for="startDate">จากวันที่:</label>
+                  <input type="date" id="startDate">
                 </div>
                 <div class="entry-group">
-                  <label for="endDate">ถึงวันที่ (วัน/เดือน/ปี):</label>
-                  <input type="text" id="endDate" placeholder="เช่น 15/11/2024">
+                  <label for="endDate">ถึงวันที่:</label>
+                  <input type="date" id="endDate">
                 </div>
               </div>
               <div class="button-container" style="text-align: center; margin-top: 10px;">
@@ -395,12 +395,98 @@
     function changeAccount() { currentAccount = document.getElementById('accountSelect').value; document.getElementById('accountName').textContent = currentAccount || ""; updateTypeList(); displayRecords(); updateMultiAccountSelector(); }
     function editAccount() { if (!currentAccount) { alert("กรุณาเลือกบัญชีที่ต้องการแก้ไข"); return; } const newAccountName = prompt("กรุณากรอกชื่อบัญชีใหม่:", currentAccount); if (newAccountName && newAccountName !== currentAccount && !accounts.includes(newAccountName)) { const oldAccountName = currentAccount; const index = accounts.indexOf(oldAccountName); if (index > -1) { accounts[index] = newAccountName; records.forEach(record => { if (record.account === oldAccountName) { record.account = newAccountName; } }); if (accountTypes.has(oldAccountName)) { const oldTypes = accountTypes.get(oldAccountName); accountTypes.set(newAccountName, oldTypes); accountTypes.delete(oldAccountName); } currentAccount = newAccountName; updateAccountSelect(); document.getElementById('accountSelect').value = newAccountName; document.getElementById('accountName').textContent = currentAccount; displayRecords(); updateMultiAccountSelector(); alert("แก้ไขชื่อบัญชีเรียบร้อย"); saveToLocal(); } } else { alert("ชื่อบัญชีซ้ำหรือกรอกข้อมูลไม่ถูกต้อง"); } }
     function deleteAccount() { if (currentAccount) { const confirmDelete = confirm(`คุณแน่ใจว่าจะลบบัญชี "${currentAccount}" และข้อมูลทั้งหมดในบัญชีนี้หรือไม่?`); if (confirmDelete) { const accountToDelete = currentAccount; const index = accounts.indexOf(accountToDelete); if (index > -1) { accounts.splice(index, 1); } accountTypes.delete(accountToDelete); records = records.filter(rec => rec.account !== accountToDelete); currentAccount = null; document.getElementById('accountSelect').value = ""; document.getElementById('accountName').textContent = ""; updateAccountSelect(); displayRecords(); updateMultiAccountSelector(); alert("ลบบัญชีเรียบร้อย"); saveToLocal(); } } else { alert("กรุณาเลือกบัญชีที่ต้องการลบ"); } }
-    function addEntry() { let entryDateInput = document.getElementById('entryDate').value.trim(); let entryTimeInput = document.getElementById('entryTime').value.trim(); const typeInput = document.getElementById('type'); const typeText = typeInput.value.trim(); const description = document.getElementById('description').value; const amount = parseFloat(document.getElementById('amount').value); let selectedDate; if (!entryDateInput) { selectedDate = new Date(); } else { if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(entryDateInput)) { alert("กรุณากรอกวัน/เดือน/ปี ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return; } const [day, month, year] = entryDateInput.split('/'); selectedDate = new Date(year, month - 1, day); } let hours, minutes; if (!entryTimeInput) { const now = new Date(); hours = String(now.getHours()).padStart(2, '0'); minutes = String(now.getMinutes()).padStart(2, '0'); } else { if (!/^\d{1,2}\.\d{2}$/.test(entryTimeInput)) { alert("กรุณากรอกเวลาในรูปแบบ HH.MM (เช่น 14.30)"); return; } [hours, minutes] = entryTimeInput.split('.'); hours = String(hours).padStart(2, '0'); minutes = String(minutes).padStart(2, '0'); } const timeString = `${hours}:${minutes}`; const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`; const dateTime = `${formattedDate} ${timeString}`; if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ"); return; } if (!typeText) { alert("กรุณากรอกประเภท"); return; } if (!description) { alert("กรุณากรอกรายละเอียด"); return; } if (isNaN(amount) || amount <= 0) { alert("กรุณากรอกจำนวนเงินที่ถูกต้อง"); return; } initializeAccountTypes(currentAccount); const types = accountTypes.get(currentAccount); let entryCategory = 'expense'; if (types["รายรับ"].includes(typeText)) { entryCategory = 'income'; } if (editingIndex !== null) { records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount }; editingIndex = null; } else { records.push({ dateTime, type: typeText, description, amount, account: currentAccount }); const selectedCheckboxes = document.querySelectorAll('#multiAccountCheckboxes input:checked'); selectedCheckboxes.forEach(checkbox => { const targetAccount = checkbox.value; records.push({ dateTime, type: typeText, description, amount, account: targetAccount }); }); } displayRecords(); document.getElementById('description').value = ''; document.getElementById('amount').value = ''; document.getElementById('entryDate').value = ''; document.getElementById('entryTime').value = ''; typeInput.value = ''; document.querySelectorAll('#multiAccountCheckboxes input:checked').forEach(checkbox => { checkbox.checked = false; }); saveDataAndShowToast(entryCategory); updateMultiAccountSelector(); }
+    
+    function addEntry() {
+        let entryDateInput = document.getElementById('entryDate').value;
+        let entryTimeInput = document.getElementById('entryTime').value;
+        const typeInput = document.getElementById('type');
+        const typeText = typeInput.value.trim();
+        const description = document.getElementById('description').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        let datePart, timePart;
+
+        if (!entryDateInput || !entryTimeInput) {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            datePart = !entryDateInput ? `${y}-${m}-${d}` : entryDateInput;
+            
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            timePart = !entryTimeInput ? `${hh}:${mm}` : entryTimeInput;
+        } else {
+            datePart = entryDateInput;
+            timePart = entryTimeInput;
+        }
+
+        const dateTime = `${datePart} ${timePart}`;
+
+        if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อนเพิ่มรายการ"); return; }
+        if (!typeText) { alert("กรุณากรอกประเภท"); return; }
+        if (!description) { alert("กรุณากรอกรายละเอียด"); return; }
+        if (isNaN(amount) || amount <= 0) { alert("กรุณากรอกจำนวนเงินที่ถูกต้อง"); return; }
+        
+        initializeAccountTypes(currentAccount);
+        const types = accountTypes.get(currentAccount);
+        let entryCategory = 'expense';
+        if (types["รายรับ"].includes(typeText)) {
+            entryCategory = 'income';
+        }
+
+        if (editingIndex !== null) {
+            records[editingIndex] = { dateTime, type: typeText, description, amount, account: currentAccount };
+            editingIndex = null;
+        } else {
+            records.push({ dateTime, type: typeText, description, amount, account: currentAccount });
+            const selectedCheckboxes = document.querySelectorAll('#multiAccountCheckboxes input:checked');
+            selectedCheckboxes.forEach(checkbox => {
+                const targetAccount = checkbox.value;
+                records.push({ dateTime, type: typeText, description, amount, account: targetAccount });
+            });
+        }
+        
+        displayRecords();
+        document.getElementById('description').value = '';
+        document.getElementById('amount').value = '';
+        document.getElementById('entryDate').value = '';
+        document.getElementById('entryTime').value = '';
+        typeInput.value = '';
+        document.querySelectorAll('#multiAccountCheckboxes input:checked').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
+        saveDataAndShowToast(entryCategory);
+        updateMultiAccountSelector();
+    }
+
     function saveDataAndShowToast(entryCategory = 'neutral') { const dataToSave = { accounts: [...accounts], currentAccount: currentAccount, records: [...records], accountTypes: Array.from(accountTypes.entries()) }; try { localStorage.setItem('accountData', JSON.stringify(dataToSave)); } catch (error) { console.error("บันทึกข้อมูลไม่สำเร็จ:", error); alert("⚠️ เกิดข้อผิดพลาดในการบันทึกข้อมูล"); return; } const toast = document.getElementById('toast'); toast.textContent = '✓ บันทึกข้อมูลสำเร็จแล้ว'; if (entryCategory === 'income') { toast.style.backgroundColor = '#28a745'; } else if (entryCategory === 'expense') { toast.style.backgroundColor = '#dc3545'; } else { toast.style.backgroundColor = '#007bff'; } toast.className = "toast-notification show"; setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500); }
     function displayRecords() { const recordBody = document.getElementById('recordBody'); recordBody.innerHTML = ""; const filteredRecords = records.filter(record => record.account === currentAccount) .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); filteredRecords.forEach((record, index) => { const originalIndex = records.findIndex(r => r === record); const dateTime = new Date(record.dateTime); const formattedDate = `${String(dateTime.getDate()).padStart(2, '0')}/${String(dateTime.getMonth() + 1).padStart(2, '0')}/${dateTime.getFullYear()}`; const formattedTime = `${String(dateTime.getHours()).padStart(2, '0')}.${String(dateTime.getMinutes()).padStart(2, '0')} น.`; const row = document.createElement('tr'); row.innerHTML = ` <td>${formattedDate}</td> <td>${formattedTime}</td> <td>${record.type}</td> <td>${record.description}</td> <td>${record.amount.toLocaleString()} บาท</td> <td> <button onclick="editRecord(${originalIndex})">แก้ไข</button> <button onclick="deleteRecord(${originalIndex})">ลบ</button> </td> `; recordBody.appendChild(row); }); if (filteredRecords.length === 0) { const row = document.createElement('tr'); row.innerHTML = `<td colspan="6" style="text-align: center;">ไม่มีข้อมูล</td>`; recordBody.appendChild(row); } }
-    function editRecord(index) { const record = records[index]; document.getElementById('type').value = record.type; document.getElementById('description').value = record.description; document.getElementById('amount').value = record.amount; const [datePart, timePart] = record.dateTime.split(' '); const [year, month, day] = datePart.split('-'); document.getElementById('entryDate').value = `${day}/${month}/${year}`; const [hours, minutes] = timePart.split(':'); document.getElementById('entryTime').value = `${hours}.${minutes}`; editingIndex = index; updateMultiAccountSelector(); }
+    
+    function editRecord(index) {
+        const record = records[index];
+        document.getElementById('type').value = record.type;
+        document.getElementById('description').value = record.description;
+        document.getElementById('amount').value = record.amount;
+        
+        const [datePart, timePart] = record.dateTime.split(' ');
+        document.getElementById('entryDate').value = datePart;
+        document.getElementById('entryTime').value = timePart;
+        
+        editingIndex = index;
+        updateMultiAccountSelector();
+    }
+    
     function deleteRecord(index) { if (confirm("คุณแน่ใจว่าจะลบรายการนี้หรือไม่?")) { records.splice(index, 1); displayRecords(); saveDataAndShowToast(); } }
-    function parseDateInput(dateStr) { if (!dateStr || !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) { return null; } const [day, month, year] = dateStr.split('/'); return new Date(year, month - 1, day); }
+    
+    function parseDateInput(dateStr) {
+        if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+            return null;
+        }
+        const [year, month, day] = dateStr.split('-');
+        return new Date(year, month - 1, day);
+    }
 
     // --- ฟังก์ชันจัดการ Modal สรุปข้อมูลที่เพิ่มเข้ามา ---
     function openSummaryOutputModal() { document.getElementById('summaryOutputModal').style.display = 'flex'; }
@@ -581,9 +667,9 @@
 
     function summarizeByDayMonth() {
         if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อน"); return; }
-        const dayMonthInput = document.getElementById('customDayMonth').value.trim();
+        const dayMonthInput = document.getElementById('customDayMonth').value;
         const selectedDate = parseDateInput(dayMonthInput);
-        if (!selectedDate) { alert("กรุณากรอกวัน/เดือน/ปี ค.ศ. ในรูปแบบ วัน/เดือน/ปี (เช่น 10/11/2024)"); return; }
+        if (!selectedDate) { alert("กรุณาเลือกวันที่ให้ถูกต้อง"); return; }
         const startDate = new Date(selectedDate.setHours(0, 0, 0, 0));
         const endDate = new Date(selectedDate.setHours(23, 59, 59, 999));
         const summaryResult = generateSummaryData(startDate, endDate);
@@ -599,7 +685,7 @@
             dateString: dayMonthInput, // for CSV
             thaiDateString: thaiDateString, // for display
             remark: remarkInput, 
-            periodName: dayMonthInput.replace(/\//g, '-'),
+            periodName: dayMonthInput.replace(/-/g, '_'),
             headerLine1: 'สรุป :',
             headerLine3: `รายละเอียดวันที่เลือก : ${thaiDateString}`
         };
@@ -608,9 +694,12 @@
     
     function summarize() {
         if (!currentAccount) { alert("กรุณาเลือกบัญชีก่อน"); return; }
-        const startDate = parseDateInput(document.getElementById('startDate').value.trim()); 
-        const endDate = parseDateInput(document.getElementById('endDate').value.trim());
-        if (!startDate || !endDate) { alert("กรุณากรอกวันที่ให้ครบถ้วนและถูกต้อง (วัน/เดือน/ปี)"); return; } if (startDate > endDate) { alert("วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด"); return; }
+        const startDateStr = document.getElementById('startDate').value;
+        const endDateStr = document.getElementById('endDate').value;
+        const startDate = parseDateInput(startDateStr); 
+        const endDate = parseDateInput(endDateStr);
+        if (!startDate || !endDate) { alert("กรุณาเลือกวันที่ให้ครบถ้วน"); return; }
+        if (startDate > endDate) { alert("วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด"); return; }
         endDate.setHours(23, 59, 59, 999);
         const summaryResult = generateSummaryData(startDate, endDate);
         if (!summaryResult) return;
@@ -625,11 +714,11 @@
             summaryResult, 
             type: 'range',
             title: "สรุปวันที่", 
-            dateString: `${document.getElementById('startDate').value.trim()} to ${document.getElementById('endDate').value.trim()}`, // for CSV
+            dateString: `${startDateStr} to ${endDateStr}`, // for CSV
             thaiDateString: thaiDateString, // for display
             remark: remarkInput, 
             transactionDaysInfo: transactionDaysInfo,
-            periodName: `จาก${document.getElementById('startDate').value.trim().replace(/\//g, '-')}_ถึง${document.getElementById('endDate').value.trim().replace(/\//g, '-')}`,
+            periodName: `จาก${startDateStr.replace(/-/g, '_')}_ถึง${endDateStr.replace(/-/g, '_')}`,
             headerLine1: 'สรุป :',
             headerLine2: 'เงินในบัญชีถึงวันนี้มี'
         };
@@ -650,13 +739,15 @@
         const transactionDaysInfo = `<p style="font-size: 16px; color: blue; font-weight: bold;">รวมเป็นเวลา ${daysDiff} วัน</p><p style="font-size: 16px; color: #333; font-weight: bold;">ทำธุรกรรม ${transactionDays.size} วัน, ไม่ได้ทำ ${daysDiff - transactionDays.size} วัน</p>`;
 
         const remarkInput = prompt("กรุณากรอกหมายเหตุ (ถ้าไม่กรอกจะใช้ 'No comment'):", "No comment") || "No comment";
+        const startDateStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
+        const endDateStr = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
         const thaiDateString = `${startDate.toLocaleDateString('th-TH', {day: 'numeric', month: 'long', year: 'numeric'})} ถึง ${endDate.toLocaleDateString('th-TH', {day: 'numeric', month: 'long', year: 'numeric'})}`;
         
         summaryContext = {
             summaryResult, 
             type: 'all',
             title: "สรุปข้อมูลทั้งหมดตั้งแต่",
-            dateString: `${startDate.toLocaleDateString('en-CA')} to ${endDate.toLocaleDateString('en-CA')}`, // for CSV
+            dateString: `${startDateStr} to ${endDateStr}`, // for CSV
             thaiDateString: thaiDateString, // for display
             remark: remarkInput, 
             transactionDaysInfo: transactionDaysInfo, 
