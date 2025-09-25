@@ -1200,16 +1200,38 @@ return `
 }
 
 
-// === LOGIC FOR 2-DIGIT NUMBERS ===
+// === LOGIC FOR 2-DIGIT NUMBERS (UPDATED) ===
 function generate2DigitHTML(num, commonData) {
-const transformRules = { '0': '1', '1': '7', '2': '5', '3': '8', '4': '9', '5': '2', '6': '9', '7': '1', '8': '3', '9': '6' };
-const transformed = num.split('').map(d => transformRules[d]).join('');
-const pairs = [`${num[0]}${transformed[1]}`, `${transformed[0]}${num[1]}`, `${transformed[0]}${transformed[1]}`, `${num[0]}${num[1]}`];
-const formattedPairs = pairs.map(p => (p[0] <= p[1] ? p : `${p[1]}${p[0]}`));
-let uniquePairs = [...new Set(formattedPairs)];
-const additionRules = { '00': '02', '11': '12', '33': '23', '44': '24', '55': '25', '66': '26', '77': '27', '88': '28', '99': '29' };
-if (additionRules[num]) uniquePairs.push(additionRules[num]);
-const sortedPairs = [...new Set(uniquePairs)].sort();
+       const transformRules = {
+            '0': '1', '1': '7', '2': '5', '3': '8',
+            '4': '9', '5': '2', '6': '9', '7': '1',
+            '8': '3', '9': '6'
+        };
+        const transformed = num.split('').map(digit => transformRules[digit]).join('');
+        const pairs = [
+            `${num[0]}${transformed[1]}`,
+            `${transformed[0]}${num[1]}`,
+            `${transformed[0]}${transformed[1]}`,
+            `${num[0]}${num[1]}`
+        ];
+        const formattedPairs = pairs.map(pair => {
+            const tens = parseInt(pair[0]);
+            const units = parseInt(pair[1]);
+            return tens <= units ? pair : `${units}${tens}`;
+        });
+        const uniquePairs = [...new Set(formattedPairs)];
+        const additionRules = {
+            '00': '02', '11': '12', '33': '23',
+            '44': '24', '55': '25', '66': '26', '77': '27',
+            '88': '28', '99': '29'
+        };
+        uniquePairs.forEach(pair => {
+            const addition = additionRules[pair];
+            if (addition) {
+                uniquePairs.push(addition);
+            }
+        });
+        const sortedPairs = [...new Set(uniquePairs)].sort();
 
 return `
 <div style="position: relative; text-align: center; color: blue; --font-scale: 1;">
